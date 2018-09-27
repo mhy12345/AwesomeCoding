@@ -3,7 +3,7 @@ FROM node:9.9.0
 RUN npm config set registry https://registry.npm.taobao.org
 
 #初始化数据库
-COPY db_initialize.sql /database
+COPY db_initialize.sql /database/db_initialize.sql
 WORKDIR /database
 RUN mysql -uroot -pawesome-coding -hDatabase.fantastic67.secoder.local <db_initialize.sql
 
