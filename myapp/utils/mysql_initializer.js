@@ -1,19 +1,23 @@
 var mysql      = require('mysql');
 var mysql_config = require('../configures/db_configures');
 
-function mysql_initializer() {
+function mysql_initializer(callback) {
 	create_and_connect(function(conn) {
 		create_user_table(conn, function(conn) {
+			callback(conn);
 			//TODO create more...
 		});
 	});
 }
 function create_and_connect(callback) {
-	cfg = mysql_config
-	db_name = cfg.database;
-	delete cfg.database;
+	var cfg = {
+		host : mysql_config.host,
+		user : mysql_config.user,
+		password : mysql_config.password
+	};
+	var db_name = mysql_config.database;
 	console.log(cfg);
-	conn = mysql.createConnection(cfg);
+	var conn = mysql.createConnection(cfg);
 	conn.connect(function(err) {
 		if (err) {
 			console.log("Terrible Error!");
@@ -39,7 +43,7 @@ function create_and_connect(callback) {
 	});
 }
 function create_user_table(conn,callback) {
-	sql = "CREATE TABLE IF NOT EXISTS `users`(" +
+	var sql = "CREATE TABLE IF NOT EXISTS `users`(" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, "+
 		"`nickname` VARCHAR(40), "+
 		"`realname` VARCHAR(40), "+

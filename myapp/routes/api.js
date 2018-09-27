@@ -1,35 +1,40 @@
 var express = require('express');
-var connection = require('../utils/database');
 var router = express.Router();
+var get_connection = require('../utils/database');
 
 /* GET home page. */
 router.get('/show_table', function(req, res, next) {
-	sql = 'SELECT * from ' + req.query.table_name;
-	text = '>>>>> ' + sql + '<br/>';
-
-	connection.query(sql, function (error, results, fields) {
-		if (error) {
-			text += "ERROR ... " + error;
-			res.send(text);
-		}else {
-			console.log(results);
-			for (var i=0;i<results.length;i++) {
-				text += JSON.stringify(results[i]) + "<br/>";
+	var sql = 'SELECT * from ' + req.query.table_name;
+	var text = '>>>>> ' + sql + '<br/>';
+	get_connection(function(conn) {
+		conn.query(sql, function (error, results, fields) {
+			if (error) {
+				text += "ERROR ... " + error;
+				res.send(text);
+			}else {
+				console.log(results);
+				for (var i=0;i<results.length;i++) {
+					text += JSON.stringify(results[i]) + "<br/>";
+				}
+				res.send(text);
 			}
-			res.send(text);
-		}
+		});
 	});
 });
 
 router.get('/do_query', function(req,res,next) {
-	sql = req.query.sql;
-	connection.query(sql, function (error, results, fields) {
-		if (error) {
-			text += "ERROR ... " + error;
-			res.send(text);
-		}else {
-			res.send("Success.");
-		}
+	var sql = req.query.sql;
+	get_connection(function(conn) {
+		conn.query(sql, function (error, results, fields) {
+			console.log("DO QUERY : "+sql);
+			if (error) {
+				res.send(error);
+				console.log("FAILED");
+			}else {
+				res.send("Success.");
+				console.log("SUCCESS");
+			}
+		});
 	});
 
 });
