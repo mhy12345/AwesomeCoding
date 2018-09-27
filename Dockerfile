@@ -1,6 +1,8 @@
 FROM node:9.9.0
-#修改源
+#修改源，安装依赖项
 RUN npm config set registry https://registry.npm.taobao.org
+RUN apt update
+RUN apt install mysql
 
 #初始化数据库
 COPY db_initialize.sql /database/db_initialize.sql
