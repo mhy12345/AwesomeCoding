@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `awesome_coding`;
-USE `awesome_coding`;
+CREATE DATABASE IF NOT EXISTS `ac_database`;
+USE `ac_database`;
 
 CREATE TABLE IF NOT EXISTS `users`(
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, 
