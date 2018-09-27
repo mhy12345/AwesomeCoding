@@ -4,11 +4,6 @@ RUN npm config set registry https://registry.npm.taobao.org
 RUN apt update
 RUN apt install -y mysql-client
 
-#初始化数据库
-COPY db_initialize.sql /database/db_initialize.sql
-WORKDIR /database
-RUN mysql -uroot -pawesome-coding -hDatabase.fantastic67.secoder.local <db_initialize.sql
-
 #创建前端目录，并安装依赖项
 COPY frontend /frontend
 WORKDIR /frontend
