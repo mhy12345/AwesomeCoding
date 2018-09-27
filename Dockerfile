@@ -4,7 +4,7 @@ COPY myapp/package.json /app/package.json
 COPY myapp/package-lock.json /app/package-lock.json
 WORKDIR /frontend
 RUN npm install
-RUN npx vue-cli-service build
+RUN npm run build
 WORKDIR /app
 RUN npm install
 COPY myapp /app
