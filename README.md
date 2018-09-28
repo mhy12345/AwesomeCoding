@@ -13,8 +13,23 @@
 
 ## 数据库支持
 
-* api/show\_table?table\_name=NAME 列出表NAME的数据
-* api/do\_query?sql=SQL 执行SQL语句
+### 数据库连接
+
+数据库配置文件位于`./configures/db_configures.js`中，其中，数据库`Database.fantastic67.secoder.local`只能在内网访问！在本地可以替换为下面的配置，不过不要将这些配置push到远程仓库。
+
+```javascript
+var configures = {
+  host     : 'mhy12345.xyz',
+  user     : 'root',
+  password : '123567',
+  database : 'ac_database'
+}
+```
+
+### 数据库API设计
+
+* `api/show_table?table_name=NAME` 列出表NAME的数据
+* `api/do_query?sql=SQL` 执行SQL语句
 
 如果看不懂我的代码，建议先学一下nodejs异步的流程。
 
@@ -24,3 +39,4 @@
 https://awesomecoding_fantastic67.app.secoder.net/api/show_table?table_name=users
 https://awesomecoding_fantastic67.app.secoder.net/api/do_query?sql=INSERT%20INTO%20users%20(nickname,role,password)%20values%20(%27mhy%27,1,%27123%27)
 ```
+

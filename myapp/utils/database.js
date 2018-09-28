@@ -2,7 +2,7 @@ var mysql      = require('mysql');
 var mysql_config = require('../configures/db_configures');
 var mysql_init = require('./mysql_initializer');
 
-function get_connection(callback) {
+function get_connection(callback) { //获取连接connection，并调用回调函数
 	console.log(mysql_config);
 	connection = mysql.createConnection(mysql_config);
 	connection.connect(function (err) {

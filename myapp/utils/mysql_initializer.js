@@ -1,7 +1,7 @@
 var mysql      = require('mysql');
 var mysql_config = require('../configures/db_configures');
 
-function mysql_initializer(callback) {
+function mysql_initializer(callback) { //倘若数据库不存在，则重新新建数据库
 	create_and_connect(function(conn) {
 		create_user_table(conn, function(conn) {
 			callback(conn);
