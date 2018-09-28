@@ -27,12 +27,11 @@ build:
 test:
   stage: test
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-  variables:
-    GIT_STRATEGY: none
   script:
     - cd $TEST_ROOT
     - npm test
   after_script:
+    - mv .git $TEST_ROOT
     - cd $TEST_ROOT
     - SUFFIX=$RANDOM
     - curl "http://10.0.0.11/sonar-scanner.tar.gz" -s -o "/tmp/sonar-$SUFFIX.tar.gz"
