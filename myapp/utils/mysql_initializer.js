@@ -5,7 +5,6 @@ function mysql_initializer(callback) { //倘若数据库不存在，则重新新
 	create_and_connect(function(conn) {
 		create_user_table(conn, function(conn) {
 			callback(conn);
-			//TODO create more...
 		});
 	});
 }
