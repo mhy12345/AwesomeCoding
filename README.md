@@ -15,7 +15,21 @@
 
 ### 数据库连接
 
-数据库配置文件位于`./configures/db_configures.js`中，其中，数据库`Database.fantastic67.secoder.local`只能在内网访问！在本地可以替换为下面的配置，不过不要将这些配置push到远程仓库。
+数据库配置文件位于`./configures/db_configures.js`中，其中，数据库`Database.fantastic67.secoder.local`只能在内网访问！在本地可以替换为mhy12345.xyz，不过不要将这些配置push到远程仓库。
+
+部署版本——
+
+```javascript
+var configures = {
+  host     : 'Database.fantastic67.secoder.local',
+  user     : 'root',
+  password : 'awesome-coding',
+  database : 'ac_database'
+}
+module.exports = configures
+```
+
+本地版本——
 
 ```javascript
 var configures = {
@@ -24,6 +38,7 @@ var configures = {
   password : '123567',
   database : 'ac_database'
 }
+module.exports = configures
 ```
 
 ### 数据库API设计
