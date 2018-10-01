@@ -15,9 +15,9 @@
 
 ### 数据库连接
 
-数据库配置文件位于`./configures/db_configures.js`中，其中，数据库`Database.fantastic67.secoder.local`只能在内网访问！在本地可以替换为mhy12345.xyz，不过不要将这些配置push到远程仓库。
+数据库配置文件位于`./configures/db_configures.js`中，其中，数据库`Database.fantastic67.secoder.local`只能在内网访问！为了本地调试方便，我们临时将本地和云端的服务器都指定为mhy12345.xyz，即公网数据库版本.
 
-部署版本——
+Docker局域网数据库版本——
 
 ```javascript
 var configures = {
@@ -29,7 +29,7 @@ var configures = {
 module.exports = configures
 ```
 
-本地版本——
+公网数据库版本——
 
 ```javascript
 var configures = {
