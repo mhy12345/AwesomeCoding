@@ -48,11 +48,7 @@ RUN npm run build
 作者：郑逢时
 
 已编写了数据库api查询功能的前端界面初稿，通过前端的根url可以访问。
-查询功能的前端模板在
-```
-frontend/src/components/DataVisualizer.vue
-```
-中，配有一定的注释。
+查询功能的前端模板在`frontend/src/components/DataVisualizer.vue`中，配有一定的注释。
 
 跨域问题的解决方案是在用户的chrome浏览器里安装allow controal插件，以阻止浏览器的CORS保护，从而实现跨域访问。
 
