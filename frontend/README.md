@@ -30,7 +30,7 @@ npm run test
 npm run lint
 ```
 
-##实现原理
+## 实现原理
 
 前端使用vue-cli实现（并安装了饿了吗UI的插件），其中集成了webpack的功能，使得由vue构建的所有前端代码可以打包成静态文件（包括html文件、js文件、图片文件等）。运行`npm run build`即可构建这些静态文件；运行`npm run serve`即可在构建文件的同时在本机运行自带的服务器，方便本机调试
 
@@ -48,9 +48,7 @@ RUN npm run build
 作者：郑逢时
 
 已编写了数据库api查询功能的前端界面初稿，通过前端的根url可以访问。
-查询功能的前端模板在
-```frontend/src/components/DataVisualizer.vue```
-中，配有一定的注释。
+查询功能的前端模板在`frontend/src/components/DataVisualizer.vue`中，配有一定的注释。
 
 跨域问题的解决方案是在用户的chrome浏览器里安装allow controal插件，以阻止浏览器的CORS保护，从而实现跨域访问。
 
