@@ -50,7 +50,7 @@
                         console.log(this.students);
                     }
                 };
-                xmlhttp.open("GET","https://awesomecoding_fantastic67.app.secoder.net/api/show_table?table_name=users", false);     // 向服务端发出get 请求
+                xmlhttp.open("GET","./api/show_table?table_name=users", false);     // 向服务端发出get 请求
                 xmlhttp.send();
                 console.log("Request sent!");
             }
