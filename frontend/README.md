@@ -30,7 +30,7 @@ npm run test
 npm run lint
 ```
 
-##实现原理
+## 实现原理
 
 前端使用vue-cli实现（并安装了饿了吗UI的插件），其中集成了webpack的功能，使得由vue构建的所有前端代码可以打包成静态文件（包括html文件、js文件、图片文件等）。运行`npm run build`即可构建这些静态文件；运行`npm run serve`即可在构建文件的同时在本机运行自带的服务器，方便本机调试
 
