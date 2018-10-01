@@ -1,36 +1,50 @@
+<!--前端整体布局-->
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <div>
-      <p>
-        If Element is successfully added to this project, you'll see an
-        <code v-text="'<el-button>'"></code>
-        below
-      </p>
-      <el-button>el-button</el-button>
+    <div id="app">
+        <h1>{{title}}</h1>
+        <h3>当前时间：{{cur_time}}</h3>
+        <el-button v-on:click="refreshTime">刷新时间</el-button><br/>
+        <img src="./assets/logo.png">
+        <data-visualizer></data-visualizer>
+        <!--<HelloWorld msg="欢迎进入AwesomeCoding的前端"/>-->
     </div>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import DataVisualizer from "./components/DataVisualizer";
 
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
+    name: 'app',
+    props: ['data'],
+    data() {
+        return {
+            title: "欢迎进入AwesomeCoding的前端",
+            cur_time: Date().toLocaleString(),
+        }
+    },
+    created: function() {
+
+    },
+    methods: {
+        refreshTime: function () {      // 更新显示时间
+            this.cur_time = Date().toLocaleString();
+        }
+    },
+    components: {
+        DataVisualizer,
+        HelloWorld
+    }
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
 }
 </style>

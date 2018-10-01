@@ -1,3 +1,4 @@
+<!--前端的'欢迎'及其以下的部分-->
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
