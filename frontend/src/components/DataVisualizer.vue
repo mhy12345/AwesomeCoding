@@ -9,6 +9,7 @@
                 <td v-for="item in student">{{item}}</td>
             </tr>
         </table>
+        <el-button v-on:click="loadDoc">载入数据</el-button>
         <!--<li v-for="item in items"-->
     </div>
 </template>
@@ -20,7 +21,39 @@
         data() {
             return {
                 heads: ['ID', 'Nickname', 'Realname', 'Role', 'Motto', 'Registration Date', 'Password'],
-                students: [ { "id": 1, "nickname": "mhy", "realname": null, "role": 1, "motto": null, "registration_date": null, "password": "123" }, { "id": 2, "nickname": "mhy", "realname": null, "role": 1, "motto": null, "registration_date": null, "password": "123" }, { "id": 3, "nickname": "mhy", "realname": null, "role": 1, "motto": null, "registration_date": null, "password": "123" }, { "id": 4, "nickname": "mhy", "realname": null, "role": 1, "motto": null, "registration_date": null, "password": "123" }, { "id": 5, "nickname": "mhy", "realname": null, "role": 1, "motto": null, "registration_date": null, "password": "123" }, { "id": 6, "nickname": "mhy", "realname": null, "role": 1, "motto": null, "registration_date": null, "password": "123" }, { "id": 7, "nickname": "mhy", "realname": null, "role": 1, "motto": null, "registration_date": null, "password": "123" }, { "id": 8, "nickname": "mhy", "realname": null, "role": 1, "motto": null, "registration_date": null, "password": "123" }, { "id": 9, "nickname": "mhy", "realname": null, "role": 1, "motto": null, "registration_date": null, "password": "123" }, { "id": 10, "nickname": "mhy", "realname": null, "role": 1, "motto": null, "registration_date": null, "password": "123" }, { "id": 11, "nickname": "mhy", "realname": null, "role": 1, "motto": null, "registration_date": null, "password": "123" } ]
+                students: []
+            }
+        },
+        created: function () {
+
+        },
+        methods: {
+            loadDoc: function ()
+            {
+                // this.students.push(JSON.parse('{ "id": 1, "nickname": "mhy", "realname": null, "role": 1, "motto": null, "registration_date": null, "password": "123" }'));
+                var xmlhttp;
+                if (window.XMLHttpRequest)
+                {
+                    //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                    xmlhttp=new XMLHttpRequest();
+                }
+                else
+                {
+                    // IE6, IE5 浏览器执行代码
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange= () =>       // 载入数据到students列表，注意这里一定要使用箭头函数，因为函数中使用了this指针，而传数据是异步的
+                {
+                    if (xmlhttp.readyState===4 && xmlhttp.status===200)
+                    {
+                        let resp = eval('(' + xmlhttp.responseText + ')');
+                        this.students = resp.results;
+                        console.log(this.students);
+                    }
+                };
+                xmlhttp.open("GET","https://awesomecoding_fantastic67.app.secoder.net/api/show_table?table_name=users", false);     // 向服务端发出get 请求
+                xmlhttp.send();
+                console.log("Request sent!");
             }
         }
     }

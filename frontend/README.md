@@ -1,4 +1,4 @@
-# frontend
+# Frontend
 
 在开始之前可以学习以下内容
 
@@ -44,11 +44,16 @@ RUN npm run build
 ```
 其中 `RUN npm run build`用来在后台部署时自动抽取出代码中的静态文件并保存好
 
-在前端`app.js`文件中有如下一行：
+## 数据库查看器
+作者：郑逢时
 
-```
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
+已编写了数据库api查询功能的前端界面初稿，通过前端的根url可以访问。
+查询功能的前端模板在
+```frontend/src/components/DataVisualizer.vue```
+中，配有一定的注释。
 
-```
+跨域问题的解决方案是在用户的chrome浏览器里安装allow controal插件，以阻止浏览器的CORS保护，从而实现跨域访问。
 
-其目的是将前端目录下所有静态文件暴露在用户视野中，在访问网站的时候可以任意访问。
+但以上方案肯定不太好，建议我们之后再研究一下怎么通过调webpack配置，使用代理服务器访问服务端。
+* 关于[CORB的插件解决方案](https://blog.csdn.net/a1333888/article/details/52575325)
+* 关于[代理服务器方法](https://blog.csdn.net/qq_26222859/article/details/54645996)

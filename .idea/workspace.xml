@@ -7,17 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62050ae2-1720-453c-b470-dc36b700adc8" name="Default Changelist" comment="Merge branch 'master' of https://gitlab.secoder.net/fantastic67/AwesomeCoding into dev_database_GUI&#10;&#10;# Conflicts:&#10;#&#9;myapp/configures/db_configures.js">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/DataVisualizer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/HelloWorld.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/HelloWorld.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/DataVisualizer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/DataVisualizer.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/configures/server_config.js" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/configures/server_config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/routes/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/routes/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/routes/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -45,14 +37,14 @@
           <entry key="Dockerfile" value="1" />
           <entry key="css" value="1" />
           <entry key="dockerignore" value="3" />
-          <entry key="gitignore" value="7" />
+          <entry key="gitignore" value="8" />
           <entry key="htm" value="1" />
-          <entry key="html" value="17" />
+          <entry key="html" value="18" />
           <entry key="ico" value="5" />
           <entry key="jade" value="8" />
-          <entry key="js" value="60" />
+          <entry key="js" value="68" />
           <entry key="json" value="4" />
-          <entry key="md" value="14" />
+          <entry key="md" value="15" />
           <entry key="png" value="2" />
           <entry key="ts" value="5" />
           <entry key="vue" value="11" />
@@ -68,10 +60,10 @@
           <entry key="Image" value="7" />
           <entry key="JSON" value="4" />
           <entry key="Jade" value="8" />
-          <entry key="JavaScript" value="64" />
-          <entry key="Markdown" value="13" />
-          <entry key="PLAIN_TEXT" value="11" />
-          <entry key="Scratch" value="4" />
+          <entry key="JavaScript" value="67" />
+          <entry key="Markdown" value="14" />
+          <entry key="PLAIN_TEXT" value="12" />
+          <entry key="Scratch" value="10" />
           <entry key="TypeScript" value="5" />
           <entry key="Vue.js" value="11" />
           <entry key="YAML" value="2" />
@@ -81,11 +73,11 @@
         <counts>
           <entry key="gitignore" value="41" />
           <entry key="htm" value="2" />
-          <entry key="html" value="205" />
+          <entry key="html" value="385" />
           <entry key="jade" value="2" />
-          <entry key="js" value="469" />
-          <entry key="md" value="33" />
-          <entry key="vue" value="1297" />
+          <entry key="js" value="554" />
+          <entry key="md" value="369" />
+          <entry key="vue" value="2000" />
           <entry key="www" value="192" />
         </counts>
       </usages-collector>
@@ -93,11 +85,11 @@
         <counts>
           <entry key="HTML" value="41" />
           <entry key="Jade" value="2" />
-          <entry key="JavaScript" value="651" />
-          <entry key="Markdown" value="33" />
+          <entry key="JavaScript" value="654" />
+          <entry key="Markdown" value="369" />
           <entry key="PLAIN_TEXT" value="41" />
-          <entry key="Scratch" value="176" />
-          <entry key="Vue.js" value="1297" />
+          <entry key="Scratch" value="438" />
+          <entry key="Vue.js" value="2000" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts">
@@ -124,26 +116,47 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/DataVisualizer.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="12" column="10" lean-forward="true" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
+            <state relative-caret-position="787">
+              <caret line="51" column="21" lean-forward="true" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_3.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="25" column="102" lean-forward="true" selection-start-line="25" selection-start-column="102" selection-end-line="25" selection-end-column="102" />
+        <entry file="file://$PROJECT_DIR$/frontend/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="433">
+                <caret line="58" column="73" lean-forward="true" selection-start-line="58" selection-start-column="73" selection-end-line="58" selection-end-column="73" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/node_modules/element-ui/packages/table/src/table.vue">
+        <entry file="file://$PROJECT_DIR$/myapp/configures/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="230" column="4" selection-start-line="230" selection-start-column="4" selection-end-line="230" selection-end-column="4" />
+            <state relative-caret-position="21">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myapp/configures/server_config.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="42">
+              <caret line="2" column="46" lean-forward="true" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_3.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="577">
+              <caret line="36" column="47" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -152,7 +165,7 @@
         <entry file="file://$PROJECT_DIR$/frontend/src/main.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="189">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -163,8 +176,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="2" column="17" lean-forward="true" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+            <state relative-caret-position="558">
+              <caret line="33" column="25" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -174,7 +187,7 @@
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="249">
-                <caret line="38" column="26" lean-forward="true" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
+                <caret line="38" column="26" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
               </first_editor>
               <second_editor />
             </state>
@@ -231,7 +244,6 @@
         <option value="$PROJECT_DIR$/References/介绍 — Vue.js_files/common.js" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_2.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/myapp/configures/server_config.js" />
         <option value="$PROJECT_DIR$/frontend/dist/index.html" />
         <option value="$PROJECT_DIR$/myapp/app.js" />
         <option value="$PROJECT_DIR$/myapp/views/index.jade" />
@@ -244,8 +256,11 @@
         <option value="$PROJECT_DIR$/myapp/routes/api.js" />
         <option value="$PROJECT_DIR$/frontend/node_modules/element-ui/packages/table/src/table-header.js" />
         <option value="$PROJECT_DIR$/frontend/src/App.vue" />
-        <option value="$PROJECT_DIR$/frontend/src/components/DataVisualizer.vue" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_3.html" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_5.js" />
+        <option value="$PROJECT_DIR$/myapp/configures/server_config.js" />
+        <option value="$PROJECT_DIR$/frontend/src/components/DataVisualizer.vue" />
+        <option value="$PROJECT_DIR$/frontend/README.md" />
       </list>
     </option>
   </component>
@@ -333,19 +348,7 @@
               <item name="AwesomeCoding" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="myapp" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="bin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="AwesomeCoding" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="myapp" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="configures" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="AwesomeCoding" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="myapp" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="routes" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
@@ -356,7 +359,7 @@
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="index.html&#9;FILE&#9;file:///Users/james/Test/AwesomeCoding/frontend/node_modules/@vue/cli-service/generator/template/public/index.html" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="HTML&#10;JavaScript 1.8" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JavaScript 1.8&#10;JSInJade&#10;HTML" />
     <property name="javascript.nodejs.core.library.configured.version" value="8.12.0" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -377,7 +380,10 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.www">
+  <component name="RunManager" selected="Node.js.scratch_5.js">
+    <configuration name="scratch_5.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="$APPLICATION_CONFIG_DIR$/scratches/scratch_5.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
     <configuration name="www" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="www" working-dir="$PROJECT_DIR$/myapp/bin">
       <method v="2" />
     </configuration>
@@ -395,9 +401,11 @@
     <list>
       <item itemvalue="Docker.Dockerfile" />
       <item itemvalue="Node.js.www" />
+      <item itemvalue="Node.js.scratch_5.js" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.scratch_5.js" />
         <item itemvalue="Node.js.www" />
         <item itemvalue="Docker.Dockerfile" />
       </list>
@@ -417,12 +425,12 @@
       <workItem from="1538016707928" duration="3031000" />
       <workItem from="1538119500156" duration="6515000" />
       <workItem from="1538187064047" duration="1293000" />
-      <workItem from="1538367558804" duration="10267000" />
+      <workItem from="1538367558804" duration="18568000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24621000" />
+    <option name="totallyTimeSpent" value="32922000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -436,11 +444,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49759036" visible="true" weight="0.24947146" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49759036" visible="true" weight="0.24947146" />
       <window_info id="Structure" order="1" sideWeight="0.50240964" side_tool="true" weight="0.24947146" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="TypeScript" />
+      <window_info anchor="bottom" id="TypeScript" weight="0.32891566" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32891566" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.29759037" />
@@ -450,7 +459,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32891566" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.24939759" />
+      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.24939759" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -460,7 +469,7 @@
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49759036" visible="true" weight="0.24947146" />
       <window_info id="Structure" order="1" sideWeight="0.50240964" side_tool="true" weight="0.24947146" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="TypeScript" order="0" />
+      <window_info anchor="bottom" id="TypeScript" order="0" weight="0.32891566" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32891566" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.29759037" />
@@ -484,34 +493,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.dockerignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myapp/routes/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../WS_Projects/hello-vuecli/babel.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../WS_Projects/hello-vuecli/src/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/node_modules/@vue/cli-service/generator/template/public/index.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -523,13 +504,6 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Desktop/百度云-管理中心.htm" />
-    <entry file="file://$PROJECT_DIR$/myapp/configures/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/public/favicon.ico">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -599,16 +573,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="63">
           <caret line="3" column="11" lean-forward="true" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="352">
-            <caret line="39" column="19" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="19" />
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>
@@ -684,13 +648,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="23" column="20" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myapp/configures/server_config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="16" lean-forward="true" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -770,7 +727,7 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="249">
-            <caret line="38" column="26" lean-forward="true" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
+            <caret line="38" column="26" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
           </first_editor>
           <second_editor />
         </state>
@@ -781,23 +738,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="17" lean-forward="true" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/assets/logo.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -805,13 +745,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="546">
           <caret line="26" column="19" selection-start-line="26" selection-start-column="11" selection-end-line="26" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/node_modules/element-ui/packages/table/src/table.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="230" column="4" selection-start-line="230" selection-start-column="4" selection-end-line="230" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -835,17 +768,85 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/DataVisualizer.vue">
+    <entry file="file://$PROJECT_DIR$/frontend/node_modules/element-ui/packages/table/src/table.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="12" column="10" lean-forward="true" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
+        <state relative-caret-position="295">
+          <caret line="267" column="19" lean-forward="true" selection-start-line="267" selection-start-column="19" selection-end-line="267" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="33" column="25" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/node_modules/@vue/cli-service/lib/commands/serve.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-838">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_3.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="25" column="102" lean-forward="true" selection-start-line="25" selection-start-column="102" selection-end-line="25" selection-end-column="102" />
+        <state relative-caret-position="577">
+          <caret line="36" column="47" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_3.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_4.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_5.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myapp/configures/server_config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="46" lean-forward="true" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myapp/configures/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/DataVisualizer.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="787">
+          <caret line="51" column="21" lean-forward="true" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="433">
+            <caret line="58" column="73" lean-forward="true" selection-start-line="58" selection-start-column="73" selection-end-line="58" selection-end-column="73" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
