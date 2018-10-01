@@ -6,7 +6,9 @@
     <bookmark url="file://$PROJECT_DIR$/myapp/app.js" line="21" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="62050ae2-1720-453c-b470-dc36b700adc8" name="Default Changelist" comment="Merge branch 'master' of https://gitlab.secoder.net/fantastic67/AwesomeCoding into dev_database_GUI&#10;&#10;# Conflicts:&#10;#&#9;myapp/configures/db_configures.js" />
+    <list default="true" id="62050ae2-1720-453c-b470-dc36b700adc8" name="Default Changelist" comment="Merge branch 'master' of https://gitlab.secoder.net/fantastic67/AwesomeCoding into dev_database_GUI&#10;&#10;# Conflicts:&#10;#&#9;myapp/configures/db_configures.js">
+      <change beforePath="$PROJECT_DIR$/myapp/configures/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/configures/.gitignore" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -24,9 +26,9 @@
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.5" value="1" />
-          <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.6" value="2" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -34,14 +36,14 @@
           <entry key="Dockerfile" value="1" />
           <entry key="css" value="1" />
           <entry key="dockerignore" value="3" />
-          <entry key="gitignore" value="8" />
+          <entry key="gitignore" value="9" />
           <entry key="htm" value="1" />
           <entry key="html" value="18" />
           <entry key="ico" value="5" />
           <entry key="jade" value="8" />
-          <entry key="js" value="68" />
+          <entry key="js" value="70" />
           <entry key="json" value="4" />
-          <entry key="md" value="16" />
+          <entry key="md" value="17" />
           <entry key="png" value="2" />
           <entry key="ts" value="5" />
           <entry key="vue" value="11" />
@@ -57,9 +59,9 @@
           <entry key="Image" value="7" />
           <entry key="JSON" value="4" />
           <entry key="Jade" value="8" />
-          <entry key="JavaScript" value="67" />
-          <entry key="Markdown" value="15" />
-          <entry key="PLAIN_TEXT" value="12" />
+          <entry key="JavaScript" value="69" />
+          <entry key="Markdown" value="16" />
+          <entry key="PLAIN_TEXT" value="13" />
           <entry key="Scratch" value="10" />
           <entry key="TypeScript" value="5" />
           <entry key="Vue.js" value="11" />
@@ -68,7 +70,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="gitignore" value="41" />
+          <entry key="gitignore" value="58" />
           <entry key="htm" value="2" />
           <entry key="html" value="385" />
           <entry key="jade" value="2" />
@@ -84,7 +86,7 @@
           <entry key="Jade" value="2" />
           <entry key="JavaScript" value="654" />
           <entry key="Markdown" value="369" />
-          <entry key="PLAIN_TEXT" value="41" />
+          <entry key="PLAIN_TEXT" value="58" />
           <entry key="Scratch" value="438" />
           <entry key="Vue.js" value="2002" />
         </counts>
@@ -102,7 +104,7 @@
         <entry file="file://$PROJECT_DIR$/frontend/src/App.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="273">
-              <caret line="13" column="7" lean-forward="true" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
+              <caret line="13" column="7" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
               <folding>
                 <element signature="e#343#395#0" expanded="true" />
               </folding>
@@ -113,20 +115,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/DataVisualizer.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="43" column="17" lean-forward="true" selection-start-line="43" selection-start-column="17" selection-end-line="43" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="286">
-                <caret line="49" column="14" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
-              </first_editor>
-              <second_editor />
+            <state relative-caret-position="328">
+              <caret line="53" column="31" lean-forward="true" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -173,7 +163,6 @@
         <option value="$PROJECT_DIR$/myapp/bin/www" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$USER_HOME$/Desktop/百度云-管理中心.htm" />
-        <option value="$PROJECT_DIR$/myapp/configures/.gitignore" />
         <option value="$PROJECT_DIR$/myapp/configures/db_configures.js" />
         <option value="$PROJECT_DIR$/frontend/public/index.html" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_2.js" />
@@ -198,6 +187,7 @@
         <option value="$PROJECT_DIR$/myapp/configures/server_config.js" />
         <option value="$PROJECT_DIR$/frontend/README.md" />
         <option value="$PROJECT_DIR$/frontend/src/components/DataVisualizer.vue" />
+        <option value="$PROJECT_DIR$/myapp/configures/.gitignore" />
       </list>
     </option>
   </component>
@@ -227,17 +217,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="AwesomeCoding" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AwesomeCoding" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
@@ -265,20 +244,6 @@
             <path>
               <item name="AwesomeCoding" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="frontend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="assets" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="AwesomeCoding" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="frontend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="components" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="AwesomeCoding" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="myapp" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
@@ -286,6 +251,17 @@
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="myapp" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="configures" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="AwesomeCoding" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AwesomeCoding" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -364,11 +340,12 @@
       <workItem from="1538187064047" duration="1293000" />
       <workItem from="1538367558804" duration="18739000" />
       <workItem from="1538396873052" duration="361000" />
+      <workItem from="1538407050446" duration="282000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33454000" />
+    <option name="totallyTimeSpent" value="33736000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -514,13 +491,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myapp/configures/db_configures.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
@@ -673,20 +643,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myapp/configures/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myapp/configures/server_config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="46" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_3.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="520">
@@ -698,9 +654,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
           <caret line="9" selection-start-line="9" selection-end-line="9" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -712,6 +665,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="472">
@@ -720,36 +678,52 @@
           <second_editor />
         </state>
       </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="286">
-            <caret line="49" column="14" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/App.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
-          <caret line="13" column="7" lean-forward="true" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
+          <caret line="13" column="7" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
           <folding>
             <element signature="e#343#395#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/myapp/configures/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myapp/configures/db_configures.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myapp/configures/server_config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="46" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="449">
+            <caret line="49" column="14" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/DataVisualizer.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="43" column="17" lean-forward="true" selection-start-line="43" selection-start-column="17" selection-end-line="43" selection-end-column="17" />
+        <state relative-caret-position="328">
+          <caret line="53" column="31" lean-forward="true" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
         </state>
       </provider>
     </entry>
