@@ -1,64 +1,89 @@
 <template>
     <div id="DataVisualizer">
-        <h3>数据库查看器</h3>
-        <table border="1" align="center">
-            <tr>
-                <th v-for="head in heads">{{head}}</th>
-            </tr>
-            <tr v-for="student in students" :key="student.id">
-                <td v-for="item in student">{{item}}</td>
-            </tr>
-        </table>
-        <el-button v-on:click="loadDoc">载入数据</el-button>
-        <!--<li v-for="item in items"-->
+        <h3>{{title}}</h3>
+        <el-button type="primary" icon="el-icon-refresh" v-on:click="showSQL">载入数据</el-button>
+
+        <!--以下是显示的数据，仅在用户点击了载入数据时显示-->
+        <div v-if="loadQ">
+            <my-blank></my-blank>
+            <table border="1" align="center">
+                <tr>
+                    <th v-for="head in heads">{{head}}</th>
+                </tr>
+                <tr v-for="student in students" :key="student.id">
+                    <td v-for="item in student">{{item}}</td>
+                    <el-button type="danger" icon="el-icon-delete" v-on:click="submitDelete(student.id)" circle></el-button>
+                </tr>
+            </table>
+            <my-blank></my-blank>
+            <div style="width: 20%; margin: auto;" >
+                <label>添加数据：</label>
+                <el-input type="text" size="mini"
+                          v-for="(prompt, index) in heads"
+                          v-if="index > 0"
+                          v-model="input_item[index - 1]"
+                          v-bind:placeholder="prompt">
+                </el-input>
+                <el-button size="mini" v-on:click="submitAdding">添加</el-button>
+            </div>
+        </div>
+
     </div>
 </template>
 
 <script>
+    import MyBlank from './MyBlank'
+    import {doSQL} from './js/DoSQL.js'
+
     export default {
         name: "DataVisualizer",
-        props:['data'],
+        props: {
+            title: String
+        },
         data() {
             return {
-                heads: ['ID', 'Nickname', 'Realname', 'Role', 'Motto', 'Registration Date', 'Password'],
-                students: []
+                heads: [],
+                heads_lower: [],
+                students: [],
+                input_item: [],
+                loadQ: false
             }
         },
-        created: function () {
-
+        mounted: function () {      // 渲染完成后对变量进行初始化
+            this.heads = ['ID', 'Nickname', 'Realname', 'Role', 'Motto', 'Registration Date', 'Password'];
+            this.heads_lower = ['nickname', 'realname', 'role', 'motto', 'registration_date', 'password'];
+            for (let i = 0; i < this.heads.length - 1; i++)     // 没有id这一项
+                this.input_item[i] = '';
         },
         methods: {
-            loadDoc: function ()
-            {
-                // this.students.push(JSON.parse('{ "id": 1, "nickname": "mhy", "realname": null, "role": 1, "motto": null, "registration_date": null, "password": "123" }'));
-                var xmlhttp;
-                if (window.XMLHttpRequest)
-                {
-                    //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
-                    xmlhttp=new XMLHttpRequest();
+            showSQL: function () {     // 向后端发出显示数据库的请求
+                doSQL(this, 'show_table?table_name=users');
+                this.loadQ = true;
+            },
+            submitAdding: function () {      // 向后端数据库发出添加数据的请求
+                var query_url = "do_query?sql=INSERT INTO users (" + this.heads_lower.join(',') + ") ";
+                var values = [];
+                for (let item of this.input_item) {
+                    if (item === '')
+                        values.push('null');
+                    else
+                        values.push('\'' + item + '\'');
                 }
-                else
-                {
-                    // IE6, IE5 浏览器执行代码
-                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-                }
-                xmlhttp.onreadystatechange= () =>       // 载入数据到students列表，注意这里一定要使用箭头函数，因为函数中使用了this指针，而传数据是异步的
-                {
-                    if (xmlhttp.readyState===4 && xmlhttp.status===200)
-                    {
-                        let resp = eval('(' + xmlhttp.responseText + ')');
-                        this.students = resp.results;
-                        console.log(this.students);
-                    }
-                };
-                xmlhttp.open("GET","./api/show_table?table_name=users", false);     // 向服务端发出get 请求
-                xmlhttp.send();
-                console.log("Request sent!");
+                query_url += "values (" + values.join(',') + ")";
+                doSQL(this, query_url);
+                this.showSQL();
+            },
+            submitDelete: function (index) {  // 向后端数据库发出删除数据(index)的请求
+                var query_url = "do_query?sql=DELETE FROM users WHERE id = " + index;
+                doSQL(this, query_url);
+                this.showSQL();
             }
+        },
+        components: {
+            MyBlank
         }
     }
 </script>
 
 <style scoped>
-
 </style>

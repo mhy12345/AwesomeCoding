@@ -5,14 +5,16 @@
         <h3>当前时间：{{cur_time}}</h3>
         <el-button v-on:click="refreshTime">刷新时间</el-button><br/>
         <img src="./assets/logo.png">
-        <data-visualizer></data-visualizer>
-        <!--<HelloWorld msg="欢迎进入AwesomeCoding的前端"/>-->
+        <data-visualizer title="数据库查看器"></data-visualizer>
+        <br>
+        <hr>
+        <HelloWorld msg="帮助页"/>
     </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import DataVisualizer from "./components/DataVisualizer";
+import DataVisualizer from './components/DataVisualizer'
 
 export default {
     name: 'app',
