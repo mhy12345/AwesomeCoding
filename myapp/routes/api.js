@@ -73,14 +73,11 @@ router.get('/create_class', function(req, res, next) { //创建新班级
 		for(var i = 0; i < result.results.length; i++){
 			if(id == result.results[i].id){
 				console.log('id already exsited');
-				console.log(tag);
 				tag = 1;
-				console.log(tag);
 				return;
 			}
 		}
 	});
-	console.log(tag);
 
 	if (tag == 1) return;
 	var index = (req.query.index == undefined? null: req.query.index);
