@@ -1,41 +1,27 @@
 <!--前端整体布局-->
 <template>
     <div id="app">
+        <router-link to="/">主页</router-link>  |
+        <router-link to="/dataVisualizer">数据库</router-link>  |
+        <router-link to="/about">关于</router-link>
         <h1>{{title}}</h1>
-        <h3>当前时间：{{cur_time}}</h3>
-        <el-button v-on:click="refreshTime">刷新时间</el-button><br/>
-        <img src="./assets/logo.png">
-        <data-visualizer title="数据库查看器"></data-visualizer>
         <br>
-        <hr>
-        <HelloWorld msg="帮助页"/>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import DataVisualizer from './components/DataVisualizer'
+import DataVisualizer from './views/DataVisualizer'
 
 export default {
     name: 'app',
-    props: ['data'],
     data() {
         return {
             title: "欢迎进入AwesomeCoding的前端",
-            cur_time: Date().toLocaleString(),
-        }
-    },
-    created: function() {
-
-    },
-    methods: {
-        refreshTime: function () {      // 更新显示时间
-            this.cur_time = Date().toLocaleString();
         }
     },
     components: {
-        DataVisualizer,
-        HelloWorld
+        DataVisualizer
     }
 }
 </script>

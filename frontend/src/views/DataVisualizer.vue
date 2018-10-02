@@ -1,6 +1,6 @@
 <template>
     <div id="DataVisualizer">
-        <h3>{{title}}</h3>
+        <h3>数据库查看器</h3>
         <el-button type="primary" icon="el-icon-refresh" v-on:click="showSQL">载入数据</el-button>
 
         <!--以下是显示的数据，仅在用户点击了载入数据时显示-->
@@ -16,7 +16,7 @@
                 </tr>
             </table>
             <my-blank></my-blank>
-            <div style="width: 20%; margin: auto;" >
+            <div style="width: 20%; margin: auto;" v-on:keydown.enter="submitAdding">
                 <label>添加数据：</label>
                 <el-input type="text" size="mini"
                           v-for="(prompt, index) in heads"
@@ -32,14 +32,11 @@
 </template>
 
 <script>
-    import MyBlank from './MyBlank'
-    import {doSQL} from './js/DoSQL.js'
+    import MyBlank from '../components/MyBlank'
+    import {doSQL} from '../components/js/DoSQL.js'
 
     export default {
         name: "DataVisualizer",
-        props: {
-            title: String
-        },
         data() {
             return {
                 heads: [],
