@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 // 设置需要暴露的url
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
-app.use('/', indexRouter);
+// app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 app.use('/api', apiRouter);
 

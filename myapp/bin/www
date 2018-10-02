@@ -13,7 +13,7 @@ var host_config = require('../configures/server_config');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || host_config.port);   // TODO push时要用80端口
+var port = normalizePort(process.env.PORT || host_config.port);
 app.set('port', port);
 
 /**

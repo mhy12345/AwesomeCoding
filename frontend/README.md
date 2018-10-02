@@ -50,8 +50,13 @@ RUN npm run build
 已编写了数据库api查询功能的前端界面初稿，通过前端的根url可以访问。
 查询功能的前端模板在`frontend/src/components/DataVisualizer.vue`中，配有一定的注释。
 
-跨域问题的解决方案是在用户的chrome浏览器里安装allow controal插件，以阻止浏览器的CORS保护，从而实现跨域访问。
+跨域问题的解决方案目前有二：
 
-但以上方案肯定不太好，建议我们之后再研究一下怎么通过调webpack配置，使用代理服务器访问服务端。
+    1. 在用户的chrome浏览器里安装allow controal插件，以阻止浏览器的CORS保护，从而实现跨域访问，但这种方案不太合理。
+    2. 通过调webpack配置，使用代理服务器访问服务端。实现有一定难度，需要用到webpack包。
+    3. 通过合并前端后端的服务器，在同一个域名下运行，直接回避跨域的问题。
+
+**目前使用的方案是3.**
+
 * 关于[CORB的插件解决方案](https://blog.csdn.net/a1333888/article/details/52575325)
 * 关于[代理服务器方法](https://blog.csdn.net/qq_26222859/article/details/54645996)

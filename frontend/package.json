@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "element-react": "^1.4.21",
     "element-ui": "^2.4.5",
     "vue": "^2.5.17"
   },
