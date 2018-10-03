@@ -17,32 +17,45 @@ function doSQL (parent, query_url, table_name, flag)      // 使用ajax，向后
             let resp = eval('(' + xmlhttp.responseText + ')');
             if (resp.status === 'SUCCESS.') {                       // 操作成功，保存结果并显示
                 if (flag) {                                         // 反馈是否为更新后的数据?
-                    parent.students = resp.results;
-                    console.log(parent.students);
+                    console.log(parent.table_data);
+                    parent.table_data = resp.results;
+                    parent.loaded = true;
+                    parent.heads = [];
+                    parent.input_item = [];
+                    for (let head in resp.results[0]) {
+                        parent.heads.push(head);
+                        parent.input_item.push('');
+                    }
                 }
                 else {
                     showSQL(parent, table_name);
                 }
             }
             else {                                                  // 数据库操作失败，打印错误信息
-                alert(JSON.stringify(resp.details));
+                if (flag) {
+                    parent.table_data = [];
+                    parent.loaded = false;
+                    parent.heads = [];
+                    parent.input_item = [];
+                }
                 console.log(resp.status, resp.details);
+                alert(JSON.stringify(resp.details));
             }
         }
     };
     xmlhttp.open("GET", query_url, true);     // 向服务端发出get 请求
     xmlhttp.send();
-    console.log("Request sent!");
+    console.log('Request sent!\n', query_url);
 }
 
 function showSQL(parent, table_name) {
     doSQL(parent, './api/show_table?table_name=' + table_name, table_name, true);
 }
 
-function insertSQL(parent, table_name) {
-    var query_url = "./api/do_query?sql=INSERT INTO " + table_name + " (" + parent.heads_lower.join(',') + ") ";
+function insertSQL(parent, table_name, new_row) {
+    var query_url = "./api/do_query?sql=INSERT INTO " + table_name + " ";
     var values = [];
-    for (let item of parent.input_item) {
+    for (var item of new_row) {
         if (item === '')
             values.push('null');
         else
@@ -52,9 +65,23 @@ function insertSQL(parent, table_name) {
     doSQL(parent, query_url, table_name, false);
 }
 
-function deleteSQL(parent, table_name, index) {
-    var query_url = "./api/do_query?sql=DELETE FROM " + table_name + " WHERE id = " + index;
+function deleteSQL(parent, table_name, id) {
+    var query_url = "./api/do_query?sql=DELETE FROM " + table_name + " WHERE id = " + id;
     doSQL(parent, query_url, table_name, false);
 }
 
-export {showSQL, insertSQL, deleteSQL}
+function updateSQL(parent, table_name, row) {
+    var query_url = "./api/do_query?sql=UPDATE " + table_name + " SET ";
+    var arr = [];
+    for (var item in row) {
+        if (row[item] === null || row[item] === '')
+            arr.push(item + ' = null');
+        else
+            arr.push(item + ' = \'' + row[item] + '\'');
+    }
+    query_url += arr.join(',');
+    query_url += " WHERE id = " + row.id;
+    doSQL(parent, query_url, table_name, false);
+}
+
+export {showSQL, insertSQL, deleteSQL, updateSQL}
