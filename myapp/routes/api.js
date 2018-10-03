@@ -136,7 +136,7 @@ router.get('/login', function(req, res, next) { // 登录合法判断,0代表用
 	console.log(next);
 });
 
-router.get('/register', function(req,res,next) { //注册新用户
+router.get('/register', function(req,res,next) { //注册新用户,0代表用户名重复，1代表注册成功
 	var nickname=req.query.nickname;
 	var password=req.query.password;
 	if(nickname==undefined || password==undefined){
