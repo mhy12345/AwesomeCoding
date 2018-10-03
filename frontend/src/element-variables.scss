@@ -1,0 +1,35 @@
+/*
+Write your variables here. All available variables can be
+found in element-ui/packages/theme-chalk/src/common/var.scss.
+For example, to overwrite the theme color:
+*/
+$--color-primary: blue;
+
+/* icon font path, required */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import "~element-ui/packages/theme-chalk/src/index";
+
+.el-row {
+  margin: 5px;
+}
+.el-col {
+  border-radius: 4px;
+}
+.bg-purple-dark {
+  background: #99a9bf;
+}
+.bg-purple {
+  background: #d3dce6;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+}
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
+}

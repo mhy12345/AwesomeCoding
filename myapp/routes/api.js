@@ -25,7 +25,7 @@ function do_sql_query(sql, callback) {           // 执行数据库命令
 
 router.get('/show_table', function(req, res, next) { //在数据库中查找表格，并打印
     var sql = 'SELECT * FROM ' + req.query.table_name;
-    do_sql_query(sql, function (result) {       // TODO 把result的数据发给前端，显示成表格
+    do_sql_query(sql, function (result) {
         res.send(JSON.stringify(result, null, 3));
     });
 });
