@@ -113,6 +113,67 @@ router.get('/get_classes_list', function(req, res, next) {
 })
 
 
+router.get('/login', function(req, res, next) { // 登录合法判断,0代表用户名不存在,1代表合法,2代表密码错误
+	var nickname=req.query.nickname;
+	var password=req.query.password;
+	var sql = 'SELECT * FROM users';
+	do_sql_query(sql,function(result) {
+		for(var i=0;i<result.results.length;i++){
+			if(nickname==result.results[i].nickname){
+				if(password==result.results[i].password){
+					res.send('1');
+					return;
+				}
+				else{
+					res.send('2');
+					return;
+				}
+			}
+		}
+		res.send('0');
+		return;
+	});
+	console.log(next);
+});
 
+router.get('/register', function(req,res,next) { //注册新用户
+	var nickname=req.query.nickname;
+	var password=req.query.password;
+	if(nickname==undefined || password==undefined){
+		console.log("no nickname or password");
+		return;
+	}
+	var sql = 'SELECT * FROM users';
+	var tag=0;
+	console.log(nickname);
+	//判重
+	do_sql_query(sql,function(result) {
+		for(var i=0;i<result.results.length;i++){
+			if(nickname==result.results[i].nickname){
+				tag=1;
+			}
+		}
+		var id = (req.query.id == undefined? null: req.query.id);
+		var realname = (req.query.realname == undefined? null: req.query.realname);
+		var role = (req.query.role == undefined? null: req.query.role);
+		var motto = (req.query.motto == undefined? null: req.query.motto);
+		var registration_date = (req.query.registration_date == undefined? null: req.query.registration_date);
+		sql = 'insert into users values (' +
+							id + ',' +
+							JSON.stringify(nickname) + ',' +
+							JSON.stringify(realname) + ',' +
+							role + ',' +
+							JSON.stringify(motto) + ','+
+							registration_date + ',' +
+							JSON.stringify(password) + ')';
+		console.log(sql);
+		if(tag===1) res.send('0');
+		else{
+			do_sql_query(sql,function(result) {
+				res.send('1');
+			});
+		}
+	});
+});
 
 module.exports = router;
