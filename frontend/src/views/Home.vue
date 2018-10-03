@@ -1,7 +1,6 @@
 <template>
     <div class="home">
         <h3>当前时间：{{cur_time}}</h3>
-        <el-button v-on:click="refreshTime">刷新时间</el-button><br/>
         <img alt="Vue logo" src="../assets/logo.png">
         <HelloWorld msg="帮助文档"/>
     </div>
@@ -17,6 +16,9 @@ export default {
         return {
             cur_time: Date().toLocaleString(),
         }
+    },
+    mounted: function() {
+        setInterval(this.refreshTime, 100);
     },
     methods: {
         refreshTime: function () {      // 更新显示时间
