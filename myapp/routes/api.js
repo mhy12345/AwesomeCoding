@@ -40,6 +40,7 @@ router.get('/do_query', function (req, res, next) { //在数据库中执行指�
     do_sql_query(sql, function (result) {
         res.send(JSON.stringify(result, null, 3));
     });
+});
 
 
 router.get('/delete_class', function(req, res, next) { //根据id删除班级
@@ -174,3 +175,4 @@ router.get('/register', function(req,res,next) { //注册新用户,0代表用户
 });
 
 module.exports = router;
+
