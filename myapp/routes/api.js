@@ -39,7 +39,7 @@ router.get('/show_table', function(req, res, next) { //在数据库中查找表�
 router.get('/do_query', function(req,res,next) { //在数据库中执行指定的SQL命令
 	var sql = req.query.sql;
 	do_sql_query(sql,function(result) {
-		res.send(JSON.stringify(result,null,3));
+		res.send('1');
 	});
 });
 
@@ -47,15 +47,13 @@ router.get('/do_query', function(req,res,next) { //在数据库中执行指定�
 router.get('/delete_class', function(req, res, next) { //根据id删除班级
 	var id = req.query.id;
 	var sql = 'DELETE FROM classes WHERE id = ' + id;
-	var tmp = '';
 	do_sql_query(sql,function(result) {
-		tmp += JSON.stringify(result,null,3);
+		res.send(JSON.stringify(result,null,3));
 	});
 	sql = 'DELETE FROM classusers WHERE id = ' + id;
 	do_sql_query(sql,function(result) {
-		tmp += res.send(JSON.stringify(result,null,3));
+		//to do more,设计更好的适合前段解析的返回
 	});
-	res.send(tmp);
 });
 
 
@@ -65,48 +63,49 @@ router.get('/create_class', function(req, res, next) { //创建新班级
 	if (id == undefined) {
 		console.log('id is a must');
 		return;
-	}
-	//判重处理
-	var sql = 'SELECT * FROM classes WHERE id = ' + id;
-	var tag = 10;
-	do_sql_query(sql, function(result) {
-		for(var i = 0; i < result.results.length; i++){
-			if(id == result.results[i].id){
-				console.log('id already exsited');
-				tag = 1;
-				return;
+	} else {
+		//判重处理
+		var sql = 'SELECT * FROM classes WHERE id = ' + id;
+		var tag = 0;
+		do_sql_query(sql, function(result) {
+			var id = req.query.id;
+			for(var i = 0; i < result.results.length; i++){
+				console.log(id);
+				if(id == result.results[i].id){
+					console.log('id already exsited');
+					tag = 1;
+					break;
+				}
 			}
-		}
-	});
-
-	if (tag == 1) return;
-	var index = (req.query.index == undefined? null: req.query.index);
-	var id = (req.query.id == undefined? null: req.query.id);
-	var notice = (req.query.notice == undefined? null: req.query.notice);
-	var title = (req.query.title == undefined? null: req.query.title);
-	var registration_date = (req.query.registration_date == undefined? null: req.query.registration_date);
-	var password = (req.query.password == undefined? null: req.query.password);
-	sql = 'INSERT INTO classes VALUES (' +
-							index + ',' +
-							id + ',' +
-							notice + ',' +
-							title + ',' +
-							registration_date + ',' +
-							password + ")";
-	do_sql_query(sql,function(result) {
-		res.send(JSON.stringify(result,null,3));
-	});
+			if (tag === 1) {
+				res.send('0');
+				return;
+			} else {
+				var id = (req.query.id == undefined? null: req.query.id);
+				var notice = (req.query.notice == undefined? null: req.query.notice);
+				var title = (req.query.title == undefined? null: req.query.title);
+				var registration_date = (req.query.registration_date == undefined? null: req.query.registration_date);
+				var password = (req.query.password == undefined? null: req.query.password);
+				sql = 'INSERT INTO classes VALUES (' +
+										id + ',' +
+										JSON.stringify(notice) + ',' +
+										JSON.stringify(title) + ',' +
+										registration_date + ',' +
+										JSON.stringify(password) + ")";
+				do_sql_query(sql,function(result) {
+					res.send(JSON.stringify(result,null,3));
+				});
+			}
+		});
+	}
 })
 
 
-//分页获取，一页取得十条信息
+//分页获取
 router.get('/get_classes_list', function(req, res, next) {
-	//根据index来进行
-	var index = Number(req.query.index);
-	var sql = 'SELECT * FROM classes WHERE index = ' +
-							 String((index + 1) * 10);/* +
-							 		' AND index > ' +
-							 		String(index * 10);*/
+	var m = (req.query.m == undefined? null: req.query.m); //从第几条开始取
+	var n = (req.query.n == undefined? null: req.query.n);
+	var sql = 'SELECT * FROM classes limit ' + m + ',' + n;
 	do_sql_query(sql,function(result) {
 		res.send(JSON.stringify(result,null,3));
 	});
@@ -114,8 +113,8 @@ router.get('/get_classes_list', function(req, res, next) {
 
 
 router.get('/login', function(req, res, next) { // 登录合法判断,0代表用户名不存在,1代表合法,2代表密码错误
-	var nickname=req.query.nickname;
-	var password=req.query.password;
+	var nickname = req.query.nickname;
+	var password = req.query.password;
 	var sql = 'SELECT * FROM users';
 	do_sql_query(sql,function(result) {
 		for(var i=0;i<result.results.length;i++){
