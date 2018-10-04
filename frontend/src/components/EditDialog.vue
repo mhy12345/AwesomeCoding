@@ -1,28 +1,36 @@
 <template>
-    <el-dialog id="dialog-edit"
-               title="修改行"
-               :visible.sync="visible" width="50%">
-        <el-input type="text" size="mini" style="width: 98%;"
-                  v-for="(prompt, index) in heads"
-                  v-model="input_item[index]"
-                  :placeholder="prompt">
-        </el-input>
+    <el-dialog id="dialog-test"
+               :title="config.title"
+               :visible.sync="config.visible"
+               @open="handleOpened"
+               @close="$emit('dialogClose')">
+        <h1><slot name="h1"></slot></h1>
+        <p></p><slot></slot><p></p>
+        <el-input placeholder="输入..." v-model="config.input"></el-input>
         <span slot="footer" class="dialog-footer">
-            <el-button @click="visible = false; confirm = false">取 消</el-button>
-            <el-button type="primary" @click="visible = fasle; confirm = true">确 认</el-button>
+            <el-button @click="cancel">取 消</el-button>
+            <el-button type="primary" @click="confirm">确 认</el-button>
         </span>
     </el-dialog>
 </template>
 
 <script>
-
 export default {
     name: "EditDialog",
-    data() {
-        return {
-            row: {},
-            visible: false,
-            confirm: false
+    props: {
+        config: Object
+    },
+    methods: {
+        handleOpened: function () {
+            console.log('对话框开启。');
+        },
+        cancel: function () {
+            this.config.visible = false;
+            this.config.response = false;
+        },
+        confirm: function () {
+            this.config.visible = false;
+            this.config.response = true;
         }
     }
 }

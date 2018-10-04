@@ -19,13 +19,16 @@ function doSQL (parent, query_url, table_name, flag)      // 使用ajax，向后
                 if (flag) {                                         // 反馈是否为更新后的数据?
                     console.log(parent.table_data);
                     parent.table_data = resp.results;
-                    parent.loaded = true;
-                    parent.heads = [];
-                    parent.input_item = [];
-                    for (let head in resp.results[0]) {
-                        parent.heads.push(head);
-                        parent.input_item.push('');
+
+                    if (!parent.loaded) {                           // 初次加载
+                        parent.heads = [];
+                        parent.input_item = [];
+                        for (let head in resp.results[0]) {
+                            parent.heads.push(head);                    // 获取表头
+                            parent.input_item[head] = null;             // 初始化添加框的内容
+                        }
                     }
+                    parent.loaded = true;
                 }
                 else {
                     showSQL(parent, table_name);
@@ -33,8 +36,8 @@ function doSQL (parent, query_url, table_name, flag)      // 使用ajax，向后
             }
             else {                                                  // 数据库操作失败，打印错误信息
                 if (flag) {
-                    parent.table_data = [];
                     parent.loaded = false;
+                    parent.table_data = [];
                     parent.heads = [];
                     parent.input_item = [];
                 }
@@ -55,11 +58,11 @@ function showSQL(parent, table_name) {
 function insertSQL(parent, table_name, new_row) {
     var query_url = "./api/do_query?sql=INSERT INTO " + table_name + " ";
     var values = [];
-    for (var item of new_row) {
-        if (item === '')
+    for (var item in new_row) {
+        if (new_row[item] === null || new_row[item] === '')
             values.push('null');
         else
-            values.push('\'' + item + '\'');
+            values.push('\'' + new_row[item] + '\'');
     }
     query_url += "values (" + values.join(',') + ")";
     doSQL(parent, query_url, table_name, false);

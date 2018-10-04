@@ -1,4 +1,3 @@
-var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -26,7 +25,7 @@ app.use(history({
 		}
 	],
 	htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
-}))
+}));
 
 app.use(logger('dev'));
 app.use(express.json());
