@@ -4,33 +4,48 @@
 			<h2>房间 {{title}} </h2>
 		</el-header>
 		<el-main>
-			<el-tabs v-model="class_tab_selected" @tab-click="handleClick">
-				<el-tab-pane label="用户管理" name="user_manager"></el-tab-pane>
-				<el-tab-pane label="配置管理" name="class_setting"></el-tab-pane>
-				<el-tab-pane label="讨论区" name="chatting_area"></el-tab-pane>
-				<el-tab-pane label="直播区" name="live"></el-tab-pane>
-			</el-tabs>
-			<route-view></route-view>
+		<el-tabs @tab-click="onTabClick" v-model='activeName'>
+			<el-tab-pane v-for="option in options" :label="option.name" :name="options.route"></el-tab-pane>
+		</el-tabs>
+				<router-view>
+				</router-view>
 		</el-main>
 	</el-container>
 </template>
 
 <script>
+import MyBlank from '../components/MyBlank'
 export default{
 	data(){
 		return {
-			title:"undefined",
-			class_tab_selected:"user_manager"
+			title:undefined,
+			class_tab_selected:"user_manager",
+			activeName : 'details',
+			options : [
+				{
+					name:"班级信息",
+					route:"details"
+				}, 
+				{
+					name:"观看直播",
+					route:"live"
+				}
+			]
 		}
 	},
 	mounted : function() {
 		this.title = this.$route.params.class_id
 	},
+
 	methods: {
-			handleClick : function(tab, event) {
-				console.log(tab, event);
-			}
+		onTabClick(a,b,c) {
+			console.log({name:'class' + this.options[this.activeName].route,params:{class_id:222}});
+			this.$router.push({name:'class-' + this.options[this.activeName].route,params:{class_id:222}});
 		}
+	},
+	components: {
+		MyBlank
+	}
 }
 </script>
 
