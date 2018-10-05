@@ -121,19 +121,7 @@ by 郑逢时
 * 全局样式及主题配置：`frontend/src/element-variables.scss`
 * 静态页面目标目录：`frontend/dist`
 
-## 跨域问题
-解决方案目前有三：
-
-    1. 在用户的chrome浏览器里安装allow controal插件，以阻止浏览器的CORB保护，从而实现跨域访问，但这种方案不太合理。
-    2. 通过调webpack配置，使用代理服务器访问服务端。实现有一定难度，需要用到webpack包。
-    3. 通过合并前端后端的服务器，在同一个域名下运行，直接回避跨域的问题。
-
-**目前使用的方案是3.**
-
-* 关于[CORB的插件解决方案](https://blog.csdn.net/a1333888/article/details/52575325)
-* 关于[代理服务器方法](https://blog.csdn.net/qq_26222859/article/details/54645996)
-
 ## 静态页面的路由问题
 使用`npm run build`构建静态页面，虽然能省去前端服务器，但会使前端路由无法使用，从而导致刷新页面易出现404错误。
 
-此问题正在努力解决……敬请期待
+该问题的解决方法见[这里](https://router.vuejs.org/zh/guide/essentials/history-mode.html#%E5%90%8E%E7%AB%AF%E9%85%8D%E7%BD%AE%E4%BE%8B%E5%AD%90)
