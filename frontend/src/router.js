@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Class from './views/Class.vue'
 
 Vue.use(Router);
 
@@ -13,9 +14,14 @@ export default new Router({
             name: 'home',
             component: Home
         },
+		{
+			path: '/class/:class_id',
+			name: 'class',
+			component: Class
+		},
         {
             path: '/dataVisualizer',
-            name: 'DataVisualizer',
+            name: 'aata_visualizer',
             component: () => import('./views/DataVisualizer.vue')
         },
         {
