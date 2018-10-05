@@ -23,10 +23,6 @@ function do_sql_query(sql, callback) {           // 执行数据库命令
     });
 }
 
-
-
-
-
 router.get('/show_table', function(req, res, next) { //在数据库中查找表格，并打印
     var sql = 'SELECT * FROM ' + req.query.table_name;
     do_sql_query(sql, function (result) {
@@ -34,12 +30,23 @@ router.get('/show_table', function(req, res, next) { //在数据库中查找表�
     });
 });
 
-
-router.get('/do_query', function (req, res, next) { //在数据库中执行指定的SQL命令
-    var sql = req.query.sql;
+router.get('/show_columns', function(req, res, next) {
+	var mysql_config = require('../configures/db_configures');
+	var db_name = mysql_config.database;
+	var table_name = mysql_config.table;
+	var sql = 'SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = "'
+		+ db_name + '" AND TABLE_NAME = "' + req.query.table_name + '"';
     do_sql_query(sql, function (result) {
         res.send(JSON.stringify(result, null, 3));
     });
+});
+
+
+router.get('/do_query', function (req, res, next) { //在数据库中执行指定的SQL命令
+	var sql = req.query.sql;
+	do_sql_query(sql, function (result) {
+		res.send(JSON.stringify(result, null, 3));
+	});
 });
 
 
@@ -86,11 +93,11 @@ router.get('/create_class', function(req, res, next) { //创建新班级
 				var registration_date = (req.query.registration_date == undefined? null: req.query.registration_date);
 				var password = (req.query.password == undefined? null: req.query.password);
 				sql = 'INSERT INTO classes VALUES (' +
-										id + ',' +
-										JSON.stringify(notice) + ',' +
-										JSON.stringify(title) + ',' +
-										registration_date + ',' +
-										JSON.stringify(password) + ")";
+					id + ',' +
+					JSON.stringify(notice) + ',' +
+					JSON.stringify(title) + ',' +
+					registration_date + ',' +
+					JSON.stringify(password) + ")";
 				do_sql_query(sql,function(result) {
 					res.send(JSON.stringify(result,null,3));
 				});
@@ -157,13 +164,13 @@ router.get('/register', function(req,res,next) { //注册新用户,0代表用户
 		var motto = (req.query.motto == undefined? null: req.query.motto);
 		var registration_date = (req.query.registration_date == undefined? null: req.query.registration_date);
 		sql = 'insert into users values (' +
-							id + ',' +
-							JSON.stringify(nickname) + ',' +
-							JSON.stringify(realname) + ',' +
-							role + ',' +
-							JSON.stringify(motto) + ','+
-							registration_date + ',' +
-							JSON.stringify(password) + ')';
+			id + ',' +
+			JSON.stringify(nickname) + ',' +
+			JSON.stringify(realname) + ',' +
+			role + ',' +
+			JSON.stringify(motto) + ','+
+			registration_date + ',' +
+			JSON.stringify(password) + ')';
 		console.log(sql);
 		if(tag===1) res.send('0');
 		else{
