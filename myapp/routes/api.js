@@ -171,10 +171,10 @@ router.get('/register', function(req,res,next) { //注册新用户,0代表用户
 			registration_date + ',' +
 			JSON.stringify(password) + ')';
 		console.log(sql);
-		if(tag===1) res.send('0');
+		if(tag===1) res.send('0');          // 失败
 		else{
 			do_sql_query(sql,function(result) {
-				res.send('1');
+				res.send('1');              // 成功注册
 			});
 		}
 	});

@@ -90,7 +90,7 @@ export default {
             heads: [],          // 表头
             table_data: [],
             input: {            // 用户输入的内容
-                table_name: '',
+                table_name: 'users',
                 items: {},
             },
             loaded: false,
