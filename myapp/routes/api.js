@@ -66,7 +66,7 @@ router.get('/delete_class', function(req, res, next) { //根据id删除班级
 
 router.get('/create_class', function(req, res, next) { //创建新班级
 	var id = req.query.id;
-	if (id == undefined) {
+	if (id === undefined) {
 		console.log('id is a must');
 		return;
 	} else {
@@ -77,7 +77,7 @@ router.get('/create_class', function(req, res, next) { //创建新班级
 			var id = req.query.id;
 			for(var i = 0; i < result.results.length; i++){
 				console.log(id);
-				if(id == result.results[i].id){
+				if(id === result.results[i].id){
 					console.log('id already exsited');
 					tag = 1;
 					break;
@@ -87,11 +87,11 @@ router.get('/create_class', function(req, res, next) { //创建新班级
 				res.send('0');
 				return;
 			} else {
-				var id = (req.query.id == undefined? null: req.query.id);
-				var notice = (req.query.notice == undefined? null: req.query.notice);
-				var title = (req.query.title == undefined? null: req.query.title);
-				var registration_date = (req.query.registration_date == undefined? null: req.query.registration_date);
-				var password = (req.query.password == undefined? null: req.query.password);
+				var id = (req.query.id === undefined? null: req.query.id);
+				var notice = (req.query.notice === undefined? null: req.query.notice);
+				var title = (req.query.title === undefined? null: req.query.title);
+				var registration_date = (req.query.registration_date === undefined? null: req.query.registration_date);
+				var password = (req.query.password === undefined? null: req.query.password);
 				sql = 'INSERT INTO classes VALUES (' +
 					id + ',' +
 					JSON.stringify(notice) + ',' +
@@ -109,8 +109,8 @@ router.get('/create_class', function(req, res, next) { //创建新班级
 
 //分页获取
 router.get('/get_classes_list', function(req, res, next) {
-	var m = (req.query.m == undefined? null: req.query.m); //从第几条开始取
-	var n = (req.query.n == undefined? null: req.query.n);
+	var m = (req.query.m === undefined? null: req.query.m); //从第几条开始取
+	var n = (req.query.n === undefined? null: req.query.n);
 	var sql = 'SELECT * FROM classes limit ' + m + ',' + n;
 	do_sql_query(sql,function(result) {
 		res.send(JSON.stringify(result,null,3));
@@ -124,16 +124,16 @@ router.get('/login', function(req, res, next) { // 登录合法判断,0代表用
 	var sql = 'SELECT * FROM users';
 	do_sql_query(sql,function(result) {
 		for(var i=0;i<result.results.length;i++){
-			if(nickname==result.results[i].nickname){
-				if(password==result.results[i].password){
-					res.send('1');
-					return;
-				}
-				else{
-					res.send('2');
-					return;
-				}
-			}
+            if (nickname === result.results[i].nickname) {
+                if (password === result.results[i].password) {
+                    res.send('1');
+                    return;
+                }
+                else {
+                    res.send('2');
+                    return;
+                }
+            }
 		}
 		res.send('0');
 		return;
