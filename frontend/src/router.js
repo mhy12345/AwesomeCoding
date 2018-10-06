@@ -23,7 +23,7 @@ export default new Router({
         },
 		{
 			path: '/class/:class_id',
-			name: 'Class',
+			name: 'class',
 			component: Class,
 			children: [
 				{
@@ -51,6 +51,11 @@ export default new Router({
 			path: '/courses/add',
 			name: 'add-courses',
 			component: () => import('./views/CoursesAdd.vue')
+		},
+		{
+			path: '/courses/enter',
+			name: 'enter-courses',
+			component: () => import('./views/CoursesList.vue')
 		},
 		{
 			path: '/classes',

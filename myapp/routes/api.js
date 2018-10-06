@@ -160,10 +160,11 @@ router.post('/create_class', function(req, res, next) { //创建新班级
 
 
 //分页获取
-router.get('/get_classes_list', function(req, res, next) {
+router.post('/get_classes_list', function(req, res, next) {
 	var m = (req.query.m === undefined? null: req.query.m); //从第几条开始取
 	var n = (req.query.n === undefined? null: req.query.n);
-	var sql = 'SELECT * FROM classes limit ' + m + ',' + n;
+	var sql = 'SELECT * FROM classes LIMIT ' + m + ',' + n;
+	console.log(sql);
 	do_sql_query(sql,function(result) {
 		res.send(JSON.stringify(result,null,3));
 	});
