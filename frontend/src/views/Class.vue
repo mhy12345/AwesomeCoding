@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import MyBlank from '../components/MyBlank'
+import MyBlank from '../components/resources/MyBlank'
 export default{
 	data(){
 		return {

@@ -33,6 +33,9 @@
 							<span slot="title">选项4</span>
 							<el-menu-item index="1-4-1">选项1</el-menu-item>
 						</el-submenu>
+						<el-menu-item index="/developer/test">
+							<span slot="title">测试</span>
+						</el-menu-item>
 					</el-submenu>
 					<el-menu-item index="/classes/">
 						<i class='el-icon-news'></i>
@@ -79,6 +82,14 @@ export default {
 </script>
 
 <style>
+.el-header {
+    color: #333;
+    line-height: 60px;
+}
+.el-aside {
+    background-color: #b6c9ea;
+    color: #333;
+}
 #app {
 	font-family: 'Avenir', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;

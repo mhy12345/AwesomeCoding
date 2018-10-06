@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Class from './views/Class.vue'
+import Developer from './views/Developer'
 import ClassDetails from './components/resources/ClassDetails.vue'
 import AudioPanel from './components/resources/AudioPanel.vue'
 
@@ -47,13 +48,25 @@ export default new Router({
 			component: () => import('./views/Classes.vue')
 		},
         {
-            path: '/developer/data_visualizer',
-            name: 'data_visualizer',
-            component: () => import('./views/DataVisualizer.vue')
+            path: '/developer',
+            name: 'Developer',
+            component: Developer,
+            children: [
+                {
+                    path: 'data_visualizer',
+                    name: 'DataVisualizer',
+                    component: () => import('./components/resources/DataVisualizer.vue')
+                },
+                {
+                    path: 'test',
+                    name: 'Test',
+                    component: () => import('./components/resources/Test.vue')
+                }
+            ]
         },
         {
             path: '/about',
-            name: 'about',
+            name: 'About',
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
