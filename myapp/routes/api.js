@@ -1,12 +1,31 @@
 var express = require('express');
 var router = express.Router();
 var get_connection = require('../utils/database');
+var crypto = require('crypto');
+var moment = require('moment');
+
+Date.prototype.Format = function (fmt) { //author: meizz 
+	var o = {
+		"M+": this.getMonth() + 1, //月份 
+		"d+": this.getDate(), //日 
+		"h+": this.getHours(), //小时 
+		"m+": this.getMinutes(), //分 
+		"s+": this.getSeconds(), //秒 
+		"q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+		"S": this.getMilliseconds() //毫秒 
+	};
+	if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	for (var k in o)
+		if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	return fmt;
+}
 
 function do_sql_query(sql, callback) {           // 执行数据库命令
-    var result = {};
-    result.query = sql;
-    result.results = [];
-    result.status = 'SUCCESS.';
+    var result = {
+        query: sql,
+        results: [],
+        status: 'SUCCESS.',
+    };
     get_connection(function (conn) {
         conn.query(sql, function (error, results, fields) {
             if (error) {
@@ -23,12 +42,27 @@ function do_sql_query(sql, callback) {           // 执行数据库命令
     });
 }
 
-
-
-
-
+function randomString(len) {
+	var $chars = 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890';
+	var maxPos = $chars.length;
+	var pwd = '';
+	for (i = 0; i < len; i++) {
+		pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+	}
+	return pwd;
+}
 router.get('/show_table', function(req, res, next) { //在数据库中查找表格，并打印
-    var sql = 'SELECT * FROM ' + req.query.table_name;
+	var sql = 'SELECT * FROM ' + req.query.table_name;
+	do_sql_query(sql, function (result) {
+		res.send(JSON.stringify(result, null, 3));
+	});
+});
+
+router.get('/show_columns', function(req, res, next) {
+	var mysql_config = require('../configures/db_configures');
+	var db_name = mysql_config.database;
+	var sql = 'SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = \''
+		+ db_name + '\' AND TABLE_NAME = \'' + req.query.table_name + '\'';
     do_sql_query(sql, function (result) {
         res.send(JSON.stringify(result, null, 3));
     });
@@ -36,10 +70,10 @@ router.get('/show_table', function(req, res, next) { //在数据库中查找表�
 
 
 router.get('/do_query', function (req, res, next) { //在数据库中执行指定的SQL命令
-    var sql = req.query.sql;
-    do_sql_query(sql, function (result) {
-        res.send(JSON.stringify(result, null, 3));
-    });
+	var sql = req.query.sql;
+	do_sql_query(sql, function (result) {
+		res.send(JSON.stringify(result, null, 3));
+	});
 });
 
 
@@ -55,82 +89,112 @@ router.get('/delete_class', function(req, res, next) { //根据id删除班级
 	});
 });
 
+router.post('/class_resources', function(req, res, next) {
+	var sql = 'SELECT resource FROM resources WHERE `class_id` = '+req.body.class_id;
+	var result = {};
+	do_sql_query(sql,function(sql_res) {
+		console.log(sql_res);
+		result.status = 'SUCCESS.'
+		result.results = [];
+		for (var w in sql_res.results) {
+			result.results.push(sql_res.results[w].resource);
+		}
+		sql_res.results;
+		res.send(JSON.stringify(result,null,3));
+	});
+});
 
+router.post('/class_info',function(req, res, next) {
+	console.log(req.body);
+	var sql = 'SELECT * FROM classes WHERE id = '+req.body.class_id;
+	var result = {}
+	do_sql_query(sql,function(sql_res) {
+		if (sql_res.results.length == 0) {
+			result.status = "NOT FOUND.";
+			res.send(JSON.stringify(result,null,3));
+		} else {
+			result.status = "SUCCESS.";
+			result.result = sql_res.results[0];
+			res.send(JSON.stringify(result,null,3));
+		}
+	});
+})
 
-router.get('/create_class', function(req, res, next) { //创建新班级
-	var id = req.query.id;
-	if (id == undefined) {
-		console.log('id is a must');
-		return;
+router.post('/create_class', function(req, res, next) { //创建新班级
+	var title = req.body.name;
+	var description = req.body.description;
+	var invitation_code = randomString(20);
+	var registration_date = moment().format('YYYY-MM-DD HH-mm-ss');
+	var resources = req.body['resources[]'];
+	if (typeof(resources) === 'string') {
+		resources = [resources];
+	}
+	var result = {};
+	if (title === undefined || title.length < 3) {
+		result.status = 'FAILED.';
+		result.details = 'WRONG TITLE.';
+		res.send(JSON.stringify(result));
+		console.log("ERROR CREATING CLASS");
 	} else {
-		//判重处理
-		var sql = 'SELECT * FROM classes WHERE id = ' + id;
-		var tag = 0;
-		do_sql_query(sql, function(result) {
-			var id = req.query.id;
-			for(var i = 0; i < result.results.length; i++){
-				console.log(id);
-				if(id == result.results[i].id){
-					console.log('id already exsited');
-					tag = 1;
-					break;
+		var sql = 'INSERT INTO classes (`title`,`description`,`invitation_code`,`registration_date`) VALUES ("' + title + '","' +description+'","'+invitation_code+'","'+registration_date + '")';
+		console.log(sql);
+		do_sql_query(sql,function(sql_res) {
+			do_sql_query('SELECT MAX(`id`) FROM classes',function(sql_res) {
+				result.status = 'SUCCESS.';
+				console.log(sql_res.results);
+				result.id = sql_res.results[0]['MAX(`id`)'];
+				result.invitation_code = invitation_code;
+				var sql = 'INSERT INTO `resources` (`class_id`,`resource`) VALUES ';
+				for (var w in resources) {
+					sql += '('+result.id+',"'+resources[w]+'"),';
 				}
-			}
-			if (tag === 1) {
-				res.send('0');
-				return;
-			} else {
-				var id = (req.query.id == undefined? null: req.query.id);
-				var notice = (req.query.notice == undefined? null: req.query.notice);
-				var title = (req.query.title == undefined? null: req.query.title);
-				var registration_date = (req.query.registration_date == undefined? null: req.query.registration_date);
-				var password = (req.query.password == undefined? null: req.query.password);
-				sql = 'INSERT INTO classes VALUES (' +
-										id + ',' +
-										JSON.stringify(notice) + ',' +
-										JSON.stringify(title) + ',' +
-										registration_date + ',' +
-										JSON.stringify(password) + ")";
-				do_sql_query(sql,function(result) {
+				sql = sql.substr(0,sql.length-1);
+				console.log(sql);
+				do_sql_query(sql,function(sql_res) {
 					res.send(JSON.stringify(result,null,3));
 				});
-			}
+			});
 		});
 	}
-})
+});
 
 
 //分页获取
-router.get('/get_classes_list', function(req, res, next) {
-	var m = (req.query.m == undefined? null: req.query.m); //从第几条开始取
-	var n = (req.query.n == undefined? null: req.query.n);
-	var sql = 'SELECT * FROM classes limit ' + m + ',' + n;
+router.post('/get_classes_list', function(req, res, next) {
+	var m = (req.query.m === undefined? null: req.query.m); //从第几条开始取
+	var n = (req.query.n === undefined? null: req.query.n);
+	var sql = 'SELECT * FROM classes LIMIT ' + m + ',' + n;
+	console.log(sql);
 	do_sql_query(sql,function(result) {
 		res.send(JSON.stringify(result,null,3));
 	});
-})
+});
 
 
-router.get('/login', function(req, res, next) { // 登录合法判断,0代表用户名不存在,1代表合法,2代表密码错误
+router.get('/login', function(req, res, next) { // 登录合法判断 返回 JSON
 	var nickname = req.query.nickname;
 	var password = req.query.password;
 	var sql = 'SELECT * FROM users';
-	do_sql_query(sql,function(result) {
-		for(var i=0;i<result.results.length;i++){
-			if(nickname==result.results[i].nickname){
-				if(password==result.results[i].password){
-					res.send('1');
-					return;
-				}
-				else{
-					res.send('2');
-					return;
-				}
-			}
-		}
-		res.send('0');
-		return;
-	});
+	resp = {
+	    status: 'NOT_FOUND.'
+    };
+	console.log("LOGIN QUERY", req.query);
+    do_sql_query(sql, function (result) {
+        for (var i = 0; i < result.results.length; i++) {
+            if (nickname === result.results[i].nickname) {
+                if (password === result.results[i].password) {
+                    resp.status = 'SUCCESS.';
+                    break;
+                }
+                else {
+                    resp.status = 'WRONG_PASSWORD.';
+                    break;
+                }
+            }
+        }
+        console.log(resp);
+        res.send(JSON.stringify(resp));
+    });
 	console.log(next);
 });
 
@@ -157,18 +221,18 @@ router.get('/register', function(req,res,next) { //注册新用户,0代表用户
 		var motto = (req.query.motto == undefined? null: req.query.motto);
 		var registration_date = (req.query.registration_date == undefined? null: req.query.registration_date);
 		sql = 'insert into users values (' +
-							id + ',' +
-							JSON.stringify(nickname) + ',' +
-							JSON.stringify(realname) + ',' +
-							role + ',' +
-							JSON.stringify(motto) + ','+
-							registration_date + ',' +
-							JSON.stringify(password) + ')';
+			id + ',' +
+			JSON.stringify(nickname) + ',' +
+			JSON.stringify(realname) + ',' +
+			role + ',' +
+			JSON.stringify(motto) + ','+
+			registration_date + ',' +
+			JSON.stringify(password) + ')';
 		console.log(sql);
-		if(tag===1) res.send('0');
+		if(tag===1) res.send('0');          // 失败
 		else{
 			do_sql_query(sql,function(result) {
-				res.send('1');
+				res.send('1');              // 成功注册
 			});
 		}
 	});
