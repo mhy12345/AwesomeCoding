@@ -1,7 +1,8 @@
 module.exports = {
   configureWebpack: {
     externals: {
-      "polyvPlayer": "polyvPlayer"
+      "polyvPlayer": "polyvPlayer",
+      "polyvObject": "polyvObject"
     }
   }
 }

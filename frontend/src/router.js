@@ -77,6 +77,11 @@ export default new Router({
                     path: 'test',
                     name: 'Test',
                     component: () => import('./components/resources/Test.vue')
+                },
+                {
+                    path: 'testplayer',
+                    name: 'TestPlayer',
+                    component: () => import('./components/resources/TestPlayer.vue')
                 }
             ]
         },
