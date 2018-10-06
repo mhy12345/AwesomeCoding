@@ -5,7 +5,7 @@
 		</el-header>
 		<el-container>
 			<el-aside width="">
-				<el-menu default-active="/" class="el-menu-vertical-demo" :collapse="isCollapse" @select='selectItem'>
+				<el-menu default-active="/" class="el-menu-vertical-demo" collapse-transition=true :collapse="isCollapse" @select='selectItem'>
 					<el-menu-item index='collapse'>
 						<i v-if="isCollapse" class='el-icon-arrow-right'></i>
 						<i v-else class='el-icon-arrow-left'></i>
