@@ -117,26 +117,30 @@ router.get('/get_classes_list', function(req, res, next) {
 });
 
 
-router.get('/login', function(req, res, next) { // 登录合法判断,0代表用户名不存在,1代表合法,2代表密码错误
+router.get('/login', function(req, res, next) { // 登录合法判断 返回 JSON
 	var nickname = req.query.nickname;
 	var password = req.query.password;
 	var sql = 'SELECT * FROM users';
-	do_sql_query(sql,function(result) {
-		for(var i=0;i<result.results.length;i++){
+	resp = {
+	    status: 'NOT_FOUND.'
+    };
+	console.log("LOGIN QUERY", req.query);
+    do_sql_query(sql, function (result) {
+        for (var i = 0; i < result.results.length; i++) {
             if (nickname === result.results[i].nickname) {
                 if (password === result.results[i].password) {
-                    res.send('1');
-                    return;
+                    resp.status = 'SUCCESS.';
+                    break;
                 }
                 else {
-                    res.send('2');
-                    return;
+                    resp.status = 'WRONG_PASSWORD.';
+                    break;
                 }
             }
-		}
-		res.send('0');
-		return;
-	});
+        }
+        console.log(resp);
+        res.send(JSON.stringify(resp));
+    });
 	console.log(next);
 });
 

@@ -28,51 +28,6 @@ function doSQL (query)      // 使用ajax，向后端数据库发出 query 请�
         console.log('Request sent!\n', query_url);
     });
 }
-/*
-function doSQL (parent, query_url, table_name, flag)      // 使用ajax，向后端数据库发出修改/删除/插入的请求，flag为真表示需要更新parent.students的显示，否则再发出一次显示数据库的请求
-{
-    var xmlhttp;
-    if (window.XMLHttpRequest)
-    {
-        //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
-        xmlhttp=new XMLHttpRequest();
-    }
-    else
-    {
-        // IE6, IE5 浏览器执行代码
-        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.onreadystatechange = () =>       // 异步载入数据到students列表，注意这里一定要使用箭头函数，因为函数中使用了this指针，而传数据是异步的
-    {
-        if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {   // 写入状态就绪
-            let resp = eval('(' + xmlhttp.responseText + ')');
-            if (resp.status === 'SUCCESS.') {                       // 操作成功，保存结果并显示
-                if (flag) {                                         // 反馈是否为更新后的数据?
-                    console.log(parent.table_data);
-                    parent.table_data = resp.results;
-                    parent.loaded = true;
-                }
-                else {
-                    showSQL(parent, table_name);
-                }
-            }
-            else {                                                  // 数据库操作失败，打印错误信息
-                if (flag) {
-                    parent.loaded = false;
-                    parent.table_data = [];
-                    parent.heads = [];
-                    parent.input.items = [];
-                }
-                console.log(resp.status, resp.details);
-                alert(JSON.stringify(resp.details));
-            }
-        }
-    };
-    query_url = window.location.protocol + '//' + window.location.host + '/api/' + query_url;
-    xmlhttp.open("GET", query_url, true);     // 向服务端发出get 请求
-    xmlhttp.send();
-    console.log('Request sent!\n', query_url);
-}*/
 
 function getSQLColumns(table_name) {      // 加载表头
     return doSQL("show_columns?table_name=" + table_name);
@@ -114,4 +69,9 @@ function updateSQL(table_name, row) {
     return doSQL(query);
 }
 
-export {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL}
+function loginSQL(user) {
+    var query = "login?nickname=" + user.nickname + "&password=" + user.password;
+    return doSQL(query);
+}
+
+export {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL, loginSQL}
