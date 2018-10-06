@@ -21,24 +21,25 @@ Date.prototype.Format = function (fmt) { //author: meizz
 }
 
 function do_sql_query(sql, callback) {           // 执行数据库命令
-	var result = {};
-	result.query = sql;
-	result.results = [];
-	result.status = 'SUCCESS.';
-	get_connection(function (conn) {
-		conn.query(sql, function (error, results, fields) {
-			if (error) {
-				result.status = 'FAILED.';
-				result.details = error;
-				callback(result);
-			} else {
-				for (var i = 0; i < results.length; i++) {
-					result.results.push(results[i]);
-				}
-				callback(result);
-			}
-		});
-	});
+    var result = {
+        query: sql,
+        results: [],
+        status: 'SUCCESS.',
+    };
+    get_connection(function (conn) {
+        conn.query(sql, function (error, results, fields) {
+            if (error) {
+                result.status = 'FAILED.';
+                result.details = error;
+                callback(result);
+            } else {
+                for (var i = 0; i < results.length; i++) {
+                    result.results.push(results[i]);
+                }
+                callback(result);
+            }
+        });
+    });
 }
 
 function randomString(len) {
@@ -60,12 +61,11 @@ router.get('/show_table', function(req, res, next) { //在数据库中查找表�
 router.get('/show_columns', function(req, res, next) {
 	var mysql_config = require('../configures/db_configures');
 	var db_name = mysql_config.database;
-	var table_name = mysql_config.table;
-	var sql = 'SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = "'
-		+ db_name + '" AND TABLE_NAME = "' + req.query.table_name + '"';
-	do_sql_query(sql, function (result) {
-		res.send(JSON.stringify(result, null, 3));
-	});
+	var sql = 'SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = \''
+		+ db_name + '\' AND TABLE_NAME = \'' + req.query.table_name + '\'';
+    do_sql_query(sql, function (result) {
+        res.send(JSON.stringify(result, null, 3));
+    });
 });
 
 
@@ -156,7 +156,7 @@ router.post('/create_class', function(req, res, next) { //创建新班级
 			});
 		});
 	}
-})
+});
 
 
 //分页获取
@@ -167,7 +167,7 @@ router.get('/get_classes_list', function(req, res, next) {
 	do_sql_query(sql,function(result) {
 		res.send(JSON.stringify(result,null,3));
 	});
-})
+});
 
 
 router.get('/login', function(req, res, next) { // 登录合法判断,0代表用户名不存在,1代表合法,2代表密码错误
@@ -224,10 +224,10 @@ router.get('/register', function(req,res,next) { //注册新用户,0代表用户
 			registration_date + ',' +
 			JSON.stringify(password) + ')';
 		console.log(sql);
-		if(tag===1) res.send('0');
+		if(tag===1) res.send('0');          // 失败
 		else{
 			do_sql_query(sql,function(result) {
-				res.send('1');
+				res.send('1');              // 成功注册
 			});
 		}
 	});

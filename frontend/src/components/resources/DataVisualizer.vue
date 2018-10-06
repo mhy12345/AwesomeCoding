@@ -2,7 +2,7 @@
     <div id="DataVisualizer">
         <h2>数据库查看器</h2>
         <div id="load-table" style="width: 30%; margin: auto;" v-on:keydown.enter="submitLoad">
-            <el-input prefix-icon="el-icon-search" placeholder="输入数据库名称..." v-model="input_table_name">
+            <el-input prefix-icon="el-icon-search" placeholder="输入数据库名称..." v-model="input.table_name">
                 <el-button slot="append" icon="el-icon-refresh" v-on:click="submitLoad">载入数据</el-button>
             </el-input>
         </div>
@@ -46,7 +46,7 @@
                         <el-col :span="2"><label>添加数据：</label></el-col>
                         <el-col :span="3" v-for="col in heads">
                             <el-input type="text" size="mini" style="width: 98%;"
-                                      v-model="input_item[col]"
+                                      v-model="input.items[col]"
                                       :placeholder="col">
                             </el-input>
                         </el-col>
@@ -80,17 +80,19 @@
 <script>
 import MyBlank from './MyBlank'
 import {copy, deepCopy} from "../js/Copy";
-import {showSQL, insertSQL, deleteSQL, updateSQL} from '../js/DoSQL.js'
+import {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL} from '../js/DoSQL.js'
 
 export default {
     name: "DataVisualizer",
     data() {
         return {
-            input_table_name: '',
             table_name: '',
-            heads: [],
+            heads: [],          // 表头
             table_data: [],
-            input_item: {},
+            input: {            // 用户输入的内容
+                table_name: 'users',
+                items: {},
+            },
             loaded: false,
             edit_dialog: {      // 编辑对话框的属性
                 visual: false,
@@ -100,26 +102,74 @@ export default {
     },
     mounted: function () {      // 渲染完成后对变量进行初始化
         // for (let i = 0; i < this.heads.length; i++)
-        //     this.input_item[i] = '';
+        //     this.input.items[i] = '';
     },
     methods: {
+        handleError: function (resp) {
+            console.log("DB ERROR!", resp);
+            var msg = "操作失败。" + JSON.stringify(resp['details']);
+            this.$message.error(msg);
+        },
         submitLoad: function () {     // 向后端发出显示数据库的请求
-            this.table_name = this.input_table_name;
-            showSQL(this, this.table_name);
+            this.loaded = false;
+            this.table_name = this.input.table_name;
+            this.heads = [];
+            this.input.items = {};
+
+            getSQLColumns(this.table_name).                             // 异步执行请求，先获取表头
+            then((resp) => {                                         // 成功，被 getSQLColumns 的 resolve 调用
+                console.log(resp);
+                for (var item of resp.results) {
+                    this.heads.push(item['COLUMN_NAME']);
+                    this.input.items[item['COLUMN_NAME']] = '';
+                }
+                return showSQL(this.table_name);                        // 然后获取表中数据
+            }).
+            then((resp) => {                                         // 成功，被 showSQL 的 resolve 调用
+                console.log(resp);
+                this.table_data = resp.results;
+                this.loaded = true;
+            }).
+            catch(this.handleError);                                    // 某个步骤失败，交给 handleError 统一处理
+
         },
         submitAdd: function () {      // 向后端数据库发出添加数据的请求
-            insertSQL(this, this.table_name, this.input_item);
+            insertSQL(this.table_name, this.input.items).
+            then((resp) => {
+                console.log(resp);
+                return showSQL(this.table_name);
+            }).
+            then((resp) => {
+                console.log(resp);
+                this.table_data = resp.results;
+            }).
+            catch(this.handleError)
         },
         submitDelete: function (id) {  // 向后端数据库发出删除数据的请求
-            deleteSQL(this, this.table_name, id)
+            deleteSQL(this.table_name, id).
+            then((resp) => {
+                console.log(resp);
+                return showSQL(this.table_name);
+            }).
+            then((resp) => {
+                console.log(resp);
+                this.table_data = resp.results;
+            }).
+            catch(this.handleError);
         },
         submitEdit: function (row) {    // 调出修改行的对话框
-            this.edit_dialog.row = copy(row);
+            this.edit_dialog.row = copy(row);       // 原先的 row 是表中的引用，因此要先复制一份到对话框
             this.edit_dialog.visual = true;
         },
         submitChange: function () {   // 向后端数据库发出修改数据的请求
             this.edit_dialog.visual = false;
-            updateSQL(this, this.table_name, this.edit_dialog.row)
+            updateSQL(this.table_name, this.edit_dialog.row).then((resp) => {
+                console.log(resp);
+                return showSQL(this.table_name);
+            }).then((resp) => {
+                console.log(resp);
+                this.table_data = resp.results;
+            }).catch(this.handleError);
         }
     },
     components: {
