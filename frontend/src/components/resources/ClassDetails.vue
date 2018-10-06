@@ -24,7 +24,11 @@ export default {
 		this.title = this.$route.params.class_id;
 		this.$http.post('/api/class_info',{class_id:this.title})
 		.then(function(res) {
-			this.info = res.body.result;
+			if (res.body.status === 'NOT FOUND.') {
+				this.$message("Room "+this.title+" not found!");
+			}else {
+				this.info = res.body.result;
+			}
 		});
 	}
 }

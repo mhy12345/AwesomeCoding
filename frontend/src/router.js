@@ -37,7 +37,7 @@ export default new Router({
 				},
 				{
 					path: 'live',
-					component : AudioPanel,
+					component: () => import('./components/resources/VideoPlayer.vue'),
 					name: 'class-live'
 				},
 				{
@@ -73,11 +73,6 @@ export default new Router({
                     component: () => import('./components/resources/Test.vue')
                 }
             ]
-        },
-        {
-            path: '/DemoPlayer',
-            name: 'DemoPlayer',
-            component: () => import('./views/DemoPlayer.vue')
         },
         {
             path: '/about',
