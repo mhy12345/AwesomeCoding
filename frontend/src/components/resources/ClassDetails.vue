@@ -1,12 +1,10 @@
 <template>
 	<el-container>
-		<el-header>
-			<h3>班级名称</h3>
-		</el-header>
 		<el-main>
-			<div>
-				授课老师：{{teacher}}
-			</div>
+			<el-row v-for="item in default_items">
+				<el-col :span='4'> {{translation[item]}} </el-col>
+				<el-col :span='20'>{{info[item]}}</el-col>
+			</el-row>
 		</el-main>
 	</el-container>
 </template>
@@ -15,8 +13,19 @@
 export default {
 	data() {
 		return {
-			teacher : undefined
+			info : {
+			},
+			default_items : [ "title","id","description","notice","invitation_code"],
+			translation : {"id":"课程号","title":"课程名称","description":"课程简介","notice":"课程公告","invitation_code":"邀请码"},
+			title : "undefined",
 		}
+	},
+	mounted : function() {
+		this.title = this.$route.params.class_id;
+		this.$http.post('/api/class_info',{class_id:this.title})
+		.then(function(res) {
+			this.info = res.body.result;
+		});
 	}
 }
 </script>

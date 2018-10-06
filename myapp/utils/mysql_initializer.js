@@ -3,6 +3,12 @@ var mysql_config = require('../configures/db_configures');
 var async = require('async')
 
 var sqls = {
+	'create_class_resources' : "CREATE TABLE IF NOT EXISTS `resources`(" +
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
+		"`class_id` INT UNSIGNED NOT NULL, " +
+		"`resource` CHAR(20), " +
+		"PRIMARY KEY (`id`) "+
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 	'create_class_table' : "CREATE TABLE IF NOT EXISTS `classes`(" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, "+ //用于唯一标识一个班级
 		"`description` VARCHAR(500), " +
@@ -50,7 +56,7 @@ function mysql_initializer(callback) { //倘若数据库不存在，则重新新
 			console.log(err);
 			return;
 		}
-		var tasks = ['create_database', 'use_database', 'create_user_table', 'create_class_table', 'create_class_user_table'];
+		var tasks = ['create_database', 'use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources'];
 		async.eachSeries(tasks, function (item, callback) {
 			console.log(item + " ==> " + sqls[item]);
 			conn.query(sqls[item], function (err, res) {

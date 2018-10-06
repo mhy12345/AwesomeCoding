@@ -39,6 +39,11 @@ export default new Router({
 					path: 'live',
 					component : AudioPanel,
 					name: 'class-live'
+				},
+				{
+					path: 'materials',
+					component : () => import('./components/resources/ClassMaterials.vue'),
+					name: 'class-materials'
 				}
 			]
 		},

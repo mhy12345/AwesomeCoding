@@ -89,8 +89,24 @@ router.get('/delete_class', function(req, res, next) { //根据id删除班级
 	});
 });
 
+router.post('/class_resources', function(req, res, next) {
+	var sql = 'SELECT resource FROM resources WHERE `class_id` = '+req.body.class_id;
+	var result = {};
+	do_sql_query(sql,function(sql_res) {
+		console.log(sql_res);
+		result.status = 'SUCCESS.'
+		result.results = [];
+		for (var w in sql_res.results) {
+			result.results.push(sql_res.results[w].resource);
+		}
+		sql_res.results;
+		res.send(JSON.stringify(result,null,3));
+	});
+});
+
 router.post('/class_info',function(req, res, next) {
-	var sql = 'SELECT * FROM classes WHERE id == "'+res.body.class_id+'"';
+	console.log(req.body);
+	var sql = 'SELECT * FROM classes WHERE id = '+req.body.class_id;
 	var result = {}
 	do_sql_query(sql,function(sql_res) {
 		if (sql_res.results.length == 0) {
@@ -109,6 +125,10 @@ router.post('/create_class', function(req, res, next) { //创建新班级
 	var description = req.body.description;
 	var invitation_code = randomString(20);
 	var registration_date = moment().format('YYYY-MM-DD HH-mm-ss');
+	var resources = req.body['resources[]'];
+	if (typeof(resources) === 'string') {
+		resources = [resources];
+	}
 	var result = {};
 	if (title === undefined || title.length < 3) {
 		result.status = 'FAILED.';
@@ -119,12 +139,20 @@ router.post('/create_class', function(req, res, next) { //创建新班级
 		var sql = 'INSERT INTO classes (`title`,`description`,`invitation_code`,`registration_date`) VALUES ("' + title + '","' +description+'","'+invitation_code+'","'+registration_date + '")';
 		console.log(sql);
 		do_sql_query(sql,function(sql_res) {
-			do_sql_query('SELECT LAST_INSERT_ID()',function(sql_res) {
+			do_sql_query('SELECT MAX(`id`) FROM classes',function(sql_res) {
 				result.status = 'SUCCESS.';
 				console.log(sql_res.results);
-				result.id = sql_res.results[0]['LAST_INSERT_ID()'];
+				result.id = sql_res.results[0]['MAX(`id`)'];
 				result.invitation_code = invitation_code;
-				res.send(JSON.stringify(result,null,3));
+				var sql = 'INSERT INTO `resources` (`class_id`,`resource`) VALUES ';
+				for (var w in resources) {
+					sql += '('+result.id+',"'+resources[w]+'"),';
+				}
+				sql = sql.substr(0,sql.length-1);
+				console.log(sql);
+				do_sql_query(sql,function(sql_res) {
+					res.send(JSON.stringify(result,null,3));
+				});
 			});
 		});
 	}

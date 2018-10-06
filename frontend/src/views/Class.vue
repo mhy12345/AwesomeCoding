@@ -19,7 +19,8 @@ import MyBlank from '../components/resources/MyBlank'
 var default_options = ['details']
 var supported_options = {
 	details:'班级信息',
-	live:'直播教学'
+	live:'直播教学',
+	materials:'课程资料',
 }
 
 export default{
@@ -28,13 +29,15 @@ export default{
 			title:undefined,
 			class_tab_selected:"user_manager",
 			activeName : 'details',
+			class_resources : undefined
 		}
 	},
 	computed : {
 		options : function() {
 			var result = []
-			for (var k in default_options) {
-				var key = default_options[k];
+			var current_options = this.class_resources ? this.class_resources : default_options;
+			for (var k in current_options) {
+				var key = current_options[k];
 				console.log(key);
 				result.push({
 					name:supported_options[key],
@@ -47,8 +50,9 @@ export default{
 	mounted : function() {
 		this.title = this.$route.params.class_id
 		this.$http
-		.post('/api/class_info',{class_id:this.title},{emulateJSON:true})
+		.post('/api/class_resources',{class_id:this.title},{emulateJSON:true})
 		.then(function(res) {
+			this.class_resources = res.body.results;
 		});
 	},
 
@@ -59,7 +63,6 @@ export default{
         }
 	},
 	components: {
-		MyBlank
 	}
 }
 </script>
