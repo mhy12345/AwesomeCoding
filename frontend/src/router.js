@@ -65,6 +65,11 @@ export default new Router({
             ]
         },
         {
+            path: '/DemoPlayer',
+            name: 'DemoPlayer',
+            component: () => import('./views/DemoPlayer.vue')
+        },
+        {
             path: '/about',
             name: 'About',
             // route level code-splitting
