@@ -5,17 +5,34 @@
 		</el-header>
 		<el-container>
 			<el-aside width="">
-				<el-menu default-active="/" class="el-menu-vertical-demo" :collapse="isCollapse" @select='selectItem'>
+				<el-menu class="el-menu-vertical-demo"
+                         :default-active="activeIndex"
+                         collapse-transition :collapse="isCollapse"
+                         @select='selectItem'>
 					<el-menu-item index='collapse'>
 						<i v-if="isCollapse" class='el-icon-arrow-right'></i>
 						<i v-else class='el-icon-arrow-left'></i>
 						<span v-if="isCollapse" slot='title'>展开</span>
 						<span v-else slot='title'>收回</span>
 					</el-menu-item>
+
 					<el-menu-item index="/">
 						<i class="el-icon-menu"></i>
 						<span slot="title">主页</span>
 					</el-menu-item>
+                    <el-submenu index="/users">
+                        <template slot="title">
+                            <i class="el-icon-star-on"></i>
+                            <span slot="title">用户</span>
+                        </template>
+                        <el-menu-item index="/user/sign_in">
+                            <span slot="title">登录</span>
+                        </el-menu-item>
+                        <el-menu-item index="/user/sign_up">
+                            <span slot="title">注册</span>
+                        </el-menu-item>
+                    </el-submenu>
+
 					<el-submenu index="/developer">
 						<template slot="title">
 							<i class='el-icon-edit-outline'></i>
@@ -29,6 +46,7 @@
                         <el-menu-item index="/developer/test">
                             <span slot="title">测试</span>
                         </el-menu-item>
+
                         <el-menu-item-group title="分组2">
                             <el-menu-item index="1-3">选项3</el-menu-item>
                         </el-menu-item-group>
@@ -53,14 +71,11 @@
 						<i class='el-icon-service'></i>
 						<span slot='title'>房间</span>
 					</el-menu-item>
-					<el-menu-item index="/DemoPlayer">
-						<i class='el-icon-caret-right'></i>
-						<span slot="title">视频测试</span>
-					</el-menu-item>
 					<el-menu-item index="/about">
 						<i class='el-icon-info'></i>
 						<span slot='title'>关于</span>
 					</el-menu-item>
+
 				</el-menu>
 			</el-aside>
 			<el-main>

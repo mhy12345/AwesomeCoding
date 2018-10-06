@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Class from './views/Class.vue'
 import Developer from './views/Developer'
+import User from './views/User.vue'
 import ClassDetails from './components/resources/ClassDetails.vue'
 import AudioPanel from './components/resources/AudioPanel.vue'
 
@@ -76,6 +77,23 @@ export default new Router({
                     path: 'test',
                     name: 'Test',
                     component: () => import('./components/resources/Test.vue')
+                }
+            ]
+        },
+        {
+            path: '/user',
+            name: 'User',
+            component: User,
+            children: [
+                {
+                    path: 'sign_in',
+                    name: 'SignIn',
+                    component: () => import('./components/resources/SignIn.vue')
+                },
+                {
+                    path: 'sign_up',
+                    name: 'SignUp',
+                    component: () => import('./components/resources/SignUp.vue')
                 }
             ]
         },
