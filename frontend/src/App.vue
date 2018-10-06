@@ -53,6 +53,10 @@
 						<i class='el-icon-service'></i>
 						<span slot='title'>房间</span>
 					</el-menu-item>
+					<el-menu-item index="/DemoPlayer">
+						<i class='el-icon-caret-right'></i>
+						<span slot="title">视频测试</span>
+					</el-menu-item>
 					<el-menu-item index="/about">
 						<i class='el-icon-info'></i>
 						<span slot='title'>关于</span>
@@ -77,15 +81,15 @@ export default {
 		}
 	},
 	methods :{
-			 selectItem(key) {
-				 if (key === "collapse") {
-					 this.isCollapse = !this.isCollapse;
-				 } else {
-					 this.$router.push(key);
-					 console.log(key);
-				 }
-			 }
-		 }
+		selectItem(key) {
+			if (key === "collapse") {
+				this.isCollapse = !this.isCollapse;
+			} else {
+				this.$router.push(key);
+				console.log(key);
+			}
+		}
+	}
 };
 </script>
 

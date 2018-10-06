@@ -62,7 +62,7 @@ export default {
             this.dialog.input = this.input;
         },
         handleClose: function () {
-            console.log("对话框关闭。");
+            //console.log("对话框关闭。");
             if (this.dialog.response === true)
                 this.input = this.dialog.input;
         }
