@@ -3,10 +3,11 @@ var router = express.Router();
 var get_connection = require('../utils/database');
 
 function do_sql_query(sql, callback) {           // 执行数据库命令
-    var result = {};
-    result.query = sql;
-    result.results = [];
-    result.status = 'SUCCESS.';
+    var result = {
+        query: sql,
+        results: [],
+        status: 'SUCCESS.',
+    };
     get_connection(function (conn) {
         conn.query(sql, function (error, results, fields) {
             if (error) {
@@ -33,9 +34,8 @@ router.get('/show_table', function(req, res, next) { //在数据库中查找表�
 router.get('/show_columns', function(req, res, next) {
 	var mysql_config = require('../configures/db_configures');
 	var db_name = mysql_config.database;
-	var table_name = mysql_config.table;
-	var sql = 'SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = "'
-		+ db_name + '" AND TABLE_NAME = "' + req.query.table_name + '"';
+	var sql = 'SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = \''
+		+ db_name + '\' AND TABLE_NAME = \'' + req.query.table_name + '\'';
     do_sql_query(sql, function (result) {
         res.send(JSON.stringify(result, null, 3));
     });
@@ -85,7 +85,6 @@ router.get('/create_class', function(req, res, next) { //创建新班级
 			}
 			if (tag === 1) {
 				res.send('0');
-				return;
 			} else {
 				var id = (req.query.id === undefined? null: req.query.id);
 				var notice = (req.query.notice === undefined? null: req.query.notice);
@@ -104,7 +103,7 @@ router.get('/create_class', function(req, res, next) { //创建新班级
 			}
 		});
 	}
-})
+});
 
 
 //分页获取
@@ -115,7 +114,7 @@ router.get('/get_classes_list', function(req, res, next) {
 	do_sql_query(sql,function(result) {
 		res.send(JSON.stringify(result,null,3));
 	});
-})
+});
 
 
 router.get('/login', function(req, res, next) { // 登录合法判断,0代表用户名不存在,1代表合法,2代表密码错误

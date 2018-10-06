@@ -1,5 +1,9 @@
 <template>
     <div id="test-view">
+        <h2>host1: {{host.host1}} host2: {{host.host2}}</h2>
+        <h3>current url: {{ my_url }}</h3>
+        <h3>current protocol: {{ my_protocol }}</h3>
+        <h3>current pathname: {{ my_path }}</h3>
         <!--以下为对话框数据传输测试-->
         <el-button @click="createDialog" type="success">打开对话框</el-button>
         <EditDialog :config="dialog" @dialogClose="handleClose">
@@ -33,6 +37,14 @@ export default {
     name: 'Test',
     data () {
         return {
+            host: {
+                host1: window.location.host,
+                host2: document.domain
+            },
+            my_url: window.location.href,
+            my_protocol: window.location.protocol,
+            my_path: location.pathname,
+
             input: '',
             dialog: {
                 title: '一个平凡的标题',
