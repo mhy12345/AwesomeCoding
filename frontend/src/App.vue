@@ -25,17 +25,17 @@
 							<span slot="title">数据库操作</span>
 							<el-menu-item index="/developer/data_visualizer">数据表修改</el-menu-item>
 							<el-menu-item index="1-2">选项2</el-menu-item>
-						</el-menu-item-group>
-						<el-menu-item-group title="分组2">
-							<el-menu-item index="1-3">选项3</el-menu-item>
-						</el-menu-item-group>
-						<el-submenu index="1-4">
-							<span slot="title">选项4</span>
-							<el-menu-item index="1-4-1">选项1</el-menu-item>
-						</el-submenu>
-						<el-menu-item index="/developer/test">
-							<span slot="title">测试</span>
-						</el-menu-item>
+                        </el-menu-item-group>
+                        <el-menu-item index="/developer/test">
+                            <span slot="title">测试</span>
+                        </el-menu-item>
+                        <el-menu-item-group title="分组2">
+                            <el-menu-item index="1-3">选项3</el-menu-item>
+                        </el-menu-item-group>
+                        <el-submenu index="1-4">
+                            <span slot="title">选项4</span>
+                            <el-menu-item index="1-4-1">选项1</el-menu-item>
+                        </el-submenu>
 					</el-submenu>
 					<el-menu-item index="/classes/">
 						<i class='el-icon-news'></i>
