@@ -7,8 +7,8 @@
 		<el-tabs @tab-click="onTabClick" v-model='activeName'>
 			<el-tab-pane v-for="option in options" :label="option.name" :name="options.route"></el-tab-pane>
 		</el-tabs>
-				<router-view>
-				</router-view>
+            <router-view>
+            </router-view>
 		</el-main>
 	</el-container>
 </template>
@@ -25,7 +25,7 @@ export default{
 				{
 					name:"班级信息",
 					route:"details"
-				}, 
+				},
 				{
 					name:"观看直播",
 					route:"live"
@@ -38,10 +38,10 @@ export default{
 	},
 
 	methods: {
-		onTabClick(a,b,c) {
-			console.log({name:'class' + this.options[this.activeName].route,params:{class_id:222}});
-			this.$router.push({name:'class-' + this.options[this.activeName].route,params:{class_id:222}});
-		}
+        onTabClick(a, b, c) {
+            console.log({name: 'class' + this.options[this.activeName].route, params: {class_id: 222}});
+            this.$router.push({name: 'class-' + this.options[this.activeName].route, params: {class_id: 222}});
+        }
 	},
 	components: {
 		MyBlank

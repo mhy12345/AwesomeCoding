@@ -27,7 +27,7 @@ export default new Router({
 			children: [
 				{
 					path: '',
-					redicect: 'details',
+					redirect: 'details',
 				},
 				{
 					path: 'details',

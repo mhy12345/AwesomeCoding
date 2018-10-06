@@ -26,7 +26,7 @@ app.use(history({
 		}
 	],
 	htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
-}))
+}));
 
 app.use(logger('dev'));
 app.use(express.json());

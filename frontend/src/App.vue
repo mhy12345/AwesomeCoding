@@ -31,8 +31,8 @@
 						</el-menu-item-group>
 						<el-submenu index="1-4">
 							<span slot="title">选项4</span>
-						<el-menu-item index="1-4-1">选项1</el-menu-item>
-					</el-submenu>
+							<el-menu-item index="1-4-1">选项1</el-menu-item>
+						</el-submenu>
 					</el-submenu>
 					<el-menu-item index="/classes/">
 						<i class='el-icon-news'></i>
@@ -67,11 +67,11 @@ export default {
 	},
 	methods :{
 			 selectItem(key) {
-				 if (key == "collapse") {
+				 if (key === "collapse") {
 					 this.isCollapse = !this.isCollapse;
 				 } else {
-				 this.$router.push(key);
-				 console.log(key);
+					 this.$router.push(key);
+					 console.log(key);
 				 }
 			 }
 		 }
