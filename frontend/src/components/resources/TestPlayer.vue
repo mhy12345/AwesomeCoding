@@ -7,6 +7,7 @@
 <script>
 // @ is an alias to /src
 import LivePlayer from './LivePlayer.vue'
+import VideoPlayer from './LivePlayer.vue'
 
 export default {
     mounted: function() {
@@ -14,7 +15,8 @@ export default {
     methods: {
     },
     components: {
-        LivePlayer
+        LivePlayer,
+        VideoPlayer
     }
 };
 </script>
