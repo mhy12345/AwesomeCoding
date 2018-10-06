@@ -1,33 +1,60 @@
 var express = require('express');
 var router = express.Router();
 var get_connection = require('../utils/database');
+var crypto = require('crypto');
+var moment = require('moment');
 
-function do_sql_query(sql, callback) {           // 执行数据库命令
-    var result = {};
-    result.query = sql;
-    result.results = [];
-    result.status = 'SUCCESS.';
-    get_connection(function (conn) {
-        conn.query(sql, function (error, results, fields) {
-            if (error) {
-                result.status = 'FAILED.';
-                result.details = error;
-                callback(result);
-            } else {
-                for (var i = 0; i < results.length; i++) {
-                    result.results.push(results[i]);
-                }
-                callback(result);
-            }
-        });
-    });
+Date.prototype.Format = function (fmt) { //author: meizz 
+	var o = {
+		"M+": this.getMonth() + 1, //月份 
+		"d+": this.getDate(), //日 
+		"h+": this.getHours(), //小时 
+		"m+": this.getMinutes(), //分 
+		"s+": this.getSeconds(), //秒 
+		"q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+		"S": this.getMilliseconds() //毫秒 
+	};
+	if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	for (var k in o)
+		if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	return fmt;
 }
 
+function do_sql_query(sql, callback) {           // 执行数据库命令
+	var result = {};
+	result.query = sql;
+	result.results = [];
+	result.status = 'SUCCESS.';
+	get_connection(function (conn) {
+		conn.query(sql, function (error, results, fields) {
+			if (error) {
+				result.status = 'FAILED.';
+				result.details = error;
+				callback(result);
+			} else {
+				for (var i = 0; i < results.length; i++) {
+					result.results.push(results[i]);
+				}
+				callback(result);
+			}
+		});
+	});
+}
+
+function randomString(len) {
+	var $chars = 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890';
+	var maxPos = $chars.length;
+	var pwd = '';
+	for (i = 0; i < len; i++) {
+		pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+	}
+	return pwd;
+}
 router.get('/show_table', function(req, res, next) { //在数据库中查找表格，并打印
-    var sql = 'SELECT * FROM ' + req.query.table_name;
-    do_sql_query(sql, function (result) {
-        res.send(JSON.stringify(result, null, 3));
-    });
+	var sql = 'SELECT * FROM ' + req.query.table_name;
+	do_sql_query(sql, function (result) {
+		res.send(JSON.stringify(result, null, 3));
+	});
 });
 
 router.get('/show_columns', function(req, res, next) {
@@ -36,9 +63,9 @@ router.get('/show_columns', function(req, res, next) {
 	var table_name = mysql_config.table;
 	var sql = 'SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = "'
 		+ db_name + '" AND TABLE_NAME = "' + req.query.table_name + '"';
-    do_sql_query(sql, function (result) {
-        res.send(JSON.stringify(result, null, 3));
-    });
+	do_sql_query(sql, function (result) {
+		res.send(JSON.stringify(result, null, 3));
+	});
 });
 
 
@@ -62,46 +89,43 @@ router.get('/delete_class', function(req, res, next) { //根据id删除班级
 	});
 });
 
+router.post('/class_info',function(req, res, next) {
+	var sql = 'SELECT * FROM classes WHERE id == "'+res.body.class_id+'"';
+	var result = {}
+	do_sql_query(sql,function(sql_res) {
+		if (sql_res.results.length == 0) {
+			result.status = "NOT FOUND.";
+			res.send(JSON.stringify(result,null,3));
+		} else {
+			result.status = "SUCCESS.";
+			result.result = sql_res.results[0];
+			res.send(JSON.stringify(result,null,3));
+		}
+	});
+})
 
-
-router.get('/create_class', function(req, res, next) { //创建新班级
-	var id = req.query.id;
-	if (id === undefined) {
-		console.log('id is a must');
-		return;
+router.post('/create_class', function(req, res, next) { //创建新班级
+	var title = req.body.name;
+	var description = req.body.description;
+	var invitation_code = randomString(20);
+	var registration_date = moment().format('YYYY-MM-DD HH-mm-ss');
+	var result = {};
+	if (title === undefined || title.length < 3) {
+		result.status = 'FAILED.';
+		result.details = 'WRONG TITLE.';
+		res.send(JSON.stringify(result));
+		console.log("ERROR CREATING CLASS");
 	} else {
-		//判重处理
-		var sql = 'SELECT * FROM classes WHERE id = ' + id;
-		var tag = 0;
-		do_sql_query(sql, function(result) {
-			var id = req.query.id;
-			for(var i = 0; i < result.results.length; i++){
-				console.log(id);
-				if(id === result.results[i].id){
-					console.log('id already exsited');
-					tag = 1;
-					break;
-				}
-			}
-			if (tag === 1) {
-				res.send('0');
-				return;
-			} else {
-				var id = (req.query.id === undefined? null: req.query.id);
-				var notice = (req.query.notice === undefined? null: req.query.notice);
-				var title = (req.query.title === undefined? null: req.query.title);
-				var registration_date = (req.query.registration_date === undefined? null: req.query.registration_date);
-				var password = (req.query.password === undefined? null: req.query.password);
-				sql = 'INSERT INTO classes VALUES (' +
-					id + ',' +
-					JSON.stringify(notice) + ',' +
-					JSON.stringify(title) + ',' +
-					registration_date + ',' +
-					JSON.stringify(password) + ")";
-				do_sql_query(sql,function(result) {
-					res.send(JSON.stringify(result,null,3));
-				});
-			}
+		var sql = 'INSERT INTO classes (`title`,`description`,`invitation_code`,`registration_date`) VALUES ("' + title + '","' +description+'","'+invitation_code+'","'+registration_date + '")';
+		console.log(sql);
+		do_sql_query(sql,function(sql_res) {
+			do_sql_query('SELECT LAST_INSERT_ID()',function(sql_res) {
+				result.status = 'SUCCESS.';
+				console.log(sql_res.results);
+				result.id = sql_res.results[0]['LAST_INSERT_ID()'];
+				result.invitation_code = invitation_code;
+				res.send(JSON.stringify(result,null,3));
+			});
 		});
 	}
 })
@@ -124,16 +148,16 @@ router.get('/login', function(req, res, next) { // 登录合法判断,0代表用
 	var sql = 'SELECT * FROM users';
 	do_sql_query(sql,function(result) {
 		for(var i=0;i<result.results.length;i++){
-            if (nickname === result.results[i].nickname) {
-                if (password === result.results[i].password) {
-                    res.send('1');
-                    return;
-                }
-                else {
-                    res.send('2');
-                    return;
-                }
-            }
+			if (nickname === result.results[i].nickname) {
+				if (password === result.results[i].password) {
+					res.send('1');
+					return;
+				}
+				else {
+					res.send('2');
+					return;
+				}
+			}
 		}
 		res.send('0');
 		return;

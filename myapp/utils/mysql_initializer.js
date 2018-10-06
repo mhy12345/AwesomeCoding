@@ -5,10 +5,11 @@ var async = require('async')
 var sqls = {
 	'create_class_table' : "CREATE TABLE IF NOT EXISTS `classes`(" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, "+ //用于唯一标识一个班级
-		"`notice` VARCHAR(80), "+ //班级公告
+		"`description` VARCHAR(500), " +
+		"`notice` VARCHAR(500), "+ //班级公告
 		"`title` VARCHAR(80) NOT NULL, "+ //班级名
-		"`registration_date` DATE, "+ //注册日期
-		"`password` CHAR(40), "+ //密码
+		"`registration_date` TIMESTAMP, "+ //注册日期
+		"`invitation_code` CHAR(40), "+
 		"PRIMARY KEY (`id`) "+
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 
@@ -16,7 +17,7 @@ var sqls = {
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " + //班级id
 		"`role` INT UNSIGNED NOT NULL, "+ //0表示学生，1表示助教，2表示老师
 		"`userid` INT UNSIGNED NOT NULL,"+ //教师id
-		"`registration_date` DATE, "+
+		"`registration_date` TIMESTAMP, "+
 		"PRIMARY KEY (`id`) "+
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
 
@@ -26,7 +27,7 @@ var sqls = {
 		"`realname` VARCHAR(40), "+
 		"`role` INT UNSIGNED NOT NULL, "+
 		"`motto` VARCHAR(200), "+
-		"`registration_date` DATE, "+
+		"`registration_date` TIMESTAMP, "+
 		"`password` CHAR(40) NOT NULL, "+
 		"PRIMARY KEY (`id`) "+
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",

@@ -52,11 +52,11 @@ function doSQL (parent, query_url, table_name, flag)      // 使用ajax，向后
 }
 
 function showSQL(parent, table_name) {
-    doSQL(parent, './api/show_table?table_name=' + table_name, table_name, true);
+    doSQL(parent, '/api/show_table?table_name=' + table_name, table_name, true);
 }
 
 function insertSQL(parent, table_name, new_row) {
-    var query_url = "./api/do_query?sql=INSERT INTO " + table_name + " ";
+    var query_url = "/api/do_query?sql=INSERT INTO " + table_name + " ";
     var values = [];
     for (var item in new_row) {
         if (new_row[item] === null || new_row[item] === '')
@@ -69,12 +69,12 @@ function insertSQL(parent, table_name, new_row) {
 }
 
 function deleteSQL(parent, table_name, id) {
-    var query_url = "./api/do_query?sql=DELETE FROM " + table_name + " WHERE id = " + id;
+    var query_url = "/api/do_query?sql=DELETE FROM " + table_name + " WHERE id = " + id;
     doSQL(parent, query_url, table_name, false);
 }
 
 function updateSQL(parent, table_name, row) {
-    var query_url = "./api/do_query?sql=UPDATE " + table_name + " SET ";
+    var query_url = "/api/do_query?sql=UPDATE " + table_name + " SET ";
     var arr = [];
     for (var item in row) {
         if (row[item] === null || row[item] === '')

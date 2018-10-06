@@ -5,7 +5,7 @@
 		</el-header>
 		<el-container>
 			<el-aside width="">
-				<el-menu default-active="/" class="el-menu-vertical-demo" collapse-transition=true :collapse="isCollapse" @select='selectItem'>
+				<el-menu default-active="/" class="el-menu-vertical-demo" :collapse="isCollapse" @select='selectItem'>
 					<el-menu-item index='collapse'>
 						<i v-if="isCollapse" class='el-icon-arrow-right'></i>
 						<i v-else class='el-icon-arrow-left'></i>
@@ -16,7 +16,7 @@
 						<i class="el-icon-menu"></i>
 						<span slot="title">主页</span>
 					</el-menu-item>
-					<el-submenu index="1">
+					<el-submenu index="/developer">
 						<template slot="title">
 							<i class='el-icon-edit-outline'></i>
 							<span slot="title">开发者</span>
@@ -37,10 +37,18 @@
                             <el-menu-item index="1-4-1">选项1</el-menu-item>
                         </el-submenu>
 					</el-submenu>
-					<el-menu-item index="/classes/">
-						<i class='el-icon-news'></i>
-						<span slot='title'>课程</span>
-					</el-menu-item>
+					<el-submenu index="/courses">
+						<template slot='title'>
+							<i class='el-icon-news'></i>
+							<span>课程</span>
+						</template>
+                        <el-menu-item index="/courses/add">
+                            <span slot="title">新建课程</span>
+                        </el-menu-item>
+                        <el-menu-item index="/courses/enter">
+                            <span slot="title">进入课程</span>
+                        </el-menu-item>
+					</el-submenu>
 					<el-menu-item index="/class/123">
 						<i class='el-icon-service'></i>
 						<span slot='title'>房间</span>

@@ -43,6 +43,11 @@ export default new Router({
 			]
 		},
 		{
+			path: '/courses/add',
+			name: 'add-courses',
+			component: () => import('./views/CoursesAdd.vue')
+		},
+		{
 			path: '/classes',
 			name: 'classes',
 			component: () => import('./views/Classes.vue')

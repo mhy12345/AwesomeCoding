@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "element-react": "^1.4.21",
-    "element-theme": "^2.0.1",
     "element-ui": "^2.4.5",
     "vue": "^2.5.17",
+    "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
@@ -19,7 +19,6 @@
     "@vue/cli-plugin-eslint": "^3.0.4",
     "@vue/cli-service": "^3.0.4",
     "babel-plugin-component": "^1.1.1",
-    "element-theme-chalk": "^2.4.8",
     "node-sass": "^4.9.2",
     "sass-loader": "^7.0.3",
     "vue-cli-plugin-element": "^1.0.0",

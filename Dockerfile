@@ -8,7 +8,6 @@ RUN apt install -y mysql-client
 COPY frontend /frontend
 WORKDIR /frontend
 RUN npm install
-RUN node_modules/.bin/et
 RUN npm run build
 
 #创建后端目录，并安装依赖项
