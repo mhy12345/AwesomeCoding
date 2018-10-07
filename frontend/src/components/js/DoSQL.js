@@ -69,7 +69,7 @@ function updateSQL(table_name, row) {
     return doSQL(query);
 }
 
-function loginSQL(user) {
+function loginSQL(user) {           // TODO 改为 post 版本，需要后端的支持
     var query = "login?nickname=" + user.nickname + "&password=" + user.password;
     return doSQL(query);
 }
