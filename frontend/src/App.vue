@@ -98,15 +98,16 @@ export default {
 	        console.log('Try to login: ', myCookie);
             loginSQL(myCookie).then((resp) => {
                 console.log(resp);
-                this.$message.success("欢迎回来！" + myCookie.realname);     // TODO 显示 realname
+                this.$message.success("欢迎回来！" + myCookie.realname);
             }).catch((resp) => {
                 console.log(resp);
                 if (resp.status === 'WRONG_PASSWORD.') {
-                    this.$message.error("密码错误！");
+                    this.$message.error("登录失败，密码错误！");
                 }
-                else {
-                    this.$message.error("用户名不存在！");
+                else if (resp.status === 'USER_NOT_FOUND.') {
+                    this.$message.error("登录失败，用户名不存在！");
                 }
+                else this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.details));
             });
         }
 

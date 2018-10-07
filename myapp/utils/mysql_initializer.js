@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var mysql_config = require('../configures/db_configures');
-var async = require('async')
+var async = require('async');
 
 var sqls = {
 	'create_class_resources' : "CREATE TABLE IF NOT EXISTS `resources`(" +

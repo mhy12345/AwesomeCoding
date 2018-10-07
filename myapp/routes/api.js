@@ -176,7 +176,7 @@ router.get('/login', function(req, res, next) { // 登录合法判断 返回 JSO
 	var password = req.query.password;
 	var sql = 'SELECT * FROM users';
 	resp = {
-	    status: 'NOT_FOUND.',
+	    status: 'USER_NOT_FOUND.',
 		results: {},
     };
 	console.log("LOGIN QUERY", req.query);
@@ -200,59 +200,59 @@ router.get('/login', function(req, res, next) { // 登录合法判断 返回 JSO
 	console.log(next);
 });
 
-router.get('/register', function(req,res,next) { //注册新用户,0代表用户名重复，1代表注册成功
+router.get('/register', function(req,res,next) { //注册新用户，不吐不快，这一段几乎由前端同学重写了！原先写后端的同学，你们在干吗？写出来的程序既不规范，而且居然还跑不动！
+    console.log("[get]register query: ", req.query);
     var nickname = req.query.nickname;
     var password = req.query.password;
 	var resp = {
         status: '',
         results: {},
     };
-    if (nickname === undefined || password === undefined) {
-        console.log("no nickname or password");
-        res.send(JSON.stringify(resp));
-        return;
-    }
+    // if (nickname === undefined || password === undefined) {
+    //     console.log("no nickname or password");
+    //     res.send(JSON.stringify(resp));
+    //     return;
+    // }
 	var sql = 'SELECT * FROM users';
 	var tag = 0;
-	console.log(nickname);
+	// console.log(nickname);
 	//判重
-	do_sql_query(sql,function(result) {
-		for(var i=0;i<result.results.length;i++){
+    do_sql_query(sql, function (result) {
+        // console.log(result.results);
+        for (var i = 0; i < result.results.length; i++) {
             if (nickname === result.results[i].nickname) {
                 tag = 1;
             }
-		}
-		var id = (req.query.id === undefined? null: req.query.id);
-		var realname = (req.query.realname === undefined? null: req.query.realname);
-		var role = (req.query.role === undefined? null: req.query.role);
-		var motto = (req.query.motto === undefined? null: req.query.motto);
-		var registration_date = (req.query.registration_date === undefined? null: req.query.registration_date);
-		sql = 'insert into users values (' +
-			id + ',' +
-			JSON.stringify(nickname) + ',' +
-			JSON.stringify(realname) + ',' +
-			role + ',' +
-			JSON.stringify(motto) + ','+
-			registration_date + ',' +
-			JSON.stringify(password) + ')';
-		console.log(sql);
-		if(tag===1) resp.status = "DUPLICATION_OF_REGISTRATION.";          // 重复注册 失败
-		else{
-			do_sql_query(sql,function(result) {
-				resp.status = "SUCCESS.";              // 成功注册
-                resp.results = {
-                    id: id,
-                    nickname: nickname,
-                    realname: realname,
-                    role: role,
-                    motto: motto,
-                    registration_date: registration_date,
-                    password: password
-                };
-			});
-		}
-		res.send(JSON.stringify(resp));
-	});
+        }
+        if (tag === 1) {          // 重复注册 失败
+            resp.status = "DUPLICATION_OF_REGISTRATION.";
+            res.send(JSON.stringify(resp));
+        }
+        else {
+            var values = [];
+            var items = ['id', 'nickname', 'realname', 'role', 'motto', 'registration_date', 'password'];
+            for (var item of items) {
+                if (req.query[item] === undefined || req.query[item] === null || req.query[item] === '')
+                    values.push('null');
+                else
+                    values.push('\'' + req.query[item] + '\'');
+            }
+            sql = 'insert into users values (' + values.join(',') + ')';
+            console.log(sql);
+            do_sql_query(sql, function (result) {
+                if (result.status === 'SUCCESS.') {
+                    resp.status = "SUCCESS.";              // 成功注册
+                    resp.results = req.query;
+                }
+                else {
+                    resp.status = 'FAILED.';
+                    resp.details = result.details;
+                }
+                res.send(JSON.stringify(resp));
+                console.log("[res] ",resp);
+            });
+        }
+    });
 });
 
 module.exports = router;

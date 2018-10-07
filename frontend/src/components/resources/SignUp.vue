@@ -54,6 +54,7 @@
 
 <script>
     import {registerSQL} from "../js/DoSQL";
+    import {createCookie, getCookie} from "../js/Cookie";
 
     export default {
         name: "SignUp",
@@ -81,14 +82,23 @@
                     this.$message("密码不能少于6位。");
                     return;
                 }
+                if (this.inputs.password !== this.re_password) {
+                    this.$message("两次输入的密码不同。");
+                    return;
+                }
                 registerSQL(this.inputs).
                 then((resp) => {
                     console.log(resp);
                     this.$message.success("注册成功！");
+                    createCookie(resp.results);
+                    console.log(getCookie());
                 }).
-                catch((resp) => {    // status = 'DUPLICATION_OF_REGISTRATION.'
+                catch((resp) => {
                     console.log(resp);
-                    this.$message.error("注册失败，用户名已存在！");
+                    if (resp.status === 'DUPLICATION_OF_REGISTRATION.')
+                        this.$message.error("注册失败，用户名已存在！");
+                    else
+                        this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
                 });
             }
         }
