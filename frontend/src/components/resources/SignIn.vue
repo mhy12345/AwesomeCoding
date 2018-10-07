@@ -39,10 +39,15 @@
                 loginSQL(this.inputs).
                 then((resp) => {
                     console.log(resp);
-                    createCookie(this.inputs, this.expire_secs);
+                    var cookie = {
+                        nickname: resp.results.nickname,
+                        password: resp.results.password,
+                        realname: resp.results.realname,
+                    };
+                    createCookie(cookie, this.expire_secs);
                     console.log('Login!', getCookie());
                     this.loading = false;
-                    this.$message.success("登录成功，欢迎回来！" + this.inputs.nickname);     // TODO 显示 realname
+                    this.$message.success("登录成功，欢迎回来！" + resp.results.realname);     // TODO 显示 realname
                 }).
                 catch((resp) => {
                     console.log(resp);

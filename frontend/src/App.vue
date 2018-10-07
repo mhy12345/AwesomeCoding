@@ -98,7 +98,7 @@ export default {
 	        console.log('Try to login: ', myCookie);
             loginSQL(myCookie).then((resp) => {
                 console.log(resp);
-                this.$message.success("欢迎回来！" + myCookie.nickname);     // TODO 显示 realname
+                this.$message.success("欢迎回来！" + myCookie.realname);     // TODO 显示 realname
             }).catch((resp) => {
                 console.log(resp);
                 if (resp.status === 'WRONG_PASSWORD.') {

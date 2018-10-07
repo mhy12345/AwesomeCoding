@@ -2,20 +2,94 @@
     <el-card class="box-card">
         <div slot="header" class="clearfix">
             <span>{{title}}</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
         </div>
-        <div>
+        <div @keydown.enter="signUp">
+            <el-row v-for="(value, key, index) in inputs">
+                <el-col>
+                    <label :for="key">
+                        <i class="el-icon-caret-right" slot="prepend"></i>
+                        {{ heads[index] }}：
+                    </label>
+                </el-col>
+                <el-col>
+                    <el-input v-if="key === 'password'"
+                              :id="key"
+                              type="password"
+                              class="inputbox"
+                              v-model="inputs[key]"
+                              :placeholder="heads[index]">
+                    </el-input>
+                    <el-input v-else
+                              :id="key"
+                              type="text"
+                              class="inputbox"
+                              v-model="inputs[key]"
+                              :placeholder="heads[index]">
+                    </el-input>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col>
+                    <label for="re_password">
+                        <i class="el-icon-caret-right" slot="prepend"></i>
+                        确认密码：
+                    </label>
+                </el-col>
+                <el-col>
+                    <el-input id="re_password"
+                              class="inputbox"
+                              type="password"
+                              v-model="re_password"
+                              placeholder="确认密码">
+                    </el-input>
+                </el-col>
+            </el-row>
 
+        </div>
+        <div align="center">
+            <el-row><el-button type="success" class="registerbutton" @click="signUp">注册</el-button></el-row>
         </div>
     </el-card>
 </template>
 
 <script>
+    import {registerSQL} from "../js/DoSQL";
+
     export default {
         name: "SignUp",
         data() {
             return {
-                title: '欢迎注册'
+                title: '欢迎注册',
+                heads: ['用户名', '真实姓名', '角色', '签名', '密码'],     // 输入框提示词
+                inputs: {        // 输入框的信息
+                    nickname: '',
+                    realname: '',
+                    role: '',
+                    motto: '',
+                    password: '',
+                },
+                re_password: '',
+            }
+        },
+        methods: {
+            signUp: function () {
+                if (this.inputs.nickname === '') {
+                    this.$message("用户名不能为空。");
+                    return;
+                }
+                if (this.inputs.password.length < 6) {
+                    this.$message("密码不能少于6位。");
+                    return;
+                }
+                registerSQL(this.inputs).
+                then((resp) => {
+                    console.log(resp);
+                    this.$message.success("注册成功！");
+                }).
+                catch((resp) => {    // status = 'DUPLICATION_OF_REGISTRATION.'
+                    console.log(resp);
+                    this.$message.error("注册失败，用户名已存在！");
+                });
             }
         }
     }
@@ -41,5 +115,18 @@
 
     .box-card {
         width: 480px;
+    }
+    .inputbox {
+        /*width: 80%;*/
+        margin-bottom: 20px;
+    }
+    .registerbutton {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        width: 200px;
+    }
+    .inputerror {
+        background-color: #ffa392;
+        margin-bottom: 20px;
     }
 </style>
