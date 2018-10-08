@@ -1,6 +1,7 @@
 <template>
 	<el-container>
 		<el-header>
+			<h2>新建课程</h2>
 		</el-header>
 		<el-main>
 			<el-form ref="form" :model="CourseData" label-width="140px">
@@ -70,6 +71,6 @@ export default{
 
 <style scoped>
 h2 {
-	margin:auto;
+	text-align:center;
 }
 </style>

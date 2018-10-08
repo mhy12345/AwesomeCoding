@@ -87,8 +87,8 @@
 </template>
 
 <script>
-import {getCookie} from "./components/js/Cookie";
-import {loginSQL} from "./components/js/DoSQL";
+import {getCookie} from "./utils/Cookie";
+import {loginSQL} from "./utils/DoSQL";
 
 export default {
 	name: 'app',

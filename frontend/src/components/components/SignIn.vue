@@ -15,8 +15,8 @@
 </template>
 
 <script>
-    import {loginSQL} from '../js/DoSQL'
-    import {getCookie, createCookie} from "../js/Cookie";
+    import {loginSQL} from '../../utils/DoSQL'
+    import {getCookie, createCookie} from "../../utils/Cookie";
 
     export default {
         name: "SignIn",

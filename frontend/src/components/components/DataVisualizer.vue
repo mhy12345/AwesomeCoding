@@ -82,8 +82,8 @@
 
 <script>
 import MyBlank from './MyBlank.vue'
-import {copy, deepCopy} from "../js/Copy";
-import {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL} from '../js/DoSQL.js'
+import {copy, deepCopy} from "../../utils/Copy";
+import {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL} from '../../utils/DoSQL.js'
 
 export default {
     //name: "DataVisualizer",

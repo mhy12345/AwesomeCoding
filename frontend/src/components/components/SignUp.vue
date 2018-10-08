@@ -55,8 +55,8 @@
 </template>
 
 <script>
-    import {registerSQL} from "../js/DoSQL";
-    import {createCookie, getCookie} from "../js/Cookie";
+    import {registerSQL} from "../../utils/DoSQL";
+    import {createCookie, getCookie} from "../../utils/Cookie";
 
     export default {
         name: "SignUp",
