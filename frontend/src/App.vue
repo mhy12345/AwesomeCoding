@@ -1,6 +1,6 @@
 <template>
 	<el-container id="app">
-		<el-header id="nav-header">
+		<el-header id="nav-header" class='sticky-top'>
 			<div>
 				<span>
 					LOGO[TITLE]
@@ -18,7 +18,8 @@
 				<el-menu class="el-menu-vertical-demo"
                          :default-active="activeIndex"
                          collapse-transition :collapse="isCollapse"
-                         @select='selectItem'>
+                         @select='selectItem'
+						 >
 					<el-menu-item index='collapse'>
 						<i v-if="isCollapse" class='el-icon-arrow-right'></i>
 						<i v-else class='el-icon-arrow-left'></i>
@@ -75,9 +76,11 @@
 
 				</el-menu>
 			</el-aside>
-			<el-main>
-				<router-view>
-				</router-view>
+			<el-main style='overflow-y:scroll;height:700px'>
+				<div style='min-height:800px'>
+					<router-view>
+					</router-view>
+				</div>
 			</el-main>
 		</el-container>
 	</el-container>
@@ -109,11 +112,11 @@ export default {
         }
 
 		return {
-			isCollapse: true,
+			isCollapse: false,
 			activeIndex : '/',
 		}
 	},
-	methods :{
+	methods: {
 		selectItem(key) {
 			if (key === "collapse") {
 				this.isCollapse = !this.isCollapse;
@@ -121,7 +124,13 @@ export default {
 				this.$router.push(key);
 				console.log(key);
 			}
-		}
+		},
+        handleLogin() {
+            this.selectItem('/user/sign_in');
+        },
+        handleRegister() {
+		    this.selectItem('/user/sign_up');
+        }
 	}
 };
 </script>
@@ -133,11 +142,13 @@ body {
 .el-header {
     color: #333;
     line-height: 60px;
-	height: 80px;
 }
-.el-aside {
-    background-color: #b6c9ea;
-    color: #333;
+.sticky-top {
+	position: -webkit-sticky;
+	position: sticky;
+	background-color: #fff;
+    top: 0;
+	z-index: 10;
 }
 #app {
 	font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -150,6 +161,12 @@ body {
 	border-bottom:10px;
 }
 
+.el-aside {
+	min-height:100%;
+}
+.el-menu {
+	min-height:100%;
+}
 #nav-header {
 	border-bottom:1px solid #e6e6e6;
 	color:#909399;

@@ -15,6 +15,7 @@
                     <el-input v-if="key === 'password'"
                               :id="key"
                               type="password"
+                              clearable
                               class="inputbox"
                               v-model="inputs[key]"
                               :placeholder="heads[index]">
@@ -22,6 +23,7 @@
                     <el-input v-else
                               :id="key"
                               type="text"
+                              clearable
                               class="inputbox"
                               v-model="inputs[key]"
                               :placeholder="heads[index]">
@@ -84,6 +86,10 @@
                 }
                 if (this.inputs.password !== this.re_password) {
                     this.$message("两次输入的密码不同。");
+                    return;
+                }
+                if (this.inputs.role === '') {
+                    this.$message("角色不能为空。");
                     return;
                 }
                 registerSQL(this.inputs).
