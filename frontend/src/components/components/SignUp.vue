@@ -15,6 +15,7 @@
                     <el-input v-if="key === 'password'"
                               :id="key"
                               type="password"
+                              clearable
                               class="inputbox"
                               v-model="inputs[key]"
                               :placeholder="heads[index]">
@@ -22,6 +23,7 @@
                     <el-input v-else
                               :id="key"
                               type="text"
+                              clearable
                               class="inputbox"
                               v-model="inputs[key]"
                               :placeholder="heads[index]">

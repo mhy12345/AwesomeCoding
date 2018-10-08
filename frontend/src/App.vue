@@ -113,7 +113,7 @@ export default {
         }
 
 		return {
-			isCollapse: true,
+			isCollapse: false,
 			activeIndex : '/',
 		}
 	},
