@@ -1,7 +1,17 @@
 <template>
 	<el-container id="app">
-		<el-header>
-			LOGO
+		<el-header id="nav-header">
+			<div>
+				<span>
+					LOGO[TITLE]
+				</span>
+				<div style='float:right'>
+					<el-menu mode="horizontal" @select='selectItem'>
+						<el-menu-item index="/user/sign_up"> 注册 </el-menu-item>
+						<el-menu-item index="/user/sign_in"> 登陆 </el-menu-item>
+					</el-menu>
+				</div>
+			</div>
 		</el-header>
 		<el-container>
 			<el-aside width="">
@@ -20,18 +30,6 @@
 						<i class="el-icon-menu"></i>
 						<span slot="title">主页</span>
 					</el-menu-item>
-                    <el-submenu index="/users">
-                        <template slot="title">
-                            <i class="el-icon-star-on"></i>
-                            <span slot="title">用户</span>
-                        </template>
-                        <el-menu-item index="/user/sign_in">
-                            <span slot="title">登录</span>
-                        </el-menu-item>
-                        <el-menu-item index="/user/sign_up">
-                            <span slot="title">注册</span>
-                        </el-menu-item>
-                    </el-submenu>
 
 					<el-submenu index="/developer">
 						<template slot="title">
@@ -129,9 +127,13 @@ export default {
 </script>
 
 <style>
+body {
+	margin:0px;
+}
 .el-header {
     color: #333;
     line-height: 60px;
+	height: 80px;
 }
 .el-aside {
     background-color: #b6c9ea;
@@ -143,9 +145,13 @@ export default {
 	-moz-osx-font-smoothing: grayscale;
 	color: #2c3e50;
 }
-a{text-decoration:none}
 
-.el-menu-vertical-demo {
-	height:100%
+.el-menu-item .is-active {
+	border-bottom:10px;
+}
+
+#nav-header {
+	border-bottom:1px solid #e6e6e6;
+	color:#909399;
 }
 </style>
