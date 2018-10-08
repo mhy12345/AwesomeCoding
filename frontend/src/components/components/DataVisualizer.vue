@@ -81,12 +81,12 @@
 </template>
 
 <script>
-import MyBlank from './MyBlank'
+import MyBlank from './MyBlank.vue'
 import {copy, deepCopy} from "../js/Copy";
 import {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL} from '../js/DoSQL.js'
 
 export default {
-    name: "DataVisualizer",
+    //name: "DataVisualizer",
     data() {
         return {
             table_name: '',

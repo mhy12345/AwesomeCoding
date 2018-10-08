@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import MyBlank from '../components/resources/MyBlank'
+import MyBlank from '../components/components/MyBlank'
 
 var default_options = ['details']
 var supported_options = {
