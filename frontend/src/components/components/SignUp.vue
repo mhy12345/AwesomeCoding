@@ -86,6 +86,10 @@
                     this.$message("两次输入的密码不同。");
                     return;
                 }
+                if (this.inputs.role === '') {
+                    this.$message("角色不能为空。");
+                    return;
+                }
                 registerSQL(this.inputs).
                 then((resp) => {
                     console.log(resp);

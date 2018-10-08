@@ -1,7 +1,9 @@
 <template>
 	<el-container id="app">
-		<el-header>
-			LOGO
+		<el-header class="sticky-top" style="z-index: 10">
+			<p style="position: relative; left: 0; top: -10px;">LOGO</p>
+            <el-button style="position: absolute; right: 60px; top: 10px;" type="text" @click="handleLogin">登录</el-button>
+            <el-button style="position: absolute; right: 10px; top: 10px;" type="text" @click="handleRegister">注册</el-button>
 		</el-header>
 		<el-container>
 			<el-aside width="">
@@ -115,7 +117,7 @@ export default {
 			activeIndex : '/',
 		}
 	},
-	methods :{
+	methods: {
 		selectItem(key) {
 			if (key === "collapse") {
 				this.isCollapse = !this.isCollapse;
@@ -123,7 +125,13 @@ export default {
 				this.$router.push(key);
 				console.log(key);
 			}
-		}
+		},
+        handleLogin() {
+            this.selectItem('/user/sign_in');
+        },
+        handleRegister() {
+		    this.selectItem('/user/sign_up');
+        }
 	}
 };
 </script>
@@ -136,6 +144,13 @@ export default {
 .el-aside {
     background-color: #b6c9ea;
     color: #333;
+}
+.sticky-top {
+	position: -webkit-sticky;
+	position: sticky;
+    top: 0;
+	background-color: #f3fdff;
+	border-bottom: 2px solid #c3ddf0;
 }
 #app {
 	font-family: 'Avenir', Helvetica, Arial, sans-serif;

@@ -1,5 +1,8 @@
+<!--统一在这个页面里进行vue的测试-->
 <template>
     <div id="test-view">
+        <div class="sticky-top"><h1>这是一个粘性的header</h1></div>
+
         <h1>Test of cookie</h1>
         <h2>Date = {{ cur_date }}</h2>
         <h2>Date2 = {{ cur_date2 }}</h2>
