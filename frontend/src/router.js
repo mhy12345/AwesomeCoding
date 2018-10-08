@@ -1,11 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import Class from './views/Class.vue'
-import Developer from './views/Developer'
-import User from './views/User.vue'
-import ClassDetails from './components/resources/ClassDetails.vue'
-import AudioPanel from './components/resources/AudioPanel.vue'
 
 Vue.use(Router);
 
@@ -20,12 +14,12 @@ export default new Router({
         {
             path: '/home',
             name: 'home',
-            component: Home
+            component: () => import('./views/Home.vue')
         },
 		{
 			path: '/class/:class_id',
 			name: 'class',
-			component: Class,
+			component: () => import('./views/Lecture.vue'),
 			children: [
 				{
 					path: '',
@@ -33,17 +27,17 @@ export default new Router({
 				},
 				{
 					path: 'details',
-					component : ClassDetails,
+					component : () => import('./components/resources/Details.vue'),
 					name: 'class-details'
 				},
 				{
 					path: 'live',
-					component: () => import('./components/resources/VideoPlayer.vue'),
+					component: () => import('./components/resources/Live.vue'),
 					name: 'class-live'
 				},
 				{
 					path: 'materials',
-					component : () => import('./components/resources/ClassMaterials.vue'),
+					component : () => import('./components/resources/Materials.vue'),
 					name: 'class-materials'
 				}
 			]
@@ -58,47 +52,47 @@ export default new Router({
 			name: 'enter-courses',
 			component: () => import('./views/CoursesList.vue')
 		},
-		{
-			path: '/classes',
-			name: 'classes',
-			component: () => import('./views/Classes.vue')
-		},
         {
             path: '/developer',
             name: 'Developer',
-            component: Developer,
+			component: () => import('./views/Developer.vue'),
             children: [
                 {
                     path: 'data_visualizer',
                     name: 'DataVisualizer',
-                    component: () => import('./components/resources/DataVisualizer.vue')
+                    component: () => import('./components/components/DataVisualizer.vue')
                 },
                 {
                     path: 'test',
                     name: 'Test',
-                    component: () => import('./components/resources/Test.vue')
+                    component: () => import('./components/components/Test.vue')
                 },
                 {
-                    path: 'testplayer',
+                    path: 'live_player',
                     name: 'TestPlayer',
-                    component: () => import('./components/resources/TestPlayer.vue')
-                }
+                    component: () => import('./components/components/TestPlayer.vue')
+                },
+				{
+					path: 'video_player',
+					name: 'videoPlayer',
+					component: () => import('./components/components/VideoPlayer.vue')
+				}
             ]
         },
         {
             path: '/user',
             name: 'User',
-            component: User,
+            component : () => import('./views/User.vue'),
             children: [
                 {
                     path: 'sign_in',
                     name: 'SignIn',
-                    component: () => import('./components/resources/SignIn.vue')
+                    component: () => import('./components/components/SignIn.vue')
                 },
                 {
                     path: 'sign_up',
                     name: 'SignUp',
-                    component: () => import('./components/resources/SignUp.vue')
+                    component: () => import('./components/components/SignUp.vue')
                 }
             ]
         },
