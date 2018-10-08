@@ -1,5 +1,17 @@
 <template>
     <div id="test-view">
+        <h1>Test of cookie</h1>
+        <h2>Date = {{ cur_date }}</h2>
+        <h2>Date2 = {{ cur_date2 }}</h2>
+        <el-button type="primary" @click="getCookies">获取cookies</el-button>
+        <li v-for="cookie in cookies">{{ cookie }}</li>
+        <br> <br>
+
+        <el-input placeholder="input cookie name..." v-model="new_cookie.name"></el-input>
+        <el-input placeholder="input cookie value..." v-model="new_cookie.value"></el-input>
+        <el-button type="success" @click="createCookie">创建cookie</el-button>
+
+        <h1>Test of hosts</h1>
         <h2>host1: {{host.host1}} host2: {{host.host2}}</h2>
         <h3>current url: {{ my_url }}</h3>
         <h3>current protocol: {{ my_protocol }}</h3>
@@ -36,6 +48,9 @@ import EditDialog from './EditDialog'
 export default {
     name: 'Test',
     data () {
+        var date = new Date();
+        var date2 = new Date();
+        date2.setTime(date.getTime() + 60 * 1000);
         return {
             host: {
                 host1: window.location.host,
@@ -53,7 +68,15 @@ export default {
                 input: '',
                 response: false
             },
-            showColumn: true
+            showColumn: true,
+            cookies: [],
+            exp_secs: 120,
+            new_cookie: {
+                name: '',
+                value: '',
+            },
+            cur_date: date.toUTCString(),
+            cur_date2: date2.toUTCString()
         }
     },
     methods: {
@@ -65,6 +88,23 @@ export default {
             //console.log("对话框关闭。");
             if (this.dialog.response === true)
                 this.input = this.dialog.input;
+        },
+        getCookies: function () {
+            var str_cookie = document.cookie;
+            console.log(str_cookie);
+            var list = str_cookie.split(';');
+            this.cookies = [];
+            for (var cookie of list) {
+                this.cookies.push(cookie.trim());
+            }
+            console.log(this.cookies);
+        },
+        createCookie: function () {
+            var d = new Date();
+            d.setTime(d.getTime() + this.exp_secs * 1000);
+            var str_cookie = this.new_cookie.name + '=' + this.new_cookie.value + ';' + "expires=" + d.toUTCString();       // 这相当于一个字典，‘=’兼有判重和追加的作用
+            document.cookie = str_cookie;
+            this.getCookies();
         }
     },
     components: {

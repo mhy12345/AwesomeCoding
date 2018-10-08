@@ -1,80 +1,83 @@
 <template>
-    <div id="DataVisualizer">
+    <el-container id="DataVisualizer">
         <h2>数据库查看器</h2>
-        <div id="load-table" style="width: 30%; margin: auto;" v-on:keydown.enter="submitLoad">
-            <el-input prefix-icon="el-icon-search" placeholder="输入数据库名称..." v-model="input.table_name">
-                <el-button slot="append" icon="el-icon-refresh" v-on:click="submitLoad">载入数据</el-button>
-            </el-input>
-        </div>
+        <el-header>
+            <div id="load-table" style="width: 30%; margin: auto;" v-on:keydown.enter="submitLoad">
+                <el-input prefix-icon="el-icon-search" placeholder="输入数据库名称..." v-model="input.table_name">
+                    <el-button slot="append" icon="el-icon-refresh" v-on:click="submitLoad">载入数据</el-button>
+                </el-input>
+            </div>
+        </el-header>
 
         <!--以下是显示的数据，仅在用户点击了载入数据时显示-->
         <el-collapse-transition>
-            <div v-if="loaded" id="visualizer">
-                <my-blank></my-blank>
-                <!--表格UI-->
-                <el-table id="display-table"
-                          :data="table_data"
-                          style="width: 80%; margin: auto"
-                          highlight-current-row stripe>
+        <div v-if="loaded" id="visualizer">
+            <my-blank></my-blank>
+            <!--表格UI-->
+            <el-table id="display-table"
+                      :data="table_data"
+                      style="width: 80%; margin: auto"
+                      highlight-current-row stripe>
 
-                    <el-table-column v-for="col in heads"
-                                     :label="col"
-                                     align="center"
-                                     :prop="col">
-                    </el-table-column>
+                <el-table-column v-for="col in heads"
+                                 :label="col"
+                                 align="center"
+                                 :prop="col">
+                </el-table-column>
 
-                    <el-table-column align="center" label="操作">
-                        <template slot-scope="scope">
-                            <el-button type="warning"
-                                       icon="el-icon-edit" circle
-                                       @click="submitEdit(scope.row)">
-                            </el-button>
-                            <el-button type="danger"
-                                       icon="el-icon-delete" circle
-                                       @click="submitDelete(scope.row.id)">
-                            </el-button>
-                        </template>
-                    </el-table-column>
+                <el-table-column align="center" label="操作">
+                    <template slot-scope="scope">
+                        <el-button type="warning"
+                                   icon="el-icon-edit" circle
+                                   @click="submitEdit(scope.row)">
+                        </el-button>
+                        <el-button type="danger"
+                                   icon="el-icon-delete" circle
+                                   @click="submitDelete(scope.row.id)">
+                        </el-button>
+                    </template>
+                </el-table-column>
 
-                </el-table>
+            </el-table>
 
-                <my-blank></my-blank>
+            <my-blank></my-blank>
 
-                <!--添加数据的UI-->
-                <div id='inputs-add' @keydown.enter="submitAdd">
-                    <el-row style="width: 80%; margin: auto;">
-                        <el-col :span="2"><label>添加数据：</label></el-col>
-                        <el-col :span="3" v-for="col in heads">
-                            <el-input type="text" size="mini" style="width: 98%;"
-                                      v-model="input.items[col]"
-                                      :placeholder="col">
-                            </el-input>
-                        </el-col>
-                        <el-col :span="1"><el-button size="mini" @click="submitAdd">添加</el-button></el-col>
-                    </el-row>
-                </div>
-                <my-blank></my-blank>
-
-                <!--修改数据的对话框-->
-                <el-dialog id="dialog-edit"
-                           title="修改行"
-                           :visible.sync="edit_dialog.visual"
-                           width="30%">
-                    <div id="change-inputs" @keydown.enter="submitChange">
-                        <el-input type="text" size="mini" style="width: 98%; margin-bottom: 10px"
-                                  v-for="col in heads"
-                                  v-model="edit_dialog.row[col]"
+            <!--添加数据的UI-->
+            <div id='inputs-add' @keydown.enter="submitAdd">
+                <el-row style="width: 80%; margin: auto;">
+                    <el-col :span="2"><label>添加数据：</label></el-col>
+                    <el-col :span="3" v-for="col in heads">
+                        <el-input type="text" size="mini" style="width: 98%;"
+                                  v-model="input.items[col]"
                                   :placeholder="col">
                         </el-input>
-                    </div>
-                    <span slot="footer" class="dialog-footer">
+                    </el-col>
+                    <el-col :span="1"><el-button size="mini" @click="submitAdd">添加</el-button></el-col>
+                </el-row>
+            </div>
+            <my-blank></my-blank>
+
+            <!--修改数据的对话框-->
+            <el-dialog id="dialog-edit"
+                       title="修改行"
+                       :visible.sync="edit_dialog.visual"
+                       width="30%">
+                <div id="change-inputs" @keydown.enter="submitChange">
+                    <el-input type="text" size="mini" style="width: 98%; margin-bottom: 10px"
+                              v-for="col in heads"
+                              v-model="edit_dialog.row[col]"
+                              :placeholder="col">
+                    </el-input>
+                </div>
+                <span slot="footer" class="dialog-footer">
                     <el-button @click="edit_dialog.visual = false">取 消</el-button>
                     <el-button type="primary" @click="submitChange">确 认</el-button>
                 </span>
-                </el-dialog>
-            </div>
+            </el-dialog>
+        </div>
         </el-collapse-transition>
-    </div>
+
+    </el-container>
 </template>
 
 <script>

@@ -22,7 +22,8 @@ function doSQL (query)      // 使用ajax，向后端数据库发出 query 请�
                     reject(resp);                                      // 处理错误操作
             }
         };
-        var query_url = window.location.protocol + '//' + window.location.host + '/api/' + query;
+        var query_url = window.location.protocol + '//' + window.location.host + '/api/' + query; // TODO use this line when npm build
+        // var query_url = 'http://127.0.0.1/api/' + query;
         xmlhttp.open("GET", query_url, true);     // 向服务端发出get 请求
         xmlhttp.send();
         console.log('Request sent!\n', query_url);
@@ -69,9 +70,17 @@ function updateSQL(table_name, row) {
     return doSQL(query);
 }
 
-function loginSQL(user) {
+function loginSQL(user) {           // TODO 改为 post 版本，需要后端的支持
     var query = "login?nickname=" + user.nickname + "&password=" + user.password;
     return doSQL(query);
 }
 
-export {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL, loginSQL}
+function registerSQL(user) {
+    var query = "register?";
+    for (var item in user) {
+        query += item + "=" + user[item] + "&";
+    }
+    return doSQL(query);
+}
+
+export {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL, loginSQL, registerSQL}

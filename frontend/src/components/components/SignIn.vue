@@ -4,8 +4,8 @@
             <span>{{title}}</span>
         </div>
         <div @keydown.enter="signIn">
-            <el-input placeholder="用户名..." v-model="input.nickname" class="inputbox" clearable></el-input>
-            <el-input placeholder="密码..." v-model="input.password" class="inputbox" type="password" clearable></el-input>
+            <el-input placeholder="用户名..." v-model="inputs.nickname" class="inputbox" clearable></el-input>
+            <el-input placeholder="密码..." v-model="inputs.password" class="inputbox" type="password" clearable></el-input>
         </div>
         <div align="center">
             <el-row><el-button type="primary" class="loginbutton" @click="signIn">登录</el-button></el-row>
@@ -16,35 +16,49 @@
 
 <script>
     import {loginSQL} from '../js/DoSQL'
+    import {getCookie, createCookie} from "../js/Cookie";
+
     export default {
         name: "SignIn",
         data() {
             return {
                 title: '欢迎登录',
-                input: {
+                inputs: {
                     nickname: '',
                     password: ''
                 },
-                loading: false
+                loading: false,
+                expire_secs: 300,         // cookie 的有效期 TODO 改为 1 天或更多
             }
         },
         methods: {
             signIn: function () {
-                // TODO send login info
                 this.loading = true;
-                loginSQL(this.input).then((resp) => {
+                // createCookie(this.inputs, this.expire_secs);
+                // console.log(getCookie());
+                loginSQL(this.inputs).
+                then((resp) => {
                     console.log(resp);
+                    var cookie = {
+                        nickname: resp.results.nickname,
+                        password: resp.results.password,
+                        realname: resp.results.realname,
+                    };
+                    createCookie(cookie, this.expire_secs);
+                    console.log('Login!', getCookie());
                     this.loading = false;
-                    this.$message.success("登录成功。");
-                }).catch((resp) => {
+                    this.$message.success("登录成功，欢迎回来！" + resp.results.realname);
+                }).
+                catch((resp) => {
                     console.log(resp);
                     this.loading = false;
                     if (resp.status === 'WRONG_PASSWORD.') {
-                        this.$message.error("密码错误！");
+                        this.$message.error("登录失败，密码错误！");
                     }
-                    else {
-                        this.$message.error("用户名不存在！");
+                    else if (resp.status === 'USER_NOT_FOUND.') {
+                        this.$message.error("登录失败，用户名不存在！");
                     }
+                    else this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.details));
                 });
             },
             forget: function () {
