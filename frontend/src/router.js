@@ -62,6 +62,11 @@ export default new Router({
                     name: 'DataVisualizer',
                     component: () => import('./components/components/DataVisualizer.vue')
                 },
+				{
+					path: 'file_uploader',
+					name: 'FileUploader',
+                    component: () => import('./components/components/FileUploader.vue')
+				},
                 {
                     path: 'test',
                     name: 'Test',

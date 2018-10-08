@@ -4,22 +4,6 @@ var get_connection = require('../utils/database');
 var crypto = require('crypto');
 var moment = require('moment');
 
-Date.prototype.Format = function (fmt) { //author: meizz 
-	var o = {
-		"M+": this.getMonth() + 1, //月份 
-		"d+": this.getDate(), //日 
-		"h+": this.getHours(), //小时 
-		"m+": this.getMinutes(), //分 
-		"s+": this.getSeconds(), //秒 
-		"q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-		"S": this.getMilliseconds() //毫秒 
-	};
-	if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-	for (var k in o)
-		if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-	return fmt;
-}
-
 function do_sql_query(sql, callback) {           // 执行数据库命令
     var result = {
         query: sql,
@@ -254,6 +238,32 @@ router.get('/register', function(req,res,next) { //注册新用户，不吐不�
         }
     });
 });
+
+var multer  = require('multer');
+var upload = multer({dest: 'uploads/'});
+var fs = require('fs');
+
+router.post('/upload', upload.any(), function(req, res, next) {
+	console.log(req.files[0]);  // 上传的文件信息
+
+	var des_file = "./uploads/" + req.files[0].originalname;
+	fs.readFile( req.files[0].path, function (err, data) {
+		fs.writeFile(des_file, data, function (err) {
+			if( err ){
+				console.log( err );
+			}else{
+				response = {
+					message:'File uploaded successfully',
+					filename:req.files[0].originalname
+				};
+				console.log( response );
+				res.end( JSON.stringify( response ) );
+			}
+		});
+	});
+});
+
+
 
 module.exports = router;
 

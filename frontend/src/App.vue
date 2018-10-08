@@ -40,6 +40,7 @@
 						<el-menu-item-group>
 							<span slot="title">数据库操作</span>
 							<el-menu-item index="/developer/data_visualizer">数据表修改</el-menu-item>
+							<el-menu-item index="/developer/file_uploader">文件上传</el-menu-item>
                         </el-menu-item-group>
 
                         <el-menu-item-group title="测试页面">
