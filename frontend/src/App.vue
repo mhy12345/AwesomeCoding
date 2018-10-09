@@ -59,6 +59,20 @@
 						<el-menu-item index="/developer/file_viewer">文件查看</el-menu-item>
 						<el-menu-item index="1-4-1">选项1</el-menu-item>
 					</el-submenu>
+
+                    <el-submenu index="/users">
+                        <template slot="title">
+                            <i class="el-icon-star-on"></i>
+                            <span slot="title">用户</span>
+                        </template>
+                        <el-menu-item index="/user/sign_in">
+                            <span slot="title">登录</span>
+                        </el-menu-item>
+                        <el-menu-item index="/user/sign_up">
+                            <span slot="title">注册</span>
+                        </el-menu-item>
+                    </el-submenu>
+
 					<el-submenu index="/courses">
 						<template slot='title'>
 							<i class='el-icon-news'></i>
