@@ -7,7 +7,7 @@ function get_connection(callback) { //获取连接connection，并调用回调�
     connection = mysql.createConnection(mysql_config);
     connection.connect(function (err) {
         if (err) {
-            if (err.code == 'ER_BAD_DB_ERROR') {
+            if (err.code === 'ER_BAD_DB_ERROR') {
                 console.log("BAD DATABASE!");
                 mysql_init(callback);
                 return;
