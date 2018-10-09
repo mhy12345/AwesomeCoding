@@ -30,8 +30,8 @@ function doSQL (parent, query)      // 使用ajax，向后端数据库发出 que
     });*/
 
     // TODO simply use get('/api' + query)
-    // var query_url = 'http://127.0.0.1:8888/api' + query;
-    var query_url = '/api' + query;
+    var query_url = 'http://127.0.0.1:8888/api' + query;
+    // var query_url = '/api' + query;
     console.log('[get] request sent!', query_url);
     return parent.$http.get(query_url).then((resp) => {
         console.log(resp);
@@ -86,8 +86,8 @@ function updateSQL(parent, table_name, row) {
 
 function postSQL(parent, query, params) {       // 向服务器发出post请求
     // TODO simply use post('/api' + query) when push
-    // var query_url = 'http://127.0.0.1:8888/api' + query;
-    var query_url = '/api' + query;
+    var query_url = 'http://127.0.0.1:8888/api' + query;
+    // var query_url = '/api' + query;
     console.log('[post] request sent!', query_url);
     return parent.$http.post(query_url, params).then((resp) => {
         console.log(resp);

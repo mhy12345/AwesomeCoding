@@ -114,8 +114,8 @@ export default {
         // }
 
         // todo simplify into '/login/is_login'
-        // this.$http.get('http://127.0.0.1:8888/api/login/is_login').
-        this.$http.get('/api/login/is_login').
+        this.$http.get('http://127.0.0.1:8888/api/login/is_login').
+        // this.$http.get('/api/login/is_login').
         then((resp) => {
             console.log(resp);
             if (resp.body.islogin)
