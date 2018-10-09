@@ -16,9 +16,9 @@
 		<el-container>
 			<el-aside width="">
 				<el-menu class="el-menu-vertical-demo"
-                         :default-active="activeIndex"
-                         collapse-transition :collapse="isCollapse"
-                         @select='selectItem'
+						 :default-active="activeIndex"
+						 collapse-transition :collapse="isCollapse"
+						 @select='selectItem'
 						 >
 					<el-menu-item index='collapse'>
 						<i v-if="isCollapse" class='el-icon-arrow-right'></i>
@@ -41,30 +41,28 @@
 							<span slot="title">数据库操作</span>
 							<el-menu-item index="/developer/data_visualizer">数据表修改</el-menu-item>
 							<el-menu-item index="/developer/file_uploader">文件上传</el-menu-item>
-                        </el-menu-item-group>
+						</el-menu-item-group>
 
-                        <el-menu-item-group title="测试页面">
+						<el-menu-item-group title="测试页面">
 							<el-menu-item index="/developer/live_player">直播测试</el-menu-item>
 							<el-menu-item index="/developer/video_player">视频测试</el-menu-item>
 							<el-menu-item index="/developer/test">测试</el-menu-item>
-                        </el-menu-item-group>
+						</el-menu-item-group>
 
-                        <el-submenu index="1-4">
-                            <span slot="title">选项4</span>
-                            <el-menu-item index="1-4-1">选项1</el-menu-item>
-                        </el-submenu>
+						<el-menu-item index="/developer/file_viewer">文件查看</el-menu-item>
+						<el-menu-item index="1-4-1">选项1</el-menu-item>
 					</el-submenu>
 					<el-submenu index="/courses">
 						<template slot='title'>
 							<i class='el-icon-news'></i>
 							<span>课程</span>
 						</template>
-                        <el-menu-item index="/courses/add">
-                            <span slot="title">新建课程</span>
-                        </el-menu-item>
-                        <el-menu-item index="/courses/enter">
-                            <span slot="title">进入课程</span>
-                        </el-menu-item>
+						<el-menu-item index="/courses/add">
+							<span slot="title">新建课程</span>
+						</el-menu-item>
+						<el-menu-item index="/courses/enter">
+							<span slot="title">进入课程</span>
+						</el-menu-item>
 					</el-submenu>
 					<el-menu-item index="/class/123">
 						<i class='el-icon-service'></i>
@@ -94,23 +92,23 @@ import {loginSQL} from "./utils/DoSQL";
 export default {
 	name: 'app',
 	data() {
-	    var myCookie = getCookie();     // 在网站的所有页面上都检查 cookie 中有没有登录的信息
-	    if (myCookie.nickname && myCookie.password) {
-	        console.log('Try to login: ', myCookie);
-            loginSQL(myCookie).then((resp) => {
-                console.log(resp);
-                this.$message.success("欢迎回来！" + myCookie.realname);
-            }).catch((resp) => {
-                console.log(resp);
-                if (resp.status === 'WRONG_PASSWORD.') {
-                    this.$message.error("登录失败，密码错误！");
-                }
-                else if (resp.status === 'USER_NOT_FOUND.') {
-                    this.$message.error("登录失败，用户名不存在！");
-                }
-                else this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.details));
-            });
-        }
+		var myCookie = getCookie();	 // 在网站的所有页面上都检查 cookie 中有没有登录的信息
+		if (myCookie.nickname && myCookie.password) {
+			console.log('Try to login: ', myCookie);
+			loginSQL(myCookie).then((resp) => {
+				console.log(resp);
+				this.$message.success("欢迎回来！" + myCookie.realname);
+			}).catch((resp) => {
+				console.log(resp);
+				if (resp.status === 'WRONG_PASSWORD.') {
+					this.$message.error("登录失败，密码错误！");
+				}
+				else if (resp.status === 'USER_NOT_FOUND.') {
+					this.$message.error("登录失败，用户名不存在！");
+				}
+				else this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.details));
+			});
+		}
 
 		return {
 			isCollapse: false,
@@ -126,12 +124,12 @@ export default {
 				console.log(key);
 			}
 		},
-        handleLogin() {
-            this.selectItem('/user/sign_in');
-        },
-        handleRegister() {
-		    this.selectItem('/user/sign_up');
-        }
+		handleLogin() {
+			this.selectItem('/user/sign_in');
+		},
+		handleRegister() {
+			this.selectItem('/user/sign_up');
+		}
 	}
 };
 </script>
@@ -141,14 +139,14 @@ body {
 	margin:0px;
 }
 .el-header {
-    color: #333;
-    line-height: 60px;
+	color: #333;
+	line-height: 60px;
 }
 .sticky-top {
 	position: -webkit-sticky;
 	position: sticky;
 	background-color: #fff;
-    top: 0;
+	top: 0;
 	z-index: 10;
 }
 #app {

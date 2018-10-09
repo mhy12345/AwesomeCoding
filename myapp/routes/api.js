@@ -97,7 +97,7 @@ router.get('/delete_class', function(req, res, next) { //根据id删除班级
 	});
 });
 
-router.post('/class_resources', function(req, res, next) {
+router.post('/class_resources', function(req, res, next) { 
 	var sql = 'SELECT resource FROM resources WHERE `class_id` = '+req.body.class_id;
 	var result = {};
 	do_sql_query(sql,function(sql_res) {
