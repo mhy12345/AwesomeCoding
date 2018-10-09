@@ -1,6 +1,6 @@
 <template>
 	<el-container id="app">
-		<el-header id="nav-header">
+		<el-header id="nav-header" style='height:62px'>
 			<div>
 				<span style="position: absolute; top: 20px;">
 					LOGO  {{ title }}
@@ -156,6 +156,10 @@ body {
 
 .el-menu-item .is-active {
     border-bottom: 10px;
+}
+
+.el-menu {
+	background-color : transparent;
 }
 
 #nav-header {
