@@ -1,6 +1,6 @@
-function doSQL (query)      // 使用ajax，向后端数据库发出 query 请求，然后回调 handleResponse 处理响应
+function doSQL (parent, query)      // 使用ajax，向后端数据库发出 query 请求，然后回调 handleResponse 处理响应
 {
-    return new Promise((resolve, reject) => {
+    /*return new Promise((resolve, reject) => {
         var xmlhttp;
         if (window.XMLHttpRequest)
         {
@@ -22,24 +22,38 @@ function doSQL (query)      // 使用ajax，向后端数据库发出 query 请�
                     reject(resp);                                      // 处理错误操作
             }
         };
-        var query_url = window.location.protocol + '//' + window.location.host + '/api/' + query; // TODO use this line when npm build
-        // var query_url = 'http://127.0.0.1:8888/api/' + query;
+        // var query_url = window.location.protocol + '//' + window.location.host + '/api/' + query; // TODO use this line when npm build
+        var query_url = 'http://127.0.0.1:8888/api/' + query;
         xmlhttp.open("GET", query_url, true);     // 向服务端发出get 请求
         xmlhttp.send();
         console.log('Request sent!\n', query_url);
+    });*/
+
+    // TODO simply use get('/api' + query)
+    // var query_url = 'http://127.0.0.1:8888/api' + query;
+    var query_url = '/api' + query;
+    console.log('[get] request sent!', query_url);
+    return parent.$http.get(query_url).then((resp) => {
+        console.log(resp);
+        return new Promise((resolve, reject) => {
+            if (resp.body.status === 'SUCCESS.')
+                resolve(resp.body);                                     // 回调函数处理响应
+            else
+                reject(resp.body);                                      // 处理错误操作
+        });
     });
 }
 
-function getSQLColumns(table_name) {      // 加载表头
-    return doSQL("show_columns?table_name=" + table_name);
+function getSQLColumns(parent, table_name) {      // 加载表头
+    return doSQL(parent, "/show_columns?table_name=" + table_name);
 }
 
-function showSQL(table_name) {
-    return doSQL("show_table?table_name=" + table_name);
+function showSQL(parent, table_name) {
+    return doSQL(parent, "/show_table?table_name=" + table_name);
 }
 
-function insertSQL(table_name, new_row, handleThen, handleError) {
-    var query = "do_query?sql=INSERT INTO " + table_name + " ";
+function insertSQL(parent, table_name, new_row) {
+    var query = "/do_query?sql=INSERT INTO " + table_name + " ";
     var values = [];
     for (var item in new_row) {
         if (new_row[item] === null || new_row[item] === '')
@@ -48,16 +62,16 @@ function insertSQL(table_name, new_row, handleThen, handleError) {
             values.push('\'' + new_row[item] + '\'');
     }
     query += "values (" + values.join(',') + ")";
-    return doSQL(query);
+    return doSQL(parent, query);
 }
 
-function deleteSQL(table_name, id) {
-    var query = "do_query?sql=DELETE FROM " + table_name + " WHERE id = " + id;
-    return doSQL(query);
+function deleteSQL(parent, table_name, id) {
+    var query = "/do_query?sql=DELETE FROM " + table_name + " WHERE id = " + id;
+    return doSQL(parent, query);
 }
 
-function updateSQL(table_name, row) {
-    var query = "do_query?sql=UPDATE " + table_name + " SET ";
+function updateSQL(parent, table_name, row) {
+    var query = "/do_query?sql=UPDATE " + table_name + " SET ";
     var arr = [];
     for (var item in row) {
         if (row[item] === null || row[item] === '')
@@ -67,20 +81,31 @@ function updateSQL(table_name, row) {
     }
     query += arr.join(',');
     query += " WHERE id = " + row.id;
-    return doSQL(query);
+    return doSQL(parent, query);
 }
 
-function loginSQL(user) {           // TODO 改为 post 版本，需要后端的支持
-    var query = "login?nickname=" + user.nickname + "&password=" + user.password;
-    return doSQL(query);
+function postSQL(parent, query, params) {       // 向服务器发出post请求
+    // TODO simply use post('/api' + query) when push
+    // var query_url = 'http://127.0.0.1:8888/api' + query;
+    var query_url = '/api' + query;
+    console.log('[post] request sent!', query_url);
+    return parent.$http.post(query_url, params).then((resp) => {
+        console.log(resp);
+        return new Promise((resolve, reject) => {
+            if (resp.body.status === 'SUCCESS.')
+                resolve(resp.body);                                     // 回调函数处理响应
+            else
+                reject(resp.body);                                      // 处理错误操作
+        });
+    });
 }
 
-function registerSQL(user) {
-    var query = "register?";
-    for (var item in user) {
-        query += item + "=" + user[item] + "&";
-    }
-    return doSQL(query);
+function loginSQL(parent, user) {
+    return postSQL(parent, "/login", user);
 }
 
-export {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL, loginSQL, registerSQL}
+function registerSQL(parent, user) {
+    return postSQL(parent, "/register", user);
+}
+
+export {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL, loginSQL, registerSQL, doSQL}

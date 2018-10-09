@@ -119,14 +119,14 @@ export default {
             this.heads = [];
             this.input.items = {};
 
-            getSQLColumns(this.table_name).                             // 异步执行请求，先获取表头
+            getSQLColumns(this, this.table_name).                             // 异步执行请求，先获取表头
             then((resp) => {                                         // 成功，被 getSQLColumns 的 resolve 调用
                 console.log(resp);
                 for (var item of resp.results) {
                     this.heads.push(item['COLUMN_NAME']);
                     this.input.items[item['COLUMN_NAME']] = '';
                 }
-                return showSQL(this.table_name);                        // 然后获取表中数据
+                return showSQL(this, this.table_name);                        // 然后获取表中数据
             }).
             then((resp) => {                                         // 成功，被 showSQL 的 resolve 调用
                 console.log(resp);
@@ -137,10 +137,10 @@ export default {
 
         },
         submitAdd: function () {      // 向后端数据库发出添加数据的请求
-            insertSQL(this.table_name, this.input.items).
+            insertSQL(this, this.table_name, this.input.items).
             then((resp) => {
                 console.log(resp);
-                return showSQL(this.table_name);
+                return showSQL(this, this.table_name);
             }).
             then((resp) => {
                 console.log(resp);
@@ -149,10 +149,10 @@ export default {
             catch(this.handleError)
         },
         submitDelete: function (id) {  // 向后端数据库发出删除数据的请求
-            deleteSQL(this.table_name, id).
+            deleteSQL(this, this.table_name, id).
             then((resp) => {
                 console.log(resp);
-                return showSQL(this.table_name);
+                return showSQL(this, this.table_name);
             }).
             then((resp) => {
                 console.log(resp);
@@ -166,9 +166,9 @@ export default {
         },
         submitChange: function () {   // 向后端数据库发出修改数据的请求
             this.edit_dialog.visual = false;
-            updateSQL(this.table_name, this.edit_dialog.row).then((resp) => {
+            updateSQL(this, this.table_name, this.edit_dialog.row).then((resp) => {
                 console.log(resp);
-                return showSQL(this.table_name);
+                return showSQL(this, this.table_name);
             }).then((resp) => {
                 console.log(resp);
                 this.table_data = resp.results;

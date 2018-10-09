@@ -1,25 +1,27 @@
 <template>
 	<el-container id="app">
-		<el-header id="nav-header" class='sticky-top'>
+		<el-header id="nav-header" style='height:62px'>
 			<div>
-				<span>
-					LOGO[TITLE]
+				<span style="position: absolute; top: 20px;">
+					LOGO  {{ title }}
 				</span>
 				<div style='float:right'>
 					<el-menu mode="horizontal" @select='selectItem'>
-						<el-menu-item index="/user/sign_up"> 注册 </el-menu-item>
 						<el-menu-item index="/user/sign_in"> 登陆 </el-menu-item>
+						<el-menu-item index="/user/sign_up"> 注册 </el-menu-item>
 					</el-menu>
 				</div>
 			</div>
 		</el-header>
 		<el-container>
-			<el-aside width="">
+			<el-aside width="auto">
+                <!--此处el-menu设置"min-height: 100%"的目的是使菜单在项目较少的时候也能充满左边的导航栏 by ZFS-->
 				<el-menu class="el-menu-vertical-demo"
-						 :default-active="activeIndex"
-						 collapse-transition :collapse="isCollapse"
-						 @select='selectItem'
-						 >
+                         style="min-height: 100%"
+                         background-color="#f1f5f8"
+                         :default-active="activeIndex"
+                         collapse-transition :collapse="isCollapse"
+                         @select='selectItem'>
 					<el-menu-item index='collapse'>
 						<i v-if="isCollapse" class='el-icon-arrow-right'></i>
 						<i v-else class='el-icon-arrow-left'></i>
@@ -75,8 +77,9 @@
 
 				</el-menu>
 			</el-aside>
-			<el-main style='overflow-y:scroll;height:700px'>
-				<div style='min-height:800px'>
+			<el-main>
+				<!--<div style='min-height:800px'>-->
+                <div>
 					<router-view>
 					</router-view>
 				</div>
@@ -92,25 +95,41 @@ import {loginSQL} from "./utils/DoSQL";
 export default {
 	name: 'app',
 	data() {
-		var myCookie = getCookie();	 // 在网站的所有页面上都检查 cookie 中有没有登录的信息
-		if (myCookie.nickname && myCookie.password) {
-			console.log('Try to login: ', myCookie);
-			loginSQL(myCookie).then((resp) => {
-				console.log(resp);
-				this.$message.success("欢迎回来！" + myCookie.realname);
-			}).catch((resp) => {
-				console.log(resp);
-				if (resp.status === 'WRONG_PASSWORD.') {
-					this.$message.error("登录失败，密码错误！");
-				}
-				else if (resp.status === 'USER_NOT_FOUND.') {
-					this.$message.error("登录失败，用户名不存在！");
-				}
-				else this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.details));
-			});
-		}
+	    // var myCookie = getCookie();     // 在网站的所有页面上都检查 cookie 中有没有登录的信息
+        // if (myCookie.nickname && myCookie.password) {
+	    //     // console.log('Try to login: ', myCookie);
+        //     loginSQL(this, myCookie).then((resp) => {
+        //         console.log(resp);
+        //         this.$message.success("欢迎回来！" + myCookie.realname);
+        //     }).catch((resp) => {
+        //         console.log(resp);
+        //         if (resp.status === 'WRONG_PASSWORD.') {
+        //             this.$message.error("登录失败，密码错误！");
+        //         }
+        //         else if (resp.status === 'USER_NOT_FOUND.') {
+        //             this.$message.error("登录失败，用户名不存在！");
+        //         }
+        //         else this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.details));
+        //     });
+        // }
+
+        // todo simplify into '/login/is_login'
+        // this.$http.get('http://127.0.0.1:8888/api/login/is_login').
+        this.$http.get('/api/login/is_login').
+        then((resp) => {
+            console.log(resp);
+            if (resp.body.islogin)
+                this.$message.success("欢迎回来！" + resp.body.realname);
+            else
+                this.$message("请登录。");
+        }).
+        catch((err) => {
+            console.log(err);
+            this.$message.error(JSON.stringify(err, null, 3));
+        });
 
 		return {
+            title: "AwesomeCoding",
 			isCollapse: false,
 			activeIndex : '/',
 		}
@@ -136,38 +155,29 @@ export default {
 
 <style>
 body {
-	margin:0px;
-}
-.el-header {
-	color: #333;
-	line-height: 60px;
-}
-.sticky-top {
-	position: -webkit-sticky;
-	position: sticky;
-	background-color: #fff;
-	top: 0;
-	z-index: 10;
+    margin: 0;
 }
 #app {
 	font-family: 'Avenir', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: #2c3e50;
+    /*以下对position的设定可以保证网页始终能填充满浏览器页面，从而保证跨平台的可能 by ZFS*/
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 .el-menu-item .is-active {
-	border-bottom:10px;
+    border-bottom: 10px;
 }
 
-.el-aside {
-	min-height:100%;
-}
 .el-menu {
-	min-height:100%;
+	background-color : transparent;
 }
+
 #nav-header {
-	border-bottom:1px solid #e6e6e6;
-	color:#909399;
+    border-bottom: 2px solid #d3d4e2;
+    color: #909399;
 }
 </style>
