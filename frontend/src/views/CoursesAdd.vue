@@ -27,32 +27,16 @@
 </template>
 
 <script>
+import {avaliable_resources,default_resources} from '../utils/Resources';
 export default{
 	data(){
 		return {
 			CourseData : {
 				name : "",
 				type : "1",
-				resources : ["details"],
+				resources : default_resources,
 			},
-			avaliable_resources : [
-				{
-					key:'details',
-					label:'班级信息',
-					disabled:true,
-				},
-				{
-					key:'live',
-					label:'直播教学',
-					disabled:false
-				},
-				{
-					key:'materials',
-					label:'课程资料',
-					disabled:false
-				}
-
-			]
+			avaliable_resources : avaliable_resources
 		}
 	},
 	methods : {

@@ -14,14 +14,9 @@
 </template>
 
 <script>
-import MyBlank from '../components/components/MyBlank'
 
-var default_options = ['details']
-var supported_options = {
-	details:'班级信息',
-	live:'直播教学',
-	materials:'课程资料',
-}
+var default_options = ['details'];
+import {supported_resources} from '../utils/Resources';
 
 export default{
 	data(){
@@ -38,9 +33,8 @@ export default{
 			var current_options = this.class_resources ? this.class_resources : default_options;
 			for (var k in current_options) {
 				var key = current_options[k];
-				console.log(key);
 				result.push({
-					name:supported_options[key],
+					name:supported_resources[key].title,
 					route:key
 				});
 			}
@@ -58,7 +52,6 @@ export default{
 
 	methods: {
         onTabClick(a, b, c) {
-            console.log({name: 'class' + this.options[this.activeName].route, params: {class_id: this.title}});
             this.$router.push({name: 'class-' + this.options[this.activeName].route, params: {class_id: this.title}});
         }
 	},

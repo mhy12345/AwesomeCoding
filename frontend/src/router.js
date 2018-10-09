@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import {router_childs} from './utils/Resources'
 
 Vue.use(Router);
+console.log(router_childs);
 
 export default new Router({
     mode: 'history',
@@ -20,27 +22,7 @@ export default new Router({
 			path: '/class/:class_id',
 			name: 'class',
 			component: () => import('./views/Lecture.vue'),
-			children: [
-				{
-					path: '',
-					redirect: 'details',
-				},
-				{
-					path: 'details',
-					component : () => import('./components/resources/Details.vue'),
-					name: 'class-details'
-				},
-				{
-					path: 'live',
-					component: () => import('./components/resources/Live.vue'),
-					name: 'class-live'
-				},
-				{
-					path: 'materials',
-					component : () => import('./components/resources/Materials.vue'),
-					name: 'class-materials'
-				}
-			]
+			children: router_childs//子路由已经在utils/Resources中生成出来了
 		},
 		{
 			path: '/courses/add',
