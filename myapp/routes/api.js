@@ -166,7 +166,7 @@ router.post('/class_info/update', function(req, res, next) {
 		console.log(sql_res);
 		res.send(JSON.stringify(sql_res));
 	});
-})
+});
 
 router.post('/create_class', function(req, res, next) { //创建新班级
 	var title = req.body.title;
@@ -187,21 +187,21 @@ router.post('/create_class', function(req, res, next) { //创建新班级
 		var sql = 'INSERT INTO classes (`title`,`description`,`invitation_code`,`registration_date`) VALUES ("' + title + '","' +description+'","'+invitation_code+'","'+registration_date + '")';
 		console.log(sql);
 		do_sql_query(sql,function(sql_res) {
-			do_sql_query('SELECT MAX(`id`) FROM classes',function(sql_res) {
-				result.status = 'SUCCESS.';
-				console.log(sql_res.results);
-				result.id = sql_res.results[0]['MAX(`id`)'];
-				result.invitation_code = invitation_code;
-				var sql = 'INSERT INTO `resources` (`class_id`,`resource`) VALUES ';
-				for (var w in resources) {
-					sql += '('+result.id+',"'+resources[w]+'"),';
-				}
-				sql = sql.substr(0,sql.length-1);
-				console.log(sql);
-				do_sql_query(sql,function(sql_res) {
-					res.send(JSON.stringify(result,null,3));
-				});
-			});
+            do_sql_query('SELECT MAX(`id`) FROM classes', function (sql_res) {
+                result.status = 'SUCCESS.';
+                console.log(sql_res.results);
+                result.id = sql_res.results[0]['MAX(`id`)'];
+                result.invitation_code = invitation_code;
+                var sql = 'INSERT INTO `resources` (`class_id`,`resource`) VALUES ';
+                for (var w in resources) {
+                    sql += '(' + result.id + ',"' + resources[w] + '"),';
+                }
+                sql = sql.substr(0, sql.length - 1);
+                console.log(sql);
+                do_sql_query(sql, function (sql_res) {
+                    res.send(JSON.stringify(result, null, 3));
+                });
+            });
 		});
 	}
 });
@@ -219,21 +219,21 @@ router.post('/get_classes_list', function(req, res, next) {
 });
 
 
-router.get('/login', function(req, res, next) { // 登录合法判断 返回 JSON
-	var nickname = req.query.nickname;
-	var password = req.query.password;
-	var sql = 'SELECT * FROM users';
-	resp = {
+router.post('/login', function(req, res, next) {  // 响应登录，并进行合法判断 返回 JSON
+    console.log("[post] login\n", req.body);
+    var nickname = req.body.nickname;
+    var password = req.body.password;
+    var sql = 'SELECT * FROM users';
+    resp = {
 		status: 'USER_NOT_FOUND.',
 		results: {},
 	};
-	console.log("LOGIN QUERY", req.query);
 	do_sql_query(sql, function (result) {
-		for (var i = 0; i < result.results.length; i++) {
-			if (nickname === result.results[i].nickname) {
-				if (password === result.results[i].password) {
+		for (var user of result.results) {
+			if (nickname === user.nickname) {
+				if (password === user.password) {
 					resp.status = 'SUCCESS.';
-					resp.results = result.results[i];
+					resp.results = user;
 					break;
 				}
 				else {
@@ -248,59 +248,51 @@ router.get('/login', function(req, res, next) { // 登录合法判断 返回 JSO
 	console.log(next);
 });
 
-router.get('/register', function(req,res,next) { //注册新用户，不吐不快，这一段几乎由前端同学重写了！原先写后端的同学，你们在干吗？写出来的程序既不规范，而且居然还跑不动！
-	console.log("[get]register query: ", req.query);
-	var nickname = req.query.nickname;
-	var password = req.query.password;
+router.post('/register', function(req,res,next) {	// 响应注册，并进行合法判断
+	console.log("[post] register\n", req.body);
 	var resp = {
 		status: '',
 		results: {},
 	};
-	// if (nickname === undefined || password === undefined) {
-	//     console.log("no nickname or password");
-	//     res.send(JSON.stringify(resp));
-	//     return;
-	// }
 	var sql = 'SELECT * FROM users';
-	var tag = 0;
-	// console.log(nickname);
+	var found = false;
 	//判重
-	do_sql_query(sql, function (result) {
-		// console.log(result.results);
-		for (var i = 0; i < result.results.length; i++) {
-			if (nickname === result.results[i].nickname) {
-				tag = 1;
-			}
-		}
-		if (tag === 1) {          // 重复注册 失败
-			resp.status = "DUPLICATION_OF_REGISTRATION.";
-			res.send(JSON.stringify(resp));
-		}
-		else {
-			var values = [];
-			var items = ['id', 'nickname', 'realname', 'role', 'motto', 'registration_date', 'password'];
-			for (var item of items) {
-				if (req.query[item] === undefined || req.query[item] === null || req.query[item] === '')
-					values.push('null');
-				else
-					values.push('\'' + req.query[item] + '\'');
-			}
-			sql = 'insert into users values (' + values.join(',') + ')';
-			console.log(sql);
-			do_sql_query(sql, function (result) {
-				if (result.status === 'SUCCESS.') {
-					resp.status = "SUCCESS.";              // 成功注册
-					resp.results = req.query;
-				}
-				else {
-					resp.status = 'FAILED.';
-					resp.details = result.details;
-				}
-				res.send(JSON.stringify(resp));
-				console.log("[res] ",resp);
-			});
-		}
-	});
+    do_sql_query(sql, function (result) {
+        for (var user of result.results) {
+            if (req.body.nickname === user.nickname) {
+                found = true;
+                break;
+            }
+        }
+        if (found) {          // 重复注册 失败
+            resp.status = "DUPLICATION_OF_REGISTRATION.";
+            res.send(JSON.stringify(resp));
+        }
+        else {
+            var values = [];
+            var items = ['id', 'nickname', 'realname', 'role', 'motto', 'registration_date', 'password'];
+            for (var item of items) {
+                if (req.body[item] === undefined || req.body[item] === null || req.body[item] === '')
+                    values.push('null');
+                else
+                    values.push('\'' + req.body[item] + '\'');
+            }
+            var sql = 'insert into users values (' + values.join(',') + ')';
+            // console.log(sql);
+            do_sql_query(sql, function (result) {
+                if (result.status === 'SUCCESS.') {
+                    resp.status = "SUCCESS.";              // 成功注册
+                    resp.results = req.body;
+                }
+                else {
+                    resp.status = 'FAILED.';
+                    resp.details = result.details;
+                }
+                res.send(JSON.stringify(resp));
+                console.log("[res] ", resp);
+            });
+        }
+    });
 });
 
 var multer  = require('multer');

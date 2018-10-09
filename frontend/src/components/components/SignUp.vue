@@ -80,6 +80,14 @@
                     this.$message("用户名不能为空。");
                     return;
                 }
+                if (this.inputs.realname === '') {
+                    this.$message("真实姓名不能为空。");
+                    return;
+                }
+                if (this.inputs.role === '') {
+                    this.$message("角色不能为空。");
+                    return;
+                }
                 if (this.inputs.password.length < 6) {
                     this.$message("密码不能少于6位。");
                     return;
@@ -88,11 +96,7 @@
                     this.$message("两次输入的密码不同。");
                     return;
                 }
-                if (this.inputs.role === '') {
-                    this.$message("角色不能为空。");
-                    return;
-                }
-                registerSQL(this.inputs).
+                registerSQL(this, this.inputs).
                 then((resp) => {
                     console.log(resp);
                     this.$message.success("注册成功！");

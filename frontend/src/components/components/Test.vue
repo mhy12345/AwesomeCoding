@@ -175,7 +175,7 @@ export default {
     },
     methods: {
         getRequest1() {
-            this.$http.get(window.location.protocol + '//' + window.location.host + '/api/' + 'show_columns?table_name=users').then((res) => {
+            this.$http.get('http://127.0.0.1:8888/api/show_columns?table_name=users').then((res) => {
                 console.log('Got response!', res);
                 alert(JSON.stringify(res));
             });

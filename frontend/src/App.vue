@@ -98,9 +98,10 @@ export default {
 	name: 'app',
 	data() {
 	    var myCookie = getCookie();     // 在网站的所有页面上都检查 cookie 中有没有登录的信息
+        // TODO use session
 	    if (myCookie.nickname && myCookie.password) {
 	        console.log('Try to login: ', myCookie);
-            loginSQL(myCookie).then((resp) => {
+            loginSQL(this, myCookie).then((resp) => {
                 console.log(resp);
                 this.$message.success("欢迎回来！" + myCookie.realname);
             }).catch((resp) => {

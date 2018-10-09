@@ -28,15 +28,14 @@
                     password: ''
                 },
                 loading: false,
-                expire_secs: 300,         // cookie 的有效期 TODO 改为 1 天或更多
+                expire_secs: 360,         // cookie 的有效期 TODO 改为 1 天或更多
             }
         },
         methods: {
             signIn: function () {
                 this.loading = true;
-                // createCookie(this.inputs, this.expire_secs);
-                // console.log(getCookie());
-                loginSQL(this.inputs).
+                // this.$http.post('')
+                loginSQL(this, this.inputs).
                 then((resp) => {
                     console.log(resp);
                     var cookie = {
@@ -44,8 +43,8 @@
                         password: resp.results.password,
                         realname: resp.results.realname,
                     };
-                    createCookie(cookie, this.expire_secs);
-                    console.log('Login!', getCookie());
+                    createCookie(cookie, this.expire_secs);     // TODO use session
+                    // console.log('Login!', getCookie());
                     this.loading = false;
                     this.$message.success("登录成功，欢迎回来！" + resp.results.realname);
                 }).
