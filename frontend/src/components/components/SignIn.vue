@@ -16,7 +16,7 @@
 
 <script>
     import {loginSQL} from '../../utils/DoSQL'
-    import {getCookie, createCookie} from "../../utils/Cookie";
+    import {createCookie} from "../../utils/Cookie";
 
     export default {
         name: "SignIn",
@@ -34,7 +34,6 @@
         methods: {
             signIn: function () {
                 this.loading = true;
-                // this.$http.post('')
                 loginSQL(this, this.inputs).
                 then((resp) => {
                     console.log(resp);
@@ -47,6 +46,7 @@
                     // console.log('Login!', getCookie());
                     this.loading = false;
                     this.$message.success("登录成功，欢迎回来！" + resp.results.realname);
+                    this.$router.push('/');
                 }).
                 catch((resp) => {
                     console.log(resp);

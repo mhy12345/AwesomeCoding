@@ -29,9 +29,11 @@ function doSQL (parent, query)      // 使用ajax，向后端数据库发出 que
         console.log('Request sent!\n', query_url);
     });*/
 
-    // var query_url = window.location.protocol + '//' + window.location.host + '/api/' + query; // TODO use this line when npm build
-    console.log('[get] request sent!', query);
-    return parent.$http.get('/api/' + query).then((resp) => {
+    // TODO simply use get('/api' + query)
+    // var query_url = 'http://127.0.0.1:8888/api' + query;
+    var query_url = '/api' + query;
+    console.log('[get] request sent!', query_url);
+    return parent.$http.get(query_url).then((resp) => {
         console.log(resp);
         return new Promise((resolve, reject) => {
             if (resp.body.status === 'SUCCESS.')
@@ -43,15 +45,15 @@ function doSQL (parent, query)      // 使用ajax，向后端数据库发出 que
 }
 
 function getSQLColumns(parent, table_name) {      // 加载表头
-    return doSQL(parent, "show_columns?table_name=" + table_name);
+    return doSQL(parent, "/show_columns?table_name=" + table_name);
 }
 
 function showSQL(parent, table_name) {
-    return doSQL(parent, "show_table?table_name=" + table_name);
+    return doSQL(parent, "/show_table?table_name=" + table_name);
 }
 
 function insertSQL(parent, table_name, new_row) {
-    var query = "do_query?sql=INSERT INTO " + table_name + " ";
+    var query = "/do_query?sql=INSERT INTO " + table_name + " ";
     var values = [];
     for (var item in new_row) {
         if (new_row[item] === null || new_row[item] === '')
@@ -64,12 +66,12 @@ function insertSQL(parent, table_name, new_row) {
 }
 
 function deleteSQL(parent, table_name, id) {
-    var query = "do_query?sql=DELETE FROM " + table_name + " WHERE id = " + id;
+    var query = "/do_query?sql=DELETE FROM " + table_name + " WHERE id = " + id;
     return doSQL(parent, query);
 }
 
 function updateSQL(parent, table_name, row) {
-    var query = "do_query?sql=UPDATE " + table_name + " SET ";
+    var query = "/do_query?sql=UPDATE " + table_name + " SET ";
     var arr = [];
     for (var item in row) {
         if (row[item] === null || row[item] === '')
@@ -83,10 +85,11 @@ function updateSQL(parent, table_name, row) {
 }
 
 function postSQL(parent, query, params) {       // 向服务器发出post请求
-    // TODO simply use post('/api/'+query)
-    // var query_url = 'http://127.0.0.1:8888/api/' + query;
-    console.log('[post] request sent!', query, params);
-    return parent.$http.post('/api/' + query, params).then((resp) => {
+    // TODO simply use post('/api' + query) when push
+    // var query_url = 'http://127.0.0.1:8888/api' + query;
+    var query_url = '/api' + query;
+    console.log('[post] request sent!', query_url);
+    return parent.$http.post(query_url, params).then((resp) => {
         console.log(resp);
         return new Promise((resolve, reject) => {
             if (resp.body.status === 'SUCCESS.')
@@ -98,11 +101,11 @@ function postSQL(parent, query, params) {       // 向服务器发出post请求
 }
 
 function loginSQL(parent, user) {
-    return postSQL(parent, "login", user);
+    return postSQL(parent, "/login", user);
 }
 
 function registerSQL(parent, user) {
-    return postSQL(parent, "register", user)
+    return postSQL(parent, "/register", user);
 }
 
-export {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL, loginSQL, registerSQL}
+export {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL, loginSQL, registerSQL, doSQL}

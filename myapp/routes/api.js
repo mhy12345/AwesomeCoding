@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var get_connection = require('../utils/database');
 var crypto = require('crypto');
 var moment = require('moment');
 var async = require('async');
+var get_connection = require('../utils/database');
+// var loginRouter = require('./login');
+// var registerRouter = require('./register');
+// todo 研究如何把api模块化，现阶段的login.js register.js都是不work的 by ZFS
+
+
+// router.use('/register', registerRouter);
 
 function do_sql_query(sql, callback) {           // 执行数据库命令
     var result = {
@@ -85,6 +91,97 @@ router.get('/do_query', function (req, res, next) { //在数据库中执行指�
 });
 
 
+router.post('/login', function (req, res, next) {  // 响应登录，并进行合法判断 返回 JSON
+    console.log("[post] login\n", req.body);
+    var sql = 'SELECT * FROM users';
+    var resp = {
+        status: 'USER_NOT_FOUND.',
+        results: {},
+    };
+    do_sql_query(sql, function (result) {
+        for (var user of result.results) {
+            if (req.body.nickname === user.nickname) {
+                if (req.body.password === user.password) {
+                    resp.status = 'SUCCESS.';
+                    resp.results = user;
+                    req.session.islogin = true;
+                    req.session.nickname = user.nickname;
+                    req.session.realname = user.realname;
+                    break;
+                }
+                else {
+                    resp.status = 'WRONG_PASSWORD.';
+                    break;
+                }
+            }
+        }
+        console.log(resp);
+        res.send(JSON.stringify(resp));
+    });
+    // console.log(next);
+});
+
+router.get('/login/is_login', function (req, res, next) {
+    console.log('[get] is login\n', req.body);
+    var resp = {};
+    if (req.session.islogin === true) {
+        console.log('login!');
+        resp = req.session;
+    }
+    else {
+        console.log('not login!');
+        resp.islogin = false;
+    }
+    res.send(JSON.stringify(resp));
+});
+
+router.post('/register', function (req, res, next) {	// 响应注册，并进行合法判断
+    console.log("[post] register\n", req.body);
+    var resp = {
+        status: '',
+        results: {},
+    };
+    var sql = 'SELECT * FROM users';
+    var found = false;
+    //判重
+    do_sql_query(sql, function (result) {
+        for (var user of result.results) {
+            if (req.body.nickname === user.nickname) {
+                found = true;
+                break;
+            }
+        }
+        if (found) {          // 重复注册 失败
+            resp.status = "DUPLICATION_OF_REGISTRATION.";
+            res.send(JSON.stringify(resp));
+        }
+        else {
+            var values = [];
+            var items = ['id', 'nickname', 'realname', 'role', 'motto', 'registration_date', 'password'];
+            for (var item of items) {
+                if (req.body[item] === undefined || req.body[item] === null || req.body[item] === '')
+                    values.push('null');
+                else
+                    values.push('\'' + req.body[item] + '\'');
+            }
+            var sql = 'insert into users values (' + values.join(',') + ')';
+            // console.log(sql);
+            do_sql_query(sql, function (result) {
+                if (result.status === 'SUCCESS.') {
+                    resp.status = "SUCCESS.";              // 成功注册
+                    resp.results = req.body;
+                }
+                else {
+                    resp.status = 'FAILED.';
+                    resp.details = result.details;
+                }
+                res.send(JSON.stringify(resp));
+                console.log("[res] ", resp);
+            });
+        }
+    });
+});
+
 router.get('/delete_class', function(req, res, next) { //根据id删除班级
 	var id = req.query.id;
 	var sql = 'DELETE FROM classes WHERE id = ' + id;
@@ -102,12 +199,11 @@ router.post('/class_resources', function(req, res, next) {
 	var result = {};
 	do_sql_query(sql,function(sql_res) {
 		console.log(sql_res);
-		result.status = 'SUCCESS.'
+		result.status = 'SUCCESS.';
 		result.results = [];
 		for (var w in sql_res.results) {
 			result.results.push(sql_res.results[w].resource);
 		}
-		sql_res.results;
 		res.send(JSON.stringify(result,null,3));
 	});
 });
@@ -115,9 +211,9 @@ router.post('/class_resources', function(req, res, next) {
 router.post('/class_info/query',function(req, res, next) {
 	console.log('>>>QUERY CLASS INFO',req.body);
 	var sql = 'SELECT * FROM classes WHERE id = '+req.body.class_id;
-	var result = {}
+	var result = {};
 	do_sql_query(sql,function(sql_res) {
-		if (sql_res.results.length == 0) {
+		if (sql_res.results.length === 0) {
 			result.status = "NOT FOUND.";
 			res.send(JSON.stringify(result,null,3));
 		} else {
@@ -134,7 +230,7 @@ router.post('/class_info/query',function(req, res, next) {
 			});
 		}
 	});
-})
+});
 
 router.post('/class_info/update', function(req, res, next) {
 	console.log('>>>UPDATE CLASS INFO',req.body);
@@ -219,82 +315,6 @@ router.post('/get_classes_list', function(req, res, next) {
 });
 
 
-router.post('/login', function(req, res, next) {  // 响应登录，并进行合法判断 返回 JSON
-    console.log("[post] login\n", req.body);
-    var nickname = req.body.nickname;
-    var password = req.body.password;
-    var sql = 'SELECT * FROM users';
-    resp = {
-		status: 'USER_NOT_FOUND.',
-		results: {},
-	};
-	do_sql_query(sql, function (result) {
-		for (var user of result.results) {
-			if (nickname === user.nickname) {
-				if (password === user.password) {
-					resp.status = 'SUCCESS.';
-					resp.results = user;
-					break;
-				}
-				else {
-					resp.status = 'WRONG_PASSWORD.';
-					break;
-				}
-			}
-		}
-		console.log(resp);
-		res.send(JSON.stringify(resp));
-	});
-	console.log(next);
-});
-
-router.post('/register', function(req,res,next) {	// 响应注册，并进行合法判断
-	console.log("[post] register\n", req.body);
-	var resp = {
-		status: '',
-		results: {},
-	};
-	var sql = 'SELECT * FROM users';
-	var found = false;
-	//判重
-    do_sql_query(sql, function (result) {
-        for (var user of result.results) {
-            if (req.body.nickname === user.nickname) {
-                found = true;
-                break;
-            }
-        }
-        if (found) {          // 重复注册 失败
-            resp.status = "DUPLICATION_OF_REGISTRATION.";
-            res.send(JSON.stringify(resp));
-        }
-        else {
-            var values = [];
-            var items = ['id', 'nickname', 'realname', 'role', 'motto', 'registration_date', 'password'];
-            for (var item of items) {
-                if (req.body[item] === undefined || req.body[item] === null || req.body[item] === '')
-                    values.push('null');
-                else
-                    values.push('\'' + req.body[item] + '\'');
-            }
-            var sql = 'insert into users values (' + values.join(',') + ')';
-            // console.log(sql);
-            do_sql_query(sql, function (result) {
-                if (result.status === 'SUCCESS.') {
-                    resp.status = "SUCCESS.";              // 成功注册
-                    resp.results = req.body;
-                }
-                else {
-                    resp.status = 'FAILED.';
-                    resp.details = result.details;
-                }
-                res.send(JSON.stringify(resp));
-                console.log("[res] ", resp);
-            });
-        }
-    });
-});
-
 var multer  = require('multer');
 var upload = multer({dest: 'uploads/'});
 var fs = require('fs');
@@ -319,7 +339,6 @@ router.post('/upload', upload.any(), function(req, res, next) {
 	});
 });
 
-
-
-module.exports = router;
-
+exports.router = router;
+exports.do_sql_query = do_sql_query;
+// module.exports = router;
