@@ -17,17 +17,18 @@ export default {
 			},
 			default_items : [ "title","id","description","notice","invitation_code"],
 			translation : {"id":"课程号","title":"课程名称","description":"课程简介","notice":"课程公告","invitation_code":"邀请码"},
-			title : "undefined",
+			class_id : "undefined",
 		}
 	},
 	mounted : function() {
-		this.title = this.$route.params.class_id;
-		this.$http.post('/api/class_info',{class_id:this.title})
+		this.class_id = this.$route.params.class_id;
+		this.$http.post('/api/class_info/query',{class_id:this.class_id})
 		.then(function(res) {
 			if (res.body.status === 'NOT FOUND.') {
                 this.$message("Room " + this.title + " not found!");
 			}else {
-				this.info = res.body.result;
+				this.info = res.body.info;
+				console.log(this.info);
 			}
 		});
 	}

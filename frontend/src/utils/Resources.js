@@ -24,7 +24,7 @@ var supported_resources = {
 	settings : {
 		name:'settings',
 		title:'课程设置',
-		component: ()=>import('../components/resources/NotComplete.vue'),
+		component: ()=>import('../components/resources/Settings.vue'),
 		disabled : true,
 		defaultChosen : true,
 	},

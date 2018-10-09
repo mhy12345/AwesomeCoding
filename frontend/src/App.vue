@@ -15,6 +15,7 @@
 		</el-header>
 		<el-container>
 			<el-aside width="auto">
+                <!--此处el-menu设置"min-height: 100%"的目的是使菜单在项目较少的时候也能充满左边的导航栏 by ZFS-->
 				<el-menu class="el-menu-vertical-demo"
                          style="min-height: 100%"
                          :default-active="activeIndex"
@@ -146,6 +147,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: #2c3e50;
+    /*以下对position的设定可以保证网页始终能填充满浏览器页面，从而保证跨平台的可能 by ZFS*/
     position: absolute;
     width: 100%;
     height: 100%;
@@ -153,11 +155,6 @@ body {
 
 .el-menu-item .is-active {
     border-bottom: 10px;
-}
-.my-menu {
-    position: relative;
-    top: 0;
-    bottom: 0;
 }
 
 #nav-header {
