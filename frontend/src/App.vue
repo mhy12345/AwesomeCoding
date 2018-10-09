@@ -3,7 +3,7 @@
 		<el-header id="nav-header">
 			<div>
 				<span style="position: absolute; top: 20px;">
-					LOGO[TITLE]
+					LOGO  {{ title }}
 				</span>
 				<div style='float:right'>
 					<el-menu mode="horizontal" @select='selectItem'>
@@ -18,6 +18,7 @@
                 <!--此处el-menu设置"min-height: 100%"的目的是使菜单在项目较少的时候也能充满左边的导航栏 by ZFS-->
 				<el-menu class="el-menu-vertical-demo"
                          style="min-height: 100%"
+                         background-color="#f1f5f8"
                          :default-active="activeIndex"
                          collapse-transition :collapse="isCollapse"
                          @select='selectItem'>
@@ -115,6 +116,7 @@ export default {
         }
 
 		return {
+            title: "AwesomeCoding",
 			isCollapse: false,
 			activeIndex : '/',
 		}
@@ -158,7 +160,7 @@ body {
 }
 
 #nav-header {
-    border-bottom: 2px solid #e6e6e6;
+    border-bottom: 2px solid #d3d4e2;
     color: #909399;
 }
 </style>

@@ -1,6 +1,10 @@
 <!--统一在这个页面里进行vue的测试-->
 <template>
     <div id="test-view">
+
+        <el-button @click="getRequest1">$http发送get请求</el-button>
+        <el-button @click="getRequest2">Ajax发送get请求</el-button>
+
         <el-row class="tac">
             <el-col :span="5">
                 <h5>默认颜色</h5>
@@ -130,6 +134,7 @@
 
 <script>
 import EditDialog from './EditDialog'
+import {doSQL} from "../../utils/DoSQL";
 // import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 // import Vue from 'vue'
 //
@@ -169,6 +174,18 @@ export default {
         }
     },
     methods: {
+        getRequest1() {
+            this.$http.get(window.location.protocol + '//' + window.location.host + '/api/' + 'show_columns?table_name=users').then((res) => {
+                console.log('Got response!', res);
+                alert(JSON.stringify(res));
+            });
+        },
+        getRequest2() {
+            doSQL('show_columns?table_name=users').then((res) => {
+                console.log('Got response!', res);
+                alert(JSON.stringify(res));
+            });
+        },
         createDialog: function () {
             this.dialog.visible = true;
             this.dialog.input = this.input;
