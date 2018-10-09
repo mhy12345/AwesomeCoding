@@ -280,7 +280,8 @@ router.post('/create_class', function(req, res, next) { //创建新班级
 		res.send(JSON.stringify(result));
 		console.log("ERROR CREATING CLASS");
 	} else {
-		var sql = 'INSERT INTO classes (`title`,`description`,`invitation_code`,`registration_date`) VALUES ("' + title + '","' +description+'","'+invitation_code+'","'+registration_date + '")';
+		var sql = 'INSERT INTO classes (`title`,`description`,`invitation_code`,`registration_date`) VALUES ("' +
+                        title + '","' +description+'","'+invitation_code+'","'+registration_date + '")';
 		console.log(sql);
 		do_sql_query(sql,function(sql_res) {
             do_sql_query('SELECT MAX(`id`) FROM classes', function (sql_res) {
@@ -312,6 +313,165 @@ router.post('/get_classes_list', function(req, res, next) {
 	do_sql_query(sql,function(result) {
 		res.send(JSON.stringify(result,null,3));
 	});
+});
+
+
+router.post('/login', function(req, res, next) {  // 响应登录，并进行合法判断 返回 JSON
+    console.log("[post] login\n", req.body);
+    var nickname = req.body.nickname;
+    var password = req.body.password;
+    var sql = 'SELECT * FROM users';
+    resp = {
+		status: 'USER_NOT_FOUND.',
+		results: {},
+	};
+	do_sql_query(sql, function (result) {
+		for (var user of result.results) {
+			if (nickname === user.nickname) {
+				if (password === user.password) {
+					resp.status = 'SUCCESS.';
+					resp.results = user;
+					break;
+				}
+				else {
+					resp.status = 'WRONG_PASSWORD.';
+					break;
+				}
+			}
+		}
+		console.log(resp);
+		res.send(JSON.stringify(resp));
+	});
+	console.log(next);
+});
+
+
+router.post('/register', function(req,res,next) {	// 响应注册，并进行合法判断
+	console.log("[post] register\n", req.body);
+    var nickname = req.query.nickname;
+    var password = req.query.password;
+
+	var resp = {
+		status: '',
+		results: {},
+	};
+	var sql = 'SELECT * FROM users';
+	var found = false;
+	//判重
+    do_sql_query(sql, function (result) {
+        for (var user of result.results) {
+            if (req.body.nickname === user.nickname) {
+                found = true;
+                break;
+            }
+        }
+        if (found) {          // 重复注册 失败
+            resp.status = "DUPLICATION_OF_REGISTRATION.";
+            res.send(JSON.stringify(resp));
+        }
+        else {
+            var values = [];
+            var items = ['id', 'nickname', 'realname', 'role', 'motto', 'registration_date', 'password'];
+            for (var item of items) {
+                if (req.body[item] === undefined || req.body[item] === null || req.body[item] === '')
+                    values.push('null');
+                else
+                    values.push('\'' + req.body[item] + '\'');
+            }
+            var sql = 'insert into users values (' + values.join(',') + ')';
+            // console.log(sql);
+            do_sql_query(sql, function (result) {
+                if (result.status === 'SUCCESS.') {
+                    resp.status = "SUCCESS.";              // 成功注册
+                    resp.results = req.body;
+                }
+                else {
+                    resp.status = 'FAILED.';
+                    resp.details = result.details;
+                }
+                res.send(JSON.stringify(resp));
+                console.log("[res] ", resp);
+            });
+        }
+    });
+});
+
+router.get('/ban', function(req,res,next) { //添加禁言名单
+    var userid = req.query.userid;
+    var classid = req.query.classid;
+    var status = req.query.status;
+
+    var sql = 'select * from bannedlist where userid = ' + userid + ' and classid = ' + classid;
+    var tag = 0;
+    var resp = {
+        status: '',
+        results: {},
+    };
+    do_sql_query(sql, function (result) {
+        if (result.results.length > 0) tag = 1;
+        if (tag === 1) {
+            var id = result.results[0].id;
+            sql = 'update bannedlist set status = ' + status + ' where id = ' + id;
+        } else {
+            sql = 'insert into bannedlist (`userid`,`classid`,`status`) VALUES ("' +
+                userid + '","' + classid + '","' + status + '")';
+        }
+        do_sql_query(sql, function (result) {
+            console.log(sql);
+            if (result.status === 'SUCCESS.') {
+                resp.status = "SUCCESS.";              // 成功注册
+                resp.results = req.query;
+            } else {
+                resp.status = 'FAILED.';
+                resp.details = result.details;
+            }
+            res.send(JSON.stringify(resp));
+            console.log("[res] ",resp);
+        });
+    });
+});
+
+
+router.get('/add_comments', function(req,res,next) {
+    var userid = req.body.userid;
+    var classid = req.body.classid;
+    var message = req.body.message;
+
+    var registration_date = moment().format('YYYY-MM-DD HH-mm-ss');
+
+    var resp = {};
+    if (userid === undefined || classid === undefined || message.length > 200) {
+        resp.status = 'FAILED.';
+        resp.details = 'ILLEGAL INPUT.';
+        res.send(JSON.stringify(resp));
+        console.log("ERROR WHILING ADDING A COMMENT");
+    } else {
+        //被禁言
+        var sql = 'select * from bannedlist where userid = ' + userid + ' and classid = ' + classid;
+        do_sql_query(sql, function (result) {
+            if (result.results.length > 0 && result.results[0].status === 0) {
+                resp.status = 'FAILED.';
+                resp.details = 'STILL IN BLACKLIST.';
+                res.send(JSON.stringify(resp));
+                console.log("FORBID");
+            } else {
+                sql = 'insert into forums (`userid`,`classid`,`message`,`registration_date`) VALUES ("' +
+                    userid + '","' + classid + '","' + message + '","' + registration_date + '")';
+                console.log(sql);
+                do_sql_query(sql, function(result) {
+                    if (result.status === 'SUCCESS.') {
+                        resp.status = "SUCCESS.";              // 成功注册
+                        resp.results = req.query;
+                    } else {
+                        resp.status = 'FAILED.';
+                        resp.details = result.details;
+                    }
+                    res.send(JSON.stringify(resp));
+                    console.log("[res] ",resp);
+                });
+            }
+        });
+    }
 });
 
 

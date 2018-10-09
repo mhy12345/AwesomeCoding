@@ -10,6 +10,8 @@
   "dependencies": {
     "element-react": "^1.4.21",
     "element-ui": "^2.4.5",
+    "pdfjs": "^2.1.0",
+    "pdfjs-dist": "^2.0.489",
     "vue": "^2.5.17",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1"

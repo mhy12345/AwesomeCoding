@@ -49,6 +49,11 @@ export default new Router({
 					name: 'FileUploader',
                     component: () => import('./components/components/FileUploader.vue')
 				},
+				{
+					path: 'file_viewer',
+					name: 'FileViewer',
+					component: () => import('./components/components/FileViewer.vue')
+				},
                 {
                     path: 'test',
                     name: 'Test',

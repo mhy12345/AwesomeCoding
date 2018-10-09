@@ -1,6 +1,6 @@
 <template>
 	<el-container id="app">
-		<el-header id="nav-header">
+		<el-header id="nav-header" style='height:62px'>
 			<div>
 				<span style="position: absolute; top: 20px;">
 					LOGO  {{ title }}
@@ -43,30 +43,28 @@
 							<span slot="title">数据库操作</span>
 							<el-menu-item index="/developer/data_visualizer">数据表修改</el-menu-item>
 							<el-menu-item index="/developer/file_uploader">文件上传</el-menu-item>
-                        </el-menu-item-group>
+						</el-menu-item-group>
 
-                        <el-menu-item-group title="测试页面">
+						<el-menu-item-group title="测试页面">
 							<el-menu-item index="/developer/live_player">直播测试</el-menu-item>
 							<el-menu-item index="/developer/video_player">视频测试</el-menu-item>
 							<el-menu-item index="/developer/test">测试</el-menu-item>
-                        </el-menu-item-group>
+						</el-menu-item-group>
 
-                        <el-submenu index="1-4">
-                            <span slot="title">选项4</span>
-                            <el-menu-item index="1-4-1">选项1</el-menu-item>
-                        </el-submenu>
+						<el-menu-item index="/developer/file_viewer">文件查看</el-menu-item>
+						<el-menu-item index="1-4-1">选项1</el-menu-item>
 					</el-submenu>
 					<el-submenu index="/courses">
 						<template slot='title'>
 							<i class='el-icon-news'></i>
 							<span>课程</span>
 						</template>
-                        <el-menu-item index="/courses/add">
-                            <span slot="title">新建课程</span>
-                        </el-menu-item>
-                        <el-menu-item index="/courses/enter">
-                            <span slot="title">进入课程</span>
-                        </el-menu-item>
+						<el-menu-item index="/courses/add">
+							<span slot="title">新建课程</span>
+						</el-menu-item>
+						<el-menu-item index="/courses/enter">
+							<span slot="title">进入课程</span>
+						</el-menu-item>
 					</el-submenu>
 					<el-menu-item index="/class/123">
 						<i class='el-icon-service'></i>
@@ -145,12 +143,12 @@ export default {
 				console.log(key);
 			}
 		},
-        handleLogin() {
-            this.selectItem('/user/sign_in');
-        },
-        handleRegister() {
-		    this.selectItem('/user/sign_up');
-        }
+		handleLogin() {
+			this.selectItem('/user/sign_in');
+		},
+		handleRegister() {
+			this.selectItem('/user/sign_up');
+		}
 	}
 };
 </script>
@@ -172,6 +170,10 @@ body {
 
 .el-menu-item .is-active {
     border-bottom: 10px;
+}
+
+.el-menu {
+	background-color : transparent;
 }
 
 #nav-header {
