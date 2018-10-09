@@ -1,25 +1,25 @@
 <template>
 	<el-container id="app">
-		<el-header id="nav-header" class='sticky-top'>
+		<el-header id="nav-header">
 			<div>
-				<span>
+				<span style="position: absolute; top: 20px;">
 					LOGO[TITLE]
 				</span>
 				<div style='float:right'>
 					<el-menu mode="horizontal" @select='selectItem'>
-						<el-menu-item index="/user/sign_up"> 注册 </el-menu-item>
 						<el-menu-item index="/user/sign_in"> 登陆 </el-menu-item>
+						<el-menu-item index="/user/sign_up"> 注册 </el-menu-item>
 					</el-menu>
 				</div>
 			</div>
 		</el-header>
 		<el-container>
-			<el-aside width="">
+			<el-aside width="auto">
 				<el-menu class="el-menu-vertical-demo"
+                         style="min-height: 100%"
                          :default-active="activeIndex"
                          collapse-transition :collapse="isCollapse"
-                         @select='selectItem'
-						 >
+                         @select='selectItem'>
 					<el-menu-item index='collapse'>
 						<i v-if="isCollapse" class='el-icon-arrow-right'></i>
 						<i v-else class='el-icon-arrow-left'></i>
@@ -77,8 +77,9 @@
 
 				</el-menu>
 			</el-aside>
-			<el-main style='overflow-y:scroll;height:700px'>
-				<div style='min-height:800px'>
+			<el-main>
+				<!--<div style='min-height:800px'>-->
+                <div>
 					<router-view>
 					</router-view>
 				</div>
@@ -138,38 +139,29 @@ export default {
 
 <style>
 body {
-	margin:0px;
-}
-.el-header {
-    color: #333;
-    line-height: 60px;
-}
-.sticky-top {
-	position: -webkit-sticky;
-	position: sticky;
-	background-color: #fff;
-    top: 0;
-	z-index: 10;
+	margin: 0;
 }
 #app {
 	font-family: 'Avenir', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: #2c3e50;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 .el-menu-item .is-active {
-	border-bottom:10px;
+    border-bottom: 10px;
+}
+.my-menu {
+    position: relative;
+    top: 0;
+    bottom: 0;
 }
 
-.el-aside {
-	min-height:100%;
-}
-.el-menu {
-	min-height:100%;
-}
 #nav-header {
-	border-bottom:1px solid #e6e6e6;
-	color:#909399;
+    border-bottom: 2px solid #e6e6e6;
+    color: #909399;
 }
 </style>

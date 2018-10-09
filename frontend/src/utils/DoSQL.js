@@ -22,8 +22,8 @@ function doSQL (query)      // 使用ajax，向后端数据库发出 query 请�
                     reject(resp);                                      // 处理错误操作
             }
         };
-        var query_url = window.location.protocol + '//' + window.location.host + '/api/' + query; // TODO use this line when npm build
-        // var query_url = 'http://127.0.0.1:8888/api/' + query;
+        // var query_url = window.location.protocol + '//' + window.location.host + '/api/' + query; // TODO use this line when npm build
+        var query_url = 'http://127.0.0.1:8888/api/' + query;
         xmlhttp.open("GET", query_url, true);     // 向服务端发出get 请求
         xmlhttp.send();
         console.log('Request sent!\n', query_url);

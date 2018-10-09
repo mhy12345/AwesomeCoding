@@ -25,7 +25,7 @@ export default {
 		this.$http.post('/api/class_info',{class_id:this.title})
 		.then(function(res) {
 			if (res.body.status === 'NOT FOUND.') {
-				this.$message("Room "+this.title+" not found!");
+                this.$message("Room " + this.title + " not found!");
 			}else {
 				this.info = res.body.result;
 			}
