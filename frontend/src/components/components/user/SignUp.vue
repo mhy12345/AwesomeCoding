@@ -101,7 +101,8 @@
                     console.log(resp);
                     // createCookie(resp.results);
                     this.$message.success("注册成功！");
-                    this.$router.push('/user/sign_in');
+                    this.$emit('logined');      // 通知父级路由已登录
+                    this.$router.push('/');
                     // console.log(getCookie());
                 }).
                 catch((resp) => {

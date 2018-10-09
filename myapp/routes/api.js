@@ -9,8 +9,6 @@ var get_connection = require('../utils/database');
 // todo 研究如何把api模块化，现阶段的login.js register.js都是不work的 by ZFS
 
 
-// router.use('/register', registerRouter);
-
 function do_sql_query(sql, callback) {           // 执行数据库命令
     var result = {
         query: sql,
@@ -170,6 +168,9 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
                 if (result.status === 'SUCCESS.') {
                     resp.status = "SUCCESS.";              // 成功注册
                     resp.results = req.body;
+                    req.session.islogin = true;
+                    req.session.nickname = req.body.nickname;
+                    req.session.realname = req.body.realname;
                 }
                 else {
                     resp.status = 'FAILED.';

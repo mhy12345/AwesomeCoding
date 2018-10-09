@@ -47,6 +47,7 @@
 
                     this.loading = false;
                     this.$message.success("登录成功！" + resp.results.realname);
+                    this.$emit('logined');      // 通知父级已登录
                     this.$router.push('/');
                 }).
                 catch((resp) => {

@@ -29,7 +29,7 @@ export default{
 	},
 	computed : {
 		options : function() {
-			var result = []
+			var result = [];
 			var current_options = this.class_resources ? this.class_resources : default_options;
 			for (var k in current_options) {
 				var key = current_options[k];
@@ -42,7 +42,7 @@ export default{
 		}
 	},
 	mounted : function() {
-		this.title = this.$route.params.class_id
+		this.title = this.$route.params.class_id;
 		this.$http
 		.post('/api/class_resources',{class_id:this.title},{emulateJSON:true})
 		.then(function(res) {
@@ -51,7 +51,7 @@ export default{
 	},
 
 	methods: {
-        onTabClick(a, b, c) {
+		onTabClick(a, b, c) {
             this.$router.push({name: 'class-' + this.options[this.activeName].route, params: {class_id: this.title}});
         }
 	},

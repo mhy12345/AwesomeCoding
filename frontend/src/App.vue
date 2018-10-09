@@ -6,7 +6,7 @@
 					LOGO  {{ title }}
 				</span>
 				<div style='float:right'>
-                    <el-tooltip v-if="!islogin" effect="dark" placement="bottom">
+                    <el-tooltip v-if="islogin" effect="dark" placement="bottom">
                         <div slot="content">Profile</div>
                         <el-button class="profile-button" type="primary" circle icon="el-icon-view"
                                    @click="handleProfile"></el-button>
@@ -71,6 +71,9 @@
                         <el-menu-item index="/user/sign_up">
                             <span slot="title">注册</span>
                         </el-menu-item>
+                        <el-menu-item :disabled="!islogin" index="/user/profile">
+                            <span slot="title">个人页</span>
+                        </el-menu-item>
                     </el-submenu>
 
 					<el-submenu index="/courses">
@@ -99,7 +102,7 @@
 			<el-main>
 				<!--<div style='min-height:800px'>-->
                 <div>
-					<router-view>
+					<router-view @logined="handleLogined">
 					</router-view>
 				</div>
 			</el-main>
@@ -123,8 +126,8 @@ export default {
 	},
     beforeMount() {
         // todo simplify into '/login/is_login'
-        this.$http.get('http://127.0.0.1:8888/api/login/is_login').
-        // this.$http.get('/api/login/is_login').
+        // this.$http.get('http://127.0.0.1:8888/api/login/is_login').
+        this.$http.get('/api/login/is_login').
         then((resp) => {
             console.log(resp);
             if (resp.body.islogin) {
@@ -156,6 +159,10 @@ export default {
 		},
         handleProfile() {
 		    this.$router.push('/user/profile');
+        },
+        handleLogined() {       // 子路由发来登陆成功的消息
+		    // console.log('>>>in app logined');
+		    this.islogin = true;
         }
 	}
 };

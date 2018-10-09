@@ -1,37 +1,8 @@
 function doSQL (parent, query)      // 使用ajax，向后端数据库发出 query 请求，然后回调 handleResponse 处理响应
 {
-    /*return new Promise((resolve, reject) => {
-        var xmlhttp;
-        if (window.XMLHttpRequest)
-        {
-            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
-            xmlhttp=new XMLHttpRequest();
-        }
-        else
-        {
-            // IE6, IE5 浏览器执行代码
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = () =>       // 异步载入数据到students列表，注意这里一定要使用箭头函数，因为函数中使用了this指针，而传数据是异步的
-        {
-            if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {   // 写入状态就绪
-                var resp = eval('(' + xmlhttp.responseText + ')');
-                if (resp.status === 'SUCCESS.')
-                    resolve(resp);                                     // 回调函数处理响应
-                else
-                    reject(resp);                                      // 处理错误操作
-            }
-        };
-        // var query_url = window.location.protocol + '//' + window.location.host + '/api/' + query; // TODO use this line when npm build
-        var query_url = 'http://127.0.0.1:8888/api/' + query;
-        xmlhttp.open("GET", query_url, true);     // 向服务端发出get 请求
-        xmlhttp.send();
-        console.log('Request sent!\n', query_url);
-    });*/
-
     // TODO simply use get('/api' + query)
-    var query_url = 'http://127.0.0.1:8888/api' + query;
-    // var query_url = '/api' + query;
+    // var query_url = 'http://127.0.0.1:8888/api' + query;
+    var query_url = '/api' + query;
     console.log('[get] request sent!', query_url);
     return parent.$http.get(query_url).then((resp) => {
         console.log(resp);
@@ -86,8 +57,8 @@ function updateSQL(parent, table_name, row) {
 
 function postSQL(parent, query, params) {       // 向服务器发出post请求
     // TODO simply use post('/api' + query) when push
-    var query_url = 'http://127.0.0.1:8888/api' + query;
-    // var query_url = '/api' + query;
+    // var query_url = 'http://127.0.0.1:8888/api' + query;
+    var query_url = '/api' + query;
     console.log('[post] request sent!', query_url);
     return parent.$http.post(query_url, params).then((resp) => {
         console.log(resp);

@@ -5,14 +5,20 @@
         </el-header>
 
         <el-main style="margin: auto;">
-            <router-view></router-view>
+            <router-view @logined="handleLogined"></router-view>
         </el-main>
     </el-container>
 </template>
 
 <script>
     export default {
-        name: "User"
+        name: "User",
+        methods: {
+            handleLogined() {
+                // console.log('>>>in user logined!');
+                this.$emit('logined');
+            }
+        }
     }
 </script>
 
