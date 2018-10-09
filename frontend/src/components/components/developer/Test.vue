@@ -134,7 +134,7 @@
 
 <script>
 import EditDialog from './EditDialog'
-import {doSQL} from "../../utils/DoSQL";
+import {doSQL} from "../../../utils/DoSQL";
 // import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 // import Vue from 'vue'
 //

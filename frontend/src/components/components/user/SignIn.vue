@@ -15,8 +15,8 @@
 </template>
 
 <script>
-    import {loginSQL} from '../../utils/DoSQL'
-    import {createCookie} from "../../utils/Cookie";
+    import {loginSQL} from '../../../utils/DoSQL'
+    // import {createCookie} from "../../utils/Cookie";
 
     export default {
         name: "SignIn",
@@ -28,7 +28,7 @@
                     password: ''
                 },
                 loading: false,
-                expire_secs: 360,         // cookie 的有效期 TODO 改为 1 天或更多
+                expire_secs: 360,         // cookie 的有效期
             }
         },
         methods: {
@@ -37,15 +37,16 @@
                 loginSQL(this, this.inputs).
                 then((resp) => {
                     console.log(resp);
-                    var cookie = {
+                    /*var cookie = {
                         nickname: resp.results.nickname,
                         password: resp.results.password,
                         realname: resp.results.realname,
                     };
-                    createCookie(cookie, this.expire_secs);     // TODO use session
-                    // console.log('Login!', getCookie());
+                    createCookie(cookie, this.expire_secs);
+                    console.log('Login!', getCookie());*/
+
                     this.loading = false;
-                    this.$message.success("登录成功，欢迎回来！" + resp.results.realname);
+                    this.$message.success("登录成功！" + resp.results.realname);
                     this.$router.push('/');
                 }).
                 catch((resp) => {
@@ -61,7 +62,7 @@
                 });
             },
             forget: function () {
-                // TODO send forget info
+                // TODO 实现忘记密码
                 this.loading = true;
             }
         }

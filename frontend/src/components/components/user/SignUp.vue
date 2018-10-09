@@ -55,8 +55,8 @@
 </template>
 
 <script>
-    import {registerSQL} from "../../utils/DoSQL";
-    import {createCookie} from "../../utils/Cookie";
+    import {registerSQL} from "../../../utils/DoSQL";
+    // import {createCookie} from "../../utils/Cookie";
 
     export default {
         name: "SignUp",
@@ -99,7 +99,7 @@
                 registerSQL(this, this.inputs).
                 then((resp) => {
                     console.log(resp);
-                    createCookie(resp.results);
+                    // createCookie(resp.results);
                     this.$message.success("注册成功！");
                     this.$router.push('/user/sign_in');
                     // console.log(getCookie());

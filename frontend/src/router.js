@@ -42,7 +42,7 @@ export default new Router({
                 {
                     path: 'data_visualizer',
                     name: 'DataVisualizer',
-                    component: () => import('./components/components/DataVisualizer.vue')
+                    component: () => import('./components/components/developer/DataVisualizer.vue')
                 },
 				{
 					path: 'file_uploader',
@@ -57,7 +57,7 @@ export default new Router({
                 {
                     path: 'test',
                     name: 'Test',
-                    component: () => import('./components/components/Test.vue')
+                    component: () => import('./components/components/developer/Test.vue')
                 },
                 {
                     path: 'live_player',
@@ -79,12 +79,17 @@ export default new Router({
                 {
                     path: 'sign_in',
                     name: 'SignIn',
-                    component: () => import('./components/components/SignIn.vue')
+                    component: () => import('./components/components/user/SignIn.vue')
                 },
                 {
                     path: 'sign_up',
                     name: 'SignUp',
-                    component: () => import('./components/components/SignUp.vue')
+                    component: () => import('./components/components/user/SignUp.vue')
+                },
+                {
+                    path: 'profile',
+                    name: 'Profile',
+
                 }
             ]
         },

@@ -6,10 +6,15 @@
 					LOGO  {{ title }}
 				</span>
 				<div style='float:right'>
-					<el-menu mode="horizontal" @select='selectItem'>
-						<el-menu-item index="/user/sign_in"> 登陆 </el-menu-item>
-						<el-menu-item index="/user/sign_up"> 注册 </el-menu-item>
-					</el-menu>
+                    <el-tooltip v-if="!islogin" effect="dark" placement="bottom">
+                        <div slot="content">Profile</div>
+                        <el-button class="profile-button" type="primary" circle icon="el-icon-view"
+                                   @click="handleProfile"></el-button>
+                    </el-tooltip>
+                    <el-menu v-else mode="horizontal" @select='selectItem'>
+                        <el-menu-item index="/user/sign_in"> 登陆 </el-menu-item>
+                        <el-menu-item index="/user/sign_up"> 注册 </el-menu-item>
+                    </el-menu>
 				</div>
 			</div>
 		</el-header>
@@ -89,51 +94,37 @@
 </template>
 
 <script>
-import {getCookie} from "./utils/Cookie";
-import {loginSQL} from "./utils/DoSQL";
+// import {getCookie} from "./utils/Cookie";
+// import {loginSQL} from "./utils/DoSQL";
 
 export default {
 	name: 'app',
 	data() {
-	    // var myCookie = getCookie();     // 在网站的所有页面上都检查 cookie 中有没有登录的信息
-        // if (myCookie.nickname && myCookie.password) {
-	    //     // console.log('Try to login: ', myCookie);
-        //     loginSQL(this, myCookie).then((resp) => {
-        //         console.log(resp);
-        //         this.$message.success("欢迎回来！" + myCookie.realname);
-        //     }).catch((resp) => {
-        //         console.log(resp);
-        //         if (resp.status === 'WRONG_PASSWORD.') {
-        //             this.$message.error("登录失败，密码错误！");
-        //         }
-        //         else if (resp.status === 'USER_NOT_FOUND.') {
-        //             this.$message.error("登录失败，用户名不存在！");
-        //         }
-        //         else this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.details));
-        //     });
-        // }
-
+		return {
+            title: "AwesomeCoding",
+			isCollapse: false,
+			activeIndex : '/',
+            islogin: false,         // 是否登录
+		}
+	},
+    beforeMount() {
         // todo simplify into '/login/is_login'
         this.$http.get('http://127.0.0.1:8888/api/login/is_login').
         // this.$http.get('/api/login/is_login').
         then((resp) => {
             console.log(resp);
-            if (resp.body.islogin)
+            if (resp.body.islogin) {
                 this.$message.success("欢迎回来！" + resp.body.realname);
+                this.islogin = true;
+            }
             else
                 this.$message("请登录。");
         }).
         catch((err) => {
             console.log(err);
-            this.$message.error(JSON.stringify(err, null, 3));
+            this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
         });
-
-		return {
-            title: "AwesomeCoding",
-			isCollapse: false,
-			activeIndex : '/',
-		}
-	},
+    },
 	methods: {
 		selectItem(key) {
 			if (key === "collapse") {
@@ -148,7 +139,10 @@ export default {
 		},
 		handleRegister() {
 			this.selectItem('/user/sign_up');
-		}
+		},
+        handleProfile() {
+		    this.$router.push('/user/profile');
+        }
 	}
 };
 </script>
@@ -174,6 +168,16 @@ body {
 
 .el-menu {
 	background-color : transparent;
+}
+
+el-tooltip {
+    padding: 5px;
+}
+
+.profile-button {
+    position: relative;
+    right: 10px;
+    top: 10px;
 }
 
 #nav-header {
