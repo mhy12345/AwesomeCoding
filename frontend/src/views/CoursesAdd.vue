@@ -6,7 +6,7 @@
 		<el-main>
 			<el-form ref="form" :model="CourseData" label-width="140px">
 				<el-form-item label="课程名称：">
-					<el-input v-model="CourseData.name" placeholder="请输入"></el-input>
+					<el-input v-model="CourseData.title" placeholder="请输入"></el-input>
 				</el-form-item>
 				<el-form-item label="课程权限：">
 					<el-radio v-model="CourseData.type" label="1">公开</el-radio>
@@ -32,7 +32,7 @@ export default{
 	data(){
 		return {
 			CourseData : {
-				name : "",
+				title : "",
 				type : "1",
 				resources : default_resources,
 			},
