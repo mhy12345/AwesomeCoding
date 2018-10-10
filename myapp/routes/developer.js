@@ -13,9 +13,9 @@ router.get('/show_table', function(req, res, next) { //在数据库中查找表�
 
 router.get('/show_columns', function(req, res, next) {
 	var mysql_config = require('../configures/db_configures');
-	var db_name = mysql.escapeId(mysql_config.database);
-	var sql = 'SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = \''
-		+ db_name + '\' AND TABLE_NAME = \'' + req.query.table_name + '\'';
+	var db_name = (mysql_config.database);
+	var sql = 'SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '
+		+ mysql.escape(db_name) + ' AND TABLE_NAME = ' + mysql.escape(req.query.table_name) + '';
     do_sql_query(sql, function (result) {
         res.send(JSON.stringify(result, null, 3));
     });
