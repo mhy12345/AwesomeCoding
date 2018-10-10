@@ -14,12 +14,12 @@
     export default {
         name: "User",
         mounted() {
-            alert("params: " + JSON.stringify(this.user.nickname, null, 3));
+            // alert("params: " + JSON.stringify(this.user.nickname, null, 3));
         },
         methods: {
-            handleLogined() {
-                // console.log('>>>in user logined!');
-                this.$emit('logined');
+            handleLogined(user_info) {
+                console.log('>>>in user logined!');
+                this.$emit('logined', user_info);
             }
         }
     }

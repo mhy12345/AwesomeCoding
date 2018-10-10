@@ -6,15 +6,15 @@
 					LOGO  {{ title }}
 				</span>
 				<div style='float:right'>
-                    <el-tooltip v-if="islogin" effect="dark" placement="bottom">
-                        <div slot="content">Profile</div>
-						<img :src="gravatar_url" class="round_icon"  alt="">
-                    </el-tooltip>
-                    <el-menu v-if="isNotLogin" mode="horizontal" @select='selectItem'>
+                    <el-menu v-if="(islogin === false)" mode="horizontal" @select='selectItem'>
                         <el-menu-item index="/user/sign_in"> 登陆 </el-menu-item>
                         <el-menu-item index="/user/sign_up"> 注册 </el-menu-item>
                     </el-menu>
-				</div>
+                    <el-tooltip v-if="(islogin === true)" effect="dark" placement="bottom">
+                        <div slot="content">Profile</div>
+                        <img :src="gravatar_url" class="round_icon" alt="">
+                    </el-tooltip>
+                </div>
 			</div>
 		</el-header>
 		<el-container>
@@ -121,51 +121,42 @@ export default {
             title: "AwesomeCoding",
 			isCollapse: false,
 			activeIndex : '/',
-            islogin: false,         // 是否登录
+            islogin: undefined,         // 是否登录，初始为 undefined 这样右上角既不显示'登录'也不显示头像
             user: {                 // 用户基本信息
                 nickname: 'somebody',
                 realname: 'SOMEBODY'
             },
-			isNotLogin : false,
 			gravatar_url : '',
 		}
 	},
     beforeMount() {
-        // todo simplify into '/login/is_login'
-// <<<<<<< HEAD
-//         this.$http.get('http://127.0.0.1:8888/api/login/is_login').
-//         // this.$http.get('/api/login/is_login').
-//         then((resp) => {
-//             console.log(resp);
-//             if (resp.body.islogin) {
-//                 user = resp.body;
-//                 this.$message.success("欢迎回来！" + user.realname);
-// =======
-        // this.$http.get('http://127.0.0.1:8888/api/login/is_login').
-        this.$http.get('/api/user/session').
-        then((resp) => {
-            console.log(resp);
-            if (typeof(resp.body.nickname) !== 'undefined') {
-                this.$message.success("欢迎回来！" + resp.body.nickname);
-                this.islogin = true;
-				this.isNotLogin = false;
-				var hash = crypto.createHash('md5');
-				hash.update(resp.body.email);
-				this.gravatar_url = 'https://www.gravatar.com/avatar/'+hash.digest('hex');
-				console.log("GRAVATAR URL = ",this.gravatar_url);
-            }
-			else {
-                this.$message("请登录。");
-                this.islogin = false;
-				this.isNotLogin = true;
-			}
-        }).
-        catch((err) => {
-            console.log(err);
-            this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
-        });
+        this.checkLogin();
     },
 	methods: {
+        checkLogin() {     // 检验用户是否登录
+            // todo simplify into '/login/is_login'
+            // this.$http.get('http://127.0.0.1:8888/api/login/is_login').
+            this.$http.get('/api/user/session').
+            then((resp) => {
+                console.log(resp);
+                if (typeof(resp.body.nickname) !== 'undefined') {
+                    this.$message.success("欢迎回来！" + resp.body.nickname);
+                    this.islogin = true;
+                    var hash = crypto.createHash('md5');
+                    hash.update(resp.body.email);
+                    this.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
+                    console.log("GRAVATAR URL = ", this.gravatar_url);
+                }
+                else {
+                    this.$message("请登录。");
+                    this.islogin = false;
+                }
+            }).
+            catch((err) => {
+                console.log(err);
+                this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
+            });
+        },
 		selectItem(key) {
 			if (key === "collapse") {
 				this.isCollapse = !this.isCollapse;
@@ -174,18 +165,13 @@ export default {
 				console.log(key);
 			}
 		},
-		handleLogin() {
-			this.selectItem('/user/sign_in');
-		},
-		handleRegister() {
-			this.selectItem('/user/sign_up');
-		},
-        handleProfile() {
-		    this.$router.push('/user/profile');
-        },
-        handleLogined() {       // 子路由发来登陆成功的消息
-		    // console.log('>>>in app logined');
+        handleLogined(user_info) {       // 子路由发来登陆成功的消息
+		    console.log('>>>in app logined! info:', user_info);
 		    this.islogin = true;
+            var hash = crypto.createHash('md5');
+            hash.update(user_info.email);
+            this.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
+            console.log("GRAVATAR URL = ", this.gravatar_url);
         }
 	}
 };

@@ -4,16 +4,16 @@ var funcs = require('../utils/funcs');
 var do_sql_query = funcs.do_sql_query;
 var mysql=require('mysql');
 
-router.get('/session', function (req, res, next) {
-    console.log('[get] is login\n', req.body);
-	if (typeof(req.session) == 'undefined')
+router.get('/session', function (req, res, next) {	// 判断用户是否登录
+    console.log('[get] session\n', req.body);
+	if (typeof(req.session) === 'undefined')
 		req.session = {};
     res.send(JSON.stringify(req.session));
 });
 
 router.post('/register', function (req, res, next) {	// 响应注册，并进行合法判断
     console.log("[post] register\n", req.body);
-	if (typeof(req.session.user_id) != 'undefined') {
+	if (typeof(req.session.user_id) !== 'undefined') {
 		res.send(JSON.stringify({
 			status : 'FAILED.',
 			details : 'ALREADY_LOGIN.'
@@ -28,12 +28,11 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
     var found = false;
 	//判重
 	do_sql_query(sql, function (result) {
-		if (result.results.length != 0) {
+		if (result.results.length !== 0) {
 			res.send(JSON.stringify({
 				status : 'FAILED.',
 				details : "DUPLICATION_OF_REGISTRATION."
 			}));
-			return ;
 		} else {
 			var values = [];
 			var items = ['id', 'email', 'nickname', 'realname', 'role', 'email', 'registration_date', 'password'];
@@ -80,7 +79,7 @@ router.post('/login', function(req, res, next) {  // 响应登录，并进行合
 	var password = req.body.password;
 	var sql = 'SELECT * FROM users WHERE nickname = ' + mysql.escape(nickname);
 	do_sql_query(sql, function (result) {
-		if (result.length == 0) {
+		if (result.results.length === 0) {
 			res.send(JSON.stringify({
 				status : 'FAILED.',
 				details : 'USER_NOT_FOUND.'
@@ -89,9 +88,9 @@ router.post('/login', function(req, res, next) {  // 响应登录，并进行合
 		}
 		var user = result.results[0];
 		console.log(user);
-		if (password != user.password) {
+		if (password !== user.password) {
 			res.send(JSON.stringify({
-				status : 'FAILED.',
+                status : 'FAILED.',
 				details : 'WRONG_PASSWORD.'
 			}));
 			return ;
@@ -107,7 +106,6 @@ router.post('/login', function(req, res, next) {  // 响应登录，并进行合
 			details : 'SUCCESS.',
 			results : user
 		}));
-		return ;
 	});
 	console.log(next);
 });

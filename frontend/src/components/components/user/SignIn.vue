@@ -37,17 +37,9 @@
                 loginSQL(this, this.inputs).
                 then((resp) => {
                     console.log(resp);
-                    /*var cookie = {
-                        nickname: resp.results.nickname,
-                        password: resp.results.password,
-                        realname: resp.results.realname,
-                    };
-                    createCookie(cookie, this.expire_secs);
-                    console.log('Login!', getCookie());*/
-
                     this.loading = false;
                     this.$message.success("登录成功！" + resp.results.realname);
-                    this.$emit('logined');      // 通知父级已登录
+                    this.$emit('logined', resp.results);      // 通知父级已登录
                     this.$router.push('/');
                 }).
                 catch((resp) => {

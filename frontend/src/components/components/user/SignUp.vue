@@ -89,6 +89,10 @@
                     this.$message("角色不能为空。");
                     return;
                 }
+                if (this.inputs.email === '') { // todo 用正则表达式校验邮箱的合法性
+                    this.$message("邮箱不合法。");
+                    return;
+                }
                 if (this.inputs.password.length < 6) {
                     this.$message("密码不能少于6位。");
                     return;
