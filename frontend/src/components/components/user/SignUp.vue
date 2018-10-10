@@ -63,11 +63,11 @@
         data() {
             return {
                 title: '欢迎注册',
-                heads: ['用户名', '真实姓名', '角色', '邮箱', '密码'],     // 输入框提示词
+                heads: ['用户名', '真实姓名', '角色', '邮箱', '签名', '密码'],     // 输入框提示词
                 inputs: {        // 输入框的信息
                     nickname: '',
                     realname: '',
-                    role: '',
+                    role: '',  // todo 支持下拉选择
                     email: '',
 					motto : '',
                     password: '',

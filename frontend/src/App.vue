@@ -7,13 +7,17 @@
 				</span>
 				<div style='float:right'>
                     <el-menu v-if="(islogin === false)" mode="horizontal" @select='selectItem'>
-                        <el-menu-item index="/user/sign_in"> 登陆 </el-menu-item>
+                        <el-menu-item index="/user/sign_in"> 登录 </el-menu-item>
                         <el-menu-item index="/user/sign_up"> 注册 </el-menu-item>
                     </el-menu>
-                    <el-tooltip v-if="(islogin === true)" effect="dark" placement="bottom">
-                        <div slot="content">Profile</div>
+                    <el-dropdown v-if="(islogin === true)" @command="selectItem">
                         <img :src="gravatar_url" class="round_icon" alt="">
-                    </el-tooltip>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item command="/user/profile">用户资料</el-dropdown-item>
+                            <el-dropdown-item command="/user/settings">设置</el-dropdown-item>
+                            <el-dropdown-item command="/user/logout">退出登录</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
                 </div>
 			</div>
 		</el-header>
@@ -111,7 +115,7 @@
 
 <script>
 // import {getCookie} from "./utils/Cookie";
-// import {loginSQL} from "./utils/DoSQL";crypto = require('crypto')
+// import {loginSQL} from "./utils/DoSQL";
 var crypto = require('crypto');
 
 export default {
