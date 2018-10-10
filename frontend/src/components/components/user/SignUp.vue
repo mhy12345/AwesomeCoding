@@ -63,12 +63,13 @@
         data() {
             return {
                 title: '欢迎注册',
-                heads: ['用户名', '真实姓名', '角色', '签名', '密码'],     // 输入框提示词
+                heads: ['用户名', '真实姓名', '角色', '邮箱', '密码'],     // 输入框提示词
                 inputs: {        // 输入框的信息
                     nickname: '',
                     realname: '',
                     role: '',
-                    motto: '',
+                    email: '',
+					motto : '',
                     password: '',
                 },
                 re_password: '',

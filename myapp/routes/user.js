@@ -36,7 +36,7 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 			return ;
 		} else {
 			var values = [];
-			var items = ['id', 'nickname', 'realname', 'role', 'motto', 'registration_date', 'password'];
+			var items = ['id', 'email', 'nickname', 'realname', 'role', 'email', 'registration_date', 'password'];
 			for (var item of items) {
 				if (req.body[item] === undefined || req.body[item] === null || req.body[item] === '')
 					values.push('null');
@@ -61,6 +61,7 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 					req.session.islogin = true;
 					req.session.nickname = req.body.nickname;
 					req.session.realname = req.body.realname;
+					req.session.email = req.body.email;
 				}
 				else {
 					resp.status = 'FAILED.';
@@ -99,6 +100,7 @@ router.post('/login', function(req, res, next) {  // 响应登录，并进行合
 		req.session.nickname = user.nickname;
 		req.session.realname = user.realname;
 		req.session.user_id = user.id;
+		req.session.email = user.email;
 
 		res.send(JSON.stringify({
 			status : 'SUCCESS.',

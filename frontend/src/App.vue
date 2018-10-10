@@ -8,10 +8,13 @@
 				<div style='float:right'>
                     <el-tooltip v-if="islogin" effect="dark" placement="bottom">
                         <div slot="content">Profile</div>
+						<!--
                         <el-button class="profile-button" type="primary" circle icon="el-icon-view"
                                    @click="handleProfile"></el-button>
+						-->
+						<img :src="gravatar_url" class="round_icon"  alt="">
                     </el-tooltip>
-                    <el-menu v-else mode="horizontal" @select='selectItem'>
+                    <el-menu v-if="isNotLogin" mode="horizontal" @select='selectItem'>
                         <el-menu-item index="/user/sign_in"> 登陆 </el-menu-item>
                         <el-menu-item index="/user/sign_up"> 注册 </el-menu-item>
                     </el-menu>
@@ -112,7 +115,8 @@
 
 <script>
 // import {getCookie} from "./utils/Cookie";
-// import {loginSQL} from "./utils/DoSQL";
+// import {loginSQL} from "./utils/DoSQL";crypto = require('crypto')
+var crypto = require('crypto');
 
 export default {
 	name: 'app',
@@ -122,6 +126,8 @@ export default {
 			isCollapse: false,
 			activeIndex : '/',
             islogin: false,         // 是否登录
+			isNotLogin : false,
+			gravatar_url : '',
 		}
 	},
     beforeMount() {
@@ -133,9 +139,17 @@ export default {
             if (typeof(resp.body.nickname) != 'undefined') {
                 this.$message.success("欢迎回来！" + resp.body.nickname);
                 this.islogin = true;
+				this.isNotLogin = false;
+				var hash = crypto.createHash('md5');
+				hash.update(resp.body.email);
+				this.gravatar_url = 'https://www.gravatar.com/avatar/'+hash.digest('hex');
+				console.log("GRAVATAR URL = ",this.gravatar_url);
             }
-            else
+			else {
                 this.$message("请登录。");
+                this.islogin = false;
+				this.isNotLogin = true;
+			}
         }).
         catch((err) => {
             console.log(err);
@@ -203,6 +217,18 @@ el-tooltip {
 
 #nav-header {
     border-bottom: 2px solid #d3d4e2;
-    color: #909399;
+	color: #909399;
 }
+.round_icon{
+	width: 43px;
+	height: 43px;
+	display: flex;
+	border-radius: 50%;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	margin-top: 6px;
+	border: 2px #dedede solid;
+}
+
 </style>
