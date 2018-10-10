@@ -5,21 +5,22 @@ var do_sql_query = funcs.do_sql_query;
 var do_sql_query_sequential = funcs.do_sql_query_sequential;
 var randomString = funcs.randomString;
 var moment = require('moment');
+var mysql=require('mysql');
 
 router.get('/delete', function(req, res, next) { //根据id删除班级
 	var id = req.query.id;
-	var sql = 'DELETE FROM classes WHERE id = ' + id;
+	var sql = 'DELETE FROM classes WHERE id = ' + mysql.escape(id);
 	do_sql_query(sql,function(result) {
 		res.send(JSON.stringify(result,null,3));
 	});
-	sql = 'DELETE FROM classusers WHERE id = ' + id;
+	sql = 'DELETE FROM classusers WHERE id = ' + mysql.escape(id);
 	do_sql_query(sql,function(result) {
 		//to do more,设计更好的适合前段解析的返回
 	});
 });
 
 router.post('/resources/query', function(req, res, next) {
-	var sql = 'SELECT resource FROM resources WHERE `class_id` = '+req.body.class_id;
+	var sql = 'SELECT resource FROM resources WHERE `class_id` = '+mysql.escape(req.body.class_id);
 	var result = {};
 	do_sql_query(sql,function(sql_res) {
 		console.log(sql_res);
@@ -34,7 +35,7 @@ router.post('/resources/query', function(req, res, next) {
 
 router.post('/info/query',function(req, res, next) {
 	console.log('>>>QUERY CLASS INFO',req.body);
-	var sql = 'SELECT * FROM classes WHERE id = '+req.body.class_id;
+	var sql = 'SELECT * FROM classes WHERE id = '+mysql.escape(req.body.class_id);
 	var result = {};
 	do_sql_query(sql,function(sql_res) {
 		if (sql_res.results.length === 0) {
@@ -42,7 +43,7 @@ router.post('/info/query',function(req, res, next) {
 			res.send(JSON.stringify(result,null,3));
 		} else {
 			result.info = sql_res.results[0];
-			var sql = 'SELECT resource from resources WHERE class_id = '+req.body.class_id;
+			var sql = 'SELECT resource from resources WHERE class_id = '+mysql.escape(req.body.class_id);
 			do_sql_query(sql,function(sql_res) {
 				result.resources = [];
 				for (var key in sql_res.results) {
@@ -66,21 +67,21 @@ router.post('/info/update', function(req, res, next) {
 	var sqls = [];
 	var sql = 'UPDATE classes SET ';
 	for (var key in info) {
-		sql += key + '=';
+		sql += mysql.escape(key) + '=';
 		if (typeof(info[key]) == 'string')
-			sql += '"' + info[key] + '"';
+			sql += '"' + mysql.escape(info[key]) + '"';
 		else
-			sql += info[key];
+			sql += mysql.escape(info[key]);
 		sql += ',';
 	}
 	sql = sql.substr(0,sql.length-1);
-	sql += ' WHERE id = '+req.body.class_id;
+	sql += ' WHERE id = '+mysql.escape(req.body.class_id);
 	sqls.push(sql);
-	sql = 'DELETE  FROM resources WHERE class_id = '+req.body.class_id;
+	sql = 'DELETE  FROM resources WHERE class_id = '+mysql.escape(req.body.class_id);
 	sqls.push(sql);
 	sql = 'INSERT INTO `resources` (`class_id`,`resource`) VALUES ';
 	for (var w in resources) {
-		sql += '('+req.body.class_id+',"'+resources[w]+'"),';
+		sql += '('+mysql.escape(req.body.class_id)+',"'+mysql.escape(resources[w])+'"),';
 	}
 	sql = sql.substr(0,sql.length-1);
 	sqls.push(sql);
@@ -105,7 +106,7 @@ router.post('/create', function(req, res, next) { //创建新班级
 		console.log("ERROR CREATING CLASS");
 	} else {
 		var sql = 'INSERT INTO classes (`title`,`description`,`invitation_code`,`registration_date`) VALUES ("' +
-                        title + '","' +description+'","'+invitation_code+'","'+registration_date + '")';
+                        mysql.escape(title) + '","' +mysql.escape(description)+'","'+mysql.escape(invitation_code)+'","'+mysql.escape(registration_date) + '")';
 		console.log(sql);
 		do_sql_query(sql,function(sql_res) {
             do_sql_query('SELECT MAX(`id`) FROM classes', function (sql_res) {
@@ -115,7 +116,7 @@ router.post('/create', function(req, res, next) { //创建新班级
                 result.invitation_code = invitation_code;
                 var sql = 'INSERT INTO `resources` (`class_id`,`resource`) VALUES ';
                 for (var w in resources) {
-                    sql += '(' + result.id + ',"' + resources[w] + '"),';
+                    sql += '(' + mysql.escape(result.id) + ',"' + mysql.escape(resources[w]) + '"),';
                 }
                 sql = sql.substr(0, sql.length - 1);
                 console.log(sql);

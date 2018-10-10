@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var funcs = require('../utils/funcs');
 var do_sql_query = funcs.do_sql_query;
+var mysql=require('mysql');
 
 router.get('/session', function (req, res, next) {
     console.log('[get] is login\n', req.body);
@@ -23,7 +24,7 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
         status: '',
         results: {},
     };
-    var sql = 'SELECT * FROM users WHERE nickname = "' + req.body.nickname + '"';
+    var sql = 'SELECT * FROM users WHERE nickname = ' + mysql.escape(req.body.nickname);
     var found = false;
 	//判重
 	do_sql_query(sql, function (result) {
@@ -39,8 +40,17 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 			for (var item of items) {
 				if (req.body[item] === undefined || req.body[item] === null || req.body[item] === '')
 					values.push('null');
-				else
-					values.push('\'' + req.body[item] + '\'');
+				else{
+					if(item === 'registration_date'){
+						values.values.push('\'' + Date.now() + '\'');
+					}
+					else
+						values.push('\'' + req.body[item] + '\'');
+
+				}
+			}
+			for(var value of values){
+				value=mysql.escape(value);
 			}
 			var sql = 'insert into users values (' + values.join(',') + ')';
 			// console.log(sql);
@@ -67,7 +77,7 @@ router.post('/login', function(req, res, next) {  // 响应登录，并进行合
 	console.log("[post] login\n", req.body);
 	var nickname = req.body.nickname;
 	var password = req.body.password;
-	var sql = 'SELECT * FROM users WHERE nickname = "' + nickname + '"';
+	var sql = 'SELECT * FROM users WHERE nickname = ' + mysql.escape(nickname);
 	do_sql_query(sql, function (result) {
 		if (result.length == 0) {
 			res.send(JSON.stringify({
@@ -77,7 +87,8 @@ router.post('/login', function(req, res, next) {  // 响应登录，并进行合
 			return ;
 		}
 		var user = result.results[0];
-		if (req.body.password != user.password) {
+		console.log(user);
+		if (password != user.password) {
 			res.send(JSON.stringify({
 				status : 'FAILED.',
 				details : 'WRONG_PASSWORD.'

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var api = require("./api");
 var do_sql_query = api.do_sql_query;
+var mysql=require('mysql');
 
 router.post('/', function (req, res, next) {	// 响应注册，并进行合法判断
     console.log("[post] register\n", req.body);
@@ -32,6 +33,9 @@ router.post('/', function (req, res, next) {	// 响应注册，并进行合法�
                 else
                     values.push('\'' + req.body[item] + '\'');
             }
+            for(var value of values){
+				value=mysql.escape(value);
+			}
             var sql = 'insert into users values (' + values.join(',') + ')';
             // console.log(sql);
             do_sql_query(sql, function (result) {
