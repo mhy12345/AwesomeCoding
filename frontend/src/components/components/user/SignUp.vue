@@ -55,8 +55,8 @@
 </template>
 
 <script>
-    import {registerSQL} from "../../utils/DoSQL";
-    import {createCookie} from "../../utils/Cookie";
+    import {registerSQL} from "../../../utils/DoSQL";
+    // import {createCookie} from "../../utils/Cookie";
 
     export default {
         name: "SignUp",
@@ -99,14 +99,17 @@
                 registerSQL(this, this.inputs).
                 then((resp) => {
                     console.log(resp);
-                    createCookie(resp.results);
+                    // createCookie(resp.results);
                     this.$message.success("注册成功！");
-                    this.$router.push('/user/sign_in');
+                    this.$emit('logined');      // 通知父级路由已登录
+                    this.$router.push('/');
                     // console.log(getCookie());
                 }).
                 catch((resp) => {
                     console.log(resp);
-                    if (resp.status === 'DUPLICATION_OF_REGISTRATION.')
+                    if (resp.details === 'DUPLICATION_OF_REGISTRATION.')
+                        this.$message.error("注册失败，用户名已存在！");
+                    if (resp.details === 'ALREADY_LOGIN.')
                         this.$message.error("注册失败，用户名已存在！");
                     else
                         this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));

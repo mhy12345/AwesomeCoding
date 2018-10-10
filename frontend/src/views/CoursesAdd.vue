@@ -43,7 +43,7 @@ export default{
 		onSubmit() {
 			console.log(this.CourseData);
 			this.$http
-			.post('/api/create_class',this.CourseData,{emulateJSON:true})
+			.post('/api/class/create',this.CourseData,{emulateJSON:true})
 			.then(function(res){
 				console.log(res.bodyText);
 				this.$message(res.bodyText);

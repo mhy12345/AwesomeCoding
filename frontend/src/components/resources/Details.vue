@@ -22,7 +22,7 @@ export default {
 	},
 	mounted : function() {
 		this.class_id = this.$route.params.class_id;
-		this.$http.post('/api/class_info/query',{class_id:this.class_id})
+		this.$http.post('/api/class/info/query',{class_id:this.class_id})
 		.then(function(res) {
 			if (res.body.status === 'NOT FOUND.') {
                 this.$message("Room " + this.title + " not found!");

@@ -4,7 +4,7 @@
 		<el-form-item label="上传文件">
 			<el-upload class="upload-demo"
 					   :on-success="successUpload"
-						action="/api/upload" 
+						action="/api/file/upload" 
 					   :on-remove="handleRemove"
 					   :file-list="fileList">
 				<el-button size="small"

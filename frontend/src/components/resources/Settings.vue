@@ -46,7 +46,7 @@ export default{
 	},
 	mounted : function() {
 		this.class_id = this.$route.params.class_id;
-		this.$http.post('/api/class_info/query',{class_id:this.class_id})
+		this.$http.post('/api/class/info/query',{class_id:this.class_id})
 		.then(function(res) {
 			if (res.body.status === 'NOT FOUND.') {
 				this.$message("Room "+this.class_id+" not found!");
@@ -65,7 +65,7 @@ export default{
 		onSubmit() {
 			console.log(this.CourseData);
 			this.$http
-			.post('/api/class_info/update',{
+			.post('/api/class/info/update',{
 				resources:this.resources,
 				info:this.CourseData,
 				class_id : this.class_id

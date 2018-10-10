@@ -42,8 +42,8 @@ var supported_resources = {
 		disabled : false,
 		defaultChosen : false,
 	},
-}
-var router_childs = [{path:'',redirect:'details'}]
+};
+var router_childs = [{path:'',redirect:'details'}];
 for (var key in supported_resources) {
 	router_childs.push({
 		path:key,
