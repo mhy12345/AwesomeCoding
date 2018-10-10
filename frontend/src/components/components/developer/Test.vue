@@ -181,7 +181,7 @@ export default {
             });
         },
         getRequest2() {
-            doSQL('show_columns?table_name=users').then((res) => {
+            doSQL(this, '/show_columns?table_name=users').then((res) => {
                 console.log('Got response!', res);
                 alert(JSON.stringify(res));
             });

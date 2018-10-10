@@ -102,7 +102,7 @@
 			<el-main>
 				<!--<div style='min-height:800px'>-->
                 <div>
-					<router-view @logined="handleLogined">
+					<router-view @logined="handleLogined" :user="user">
 					</router-view>
 				</div>
 			</el-main>
@@ -122,16 +122,21 @@ export default {
 			isCollapse: false,
 			activeIndex : '/',
             islogin: false,         // 是否登录
+            user: {                 // 用户基本信息
+                nickname: 'somebody',
+                realname: 'SOMEBODY'
+            },
 		}
 	},
     beforeMount() {
         // todo simplify into '/login/is_login'
-        // this.$http.get('http://127.0.0.1:8888/api/login/is_login').
-        this.$http.get('/api/login/is_login').
+        this.$http.get('http://127.0.0.1:8888/api/login/is_login').
+        // this.$http.get('/api/login/is_login').
         then((resp) => {
             console.log(resp);
             if (resp.body.islogin) {
-                this.$message.success("欢迎回来！" + resp.body.realname);
+                user = resp.body;
+                this.$message.success("欢迎回来！" + user.realname);
                 this.islogin = true;
             }
             else

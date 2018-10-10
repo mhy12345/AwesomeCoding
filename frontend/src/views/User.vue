@@ -1,7 +1,7 @@
 <template>
     <el-container>
         <el-header style="margin-bottom: 50px;">
-            <h1>这里是用户登录/注册页面</h1>
+            <h1>这里是用户页面</h1>
         </el-header>
 
         <el-main style="margin: auto;">
@@ -13,6 +13,9 @@
 <script>
     export default {
         name: "User",
+        mounted() {
+            alert("params: " + JSON.stringify(this.user.nickname, null, 3));
+        },
         methods: {
             handleLogined() {
                 // console.log('>>>in user logined!');
