@@ -1,24 +1,30 @@
 <template>
-	<el-row>
+	<el-row :gutter="40">
 		<el-col :span='6'>
-			asd
+			<el-card>
+				<h3>
+					课件列表
+				</h3>
+			</el-card>
 		</el-col>
-		<el-col :span='18'>
-			<el-row type='flex' justify='center'>
+		<el-col :span='16'>
+			<el-card>
+				<el-row type='flex' justify='center'>
 					<pdf 
-					id = 'pdf-frame'
-					:page='page'
-					:src='pdf_src'
-					@num-pages="page_num = $event"
-					ref='pdf'
-					>
+						id = 'pdf-frame'
+						:page='page'
+						:src='pdf_src'
+						@num-pages="page_num = $event"
+						ref='pdf'
+						>
 					</pdf>
-			</el-row>
-			<el-row type='flex' justify="center">
+				</el-row>
+				<el-row type='flex' justify="center">
 					<el-button plain @click='prevPage' style='height:40px'>上一页</el-button>
 					<span style='height:40px;text-align:center;margin-top:8px'>第{{page}}页 / 共{{page_num}}页</span>
 					<el-button plain @click='nextPage' style='height:40px'>下一页</el-button>
-			</el-row>
+				</el-row>
+			</el-card>
 		</el-col>
 	</el-row>
 </template>
@@ -55,8 +61,8 @@ export default {
 
 <style>
 #pdf-frame {
-	width:500px;
-	height:400px;
+	width:600px;
+	height:480px;
 	border:2px solid #d3d4e2;
 }
 .annotationLayer {

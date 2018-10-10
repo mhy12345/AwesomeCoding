@@ -4,7 +4,7 @@
 			<h2>课程设置</h2>
 		</el-header>
 		<el-main>
-			<el-form ref="form" :model="CourseData" label-width="140px">
+			<el-form ref="form" :model="CourseData" label-width="140px" v-loading='loading'>
 				<el-form-item label="课程名称：">
 					<el-input v-model="CourseData.title" placeholder="请输入"></el-input>
 				</el-form-item>
@@ -22,7 +22,7 @@
 					<el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="CourseData.notice"> </el-input>
 				</el-form-item>
 				<el-form-item>
-				    <el-button type="primary" @click="onSubmit">更新</el-button>
+					<el-button type="primary" @click="onSubmit">更新</el-button>
 				</el-form-item>
 			</el-form>
 		</el-main>
@@ -41,39 +41,38 @@ export default{
 				type : undefined,
 			},
 			resources : undefined,
+			loading : true,
 			avaliable_resources : avaliable_resources
 		}
 	},
 	mounted : function() {
 		this.class_id = this.$route.params.class_id;
 		this.$http.post('/api/class/info/query',{class_id:this.class_id})
-		.then(function(res) {
-			if (res.body.status === 'NOT FOUND.') {
-				this.$message("Room "+this.class_id+" not found!");
-			}else {
-				var raw_data = res.body.info;
-				delete raw_data.id;
-				delete raw_data.registration_date;
-				delete raw_data.invitation_code;
-				this.CourseData = res.body.info;
-				this.resources = res.body.resources;
-				console.log(this.CourseData);
-			}
-		});
+			.then(function(res) {
+				if (res.body.status === 'NOT FOUND.') {
+					this.$message("Room "+this.class_id+" not found!");
+				}else {
+					this.loading = false;
+					console.log("PREPARED...");
+					this.CourseData = res.body.info;
+					this.resources = res.body.resources;
+					console.log(this.CourseData);
+				}
+			});
 	},
 	methods : {
 		onSubmit() {
 			console.log(this.CourseData);
 			this.$http
-			.post('/api/class/info/update',{
-				resources:this.resources,
-				info:this.CourseData,
-				class_id : this.class_id
+				.post('/api/class/info/update',{
+					resources:this.resources,
+					info:this.CourseData,
+					class_id : this.class_id
 				})
-			.then(function(res){
-				console.log(res.bodyText);
-				this.$message(res.bodyText);
-			});
+				.then(function(res){
+					console.log(res.bodyText);
+					this.$message(res.bodyText);
+				});
 		}
 	}
 }

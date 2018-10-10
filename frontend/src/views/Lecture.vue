@@ -1,16 +1,10 @@
 <template>
-	<el-container>
-		<el-header>
-			<h2> {{title}} </h2>
-		</el-header>
-		<el-main>
-		<el-tabs @tab-click="onTabClick" v-model='activeName'>
-			<el-tab-pane v-for="option in options" :label="option.name" :name="options.route"></el-tab-pane>
-		</el-tabs>
-            <router-view>
-            </router-view>
-		</el-main>
-	</el-container>
+	<el-tabs @tab-click="onTabClick" v-model='activeName' type="border-card">
+		<el-tab-pane v-for="option in options" :label="option.name" :name="options.route">
+			<router-view>
+			</router-view>
+		</el-tab-pane>
+	</el-tabs>
 </template>
 
 <script>
@@ -43,17 +37,18 @@ export default{
 	},
 	mounted : function() {
 		this.title = this.$route.params.class_id;
+		console.log("LECTURE MOUNTED...");
 		this.$http
-		.post('/api/class/resources/query',{class_id:this.title},{emulateJSON:true})
-		.then(function(res) {
-			this.class_resources = res.body.results;
-		});
+			.post('/api/class/resources/query',{class_id:this.title},null)
+			.then(function(res) {
+				this.class_resources = res.body.results;
+			});
 	},
 
 	methods: {
 		onTabClick(a, b, c) {
-            this.$router.push({name: 'class-' + this.options[this.activeName].route, params: {class_id: this.title}});
-        }
+			this.$router.push({name: 'class-' + this.options[this.activeName].route, params: {class_id: this.title}});
+		}
 	},
 	components: {
 	}

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var funcs = require('../utils/funcs');
 var do_sql_query = funcs.do_sql_query;
+var do_sql_query_sequential = funcs.do_sql_query_sequential;
 var randomString = funcs.randomString;
 var moment = require('moment');
 
@@ -59,6 +60,9 @@ router.post('/info/update', function(req, res, next) {
 	console.log('>>>UPDATE CLASS INFO',req.body);
 	var info = req.body.info;
 	var resources = req.body.resources;
+	delete info.registration_date;
+	delete info.id;
+	delete info.invitation_code;
 	var sqls = [];
 	var sql = 'UPDATE classes SET ';
 	for (var key in info) {
@@ -92,10 +96,7 @@ router.post('/create', function(req, res, next) { //创建新班级
 	var description = req.body.description;
 	var invitation_code = randomString(20);
 	var registration_date = moment().format('YYYY-MM-DD HH-mm-ss');
-	var resources = req.body['resources[]'];
-	if (typeof(resources) === 'string') {
-		resources = [resources];
-	}
+	var resources = req.body['resources'];
 	var result = {};
 	if (title === undefined || title.length < 3) {
 		result.status = 'FAILED.';
