@@ -26,10 +26,10 @@
         beforeMount() { // todo 此处换成由父级路由传参来完成user参数的填充
             // todo simplify into '/login/is_login'
             // this.$http.get('http://127.0.0.1:8888/api/login/is_login').
-            this.$http.get('/api/login/is_login').
+            this.$http.get('/api/user/session').
             then((resp) => {
                 console.log(resp);
-                if (resp.body.islogin) {
+                if (typeof(resp.body.nickname) != 'undefined') {
                     this.user = resp.body;
                 }
                 else

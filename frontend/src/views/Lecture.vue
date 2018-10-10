@@ -44,7 +44,7 @@ export default{
 	mounted : function() {
 		this.title = this.$route.params.class_id;
 		this.$http
-		.post('/api/class_resources',{class_id:this.title},{emulateJSON:true})
+		.post('/api/class/resources/query',{class_id:this.title},{emulateJSON:true})
 		.then(function(res) {
 			this.class_resources = res.body.results;
 		});

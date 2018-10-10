@@ -72,11 +72,11 @@ function postSQL(parent, query, params) {       // 向服务器发出post请求
 }
 
 function loginSQL(parent, user) {
-    return postSQL(parent, "/login", user);
+    return postSQL(parent, "/user/login", user);
 }
 
 function registerSQL(parent, user) {
-    return postSQL(parent, "/register", user);
+    return postSQL(parent, "/user/register", user);
 }
 
 export {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL, loginSQL, registerSQL, doSQL}
