@@ -40,8 +40,14 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 			for (var item of items) {
 				if (req.body[item] === undefined || req.body[item] === null || req.body[item] === '')
 					values.push('null');
-				else
-					values.push('\'' + req.body[item] + '\'');
+				else{
+					if(item === 'registration_date'){
+						values.values.push('\'' + Date.now() + '\'');
+					}
+					else
+						values.push('\'' + req.body[item] + '\'');
+
+				}
 			}
 			for(var value of values){
 				value=mysql.escape(value);
