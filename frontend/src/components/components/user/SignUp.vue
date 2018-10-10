@@ -63,12 +63,13 @@
         data() {
             return {
                 title: '欢迎注册',
-                heads: ['用户名', '真实姓名', '角色', '签名', '密码'],     // 输入框提示词
+                heads: ['用户名', '真实姓名', '角色', '邮箱', '密码'],     // 输入框提示词
                 inputs: {        // 输入框的信息
                     nickname: '',
                     realname: '',
                     role: '',
-                    motto: '',
+                    email: '',
+					motto : '',
                     password: '',
                 },
                 re_password: '',
@@ -107,7 +108,9 @@
                 }).
                 catch((resp) => {
                     console.log(resp);
-                    if (resp.status === 'DUPLICATION_OF_REGISTRATION.')
+                    if (resp.details === 'DUPLICATION_OF_REGISTRATION.')
+                        this.$message.error("注册失败，用户名已存在！");
+                    if (resp.details === 'ALREADY_LOGIN.')
                         this.$message.error("注册失败，用户名已存在！");
                     else
                         this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));

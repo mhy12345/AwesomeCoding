@@ -38,6 +38,7 @@ var sqls = {
 
 	'create_user_table' : "CREATE TABLE IF NOT EXISTS `users`(" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, "+
+		"`email` CHAR(30) NOT NULL,"+ 
 		"`nickname` VARCHAR(40), "+
 		"`realname` VARCHAR(40), "+
 		"`role` INT UNSIGNED NOT NULL, "+
@@ -67,33 +68,42 @@ var sqls = {
 	'use_database' : 'USE ' + mysql_config.database,
 }
 
-function mysql_initializer(callback) { //倘若数据库不存在，则重新新建数据库
-	var cfg = {
-		host : mysql_config.host,
-		user : mysql_config.user,
-		password : mysql_config.password
-	};
-	var db_name = mysql_config.database;
-	console.log(cfg);
-	var conn = mysql.createConnection(cfg);
-	conn.connect(function(err) {
-		if (err) {
-			console.log("Cannot create connection!");
-			console.log(err);
-			return;
-		}
-		var tasks = ['create_database', 'use_database', 'create_user_table', 'create_class_table',
-                        'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list'];
-		async.eachSeries(tasks, function (item, callback) {
-			console.log(item + " ==> " + sqls[item]);
-			conn.query(sqls[item], function (err, res) {
-				console.log(res);
-				callback(err, res);
+function mysql_initializer() { //倘若数据库不存在，则重新新建数据库
+	return new Promise(function(resolve,reject) {
+		var cfg = {
+			host : mysql_config.host,
+			user : mysql_config.user,
+			password : mysql_config.password
+		};
+		var db_name = mysql_config.database;
+		console.log(cfg);
+		var conn = mysql.createConnection(cfg);
+		conn.connect(function(err) {
+			if (err) {
+				reject({
+					status : 'FAILED.',
+					details : err
+				});
+				return ;
+			}
+			var tasks = ['create_database', 'use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list'];
+			async.eachSeries(tasks, function (item, next) {
+				console.log(item + " ==> " + sqls[item]);
+				conn.query(sqls[item], function (err, res) {
+					console.log(res);
+					next(err, res);
+				});
+			}, function (err,res) {
+				if (err) {
+					reject({
+						status : 'FAILED.',
+						details : err
+					});
+					return ;
+				} else {
+					resolve(conn);
+				}
 			});
-		}, function (err,res) {
-			console.log("err: " + err);
-			console.log("res: " + res);
-			callback(conn);
 		});
 	});
 }

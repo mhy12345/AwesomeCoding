@@ -1,18 +1,11 @@
 <template>
-    <el-container>
-        <el-header>
-            <h1>开发者页面</h1>
-        </el-header>
-        <el-main>
-            <router-view></router-view>
-        </el-main>
-    </el-container>
+	<router-view></router-view>
 </template>
 
 <script>
-    export default {
-        name: "Developer"
-    }
+export default {
+	name: "Developer"
+}
 </script>
 
 <style scoped>

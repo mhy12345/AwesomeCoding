@@ -16,15 +16,15 @@ function doSQL (parent, query)      // 使用ajax，向后端数据库发出 que
 }
 
 function getSQLColumns(parent, table_name) {      // 加载表头
-    return doSQL(parent, "/show_columns?table_name=" + table_name);
+    return doSQL(parent, "/developer/show_columns?table_name=" + table_name);
 }
 
 function showSQL(parent, table_name) {
-    return doSQL(parent, "/show_table?table_name=" + table_name);
+    return doSQL(parent, "/developer/show_table?table_name=" + table_name);
 }
 
 function insertSQL(parent, table_name, new_row) {
-    var query = "/do_query?sql=INSERT INTO " + table_name + " ";
+    var query = "/developer/do_query?sql=INSERT INTO " + table_name + " ";
     var values = [];
     for (var item in new_row) {
         if (new_row[item] === null || new_row[item] === '')
@@ -37,12 +37,12 @@ function insertSQL(parent, table_name, new_row) {
 }
 
 function deleteSQL(parent, table_name, id) {
-    var query = "/do_query?sql=DELETE FROM " + table_name + " WHERE id = " + id;
+    var query = "/developer/do_query?sql=DELETE FROM " + table_name + " WHERE id = " + id;
     return doSQL(parent, query);
 }
 
 function updateSQL(parent, table_name, row) {
-    var query = "/do_query?sql=UPDATE " + table_name + " SET ";
+    var query = "/developer/do_query?sql=UPDATE " + table_name + " SET ";
     var arr = [];
     for (var item in row) {
         if (row[item] === null || row[item] === '')
@@ -72,11 +72,11 @@ function postSQL(parent, query, params) {       // 向服务器发出post请求
 }
 
 function loginSQL(parent, user) {
-    return postSQL(parent, "/login", user);
+    return postSQL(parent, "/user/login", user);
 }
 
 function registerSQL(parent, user) {
-    return postSQL(parent, "/register", user);
+    return postSQL(parent, "/user/register", user);
 }
 
 export {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL, loginSQL, registerSQL, doSQL}

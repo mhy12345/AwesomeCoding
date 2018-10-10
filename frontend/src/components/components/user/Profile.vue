@@ -29,7 +29,7 @@
             // this.$http.get('/api/login/is_login').
             then((resp) => {
                 console.log(resp);
-                if (resp.body.islogin) {
+                if (typeof(resp.body.nickname) != 'undefined') {
                     this.user = resp.body;
                 }
                 else

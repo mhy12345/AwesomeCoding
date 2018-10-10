@@ -1,115 +1,77 @@
 <template>
-  <div id="container">
-    <!-- <div class='pdf-page'> -->
-      <canvas id="the-canvas"></canvas>
-      <div class="foot" v-if='pdfDoc'>
-        <button class='left' v-if="pageNum>1" @click="onPrevPage">上一页</button>
-        <button class='right' v-if="pageNum<pdfDoc.numPages" @click="onNextPage">下一页</button>
-      </div>
-    <!-- </div> -->
-  </div>
+	<el-row :gutter="40">
+		<el-col :span='6'>
+			<el-card>
+				<h3>
+					课件列表
+				</h3>
+			</el-card>
+		</el-col>
+		<el-col :span='16'>
+			<el-card>
+				<el-row type='flex' justify='center'>
+					<pdf 
+						id = 'pdf-frame'
+						:page='page'
+						:src='pdf_src'
+						@num-pages="page_num = $event"
+						ref='pdf'
+						>
+					</pdf>
+				</el-row>
+				<el-row type='flex' justify="center">
+					<el-button plain @click='prevPage' style='height:40px'>上一页</el-button>
+					<span style='height:40px;text-align:center;margin-top:8px'>第{{page}}页 / 共{{page_num}}页</span>
+					<el-button plain @click='nextPage' style='height:40px'>下一页</el-button>
+				</el-row>
+			</el-card>
+		</el-col>
+	</el-row>
 </template>
+
 <script>
-import PDFJS from 'pdfjs-dist'
- 
+import pdf from 'vue-pdf'
+//https://www.npmjs.com/package/vue-pdf
+
 export default {
-  data () {
-    return {
-      pdfDoc: null,
-      pageNum: 1,
-      pageRendering: false,
-      pageNumPending: null,
-      scale: 0.9
-    }
-  },
-  mounted () {
-      let _this = this;
-	  var url = 'https://arxiv.org/pdf/1710.09829.pdf';
-      PDFJS.getDocument(url).then(function (pdf) {
-        _this.pdfDoc = pdf
-        _this.renderPage(1)
-      })
+	data() {
+		return {
+			page : 1,
+			pdf_src:"https://cseweb.ucsd.edu/classes/fa13/cse160-a/Lectures/Lec07.pdf",
+			page_num : 0
+		}
 	},
-  methods: {
-    showPDF (url) {
-      let _this = this
-      PDFJS.getDocument(url).then(function (pdf) {
-        _this.pdfDoc = pdf
-        _this.renderPage(1)
-      })
-    },
-    renderPage (num) {
-      this.pageRendering = true
-      let _this = this
-      this.pdfDoc.getPage(num).then(function (page) {
-        var viewport = page.getViewport(_this.scale)
-        let canvas = document.getElementById('the-canvas')
-        canvas.height = viewport.height
-        canvas.width = viewport.width
- 
-        // Render PDF page into canvas context
-        var renderContext = {
-          canvasContext: canvas.getContext('2d'),
-          viewport: viewport
-        }
-        var renderTask = page.render(renderContext)
- 
-        // Wait for rendering to finish
-        renderTask.promise.then(function () {
-          _this.pageRendering = false
-          if (_this.pageNumPending !== null) {
-            // New page rendering is pending
-            this.renderPage(_this.pageNumPending)
-            _this.pageNumPending = null
-          }
-        })
-      })
-    },
-    queueRenderPage (num) {
-      if (this.pageRendering) {
-        this.pageNumPending = num
-      } else {
-        this.renderPage(num)
-      }
-    },
-    onPrevPage () {
-      if (this.pageNum <= 1) {
-        return
-      }
-      this.pageNum--
-      this.queueRenderPage(this.pageNum)
-    },
-    onNextPage () {
-      if (this.pageNum >= this.pdfDoc.numPages) {
-        return
-      }
-      this.pageNum++
-      this.queueRenderPage(this.pageNum)
-    }
-  }
+	components: {
+		pdf : pdf
+	},
+	mounted : function() {
+	},
+	methods : {
+		nextPage : function() {
+			if (this.page+1 <= this.page_num)
+				this.page += 1
+		},
+		prevPage : function() {
+			if (this.page-1>0)
+				this.page -= 1
+		}
+	}
 }
 </script>
- 
-<style scoped>
-#container {
-  background-color: rgba(0,0,0,0.75);
-  position:fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  text-align: center;
-  padding: 5px;
+
+<style>
+#pdf-frame {
+	width:600px;
+	height:480px;
+	border:2px solid #d3d4e2;
 }
- 
-.pdf-page {
- 
+.annotationLayer {
+	display:none;
 }
- 
-.foot {
-  position: fixed;
-  transform: translate(-50%,0);
-  left: 50%;
+.page-panel{
+	margin:auto;
+}
+.margin-auto {
+	margin:auto;
 }
 </style>
-

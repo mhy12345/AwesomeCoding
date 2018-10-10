@@ -53,10 +53,10 @@
                 catch((resp) => {
                     console.log(resp);
                     this.loading = false;
-                    if (resp.status === 'WRONG_PASSWORD.') {
+                    if (resp.details === 'WRONG_PASSWORD.') {
                         this.$message.error("登录失败，密码错误！");
                     }
-                    else if (resp.status === 'USER_NOT_FOUND.') {
+                    else if (resp.details === 'USER_NOT_FOUND.') {
                         this.$message.error("登录失败，用户名不存在！");
                     }
                     else this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.details));

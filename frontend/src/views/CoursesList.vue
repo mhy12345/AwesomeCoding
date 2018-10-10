@@ -13,7 +13,7 @@ export default {
 		}
 	},
 	mounted : function() {
-		this.$http.post('/api/get_classes_list?m=0&n=100')
+		this.$http.post('/api/class/fetch?m=0&n=100')
 		.then(function(res) {
 			console.log(res.body);
 			this.tableData = res.body.results;
