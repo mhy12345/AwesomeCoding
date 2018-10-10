@@ -131,8 +131,8 @@ router.post('/create', function(req, res, next) { //创建新班级
 
 //分页获取
 router.post('/fetch', function(req, res, next) {
-	var m = (req.query.m === undefined? null: req.query.m); //从第几条开始取
-	var n = (req.query.n === undefined? null: req.query.n);
+	var m = (req.body.m === undefined? null: req.body.m); //从第几条开始取
+	var n = (req.body.n === undefined? null: req.body.n);
 	var sql = 'SELECT * FROM classes LIMIT ' + m + ',' + n;
 	console.log(sql);
 	do_sql_query(sql,function(result) {

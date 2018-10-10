@@ -3,10 +3,10 @@ var router = express.Router();
 var funcs = require('../utils/funcs');
 var do_sql_query = funcs.do_sql_query;
 
-router.get('/ban', function(req,res,next) { //添加禁言名单
-    var userid = req.query.userid;
-    var classid = req.query.classid;
-    var status = req.query.status;
+router.post('/ban', function(req,res,next) { //添加禁言名单
+    var userid = req.body.userid;
+    var classid = req.body.classid;
+    var status = req.body.status;
 
     var sql = 'select * from bannedlist where userid = ' + userid + ' and classid = ' + classid;
     var tag = 0;
