@@ -1,10 +1,10 @@
 <template>
-    <el-card class="box-card">
+    <el-card class="box-card" v-loading="loadingQ">
         <div slot="header" class="clearfix">
             <span>{{title}}</span>
         </div>
         <div @keydown.enter="signUp">
-            <el-row v-for="(value, key, index) in inputs">
+            <el-row v-for="(value, key, index) in inputs" :key="index">
                 <el-col>
                     <label :for="key">
                         <i class="el-icon-caret-right" slot="prepend"></i>
@@ -73,6 +73,7 @@
                     password: '',
                 },
                 re_password: '',
+                loadingQ: false,
             }
         },
         methods: {
@@ -101,15 +102,18 @@
                     this.$message("两次输入的密码不同。");
                     return;
                 }
+                this.loadingQ = true;       // 加载等待圈
                 registerSQL(this, this.inputs).
                 then((resp) => {
                     console.log(resp);
+                    this.loadingQ = false;
                     this.$message.success("注册成功！");
                     this.$emit('logined', this.inputs);      // 通知父级路由已注册
                     this.$router.push('/');
                 }).
                 catch((resp) => {
                     console.log(resp);
+                    this.loadingQ = false;
                     if (resp.details === 'DUPLICATION_OF_REGISTRATION.')
                         this.$message.error("注册失败，用户名已存在！");
                     else if (resp.details === 'ALREADY_LOGIN.')
