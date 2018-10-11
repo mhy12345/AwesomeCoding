@@ -9,6 +9,7 @@
 * 不要随意修改[.gitlab-ci.yml](https://gitlab.secoder.net/help/ci/yaml/README#configuration-of-your-jobs-with-gitlab-ciyml).
 * 工程模板[nodejs-examples](https://gitlab.secoder.net/SECoder-Examples/nodejs-example).
 * master分支部署后，可以在[这里](https://awesomecoding_fantastic67.app.secoder.net)看到成果.
+* 修改任意接口后，确认所有依赖于该接口的功能都还是work的......其他不知道的人调起来真的很费劲
 
 
 ## 数据库支持
