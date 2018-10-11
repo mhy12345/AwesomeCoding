@@ -104,18 +104,16 @@
                 registerSQL(this, this.inputs).
                 then((resp) => {
                     console.log(resp);
-                    // createCookie(resp.results);
                     this.$message.success("注册成功！");
                     this.$emit('logined', this.inputs);      // 通知父级路由已注册
                     this.$router.push('/');
-                    // console.log(getCookie());
                 }).
                 catch((resp) => {
                     console.log(resp);
                     if (resp.details === 'DUPLICATION_OF_REGISTRATION.')
                         this.$message.error("注册失败，用户名已存在！");
                     else if (resp.details === 'ALREADY_LOGIN.')
-                        this.$message.error("注册失败，用户名已存在！");
+                        this.$message.error("注册失败，用户已登录！");
                     else
                         this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
                 });
