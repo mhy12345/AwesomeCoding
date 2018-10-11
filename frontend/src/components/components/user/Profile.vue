@@ -20,8 +20,11 @@
                 title: '这里是用户个人页面Profile'
             }
         },
-        mounted() { // todo 此处换成由父级路由传参来完成user参数的填充
-            // this.$message("params: " + JSON.stringify(this.user.nickname, null, 3));
+        beforeMount() { // 此处换成由父级路由传参来完成user参数的填充
+            this.$message("params: " + JSON.stringify(this.user.nickname, null, 3));
+        },
+        methods: {
+
         }
     }
 </script>

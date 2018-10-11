@@ -127,7 +127,10 @@ export default {
 			isCollapse: false,
 			activeIndex : '/',
             islogin: undefined,         // 是否登录，初始为 undefined 这样右上角既不显示'登录'也不显示头像
-            user: {},                   // 当前用户基本信息
+            user: {
+                nickname: 'somebody',
+                realname: 'SOMENAME',
+            },                   // 当前用户基本信息
 			gravatar_url : '',
 		}
 	},
@@ -137,8 +140,8 @@ export default {
 	methods: {
         checkLogin() {     // 检验用户是否登录
             // todo simplify into '/login/is_login'
-            // this.$http.get('http://127.0.0.1:8888/api/login/is_login').
-            this.$http.get('/api/user/session').
+            this.$http.get('http://127.0.0.1:8888/api/login/is_login').
+            // this.$http.get('/api/user/session').
             then((resp) => {
                 console.log(resp);
                 if (typeof(resp.body.nickname) !== 'undefined') {
@@ -169,8 +172,8 @@ export default {
 			}
 		},
         handleLogined(user_info) {       // 子路由发来登陆成功的消息
-		    console.log('>>>in app logined! info:', user_info);
-		    this.islogin = true;
+            console.log('>>>in app logined! info:', user_info);
+            this.islogin = true;
             var hash = crypto.createHash('md5');
             hash.update(user_info.email);
             this.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
