@@ -1,5 +1,6 @@
 <template>
 	<el-container id="app">
+        <v-header :user="user"></v-header>
 		<el-header id="nav-header" style='height:62px'>
 			<div>
 				<span style="position: absolute; top: 20px;">
@@ -126,10 +127,7 @@ export default {
 			isCollapse: false,
 			activeIndex : '/',
             islogin: undefined,         // 是否登录，初始为 undefined 这样右上角既不显示'登录'也不显示头像
-            user: {                 // 用户基本信息
-                nickname: 'somebody',
-                realname: 'SOMEBODY'
-            },
+            user: {},                   // 当前用户基本信息
 			gravatar_url : '',
 		}
 	},
@@ -144,10 +142,11 @@ export default {
             then((resp) => {
                 console.log(resp);
                 if (typeof(resp.body.nickname) !== 'undefined') {
-                    this.$message.success("欢迎回来！" + resp.body.nickname);
+                    user = resp.body;
+                    this.$message.success("欢迎回来！" + user.realname);
                     this.islogin = true;
                     var hash = crypto.createHash('md5');
-                    hash.update(resp.body.email);
+                    hash.update(user.email);
                     this.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
                     console.log("GRAVATAR URL = ", this.gravatar_url);
                 }
