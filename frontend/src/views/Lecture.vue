@@ -27,6 +27,8 @@ export default{
 			var current_options = this.class_resources ? this.class_resources : default_options;
 			for (var k in current_options) {
 				var key = current_options[k];
+				console.log('>>>???',key);
+				console.log(supported_resources);
 				result.push({
 					name:supported_resources[key].title,
 					route:key

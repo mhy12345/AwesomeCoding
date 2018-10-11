@@ -67,11 +67,8 @@ router.post('/info/update', function(req, res, next) {
 	var sqls = [];
 	var sql = 'UPDATE classes SET ';
 	for (var key in info) {
-		sql += mysql.escape(key) + '=';
-		if (typeof(info[key]) == 'string')
-			sql += '"' + mysql.escape(info[key]) + '"';
-		else
-			sql += mysql.escape(info[key]);
+		sql += key + '=';
+		sql += mysql.escape(info[key]);
 		sql += ',';
 	}
 	sql = sql.substr(0,sql.length-1);
@@ -81,7 +78,7 @@ router.post('/info/update', function(req, res, next) {
 	sqls.push(sql);
 	sql = 'INSERT INTO `resources` (`class_id`,`resource`) VALUES ';
 	for (var w in resources) {
-		sql += '('+mysql.escape(req.body.class_id)+',"'+mysql.escape(resources[w])+'"),';
+		sql += '('+mysql.escape(req.body.class_id)+','+mysql.escape(resources[w])+'),';
 	}
 	sql = sql.substr(0,sql.length-1);
 	sqls.push(sql);
@@ -96,7 +93,6 @@ router.post('/create', function(req, res, next) { //创建新班级
 	var title = req.body.title;
 	var description = req.body.description;
 	var invitation_code = randomString(20);
-	var registration_date = moment().format('YYYY-MM-DD HH-mm-ss');
 	var resources = req.body['resources'];
 	var result = {};
 	if (title === undefined || title.length < 3) {
@@ -105,8 +101,8 @@ router.post('/create', function(req, res, next) { //创建新班级
 		res.send(JSON.stringify(result));
 		console.log("ERROR CREATING CLASS");
 	} else {
-		var sql = 'INSERT INTO classes (`title`,`description`,`invitation_code`,`registration_date`) VALUES ("' +
-                        mysql.escape(title) + '","' +mysql.escape(description)+'","'+mysql.escape(invitation_code)+'","'+mysql.escape(registration_date) + '")';
+		var sql = 'INSERT INTO classes (`title`,`description`,`invitation_code`,`registration_date`) VALUES (' +
+                        mysql.escape(title) + ',' +mysql.escape(description)+','+mysql.escape(invitation_code)+','+mysql.escape(new Date()) + ')';
 		console.log(sql);
 		do_sql_query(sql,function(sql_res) {
             do_sql_query('SELECT MAX(`id`) FROM classes', function (sql_res) {
@@ -116,7 +112,7 @@ router.post('/create', function(req, res, next) { //创建新班级
                 result.invitation_code = invitation_code;
                 var sql = 'INSERT INTO `resources` (`class_id`,`resource`) VALUES ';
                 for (var w in resources) {
-                    sql += '(' + mysql.escape(result.id) + ',"' + mysql.escape(resources[w]) + '"),';
+                    sql += '(' + mysql.escape(result.id) + ',' + mysql.escape(resources[w]) + '),';
                 }
                 sql = sql.substr(0, sql.length - 1);
                 console.log(sql);

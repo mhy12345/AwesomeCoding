@@ -3,6 +3,7 @@ var get_connection = require('../utils/database');
 
 function do_sql_query(sql, callback) {           // 执行数据库命令
 	get_connection().then(function (conn) {
+		console.log("SQL : ",sql);
 		conn.query(sql, function (error, results, fields) {
 			if (error) {
 				callback({
@@ -18,9 +19,9 @@ function do_sql_query(sql, callback) {           // 执行数据库命令
 				});
 			}
 		});
-	},function(rejected_reason) {
+	}).catch(function(rejected_reason) {
 		console.log("FAILED TO DO SQL QUERY ...");
-		callback(result);
+		callback(rejected_reason);
 	});
 }
 
