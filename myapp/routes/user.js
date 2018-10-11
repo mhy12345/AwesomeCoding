@@ -25,7 +25,6 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
         results: {},
     };
     var sql = 'SELECT * FROM users WHERE nickname = ' + mysql.escape(req.body.nickname);
-    var found = false;
 	//判重
 	do_sql_query(sql, function (result) {
 		if (result.results.length !== 0) {
