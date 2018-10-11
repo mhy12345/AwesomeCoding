@@ -14,31 +14,14 @@
 <script>
     export default {
         name: "Profile",
+        props: ['user'],
         data() {
             return {
-                title: '这里是用户个人页面Profile',
-                user: {
-                    nickname: '加载中...',
-                    realname: '加载中...'
-                },
+                title: '这里是用户个人页面Profile'
             }
         },
-        beforeMount() { // todo 此处换成由父级路由传参来完成user参数的填充
-            // todo simplify into '/login/is_login'
-            // this.$http.get('http://127.0.0.1:8888/api/user/session').
-            this.$http.get('/api/user/session').
-            then((resp) => {
-                console.log(resp);
-                if (typeof(resp.body.nickname) !== 'undefined') {
-                    this.user = resp.body;
-                }
-                else
-                    this.$message("请登录。");
-            }).
-            catch((err) => {
-                console.log(err);
-                this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
-            });
+        mounted() { // todo 此处换成由父级路由传参来完成user参数的填充
+            // this.$message("params: " + JSON.stringify(this.user.nickname, null, 3));
         }
     }
 </script>

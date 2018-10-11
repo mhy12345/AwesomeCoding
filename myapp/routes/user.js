@@ -8,7 +8,8 @@ router.get('/session', function (req, res, next) {	// 判断用户是否登录
     console.log('[get] session\n', req.body);
 	if (typeof(req.session) === 'undefined')
 		req.session = {};
-    res.send(JSON.stringify(req.session));
+    console.log('[res]', req.session);
+	res.send(JSON.stringify(req.session));
 });
 
 router.post('/register', function (req, res, next) {	// 响应注册，并进行合法判断
