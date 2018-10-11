@@ -3,7 +3,7 @@
         <el-header style="margin-bottom: 50px;">
             <h1>这里是用户页面</h1>
         </el-header>
-        <el-main style="margisen: auto;">
+        <el-main style="margin: auto;">
             <router-view @logined="handleLogined"></router-view>
         </el-main>
     </el-container>
