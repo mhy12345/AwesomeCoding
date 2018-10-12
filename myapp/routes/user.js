@@ -87,7 +87,6 @@ router.post('/login', function(req, res, next) {  // 响应登录，并进行合
 		})
 		.then(function(packed) {
 			let {conn,sql_res} = packed;
-			let resbody = {};
 			if (sql_res.results.length === 0) {
 				conn.end();
 				return Promise.reject({
@@ -122,6 +121,28 @@ router.post('/login', function(req, res, next) {  // 响应登录，并进行合
 		.catch(function(sql_res) {
 			res.send(JSON.stringify(sql_res));
 		});
+});
+
+router.get('/logout', function (req, res, next) {
+    console.log('[get] logout\n', req.body);
+    var res_body = {
+        status: '',
+        details: '',
+    };
+    if (typeof(req.session) === 'undefined') {
+        res_body.status = 'FAILED.';
+        res_body.details = 'USER_NOT_ONLINE.';
+    }
+    else {
+        req.session.destroy((err) => {
+            console.log('Session Destroyed');
+            if (err) console.log(err);
+        });
+        res_body.status = 'SUCCESS.';
+        res_body.details = 'SUCCESS.';
+    }
+    console.log('[res]', res_body);
+    res.send(JSON.stringify(res_body));
 });
 
 module.exports = router;

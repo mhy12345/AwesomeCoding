@@ -71,6 +71,7 @@
                 this.$router.push('/user/settings');
             },
             handleLogout() {
+                this.$emit('logout');
                 this.$router.push('/home');
             },
         }

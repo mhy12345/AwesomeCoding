@@ -15,7 +15,7 @@
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="/user/profile">用户资料</el-dropdown-item>
                             <el-dropdown-item command="/user/settings">设置</el-dropdown-item>
-                            <el-dropdown-item command="/user/logout">退出登录</el-dropdown-item>
+                            <el-dropdown-item command="logout">退出登录</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
@@ -105,7 +105,8 @@
 			<el-main>
 				<!--<div style='min-height:800px'>-->
                 <div>
-					<router-view @logined="handleLogined" :user="user">
+					<router-view @logined="handleLogined" @logout="handleLogout"
+                                 :user="user">
 					</router-view>
 				</div>
 			</el-main>
@@ -135,14 +136,18 @@ export default {
         this.checkLogin();
     },
 	methods: {
+        showUnknownError(err) {
+            console.log(err);
+            this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
+        },
         checkLogin() {     // 检验用户是否登录
             // todo simplify into '/api/user/session'
-            this.$http.get('http://127.0.0.1:8888/api/user/session').
-            // this.$http.get('/api/user/session').
-            then((resp) => {
-                console.log(resp);
-                if (typeof(resp.body.nickname) !== 'undefined') {
-                    this.user = resp.body;
+            this.$http.get('/api/user/session').
+            // this.$http.get('http://127.0.0.1:8888/api/user/session').
+            then((res) => {
+                console.log(res);
+                if (typeof(res.body.nickname) !== 'undefined') {
+                    this.user = res.body;
                     this.$message.success("欢迎回来！" + this.user.realname);
                     this.loginQ = true;
                     var hash = crypto.createHash('md5');
@@ -155,20 +160,43 @@ export default {
                     this.loginQ = false;
                 }
             }).
-            catch((err) => {
-                console.log(err);
-                this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
-            });
+            catch(this.showUnknownError);
+        },
+        logout() {      // 退出登录
+            // todo simplify into '/api/user/session'
+            console.log('Trying to logout...');
+            this.$http.get('/api/user/logout').
+            // this.$http.get('http://127.0.0.1:8888/api/user/logout').
+            then((res) => {
+                console.log(res);
+                if (res.body.status === 'FAILED.') {
+                    if (res.body.details === 'USER_NOT_ONLINE.') {
+                        this.$message.error('您已离线。' );
+                    }
+                    else {
+                        throw '登录失败。';
+                    }
+                }
+                else {  // SUCCESS.
+                    this.loginQ = false;
+                    this.$message.warning('已退出登录。');
+                }
+            }).
+            catch(this.showUnknownError);
         },
 		handleSelectItem(key) {
 			if (key === "collapse") {
 				this.collapseQ = !this.collapseQ;
-			} else {
+			}
+			else if (key === "logout") {
+                this.logout();
+            }
+			else {
 				this.$router.push(key);
 				console.log(key);
 			}
 		},
-        handleLogined(user_info) {       // 子路由发来登陆成功的消息
+        handleLogined(user_info) {       // logined event emitted by children router-view
             console.log('>>>in app logined! info:', user_info);
             this.loginQ = true;
             var hash = crypto.createHash('md5');
@@ -176,7 +204,11 @@ export default {
             this.user = user_info;
             this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
             console.log("GRAVATAR URL = ", this.user.gravatar_url);
-        }
+        },
+        handleLogout() {                // logout event emitted by children router-view
+            console.log('>>>in app logout!');
+            this.logout();
+        },
 	}
 };
 </script>
