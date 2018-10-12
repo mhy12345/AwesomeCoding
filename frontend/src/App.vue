@@ -142,11 +142,11 @@ export default {
             then((resp) => {
                 console.log(resp);
                 if (typeof(resp.body.nickname) !== 'undefined') {
-                    user = resp.body;
-                    this.$message.success("欢迎回来！" + user.realname);
+                    this.user = resp.body;
+                    this.$message.success("欢迎回来！" + this.user.realname);
                     this.islogin = true;
                     var hash = crypto.createHash('md5');
-                    hash.update(user.email);
+                    hash.update(this.user.email);
                     this.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
                     console.log("GRAVATAR URL = ", this.gravatar_url);
                 }
