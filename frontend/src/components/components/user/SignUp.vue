@@ -1,10 +1,10 @@
 <template>
-    <el-card class="box-card">
-        <div slot="header" class="clearfix">
+    <el-card class="box-card" v-loading="loadingQ">
+        <div slot="header" class="clear-fix">
             <span>{{title}}</span>
         </div>
-        <div @keydown.enter="signUp">
-            <el-row v-for="(value, key, index) in inputs">
+        <div @keydown.enter="handleSignUp">
+            <el-row v-for="(value, key, index) in inputs" :key="index">
                 <el-col>
                     <label :for="key">
                         <i class="el-icon-caret-right" slot="prepend"></i>
@@ -16,7 +16,7 @@
                               :id="key"
                               type="password"
                               clearable
-                              class="inputbox"
+                              class="input-box"
                               v-model="inputs[key]"
                               :placeholder="heads[index]">
                     </el-input>
@@ -24,7 +24,7 @@
                               :id="key"
                               type="text"
                               clearable
-                              class="inputbox"
+                              class="input-box"
                               v-model="inputs[key]"
                               :placeholder="heads[index]">
                     </el-input>
@@ -39,7 +39,7 @@
                 </el-col>
                 <el-col>
                     <el-input id="re_password"
-                              class="inputbox"
+                              class="input-box"
                               type="password"
                               v-model="re_password"
                               placeholder="确认密码">
@@ -49,7 +49,7 @@
 
         </div>
         <div align="center">
-            <el-row><el-button type="success" class="registerbutton" @click="signUp">注册</el-button></el-row>
+            <el-row><el-button type="success" class="register-button" @click="handleSignUp">注册</el-button></el-row>
         </div>
     </el-card>
 </template>
@@ -73,10 +73,11 @@
                     password: '',
                 },
                 re_password: '',
+                loadingQ: false,
             }
         },
         methods: {
-            signUp: function () {
+            handleSignUp: function () {
                 if (this.inputs.nickname === '') {
                     this.$message("用户名不能为空。");
                     return;
@@ -101,21 +102,22 @@
                     this.$message("两次输入的密码不同。");
                     return;
                 }
+                this.loadingQ = true;       // 加载等待圈
                 registerSQL(this, this.inputs).
                 then((resp) => {
                     console.log(resp);
-                    // createCookie(resp.results);
+                    this.loadingQ = false;
                     this.$message.success("注册成功！");
-                    this.$emit('logined');      // 通知父级路由已登录
+                    this.$emit('logined', this.inputs);      // 通知父级路由已注册
                     this.$router.push('/');
-                    // console.log(getCookie());
                 }).
                 catch((resp) => {
                     console.log(resp);
+                    this.loadingQ = false;
                     if (resp.details === 'DUPLICATION_OF_REGISTRATION.')
                         this.$message.error("注册失败，用户名已存在！");
-                    if (resp.details === 'ALREADY_LOGIN.')
-                        this.$message.error("注册失败，用户名已存在！");
+                    else if (resp.details === 'ALREADY_LOGIN.')
+                        this.$message.error("注册失败，用户已登录！");
                     else
                         this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
                 });
@@ -133,28 +135,28 @@
         margin-bottom: 18px;
     }
 
-    .clearfix:before,
-    .clearfix:after {
+    .clear-fix:before,
+    .clear-fix:after {
         display: table;
         content: "";
     }
-    .clearfix:after {
+    .clear-fix:after {
         clear: both
     }
 
     .box-card {
         width: 480px;
     }
-    .inputbox {
+    .input-box {
         /*width: 80%;*/
         margin-bottom: 20px;
     }
-    .registerbutton {
+    .register-button {
         margin-top: 30px;
         margin-bottom: 30px;
         width: 200px;
     }
-    .inputerror {
+    .input-error {
         background-color: #ffa392;
         margin-bottom: 20px;
     }
