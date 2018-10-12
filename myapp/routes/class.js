@@ -46,7 +46,6 @@ router.post('/info/query',function(req, res, next) {
 		})
 		.then(function(packed) {
 			let {conn,sql_res} = packed;
-			console.log(conn,sql_res);
 			if (sql_res.results.length === 0) {
 				res.send(JSON.stringify(result,null,3));
 				conn.end();
@@ -142,14 +141,10 @@ router.post('/create', function(req, res, next) { //创建新班级
 			})
 			.then(function(packed) {
 				let {conn,sql_res} = packed;
-				let sql = 'SELECT MAX(`id`) FROM classes';
-				return do_sql_query(conn,sql);
-			})
-			.then(function(packed) {
-				let {conn,sql_res} = packed;
+				console.log('>>>>>',sql_res);
+				result.id = sql_res.results.insertId;
 				result.status = 'SUCCESS.';
 				console.log(sql_res.results);
-				result.id = sql_res.results[0]['MAX(`id`)'];
 				result.invitation_code = invitation_code;
 				let sql = 'INSERT INTO `resources` (`class_id`,`resource`) VALUES ';
 				for (let w in resources) {
@@ -160,6 +155,7 @@ router.post('/create', function(req, res, next) { //创建新班级
 			})
 			.then(function(packed) {
 				let {conn,sql_res} = packed;
+				conn.end();
 				res.send(JSON.stringify(result, null, 3));
 			})
 			.catch(function(sql_res) {
