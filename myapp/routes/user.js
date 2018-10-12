@@ -39,7 +39,7 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 			}
 			// 不重复
 			var values = [];
-			var items = ['id', 'email', 'nickname', 'realname', 'role', 'email', 'registration_date', 'password'];
+			var items = ['id', 'nickname', 'realname', 'role', 'email', 'registration_date', 'password'];
 			for (var item of items) {
 				if (req.body[item] === undefined || req.body[item] === null || req.body[item] === '')
 					values.push('null');
@@ -55,7 +55,7 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 			for(var value of values) {
 				value = mysql.escape(value);
 			}
-			var sql = 'insert into users values (' + values.join(',') + ')';
+            var sql = 'insert into users (' + items.join(',') + ') values (' + values.join(',') + ')';
 			return do_sql_query(conn,sql);
 		})
 		.then(function(packed) {
@@ -66,6 +66,7 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 			req.session.nickname = req.body.nickname;
 			req.session.realname = req.body.realname;
 			req.session.email = req.body.email;
+			req.session.motto = req.body.motto;
 			console.log('[res]', resbody);
 			conn.end();
 			res.send(JSON.stringify(resbody));

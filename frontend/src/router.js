@@ -90,6 +90,11 @@ export default new Router({
                     path: 'profile',
                     name: 'Profile',
                     component: () => import('./components/components/user/Profile.vue')
+                },
+                {
+                    path: 'settings',
+                    name: 'Settings',
+                    component: () => import('./components/components/user/Settings.vue')
                 }
             ]
         },

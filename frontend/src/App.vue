@@ -1,6 +1,5 @@
 <template>
 	<el-container id="app">
-        <v-header :user="user"></v-header>
 		<el-header id="nav-header" style='height:62px'>
 			<div>
 				<span style="position: absolute; top: 20px;">
@@ -174,6 +173,7 @@ export default {
             this.loginQ = true;
             var hash = crypto.createHash('md5');
             hash.update(user_info.email);
+            this.user = user_info;
             this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
             console.log("GRAVATAR URL = ", this.user.gravatar_url);
         }

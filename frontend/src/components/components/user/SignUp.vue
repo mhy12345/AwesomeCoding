@@ -1,17 +1,17 @@
 <template>
     <el-card class="box-card" v-loading="loadingQ">
         <div slot="header" class="clear-fix">
-            <span>{{title}}</span>
+            <h1>{{ title }}</h1>
         </div>
         <div @keydown.enter="handleSignUp">
             <el-row v-for="(value, key, index) in inputs" :key="index">
-                <el-col>
+                <el-col :span="8" class="register-prompt">
                     <label :for="key">
                         <i class="el-icon-caret-right" slot="prepend"></i>
                         {{ heads[index] }}：
                     </label>
                 </el-col>
-                <el-col>
+                <el-col :span="15">
                     <el-input v-if="key === 'password'"
                               :id="key"
                               type="password"
@@ -31,13 +31,13 @@
                 </el-col>
             </el-row>
             <el-row>
-                <el-col>
+                <el-col :span="8" class="register-prompt">
                     <label for="re_password">
                         <i class="el-icon-caret-right" slot="prepend"></i>
                         确认密码：
                     </label>
                 </el-col>
-                <el-col>
+                <el-col :span="15">
                     <el-input id="re_password"
                               class="input-box"
                               type="password"
@@ -159,5 +159,9 @@
     .input-error {
         background-color: #ffa392;
         margin-bottom: 20px;
+    }
+    .register-prompt {
+        position:relative;
+        margin-top: 5px;
     }
 </style>
