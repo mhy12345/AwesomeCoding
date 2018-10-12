@@ -12,7 +12,7 @@
                         <el-menu-item index="/user/sign_up"> 注册 </el-menu-item>
                     </el-menu>
                     <el-dropdown v-if="(loginQ === true)" @command="handleSelectItem">
-                        <img :src="gravatar_url" class="round-icon" alt="">
+                        <img :src="user.gravatar_url" class="round-icon" alt="">
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="/user/profile">用户资料</el-dropdown-item>
                             <el-dropdown-item command="/user/settings">设置</el-dropdown-item>
@@ -115,8 +115,6 @@
 </template>
 
 <script>
-// import {getCookie} from "./utils/Cookie";
-// import {loginSQL} from "./utils/DoSQL";
 var crypto = require('crypto');
 
 export default {
@@ -130,8 +128,8 @@ export default {
             user: {
                 nickname: 'somebody',
                 realname: 'SOMENAME',
+                gravatar_url: '',
             },                   // 当前用户基本信息
-            gravatar_url: '',
 		}
 	},
     beforeMount() {
@@ -139,8 +137,8 @@ export default {
     },
 	methods: {
         checkLogin() {     // 检验用户是否登录
-            // todo simplify into '/login/is_login'
-            this.$http.get('http://127.0.0.1:8888/api/login/is_login').
+            // todo simplify into '/api/user/session'
+            this.$http.get('http://127.0.0.1:8888/api/user/session').
             // this.$http.get('/api/user/session').
             then((resp) => {
                 console.log(resp);
@@ -150,8 +148,8 @@ export default {
                     this.loginQ = true;
                     var hash = crypto.createHash('md5');
                     hash.update(this.user.email);
-                    this.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
-                    console.log("GRAVATAR URL = ", this.gravatar_url);
+                    this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
+                    console.log("GRAVATAR URL = ", this.user.gravatar_url);
                 }
                 else {
                     this.$message("请登录。");
@@ -176,8 +174,8 @@ export default {
             this.loginQ = true;
             var hash = crypto.createHash('md5');
             hash.update(user_info.email);
-            this.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
-            console.log("GRAVATAR URL = ", this.gravatar_url);
+            this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
+            console.log("GRAVATAR URL = ", this.user.gravatar_url);
         }
 	}
 };
