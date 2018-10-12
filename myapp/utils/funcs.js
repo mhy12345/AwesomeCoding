@@ -66,5 +66,5 @@ function randomString(len) {//随机生成字符串
 }
 
 module.exports = {
-	randomString,do_sql_query,do_sql_query_sequential
-}
+    randomString, do_sql_query, do_sql_query_sequential
+};

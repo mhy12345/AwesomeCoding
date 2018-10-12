@@ -7,12 +7,12 @@
 					LOGO  {{ title }}
 				</span>
 				<div style='float:right'>
-                    <el-menu v-if="(islogin === false)" mode="horizontal" @select='selectItem'>
+                    <el-menu v-if="(loginQ === false)" mode="horizontal" @select='handleSelectItem'>
                         <el-menu-item index="/user/sign_in"> 登录 </el-menu-item>
                         <el-menu-item index="/user/sign_up"> 注册 </el-menu-item>
                     </el-menu>
-                    <el-dropdown v-if="(islogin === true)" @command="selectItem">
-                        <img :src="gravatar_url" class="round_icon" alt="">
+                    <el-dropdown v-if="(loginQ === true)" @command="handleSelectItem">
+                        <img :src="gravatar_url" class="round-icon" alt="">
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="/user/profile">用户资料</el-dropdown-item>
                             <el-dropdown-item command="/user/settings">设置</el-dropdown-item>
@@ -28,13 +28,13 @@
 				<el-menu class="el-menu-vertical-demo"
                          style="min-height: 100%"
                          background-color="#f1f5f8"
-                         :default-active="activeIndex"
-                         collapse-transition :collapse="isCollapse"
-                         @select='selectItem'>
+                         :default-active="active_index"
+                         collapse-transition :collapse="collapseQ"
+                         @select='handleSelectItem'>
 					<el-menu-item index='collapse'>
-						<i v-if="isCollapse" class='el-icon-arrow-right'></i>
+						<i v-if="collapseQ" class='el-icon-arrow-right'></i>
 						<i v-else class='el-icon-arrow-left'></i>
-						<span v-if="isCollapse" slot='title'>展开</span>
+						<span v-if="collapseQ" slot='title'>展开</span>
 						<span v-else slot='title'>收回</span>
 					</el-menu-item>
 
@@ -75,7 +75,7 @@
                         <el-menu-item index="/user/sign_up">
                             <span slot="title">注册</span>
                         </el-menu-item>
-                        <el-menu-item :disabled="!islogin" index="/user/profile">
+                        <el-menu-item :disabled="!loginQ" index="/user/profile">
                             <span slot="title">个人页</span>
                         </el-menu-item>
                     </el-submenu>
@@ -120,18 +120,18 @@
 var crypto = require('crypto');
 
 export default {
-	name: 'app',
+	name: 'App',
 	data() {
 		return {
             title: "AwesomeCoding",
-			isCollapse: false,
-			activeIndex : '/',
-            islogin: undefined,         // 是否登录，初始为 undefined 这样右上角既不显示'登录'也不显示头像
+			collapseQ: false,
+			active_index : '/',
+            loginQ: undefined,         // 是否登录，初始为 undefined 这样右上角既不显示'登录'也不显示头像
             user: {
                 nickname: 'somebody',
                 realname: 'SOMENAME',
             },                   // 当前用户基本信息
-			gravatar_url : '',
+            gravatar_url: '',
 		}
 	},
     beforeMount() {
@@ -147,7 +147,7 @@ export default {
                 if (typeof(resp.body.nickname) !== 'undefined') {
                     this.user = resp.body;
                     this.$message.success("欢迎回来！" + this.user.realname);
-                    this.islogin = true;
+                    this.loginQ = true;
                     var hash = crypto.createHash('md5');
                     hash.update(this.user.email);
                     this.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
@@ -155,7 +155,7 @@ export default {
                 }
                 else {
                     this.$message("请登录。");
-                    this.islogin = false;
+                    this.loginQ = false;
                 }
             }).
             catch((err) => {
@@ -163,9 +163,9 @@ export default {
                 this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
             });
         },
-		selectItem(key) {
+		handleSelectItem(key) {
 			if (key === "collapse") {
-				this.isCollapse = !this.isCollapse;
+				this.collapseQ = !this.collapseQ;
 			} else {
 				this.$router.push(key);
 				console.log(key);
@@ -173,7 +173,7 @@ export default {
 		},
         handleLogined(user_info) {       // 子路由发来登陆成功的消息
             console.log('>>>in app logined! info:', user_info);
-            this.islogin = true;
+            this.loginQ = true;
             var hash = crypto.createHash('md5');
             hash.update(user_info.email);
             this.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
@@ -220,7 +220,7 @@ el-tooltip {
     border-bottom: 2px solid #d3d4e2;
 	color: #909399;
 }
-.round_icon{
+.round-icon{
 	width: 43px;
 	height: 43px;
 	display: flex;

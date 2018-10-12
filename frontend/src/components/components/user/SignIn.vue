@@ -3,13 +3,13 @@
         <div slot="header" class="clear-fix">
             <span>{{title}}</span>
         </div>
-        <div @keydown.enter="signIn">
+        <div @keydown.enter="handleSignIn">
             <el-input placeholder="用户名..." v-model="inputs.nickname" class="input-box" clearable></el-input>
             <el-input placeholder="密码..." v-model="inputs.password" class="input-box" type="password" clearable></el-input>
         </div>
         <div align="center">
-            <el-row><el-button type="primary" class="login-button" @click="signIn">登录</el-button></el-row>
-            <el-row><el-button type="text" @click="forget">忘记密码</el-button></el-row>
+            <el-row><el-button type="primary" class="login-button" @click="handleSignIn">登录</el-button></el-row>
+            <el-row><el-button type="text" @click="handleForgetPassword">忘记密码</el-button></el-row>
         </div>
     </el-card>
 </template>
@@ -32,7 +32,7 @@
             }
         },
         methods: {
-            signIn: function () {
+            handleSignIn: function () {
                 this.loadingQ = true;
                 loginSQL(this, this.inputs).
                 then((resp) => {
@@ -54,7 +54,7 @@
                     else this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.details));
                 });
             },
-            forget: function () {
+            handleForgetPassword: function () {
                 // TODO 实现忘记密码
                 this.loadingQ = true;
             }

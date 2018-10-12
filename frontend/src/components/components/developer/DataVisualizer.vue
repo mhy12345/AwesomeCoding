@@ -5,9 +5,9 @@
         </el-header>
         <el-container id="DataVisualizer" v-loading="loadingQ">
             <el-header class="sticky-top">
-                <div id="load-table" style="width: 50%; margin: auto;" v-on:keydown.enter="submitLoad">
+                <div id="load-table" style="width: 50%; margin: auto;" v-on:keydown.enter="handleLoad">
                     <el-input prefix-icon="el-icon-search" placeholder="输入数据库名称..." v-model="input.table_name">
-                        <el-button slot="append" icon="el-icon-refresh" v-on:click="submitLoad">载入数据</el-button>
+                        <el-button slot="append" icon="el-icon-refresh" v-on:click="handleLoad">载入数据</el-button>
                     </el-input>
                 </div>
             </el-header>
@@ -32,11 +32,11 @@
                             <template slot-scope="scope">
                                 <el-button type="warning"
                                            icon="el-icon-edit" circle
-                                           @click="submitEdit(scope.row)">
+                                           @click="handleEdit(scope.row)">
                                 </el-button>
                                 <el-button type="danger"
                                            icon="el-icon-delete" circle
-                                           @click="submitDelete(scope.row.id)">
+                                           @click="handleDelete(scope.row.id)">
                                 </el-button>
                             </template>
                         </el-table-column>
@@ -45,7 +45,7 @@
 
                     <!--添加数据的UI-->
                     <div id='inputs-add'
-                         @keydown.enter="submitAdd"
+                         @keydown.enter="handleAdd"
                          class="sticky-bottom"
                          style="width: 100%; margin: auto;">
                         <el-row>
@@ -58,7 +58,7 @@
                                           :placeholder="col">
                                 </el-input>
                             </el-col>
-                            <el-col :span="2"><el-button size="mini" @click="submitAdd">添加</el-button></el-col>
+                            <el-col :span="2"><el-button size="mini" @click="handleAdd">添加</el-button></el-col>
                         </el-row>
                     </div>
 
@@ -67,7 +67,7 @@
                                title="修改行"
                                :visible.sync="edit_dialog.visual"
                                width="30%">
-                        <div id="change-inputs" @keydown.enter="submitChange">
+                        <div id="change-inputs" @keydown.enter="handleChange">
                             <el-input type="text" size="mini" style="width: 98%; margin-bottom: 10px"
                                       v-for="(col, index) in heads"
                                       :key="index"
@@ -77,7 +77,7 @@
                         </div>
                         <span slot="footer" class="dialog-footer">
                     <el-button @click="edit_dialog.visual = false">取 消</el-button>
-                    <el-button type="primary" @click="submitChange">确 认</el-button>
+                    <el-button type="primary" @click="handleChange">确 认</el-button>
                 </span>
                     </el-dialog>
                 </div>
@@ -92,7 +92,7 @@ import {copy} from "../../../utils/Copy";
 import {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL} from '../../../utils/DoSQL.js'
 
 export default {
-    //name: "DataVisualizer",
+    name: "DataVisualizer",
     data() {
         return {
             table_name: '',
@@ -111,12 +111,12 @@ export default {
         }
     },
     methods: {
-        handleError: function (resp) {
+        showErrorInfo: function (resp) {
             console.log("DB ERROR!", resp);
             var msg = "操作失败。" + JSON.stringify(resp['details']);
             this.$message.error(msg);
         },
-        submitLoad: function () {     // 向后端发出显示数据库的请求
+        handleLoad: function () {     // 向后端发出显示数据库的请求
             this.loadingQ = true;
             this.table_name = this.input.table_name;
             this.heads = [];
@@ -137,13 +137,13 @@ export default {
                 this.loadingQ = false;
                 this.loadedQ = true;
             }).
-            catch((err)=>{                                    // 某个步骤失败，交给 handleError 统一处理
+            catch((err)=>{                                    // 某个步骤失败，交给 showErrorInfo 统一处理
                 this.loadingQ = false;
                 this.loadedQ = false;
-                this.handleError(err);
+                this.showErrorInfo(err);
             });
         },
-        submitAdd: function () {      // 向后端数据库发出添加数据的请求
+        handleAdd: function () {      // 向后端数据库发出添加数据的请求
             this.loadingQ = true;
             insertSQL(this, this.table_name, this.input.items).
             then((resp) => {
@@ -157,10 +157,10 @@ export default {
             }).
             catch((err) =>{
                 this.loadingQ = false;
-                this.handleError(err);
+                this.showErrorInfo(err);
             })
         },
-        submitDelete: function (id) {  // 向后端数据库发出删除数据的请求
+        handleDelete: function (id) {  // 向后端数据库发出删除数据的请求
             this.loadingQ = true;
             deleteSQL(this, this.table_name, id).
             then((resp) => {
@@ -174,14 +174,14 @@ export default {
             }).
             catch((err) => {
                 this.loadingQ = false;
-                this.handleError(err);
+                this.showErrorInfo(err);
             });
         },
-        submitEdit: function (row) {    // 调出修改行的对话框
+        handleEdit: function (row) {    // 调出修改行的对话框
             this.edit_dialog.row = copy(row);       // 原先的 row 是表中的引用，因此要先复制一份到对话框
             this.edit_dialog.visual = true;
         },
-        submitChange: function () {   // 向后端数据库发出修改数据的请求
+        handleChange: function () {   // 向后端数据库发出修改数据的请求
             this.loadingQ = true;
             this.edit_dialog.visual = false;
             updateSQL(this, this.table_name, this.edit_dialog.row).then((resp) => {
@@ -193,7 +193,7 @@ export default {
                 this.loadingQ = false;
             }).catch((err) =>{
                 this.loadingQ = false;
-                this.handleError(err);
+                this.showErrorInfo(err);
             });
         }
     },

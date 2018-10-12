@@ -1,9 +1,9 @@
 <template>
     <el-card class="box-card" v-loading="loadingQ">
-        <div slot="header" class="clearfix">
+        <div slot="header" class="clear-fix">
             <span>{{title}}</span>
         </div>
-        <div @keydown.enter="signUp">
+        <div @keydown.enter="handleSignUp">
             <el-row v-for="(value, key, index) in inputs" :key="index">
                 <el-col>
                     <label :for="key">
@@ -16,7 +16,7 @@
                               :id="key"
                               type="password"
                               clearable
-                              class="inputbox"
+                              class="input-box"
                               v-model="inputs[key]"
                               :placeholder="heads[index]">
                     </el-input>
@@ -24,7 +24,7 @@
                               :id="key"
                               type="text"
                               clearable
-                              class="inputbox"
+                              class="input-box"
                               v-model="inputs[key]"
                               :placeholder="heads[index]">
                     </el-input>
@@ -39,7 +39,7 @@
                 </el-col>
                 <el-col>
                     <el-input id="re_password"
-                              class="inputbox"
+                              class="input-box"
                               type="password"
                               v-model="re_password"
                               placeholder="确认密码">
@@ -49,7 +49,7 @@
 
         </div>
         <div align="center">
-            <el-row><el-button type="success" class="registerbutton" @click="signUp">注册</el-button></el-row>
+            <el-row><el-button type="success" class="register-button" @click="handleSignUp">注册</el-button></el-row>
         </div>
     </el-card>
 </template>
@@ -77,7 +77,7 @@
             }
         },
         methods: {
-            signUp: function () {
+            handleSignUp: function () {
                 if (this.inputs.nickname === '') {
                     this.$message("用户名不能为空。");
                     return;
@@ -135,28 +135,28 @@
         margin-bottom: 18px;
     }
 
-    .clearfix:before,
-    .clearfix:after {
+    .clear-fix:before,
+    .clear-fix:after {
         display: table;
         content: "";
     }
-    .clearfix:after {
+    .clear-fix:after {
         clear: both
     }
 
     .box-card {
         width: 480px;
     }
-    .inputbox {
+    .input-box {
         /*width: 80%;*/
         margin-bottom: 20px;
     }
-    .registerbutton {
+    .register-button {
         margin-top: 30px;
         margin-bottom: 30px;
         width: 200px;
     }
-    .inputerror {
+    .input-error {
         background-color: #ffa392;
         margin-bottom: 20px;
     }
