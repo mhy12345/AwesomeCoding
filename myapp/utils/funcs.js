@@ -1,6 +1,6 @@
 var async = require('async');
 var mysql = require('mysql');
-var mysql_initializer   = require('./mysql_initializer');
+var mysql_initializer = require('./mysql_initializer');
 var mysql_config = require('../configures/db_configures');
 
 function getConnection() { //获取连接connection，并调用回调函数
@@ -100,5 +100,5 @@ function randomString(len) {//随机生成字符串
 }
 
 module.exports = {
-	randomString,doSqlQuery,doSqlQuerySequential,getConnection
-}
+	randomString, doSqlQuery, doSqlQuerySequential, getConnection
+};
