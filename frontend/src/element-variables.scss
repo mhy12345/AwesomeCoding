@@ -36,7 +36,12 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 .sticky-top {
   position: -webkit-sticky;
   position: sticky;
-  background-color: #fff;
-  top: 0;
-  z-index: 10;
+  top: 10px;
+  z-index: 100;
+}
+.sticky-bottom {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 10px;
+  z-index: 100;
 }
