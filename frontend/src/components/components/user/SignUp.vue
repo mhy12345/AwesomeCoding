@@ -1,17 +1,17 @@
 <template>
     <el-card class="box-card" v-loading="loadingQ">
         <div slot="header" class="clear-fix">
-            <span>{{title}}</span>
+            <h1>{{ title }}</h1>
         </div>
         <div @keydown.enter="handleSignUp">
             <el-row v-for="(value, key, index) in inputs" :key="index">
-                <el-col>
+                <el-col :span="8" class="register-prompt">
                     <label :for="key">
                         <i class="el-icon-caret-right" slot="prepend"></i>
                         {{ heads[index] }}：
                     </label>
                 </el-col>
-                <el-col>
+                <el-col :span="15">
                     <el-input v-if="key === 'password'"
                               :id="key"
                               type="password"
@@ -20,6 +20,23 @@
                               v-model="inputs[key]"
                               :placeholder="heads[index]">
                     </el-input>
+                    <el-select v-else-if="key === 'role'"
+                               v-model="inputs[key]"
+                               placeholder="请选择..."
+                               class="input-box">
+                        <el-option :value="0" label="管理员">
+                            <span style="float: left">管理员</span>
+                            <img :src="icon_urls.administrator" class="option-icon">
+                        </el-option>
+                        <el-option :value="1" label="教师">
+                            <span style="float: left">教师</span>
+                            <img :src="icon_urls.teacher" class="option-icon">
+                        </el-option>
+                        <el-option :value="2" label="学生">
+                            <span style="float: left">学生</span>
+                            <img :src="icon_urls.student" class="option-icon">
+                        </el-option>
+                    </el-select>
                     <el-input v-else
                               :id="key"
                               type="text"
@@ -31,13 +48,13 @@
                 </el-col>
             </el-row>
             <el-row>
-                <el-col>
+                <el-col :span="8" class="register-prompt">
                     <label for="re_password">
                         <i class="el-icon-caret-right" slot="prepend"></i>
                         确认密码：
                     </label>
                 </el-col>
-                <el-col>
+                <el-col :span="15">
                     <el-input id="re_password"
                               class="input-box"
                               type="password"
@@ -56,14 +73,13 @@
 
 <script>
     import {registerSQL} from "../../../utils/DoSQL";
-    // import {createCookie} from "../../utils/Cookie";
 
     export default {
         name: "SignUp",
         data() {
             return {
                 title: '欢迎注册',
-                heads: ['用户名', '真实姓名', '角色', '邮箱', '签名', '密码'],     // 输入框提示词
+                heads: ['用户名', '真实姓名', '身份', '邮箱', '签名', '密码'],     // 输入框提示词
                 inputs: {        // 输入框的信息
                     nickname: '',
                     realname: '',
@@ -74,6 +90,11 @@
                 },
                 re_password: '',
                 loadingQ: false,
+                icon_urls: {
+                    administrator: require('../../../assets/images/icons/administrator.png'),
+                    student: require('../../../assets/images/icons/student.png'),
+                    teacher: require('../../../assets/images/icons/teacher.png'),
+                }
             }
         },
         methods: {
@@ -109,7 +130,7 @@
                     this.loadingQ = false;
                     this.$message.success("注册成功！");
                     this.$emit('logined', this.inputs);      // 通知父级路由已注册
-                    this.$router.push('/');
+                    this.$router.push('/user/profile');
                 }).
                 catch((resp) => {
                     console.log(resp);
@@ -148,7 +169,7 @@
         width: 480px;
     }
     .input-box {
-        /*width: 80%;*/
+        width: 100%;
         margin-bottom: 20px;
     }
     .register-button {
@@ -159,5 +180,14 @@
     .input-error {
         background-color: #ffa392;
         margin-bottom: 20px;
+    }
+    .register-prompt {
+        position:relative;
+        margin-top: 5px;
+    }
+
+    .option-icon {
+        float: right;
+        height: 80%;
     }
 </style>

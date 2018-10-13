@@ -14,15 +14,15 @@ router.get('/session', function (req, res, next) {	// 判断用户是否登录
 });
 
 router.post('/register', function (req, res, next) {	// 响应注册，并进行合法判断
-	console.log("[post] register\n", req.body);
-	var resbody = {};
+    console.log("[post] register\n", req.body);
+    var res_body = {};
 	if (typeof(req.session.user_id) !== 'undefined') {  // 已登录
-		resbody = {
+		res_body = {
 			status : 'FAILED.',
 			details : 'ALREADY_LOGIN.'
 		};
-		console.log('[res]', resbody);
-		res.send(JSON.stringify(resbody));
+		console.log('[res]', res_body);
+		res.send(JSON.stringify(res_body));
 		return;
 	}
 	getConnection().
@@ -62,15 +62,15 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 		}).
 		then(function(packed) {
 			let {conn, sql_res} = packed;
-			resbody.status = "SUCCESS.";              // 成功注册
-			resbody.results = req.body;
-			req.session.islogin = true;
+			res_body.status = "SUCCESS.";              // 成功注册
 			req.session.nickname = req.body.nickname;
 			req.session.realname = req.body.realname;
+			req.session.role = req.body.role;
 			req.session.email = req.body.email;
-			console.log('[res]', resbody);
+			res_body.results = req.session;
+			console.log('[res]', res_body);
 			conn.end();
-			res.send(JSON.stringify(resbody));
+			res.send(JSON.stringify(res_body));
 		}).
 		catch(function(sql_res) {
 			res.send(JSON.stringify(sql_res));
@@ -88,7 +88,7 @@ router.post('/login', function(req, res, next) {  // 响应登录，并进行合
 		}).
 		then(function(packed) {
 			let {conn, sql_res} = packed;
-			let resbody = {};
+			let res_body = {};
 			if (sql_res.results.length === 0) {
 				conn.end();
 				return Promise.reject({
@@ -109,6 +109,7 @@ router.post('/login', function(req, res, next) {  // 响应登录，并进行合
 				else {
 					req.session.nickname = user.nickname;
 					req.session.realname = user.realname;
+                    req.session.role = user.role;
 					req.session.user_id = user.id;
 					req.session.email = user.email;
 					conn.end();
@@ -123,6 +124,28 @@ router.post('/login', function(req, res, next) {  // 响应登录，并进行合
 		catch(function(sql_res) {
 			res.send(JSON.stringify(sql_res));
 		});
+});
+
+router.get('/logout', function (req, res, next) {
+    console.log('[get] logout\n', req.body);
+    var res_body = {
+        status: '',
+        details: '',
+    };
+    if (typeof(req.session) === 'undefined') {
+        res_body.status = 'FAILED.';
+        res_body.details = 'USER_NOT_ONLINE.';
+    }
+    else {
+        req.session.destroy((err) => {
+            console.log('Session Destroyed');
+            if (err) console.log(err);
+        });
+        res_body.status = 'SUCCESS.';
+        res_body.details = 'SUCCESS.';
+    }
+    console.log('[res]', res_body);
+    res.send(JSON.stringify(res_body));
 });
 
 module.exports = router;

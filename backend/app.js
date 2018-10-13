@@ -31,7 +31,7 @@ app.use(history({
 }));
 
 app.use(session({
-    secret: 'F67AC_app', //secret的值建议使用随机字符串
+    secret: 'F67AC_app',  //todo secret的值建议使用随机字符串
     cookie: {maxAge:  1 * 60 * 60 * 1000} // 过期时间（毫秒）//todo 延长过期时间
 }));
 
@@ -42,11 +42,11 @@ app.use(cookieParser());
 
 // 设置需要使用的 router 函数
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
-app.use('/api/developer',api_developer);
-app.use('/api/user',api_user);
-app.use('/api/class',api_class);
-app.use('/api/chat',api_chat);
-app.use('/api/file',api_file);
+app.use('/api/developer', api_developer);
+app.use('/api/user', api_user);
+app.use('/api/class', api_class);
+app.use('/api/chat', api_chat);
+app.use('/api/file', api_file);
 app.use('/api', api);
 
 // catch 404 and forward to error handler
