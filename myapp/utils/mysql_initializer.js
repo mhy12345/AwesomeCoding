@@ -3,7 +3,7 @@ var mysql_config = require('../configures/db_configures');
 var async = require('async');
 
 var sqls = {
-	'create_file_table' : "CREATE TABLE IF NOT EXISTS `files`(" +
+	'create_file_table' : "CREATE TABLE IF NOT EXISTS `files`(" + //文件表
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`user_id` INT UNSIGNED NOT NULL, " +
 		"`filename` VARCHAR(100), " +
@@ -11,7 +11,7 @@ var sqls = {
 		"PRIMARY KEY (`id`) "+
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 
-	'create_class_resources' : "CREATE TABLE IF NOT EXISTS `resources`(" +
+	'create_class_resources' : "CREATE TABLE IF NOT EXISTS `resources`(" + //班级教学资源表
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`class_id` INT UNSIGNED NOT NULL, " +
 		"`resource` CHAR(20), " +
@@ -36,7 +36,7 @@ var sqls = {
 		"PRIMARY KEY (`id`) "+
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
 
-	'create_user_table' : "CREATE TABLE IF NOT EXISTS `users`(" +
+	'create_user_table' : "CREATE TABLE IF NOT EXISTS `users`(" + //用户表
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, "+
 		"`email` CHAR(30) NOT NULL,"+
 		"`nickname` VARCHAR(40), "+
@@ -70,14 +70,13 @@ var sqls = {
 
 function mysql_initializer() { //倘若数据库不存在，则重新新建数据库
 	return new Promise(function(resolve,reject) {
-		var cfg = {
+		let cfg = {
 			host : mysql_config.host,
 			user : mysql_config.user,
 			password : mysql_config.password
 		};
-		var db_name = mysql_config.database;
 		console.log(cfg);
-		var conn = mysql.createConnection(cfg);
+		let conn = mysql.createConnection(cfg);
 		conn.connect(function(err) {
 			if (err) {
 				reject({
@@ -90,19 +89,20 @@ function mysql_initializer() { //倘若数据库不存在，则重新新建数�
 			async.eachSeries(tasks, function (item, next) {
 				console.log(item + " ==> " + sqls[item]);
 				conn.query(sqls[item], function (err, res) {
-					console.log(res);
-					next(err, res);
+					if (err) {
+						next({
+							status: 'FAILED.',
+							details: err
+						},null);
+						return;
+					}
+					next(null, res);
 				});
 			}, function (err,res) {
-				if (err) {
-					reject({
-						status : 'FAILED.',
-						details : err
-					});
-					return ;
-				} else {
+				if (err)
+					reject(err);
+				else
 					resolve(conn);
-				}
 			});
 		});
 	});

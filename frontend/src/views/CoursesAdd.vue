@@ -43,11 +43,11 @@ export default{
 		onSubmit() {
 			console.log(this.CourseData);
 			this.$http
-			.post('/api/class/create',this.CourseData)
-			.then(function(res){
-				console.log(res.bodyText);
-				this.$message(res.bodyText);
-			});
+				.post('/api/class/create',this.CourseData)
+				.then(function(res){
+					console.log(res.bodyText);
+					this.$message(res.bodyText);
+				});
 		}
 	}
 }

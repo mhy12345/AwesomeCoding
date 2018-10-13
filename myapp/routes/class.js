@@ -1,140 +1,193 @@
 var express = require('express');
 var router = express.Router();
-var funcs = require('../utils/funcs');
-var do_sql_query = funcs.do_sql_query;
-var do_sql_query_sequential = funcs.do_sql_query_sequential;
-var randomString = funcs.randomString;
-var moment = require('moment');
 var mysql=require('mysql');
 
+var doSqlQuery = require('../utils/funcs').doSqlQuery;
+var getConnection = require('../utils/funcs').getConnection;
+var doSqlQuerySequential = require('../utils/funcs').doSqlQuerySequential;
+var randomString = require('../utils/funcs').randomString;
+
 router.get('/delete', function(req, res, next) { //根据id删除班级
-	var id = req.query.id;
-	var sql = 'DELETE FROM classes WHERE id = ' + mysql.escape(id);
-	do_sql_query(sql,function(result) {
-		res.send(JSON.stringify(result,null,3));
-	});
-	sql = 'DELETE FROM classusers WHERE id = ' + mysql.escape(id);
-	do_sql_query(sql,function(result) {
-		//to do more,设计更好的适合前段解析的返回
-	});
+	let id = req.query.id;
+	let sql = 'DELETE FROM classes WHERE id = ' + mysql.escape(id);
+	getConnection().
+		then(function(conn) {
+			return doSqlQuery(sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			res.send(JSON.stringify(sql_res, null,3));
+		}).
+		catch(function(sql_res) {
+			res.send(JSON.stringify(sql_res, null,3));
+		});
 });
 
 router.post('/resources/query', function(req, res, next) {
-	var sql = 'SELECT resource FROM resources WHERE `class_id` = '+mysql.escape(req.body.class_id);
-	var result = {};
-	do_sql_query(sql,function(sql_res) {
-		console.log(sql_res);
-		result.status = 'SUCCESS.';
-		result.results = [];
-		for (var w in sql_res.results) {
-			result.results.push(sql_res.results[w].resource);
-		}
-		res.send(JSON.stringify(result,null,3));
-	});
+	getConnection().
+		then(function(conn) {
+			var sql = 'SELECT resource FROM resources WHERE `class_id` = '+mysql.escape(req.body.class_id);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			let result = {
+				status : 'SUCCESS.',
+				resources : []
+			};
+			for (var key in sql_res.results) {
+				result.resources.push(sql_res.results[key].resource);
+			}
+			conn.end();
+			res.send(JSON.stringify(result, null,3));
+		}).
+		catch(function(sql_res) {
+			res.send(JSON.stringify(sql_res, null,3));
+		});
 });
 
-router.post('/info/query',function(req, res, next) {
-	console.log('>>>QUERY CLASS INFO',req.body);
-	var sql = 'SELECT * FROM classes WHERE id = '+mysql.escape(req.body.class_id);
-	var result = {};
-	do_sql_query(sql,function(sql_res) {
-		if (sql_res.results.length === 0) {
-			result.status = "NOT FOUND.";
-			res.send(JSON.stringify(result,null,3));
-		} else {
-			result.info = sql_res.results[0];
-			var sql = 'SELECT resource from resources WHERE class_id = '+mysql.escape(req.body.class_id);
-			do_sql_query(sql,function(sql_res) {
-				result.resources = [];
-				for (var key in sql_res.results) {
-					result.resources.push(sql_res.results[key].resource);
-				}
-				result.status = "SUCCESS.";
-				console.log(result);
-				res.send(JSON.stringify(result,null,3));
-			});
-		}
-	});
+router.post('/info/query', function(req, res, next) {
+	let result = {
+		status : undefined
+	};
+	getConnection().
+		then(function(conn) {
+			let sql = 'SELECT * FROM classes WHERE id = '+mysql.escape(req.body.class_id);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			if (sql_res.results.length === 0) {
+				res.send(JSON.stringify(result, null,3));
+				conn.end();
+				return Promise.reject({
+					status : 'NOT FOUND.'
+				});
+			} 
+			else {
+				result.info = sql_res.results[0];
+				let sql = 'SELECT resource from resources WHERE class_id = '+mysql.escape(req.body.class_id);
+				return doSqlQuery(conn, sql);
+			}
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			result.resources = [];
+			for (var key in sql_res.results) {
+				result.resources.push(sql_res.results[key].resource);
+			}
+			result.status = "SUCCESS.";
+			conn.end();
+			res.send(JSON.stringify(result, null,3));
+		}).
+		catch(function(result) {
+			if (result.status === 'FAILED.')
+				res.send(JSON.stringify(result, null,3));
+		});
 });
 
 router.post('/info/update', function(req, res, next) {
-	console.log('>>>UPDATE CLASS INFO',req.body);
-	var info = req.body.info;
-	var resources = req.body.resources;
-	delete info.registration_date;
-	delete info.id;
-	delete info.invitation_code;
-	var sqls = [];
-	var sql = 'UPDATE classes SET ';
-	for (var key in info) {
+	console.log('>>>UPDATE CLASS INFO', req.body);
+	let info = {
+		description : req.body.info.description,
+		notice : req.body.info.notice,
+		title : req.body.info.title
+	};
+	let resources = req.body.resources;
+	let sqls = [];
+	let sql = 'UPDATE classes SET ';
+	for (let key in info) {
 		sql += key + '=';
 		sql += mysql.escape(info[key]);
 		sql += ',';
 	}
-	sql = sql.substr(0,sql.length-1);
+	sql = sql.substr(0, sql.length-1);
 	sql += ' WHERE id = '+mysql.escape(req.body.class_id);
 	sqls.push(sql);
 	sql = 'DELETE  FROM resources WHERE class_id = '+mysql.escape(req.body.class_id);
 	sqls.push(sql);
-	sql = 'INSERT INTO `resources` (`class_id`,`resource`) VALUES ';
-	for (var w in resources) {
+	sql = 'INSERT INTO `resources` (`class_id`, `resource`) VALUES ';
+	for (let w in resources) {
 		sql += '('+mysql.escape(req.body.class_id)+','+mysql.escape(resources[w])+'),';
 	}
-	sql = sql.substr(0,sql.length-1);
+	sql = sql.substr(0, sql.length-1);
 	sqls.push(sql);
-	console.log(sqls);
-	do_sql_query_sequential(sqls,function(sql_res) {
-		console.log(sql_res);
-		res.send(JSON.stringify(sql_res));
-	});
+	console.log('>>>',sqls);
+	getConnection().
+		then(function(conn) {
+			return doSqlQuerySequential(conn, sqls);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			res.send(JSON.stringify(sql_res));
+		}).
+		catch(function(sql_res) {
+			res.send(JSON.stringify(sql_res));
+		});
 });
 
 router.post('/create', function(req, res, next) { //创建新班级
 	var title = req.body.title;
 	var description = req.body.description;
 	var invitation_code = randomString(20);
-	var resources = req.body['resources'];
-	var result = {};
+	var resources = req.body.resources;
 	if (title === undefined || title.length < 3) {
-		result.status = 'FAILED.';
-		result.details = 'WRONG TITLE.';
-		res.send(JSON.stringify(result));
-		console.log("ERROR CREATING CLASS");
+		res.send(JSON.stringify({
+			status : 'FAILED.',
+			details : 'WRONG TITLE.'
+		}));
 	} else {
-		var sql = 'INSERT INTO classes (`title`,`description`,`invitation_code`,`registration_date`) VALUES (' +
-                        mysql.escape(title) + ',' +mysql.escape(description)+','+mysql.escape(invitation_code)+','+mysql.escape(new Date()) + ')';
-		console.log(sql);
-		do_sql_query(sql,function(sql_res) {
-            do_sql_query('SELECT MAX(`id`) FROM classes', function (sql_res) {
-                result.status = 'SUCCESS.';
-                console.log(sql_res.results);
-                result.id = sql_res.results[0]['MAX(`id`)'];
-                result.invitation_code = invitation_code;
-                var sql = 'INSERT INTO `resources` (`class_id`,`resource`) VALUES ';
-                for (var w in resources) {
-                    sql += '(' + mysql.escape(result.id) + ',' + mysql.escape(resources[w]) + '),';
-                }
-                sql = sql.substr(0, sql.length - 1);
-                console.log(sql);
-                do_sql_query(sql, function (sql_res) {
-                    res.send(JSON.stringify(result, null, 3));
-                });
-            });
-		});
+		let result = {};
+		getConnection().
+			then(function(conn) {
+				let sql = 'INSERT INTO classes (`title`, `description`, `invitation_code`, `registration_date`) VALUES (' +
+					mysql.escape(title) + ',' +mysql.escape(description)+','+mysql.escape(invitation_code)+','+mysql.escape(new Date()) + ')';
+				return doSqlQuery(conn, sql);
+			}).
+			then(function(packed) {
+				let {conn, sql_res} = packed;
+				console.log('>>>>>', sql_res);
+				result.id = sql_res.results.insertId;
+				result.status = 'SUCCESS.';
+				console.log(sql_res.results);
+				result.invitation_code = invitation_code;
+				let sql = 'INSERT INTO `resources` (`class_id`, `resource`) VALUES ';
+				for (let w in resources) {
+					sql += '(' + mysql.escape(result.id) + ',' + mysql.escape(resources[w]) + '),';
+				}
+				sql = sql.substr(0, sql.length - 1);
+				return doSqlQuery(conn, sql);
+			}).
+			then(function(packed) {
+				let {conn, sql_res} = packed;
+				conn.end();
+				res.send(JSON.stringify(result, null, 3));
+			}).
+			catch(function(sql_res) {
+				res.send(JSON.stringify(sql_res, null, 3));
+			});
 	}
 });
 
 
 //分页获取
 router.post('/fetch', function(req, res, next) {
-	var m = (req.body.m === undefined? null: req.body.m); //从第几条开始取
-	var n = (req.body.n === undefined? null: req.body.n);
-	var sql = 'SELECT * FROM classes LIMIT ' + m + ',' + n;
-	console.log(sql);
-	do_sql_query(sql,function(result) {
-		console.log(result);
-		res.send(JSON.stringify(result,null,3));
-	});
+	let m = (req.body.m === undefined? 0: req.body.m); //从第几条开始取
+	let n = (req.body.n === undefined? 100: req.body.n);
+	let sql = 'SELECT * FROM classes LIMIT ' + m + ',' + n;
+	getConnection().
+		then(function(conn) {
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			res.send(JSON.stringify(sql_res, null,3));
+		}).
+		catch(function(sql_res) {
+			res.send(JSON.stringify(sql_res, null,3));
+		});
 });
 
 module.exports = router;

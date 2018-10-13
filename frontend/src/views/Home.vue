@@ -10,7 +10,7 @@
 import HelloWorld from '../components/components/HelloWorld.vue'
 
 export default {
-    name: 'home',
+    name: 'Home',
     data() {
         return {
             cur_time: Date().toLocaleString(),
