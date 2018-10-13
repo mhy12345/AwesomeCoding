@@ -1,22 +1,22 @@
 <template>
 	<el-container id="app">
-        <v-header :user="user"></v-header>
 		<el-header id="nav-header" style='height:62px'>
 			<div>
-				<span style="position: absolute; top: 20px;">
-					LOGO  {{ title }}
-				</span>
+                <span style="position: absolute; top: 20px;">
+					<img :src="logo_url" style="height: 30px;"/>
+                    {{ title }}
+                </span>
 				<div style='float:right'>
-                    <el-menu v-if="(islogin === false)" mode="horizontal" @select='selectItem'>
+                    <el-menu v-if="(loginQ === false)" mode="horizontal" @select='handleSelectItem'>
                         <el-menu-item index="/user/sign_in"> 登录 </el-menu-item>
                         <el-menu-item index="/user/sign_up"> 注册 </el-menu-item>
                     </el-menu>
-                    <el-dropdown v-if="(islogin === true)" @command="selectItem">
-                        <img :src="gravatar_url" class="round_icon" alt="">
+                    <el-dropdown v-if="(loginQ === true)" @command="handleSelectItem">
+                        <img :src="user.gravatar_url" class="round-icon" alt="">
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="/user/profile">用户资料</el-dropdown-item>
                             <el-dropdown-item command="/user/settings">设置</el-dropdown-item>
-                            <el-dropdown-item command="/user/logout">退出登录</el-dropdown-item>
+                            <el-dropdown-item command="logout">退出登录</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
@@ -28,13 +28,13 @@
 				<el-menu class="el-menu-vertical-demo"
                          style="min-height: 100%"
                          background-color="#f1f5f8"
-                         :default-active="activeIndex"
-                         collapse-transition :collapse="isCollapse"
-                         @select='selectItem'>
+                         :default-active="active_index"
+                         collapse-transition :collapse="collapseQ"
+                         @select='handleSelectItem'>
 					<el-menu-item index='collapse'>
-						<i v-if="isCollapse" class='el-icon-arrow-right'></i>
+						<i v-if="collapseQ" class='el-icon-arrow-right'></i>
 						<i v-else class='el-icon-arrow-left'></i>
-						<span v-if="isCollapse" slot='title'>展开</span>
+						<span v-if="collapseQ" slot='title'>展开</span>
 						<span v-else slot='title'>收回</span>
 					</el-menu-item>
 
@@ -43,7 +43,7 @@
 						<span slot="title">主页</span>
 					</el-menu-item>
 
-					<el-submenu index="/developer">
+					<el-submenu index="/developer" :disabled="user.role !== 0" >
 						<template slot="title">
 							<i class='el-icon-edit-outline'></i>
 							<span slot="title">开发者</span>
@@ -75,7 +75,7 @@
                         <el-menu-item index="/user/sign_up">
                             <span slot="title">注册</span>
                         </el-menu-item>
-                        <el-menu-item :disabled="!islogin" index="/user/profile">
+                        <el-menu-item :disabled="!loginQ" index="/user/profile">
                             <span slot="title">个人页</span>
                         </el-menu-item>
                     </el-submenu>
@@ -106,7 +106,8 @@
 			<el-main>
 				<!--<div style='min-height:800px'>-->
                 <div>
-					<router-view @logined="handleLogined" :user="user">
+					<router-view @logined="handleLogined" @logout="handleLogout"
+                                 :user="user">
 					</router-view>
 				</div>
 			</el-main>
@@ -115,67 +116,107 @@
 </template>
 
 <script>
-// import {getCookie} from "./utils/Cookie";
-// import {loginSQL} from "./utils/DoSQL";
 var crypto = require('crypto');
+import {copy} from "./utils/Copy";
 
 export default {
-	name: 'app',
+	name: 'App',
 	data() {
 		return {
             title: "AwesomeCoding",
-			isCollapse: false,
-			activeIndex : '/',
-            islogin: undefined,         // 是否登录，初始为 undefined 这样右上角既不显示'登录'也不显示头像
-            user: {},                   // 当前用户基本信息
-			gravatar_url : '',
+            logo_url: require('./assets/images/icons/logo.png'),
+
+			collapseQ: false,
+			active_index : '/',
+            loginQ: undefined,         // 是否登录，初始为 undefined 这样右上角既不显示'登录'也不显示头像
+            default_user: {
+                nickname: 'somebody',
+                realname: 'SOMENAME',
+                gravatar_url: '',
+                role: 3,
+            },
+            user: {},
 		}
 	},
     beforeMount() {
+        this.user = copy(this.default_user);
         this.checkLogin();
     },
 	methods: {
+        showUnknownError(err) {
+            console.log(err);
+            this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
+        },
         checkLogin() {     // 检验用户是否登录
-            // todo simplify into '/login/is_login'
-            // this.$http.get('http://127.0.0.1:8888/api/login/is_login').
+            // todo simplify into '/api/user/session'
+            // this.$http.get('http://127.0.0.1:8888/api/user/session').
             this.$http.get('/api/user/session').
-            then((resp) => {
-                console.log(resp);
-                if (typeof(resp.body.nickname) !== 'undefined') {
-                    this.user = resp.body;
+            then((res) => {
+                console.log(res);
+                if (typeof(res.body.nickname) !== 'undefined') {
+                    this.user = res.body;
                     this.$message.success("欢迎回来！" + this.user.realname);
-                    this.islogin = true;
+                    this.loginQ = true;
                     var hash = crypto.createHash('md5');
                     hash.update(this.user.email);
-                    this.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
-                    console.log("GRAVATAR URL = ", this.gravatar_url);
+                    this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
+                    console.log("GRAVATAR URL = ", this.user.gravatar_url);
                 }
                 else {
                     this.$message("请登录。");
-                    this.islogin = false;
+                    this.loginQ = false;
                 }
             }).
-            catch((err) => {
-                console.log(err);
-                this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
-            });
+            catch(this.showUnknownError);
         },
-		selectItem(key) {
+        logout() {      // 退出登录
+            // todo simplify into '/api/user/session'
+            // this.$http.get('http://127.0.0.1:8888/api/user/logout').
+            this.$http.get('/api/user/logout').
+            then((res) => {
+                console.log(res);
+                if (res.body.status === 'FAILED.') {
+                    if (res.body.details === 'USER_NOT_ONLINE.') {
+                        this.$message.error('您已离线。' );
+                    }
+                    else {
+                        throw '登录失败。';
+                    }
+                }
+                else {  // SUCCESS.
+                    this.loginQ = false;
+                    this.user = copy(this.default_user);
+                    this.$message.warning('已退出登录。');
+                }
+            }).
+            catch(this.showUnknownError);
+        },
+		handleSelectItem(key) {
 			if (key === "collapse") {
-				this.isCollapse = !this.isCollapse;
-			} else {
+				this.collapseQ = !this.collapseQ;
+			}
+			else if (key === "logout") {
+                this.logout();
+                this.$router.push('/home');
+            }
+			else {
 				this.$router.push(key);
 				console.log(key);
 			}
 		},
-        handleLogined(user_info) {       // 子路由发来登陆成功的消息
-		    console.log('>>>in app logined! info:', user_info);
-		    this.islogin = true;
+        handleLogined(user_info) {       // logined event emitted by children router-view
+            console.log('>>>in app logined! info:', user_info);
+            this.loginQ = true;
             var hash = crypto.createHash('md5');
             hash.update(user_info.email);
-            this.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
-            console.log("GRAVATAR URL = ", this.gravatar_url);
-        }
+            this.user = user_info;
+            this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
+            console.log("GRAVATAR URL = ", this.user.gravatar_url);
+        },
+        handleLogout() {                // logout event emitted by children router-view
+            console.log('>>>in app logout!');
+            this.logout();
+        },
 	}
 };
 </script>
@@ -217,7 +258,7 @@ el-tooltip {
     border-bottom: 2px solid #d3d4e2;
 	color: #909399;
 }
-.round_icon{
+.round-icon{
 	width: 43px;
 	height: 43px;
 	display: flex;
