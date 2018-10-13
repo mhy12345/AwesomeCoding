@@ -19,7 +19,7 @@
 					<el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="CourseData.description"> </el-input>
 				</el-form-item>
 				<el-form-item>
-				    <el-button type="primary" @click="onSubmit">立即创建</el-button>
+					<el-button type="primary" @click="onSubmit">立即创建</el-button>
 				</el-form-item>
 			</el-form>
 		</el-main>
