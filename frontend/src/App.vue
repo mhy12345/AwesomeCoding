@@ -149,8 +149,8 @@ export default {
         },
         checkLogin() {     // 检验用户是否登录
             // todo simplify into '/api/user/session'
-            this.$http.get('/api/user/session').
             // this.$http.get('http://127.0.0.1:8888/api/user/session').
+            this.$http.get('/api/user/session').
             then((res) => {
                 console.log(res);
                 if (typeof(res.body.nickname) !== 'undefined') {
@@ -171,8 +171,8 @@ export default {
         },
         logout() {      // 退出登录
             // todo simplify into '/api/user/session'
-            this.$http.get('/api/user/logout').
             // this.$http.get('http://127.0.0.1:8888/api/user/logout').
+            this.$http.get('/api/user/logout').
             then((res) => {
                 console.log(res);
                 if (res.body.status === 'FAILED.') {

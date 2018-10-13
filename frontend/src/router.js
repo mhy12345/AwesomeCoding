@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import {router_childs} from './utils/Resources'
+import Home from './views/Home'
+import PageNotFound from './views/404'
 
 Vue.use(Router);
 console.log(router_childs);
@@ -11,12 +13,12 @@ export default new Router({
     routes: [
 		{
 			path: '/',
-			redirect : '/home'
+			redirect : '/home',
 		},
         {
             path: '/home',
             name: 'home',
-            component: () => import('./views/Home.vue')
+            component: Home
         },
 		{
 			path: '/class/:class_id',
@@ -68,7 +70,11 @@ export default new Router({
 					path: 'video_player',
 					name: 'videoPlayer',
 					component: () => import('./components/components/VideoPlayer.vue')
-				}
+				},
+                {
+                    path: '*',
+                    component: PageNotFound,
+                }
             ]
         },
         {
@@ -95,6 +101,10 @@ export default new Router({
                     path: 'settings',
                     name: 'Settings',
                     component: () => import('./components/components/user/Settings.vue')
+                },
+                {
+                    path: '*',
+                    component: PageNotFound
                 }
             ]
         },
@@ -105,6 +115,10 @@ export default new Router({
             // this generates a separate chunk (about.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
             component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+        },
+        {
+            path: '*',
+            component: PageNotFound,
         }
     ]
 });
