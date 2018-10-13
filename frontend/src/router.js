@@ -35,6 +35,16 @@ export default new Router({
 			component: () => import('./views/CoursesList.vue')
 		},
         {
+            path: '/file/upload',
+            name: 'upload-files',
+            component: () => import('./views/CoursesAdd.vue')
+        },
+        {
+            path: '/file/show',
+            name: 'show-my-flies',
+            component: () => import('./views/CoursesAdd.vue')
+        },
+        {
             path: '/developer',
             name: 'Developer',
 			component: () => import('./views/Developer.vue'),
