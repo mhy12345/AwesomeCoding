@@ -42,11 +42,11 @@ app.use(cookieParser());
 
 // 设置需要使用的 router 函数
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
-app.use('/api/developer',api_developer);
-app.use('/api/user',api_user);
-app.use('/api/class',api_class);
-app.use('/api/chat',api_chat);
-app.use('/api/file',api_file);
+app.use('/api/developer', api_developer);
+app.use('/api/user', api_user);
+app.use('/api/class', api_class);
+app.use('/api/chat', api_chat);
+app.use('/api/file', api_file);
 app.use('/api', api);
 
 // catch 404 and forward to error handler

@@ -111,9 +111,9 @@ export default {
         }
     },
     methods: {
-        showErrorInfo: function (resp) {
-            console.log("DB ERROR!", resp);
-            var msg = "操作失败。" + JSON.stringify(resp['details']);
+        showUnknownError: function (err) {
+            console.log("UNKNOWN ERROR!", err);
+            var msg = "操作失败。" + JSON.stringify(err['details']);
             this.$message.error(msg);
         },
         handleLoad: function () {     // 向后端发出显示数据库的请求
@@ -137,10 +137,10 @@ export default {
                 this.loadingQ = false;
                 this.loadedQ = true;
             }).
-            catch((err)=>{                                    // 某个步骤失败，交给 showErrorInfo 统一处理
+            catch((err)=>{                                    // 某个步骤失败，交给 showUnknownError 统一处理
                 this.loadingQ = false;
                 this.loadedQ = false;
-                this.showErrorInfo(err);
+                this.showUnknownError(err);
             });
         },
         handleAdd: function () {      // 向后端数据库发出添加数据的请求
@@ -157,7 +157,7 @@ export default {
             }).
             catch((err) =>{
                 this.loadingQ = false;
-                this.showErrorInfo(err);
+                this.showUnknownError(err);
             })
         },
         handleDelete: function (id) {  // 向后端数据库发出删除数据的请求
@@ -174,7 +174,7 @@ export default {
             }).
             catch((err) => {
                 this.loadingQ = false;
-                this.showErrorInfo(err);
+                this.showUnknownError(err);
             });
         },
         handleEdit: function (row) {    // 调出修改行的对话框
@@ -193,7 +193,7 @@ export default {
                 this.loadingQ = false;
             }).catch((err) =>{
                 this.loadingQ = false;
-                this.showErrorInfo(err);
+                this.showUnknownError(err);
             });
         }
     },

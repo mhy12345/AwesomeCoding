@@ -63,11 +63,11 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 		then(function(packed) {
 			let {conn, sql_res} = packed;
 			res_body.status = "SUCCESS.";              // 成功注册
-			res_body.results = req.body;
-			req.session.islogin = true;
 			req.session.nickname = req.body.nickname;
 			req.session.realname = req.body.realname;
+			req.session.role = req.body.role;
 			req.session.email = req.body.email;
+			res_body.results = req.session;
 			console.log('[res]', res_body);
 			conn.end();
 			res.send(JSON.stringify(res_body));
@@ -109,6 +109,7 @@ router.post('/login', function(req, res, next) {  // 响应登录，并进行合
 				else {
 					req.session.nickname = user.nickname;
 					req.session.realname = user.realname;
+                    req.session.role = user.role;
 					req.session.user_id = user.id;
 					req.session.email = user.email;
 					conn.end();
