@@ -2,6 +2,8 @@ var mysql = require('mysql');
 var mysql_config = require('../configures/db_configures');
 var async = require('async');
 
+var db_debugger = require('debug')("database");
+
 var sqls = {
 	'create_file_table' : "CREATE TABLE IF NOT EXISTS `files`(" + //文件表
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
@@ -75,7 +77,9 @@ function mysql_initializer() { //倘若数据库不存在，则重新新建数�
 			user : mysql_config.user,
 			password : mysql_config.password
 		};
-		console.log(cfg);
+		sqls['create_database'] = 'CREATE DATABASE ' + mysql_config.database;
+		sqls['use_database'] ='USE ' + mysql_config.database;
+		db_debugger(cfg);
 		let conn = mysql.createConnection(cfg);
 		conn.connect(function(err) {
 			if (err) {
@@ -87,7 +91,7 @@ function mysql_initializer() { //倘若数据库不存在，则重新新建数�
 			}
 			var tasks = ['create_database', 'use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list'];
 			async.eachSeries(tasks, function (item, next) {
-				console.log(item + " ==> " + sqls[item]);
+				db_debugger(item + " ==> " + sqls[item]);
 				conn.query(sqls[item], function (err, res) {
 					if (err) {
 						next({
