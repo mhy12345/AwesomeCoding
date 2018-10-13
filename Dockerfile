@@ -11,11 +11,12 @@ RUN npm install
 RUN npm run build
 
 #创建后端目录，并安装依赖项
-COPY myapp /app
-WORKDIR /app
+COPY backend /backend
+WORKDIR /backend
 RUN npm install
 
-ENV TEST_ROOT /app
+ENV BACKEND_ROOT /backend
+ENV FRONTEND_ROOT /frontend
 ENV PORT 80
 EXPOSE 80
 #运行
