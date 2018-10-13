@@ -38,7 +38,7 @@ var sqls = {
 
 	'create_user_table' : "CREATE TABLE IF NOT EXISTS `users`(" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, "+
-		"`email` CHAR(30) NOT NULL,"+ 
+		"`email` CHAR(30) NOT NULL,"+
 		"`nickname` VARCHAR(40), "+
 		"`realname` VARCHAR(40), "+
 		"`role` INT UNSIGNED NOT NULL, "+
@@ -46,7 +46,7 @@ var sqls = {
 		"`registration_date` TIMESTAMP, "+
 		"`password` CHAR(40) NOT NULL, "+
 		"PRIMARY KEY (`id`) "+
-		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 
     'create_banned_list': "CREATE TABLE IF NOT EXISTS `bannedlist`(" + //禁言列表，关联房间和使用者
         "`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, "+
@@ -54,7 +54,7 @@ var sqls = {
         "`classid` INT UNSIGNED NOT NULL, "+
         "`status` INT UNSIGNED NOT NULL, "+ //0代表禁言状态，1代表解除状态
         "PRIMARY KEY (`id`) "+
-        ")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+        ")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 
     'create_forums' : "CREATE TABLE IF NOT EXISTS `forums`(" +
         "`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, "+ //消息id
@@ -63,7 +63,7 @@ var sqls = {
         "`message` VARCHAR(200), " + //发言内容
         "`registration_date` TIMESTAMP, "+
         "PRIMARY KEY (`id`) "+
-        ")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+        ")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 	'create_database' : 'CREATE DATABASE ' + mysql_config.database,
 	'use_database' : 'USE ' + mysql_config.database,
 }
