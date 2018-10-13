@@ -43,7 +43,7 @@ export default{
 		this.$http
 			.post('/api/class/resources/query',{class_id:this.title},null)
 			.then(function(res) {
-				this.class_resources = res.body.results;
+				this.class_resources = res.body.resources;
 			});
 	},
 
