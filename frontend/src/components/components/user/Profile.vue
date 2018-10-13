@@ -13,9 +13,10 @@
                 <el-col :span="6">
                     <img :src="user.gravatar_url" class="avatar-icon" alt="用户头像">
                 </el-col>
-                <el-col :span="10" :offset="2">
+                <el-col :span="15" :offset="2">
                     <p>真实姓名： {{ user.realname }}</p>
                     <p>用户名： {{ user.nickname }}</p>
+                    <span>身份： {{ role.text }} <img :src="role.icon_url" style="height: 40px;"/></span>
                     <p>邮箱： {{ user.email }}</p>
                     <p>签名： {{ user.motto }}</p>
                 </el-col>
@@ -64,6 +65,28 @@
             return {
                 title: '个人页面',
                 cur_tab: '',
+                role: {
+                    text: '',
+                    icon_url: '',
+                },
+            }
+        },
+        beforeMount() {
+            console.log('role =', this.user.role);
+            if (this.user.role === 0) {
+                this.role.text = '管理员';
+                this.role.icon_url = require('../../../assets/images/icons/administrator.png');
+            }
+            else if (this.user.role === 1) {
+                this.role.text = '教师';
+                this.role.icon_url = require('../../../assets/images/icons/teacher.png');
+            }
+            else if (this.user.role === 2) {
+                this.role.text = '学生';
+                this.role.icon_url = require('../../../assets/images/icons/student.png');
+            }
+            else {
+                this.role.text = '未知身份';
             }
         },
         methods: {

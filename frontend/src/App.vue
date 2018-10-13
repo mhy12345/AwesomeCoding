@@ -2,9 +2,10 @@
 	<el-container id="app">
 		<el-header id="nav-header" style='height:62px'>
 			<div>
-				<span style="position: absolute; top: 20px;">
-					LOGO  {{ title }}
-				</span>
+                <span style="position: absolute; top: 20px;">
+					<img :src="logo_url" style="height: 30px;"/>
+                    {{ title }}
+                </span>
 				<div style='float:right'>
                     <el-menu v-if="(loginQ === false)" mode="horizontal" @select='handleSelectItem'>
                         <el-menu-item index="/user/sign_in"> 登录 </el-menu-item>
@@ -42,7 +43,7 @@
 						<span slot="title">主页</span>
 					</el-menu-item>
 
-					<el-submenu index="/developer">
+					<el-submenu index="/developer" :disabled="user.role > 0" >
 						<template slot="title">
 							<i class='el-icon-edit-outline'></i>
 							<span slot="title">开发者</span>
@@ -116,23 +117,29 @@
 
 <script>
 var crypto = require('crypto');
+import {copy} from "./utils/Copy";
 
 export default {
 	name: 'App',
 	data() {
 		return {
             title: "AwesomeCoding",
+            logo_url: require('./assets/images/icons/logo.png'),
+
 			collapseQ: false,
 			active_index : '/',
             loginQ: undefined,         // 是否登录，初始为 undefined 这样右上角既不显示'登录'也不显示头像
-            user: {
+            default_user: {
                 nickname: 'somebody',
                 realname: 'SOMENAME',
                 gravatar_url: '',
-            },                   // 当前用户基本信息
+                role: 3,
+            },
+            user: {},
 		}
 	},
     beforeMount() {
+	    this.user = copy(this.default_user);
         this.checkLogin();
     },
 	methods: {
@@ -142,8 +149,8 @@ export default {
         },
         checkLogin() {     // 检验用户是否登录
             // todo simplify into '/api/user/session'
-            this.$http.get('/api/user/session').
-            // this.$http.get('http://127.0.0.1:8888/api/user/session').
+            // this.$http.get('/api/user/session').
+            this.$http.get('http://127.0.0.1:8888/api/user/session').
             then((res) => {
                 console.log(res);
                 if (typeof(res.body.nickname) !== 'undefined') {
@@ -164,9 +171,8 @@ export default {
         },
         logout() {      // 退出登录
             // todo simplify into '/api/user/session'
-            console.log('Trying to logout...');
-            this.$http.get('/api/user/logout').
-            // this.$http.get('http://127.0.0.1:8888/api/user/logout').
+            // this.$http.get('/api/user/logout').
+            this.$http.get('http://127.0.0.1:8888/api/user/logout').
             then((res) => {
                 console.log(res);
                 if (res.body.status === 'FAILED.') {
@@ -179,6 +185,7 @@ export default {
                 }
                 else {  // SUCCESS.
                     this.loginQ = false;
+                    this.user = copy(this.default_user);
                     this.$message.warning('已退出登录。');
                 }
             }).
@@ -190,6 +197,7 @@ export default {
 			}
 			else if (key === "logout") {
                 this.logout();
+                this.$router.push('/home');
             }
 			else {
 				this.$router.push(key);
