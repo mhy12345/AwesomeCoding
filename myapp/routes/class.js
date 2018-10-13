@@ -63,7 +63,7 @@ router.post('/info/query', function(req, res, next) {
 				return Promise.reject({
 					status : 'NOT FOUND.'
 				});
-			} 
+			}
 			else {
 				result.info = sql_res.results[0];
 				let sql = 'SELECT resource from resources WHERE class_id = '+mysql.escape(req.body.class_id);

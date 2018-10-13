@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var funcs = require('../utils/funcs');
-var do_sql_query = funcs.do_sql_query;
+var doSqlQuery = require('../utils/funcs').doSqlQuery;
+var getConnection = require('../utils/funcs').getConnection;
 var multer  = require('multer');
 var upload = multer({dest: 'uploads/'});
 var fs = require('fs');
@@ -23,22 +24,29 @@ router.post('/upload', upload.any(), function(req, res, next) {
                     console.log( err );
                 }
                 else {
-                	var sql = 'insert into files (`user_id`,`filename`) VALUES ("' +
-								user_id + '","' + req.files[0].originalname + '")';
-                	console.log(sql);
-                	do_sql_query(sql, function (result) {
-                        var response = {};
-                		if (result.status === 'SUCCESS.') {
-                			response.message = 'File uploaded successfully';
-                			response.filename = req.files[0].originalname;
-                            res.end( JSON.stringify( response ) );
-						}
-                        else {
-                            response.message = 'File uploaded unsuccessfully';
-                            response.filename = '';
-                            res.end( JSON.stringify( response ) );
-						}
-                    });
+                    getConnection().
+                        then(function(conn) {
+                            let sql = 'insert into files (`user_id`,`filename`) VALUES ("' + user_id + '","' + req.files[0].originalname + '")';
+
+                            return doSqlQuery(conn, sql);
+                        }).
+                        then(function(packed) {
+                            let {conn, sql_res} = packed;
+                            var response = {};
+                            if (result.status === 'SUCCESS.') {
+                                response.message = 'File uploaded successfully';
+                                response.filename = req.files[0].originalname;
+                                res.end( JSON.stringify( response ) );
+                            }
+                            else {
+                                response.message = 'File uploaded unsuccessfully';
+                                response.filename = '';
+                                res.end( JSON.stringify( response ) );
+                            }
+                        }).
+                        catch(function(sql_res) {
+                            res.send(JSON.stringfy(sql_res));
+                        })
                 }
             });
         });
@@ -72,7 +80,7 @@ router.use('/test', function (req, res, next) {
 
 
 router.post('/fetch', function(req, res, next) {
-    var user_id = req.session.user_id;
+    let user_id = req.session.user_id;
     if (user_id === undefined) {
         var response = {
             message:'You must login first.',
@@ -80,12 +88,20 @@ router.post('/fetch', function(req, res, next) {
         res.end( JSON.stringify( response ) );
     }
     else {
-        var sql = 'select * from files where user_id = ' + user_id;
-        console.log(sql);
-        do_sql_query(sql, function(result) {
-            console.log(result);
-            res.send(JSON.stringify(result,null,3));
-        });
+        getConnection().
+            then(function(conn) {
+                let sql = 'select * from files where user_id = ' + user_id;
+                return doSqlQuery(conn, sql);
+            }).
+            then(function(packed) {
+                let {conn, sql_res} = packed;
+                conn.end();
+                console.log(sql_res);
+                res.send(JSON.stringify(sql_res, null, 3));
+            }).
+            catch(function(sql_res) {
+                res.send(JSON.stringify(sql_res, null, 3));
+            })
     }
 });
 
