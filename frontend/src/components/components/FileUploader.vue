@@ -39,11 +39,10 @@ export default {
         }
     },
     successUpload (response, file, fileList, $event) {
+		console.log(">ASDSADASD");
       // 上传成功在表单的某个字段里加一个值
-        this.ruleForm.fileList.push(file.response.result[0].url)
     },
     submitForm (formName) {
-        let fileList = this.ruleForm.fileList
         // 使用fileList与服务端交互 该字段只包含服务端数据
     },
   }
