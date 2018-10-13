@@ -61,15 +61,10 @@ export default new Router({
                     component: () => import('@/components/components/developer/Test.vue')
                 },
                 {
-                    path: 'live_player',
+                    path: 'test_player',
                     name: 'TestPlayer',
-                    component: () => import('@/components/resources/NotComplete.vue')
+                    component: () => import('@/components/components/TestPlayer.vue')
                 },
-				{
-					path: 'video_player',
-					name: 'videoPlayer',
-					component: () => import('@/components/resources/NotComplete.vue')
-				},
                 {
                     path: '*',
                     component: PageNotFound,
