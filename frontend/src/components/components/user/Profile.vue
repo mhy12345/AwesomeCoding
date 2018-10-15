@@ -3,22 +3,55 @@
         <div slot="header" class="clear-fix">
             <span>{{ title }}</span>
         </div>
-        <div>
+        <div v-loading="loadingQ">
             <el-row>
                 <el-col :span="24">
                     <div class="grid-content bg-purple"><h2 align="center">用户信息：</h2></div>
                 </el-col>
             </el-row>
-            <el-row :gutter="40">
+            <el-row :gutter="20">
                 <el-col :span="6">
                     <img :src="user.gravatar_url" class="avatar-icon" alt="用户头像">
                 </el-col>
-                <el-col :span="15" :offset="2">
+                <el-col v-if="!editingQ"
+                        :span="16"
+                        :offset="2">
                     <p>真实姓名： {{ user.realname }}</p>
                     <p>用户名： {{ user.nickname }}</p>
                     <span>身份： {{ role.text }} <img :src="role.icon_url" style="height: 40px;"/></span>
                     <p>邮箱： {{ user.email }}</p>
                     <p>签名： {{ user.motto }}</p>
+                </el-col>
+                <el-col v-else
+                        :span="16"
+                        :offset="2">
+                    <el-row v-for="(value, key, index) in inputs" :key="index">
+                        <el-col :span="7">
+                            <label :for="key">
+                                {{ heads[index] }}：
+                            </label>
+                        </el-col>
+                        <el-col :span="16">
+                            <el-input v-if="(key === 'password') || (key === 're_password')"
+                                      :id="key"
+                                      type="password"
+                                      clearable
+                                      class="input-box"
+                                      size="mini"
+                                      v-model="inputs[key]"
+                                      :placeholder="heads[index]">
+                            </el-input>
+                            <el-input v-else
+                                      :id="key"
+                                      type="text"
+                                      clearable
+                                      class="input-box"
+                                      size="mini"
+                                      v-model="inputs[key]"
+                                      :placeholder="heads[index]">
+                            </el-input>
+                        </el-col>
+                    </el-row>
                 </el-col>
             </el-row>
 
@@ -27,19 +60,33 @@
                 <el-tab-pane label="用户管理">
                     <el-row style="padding-top: 20px">
                         <el-col :span="12" align="center">
-                            <el-button type="warning"
+                            <el-button v-if="!editingQ"
+                                       type="warning"
                                        size="small"
                                        style="width: 80%"
                                        @click="handleEdit">
                                 编辑
                             </el-button>
+                            <el-button v-else type="success"
+                                       size="small"
+                                       style="width: 80%"
+                                       @click="handleSave">
+                                保存
+                            </el-button>
                         </el-col>
                         <el-col :span="12" align="center">
-                            <el-button type="danger"
+                            <el-button v-if="!editingQ"
+                                       type="danger"
                                        size="small"
                                        style="width: 80%"
                                        @click="handleLogout">
                                 登出
+                            </el-button>
+                            <el-button v-else type="info"
+                                       size="small"
+                                       style="width: 80%"
+                                       @click="handleCancel">
+                                取消
                             </el-button>
                         </el-col>
                     </el-row>
@@ -58,6 +105,8 @@
 </template>
 
 <script>
+    import {changeSQL} from "../../../utils/DoSQL";
+
     export default {
         name: "Profile",
         props: ['user'],
@@ -69,6 +118,16 @@
                     text: '',
                     icon_url: '',
                 },
+                heads: ['真实姓名', '签名', '邮箱', '密码', '重复密码'],     // 输入框提示词
+                editingQ: false,    // if the use pushed the 'edit' button
+                inputs: {
+                    realname: '',
+                    motto: '',
+                    email: '',
+                    password: '',
+                    re_password: '',
+                },
+                loadingQ: false,
             }
         },
         beforeMount() {
@@ -91,12 +150,52 @@
         },
         methods: {
             handleEdit() {
-                this.$router.push('/user/settings');
+                // this.$router.push('/user/settings');
+                this.inputs.realname = this.user.realname;
+                this.inputs.motto = this.user.motto;
+                this.inputs.email = this.user.email;
+                this.inputs.re_password = this.inputs.password = '';
+                this.editingQ = true;
+            },
+            handleSave() {  // submit changes
+                if (this.inputs.realname === '') {
+                    this.$message("真实姓名不能为空。");
+                    return;
+                }
+                if (this.inputs.email === '') {     // todo 用正则表达式校验邮箱的合法性
+                    this.$message("邮箱不合法。");
+                    return;
+                }
+                if (this.inputs.password.length < 6) {
+                    this.$message("密码不能少于6位。");
+                    return;
+                }
+                if (this.inputs.password !== this.inputs.re_password) {
+                    this.$message("两次输入的密码不同。");
+                    return;
+                }
+                delete this.inputs.re_password;
+                this.loadingQ = true;
+                changeSQL(this, this.inputs).
+                then((res) => {
+                    this.loadingQ = false;
+                    this.user = res.results;
+                    this.$emit('logined', this.user);
+                    this.$message('修改成功。');
+                    this.editingQ = false;
+                }).
+                catch((err) => {
+                    this.loadingQ = false;
+                    this.$message('修改失败。' + JSON.stringify(err.details, null, 3));
+                });
             },
             handleLogout() {
                 this.$emit('logout');
                 this.$router.push('/home');
             },
+            handleCancel() {
+                this.editingQ = false;
+            }
         }
     }
 </script>
@@ -126,6 +225,10 @@
         overflow: hidden;
         margin: 10px;
         border: 2px #dedede solid;
+    }
+    .input-box {
+        width: 100%;
+        margin-bottom: 20px;
     }
 
 </style>

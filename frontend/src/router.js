@@ -18,7 +18,7 @@ export default new Router({
         {
             path: '/home',
             name: 'home',
-            component: Home
+            component: Home,
         },
 		{
 			path: '/class/:class_id',
@@ -114,7 +114,7 @@ export default new Router({
                 },
                 {
                     path: '*',
-                    component: PageNotFound
+                    component: PageNotFound,
                 }
             ]
         },

@@ -79,4 +79,8 @@ function registerSQL(parent, user) {
     return postSQL(parent, "/user/register", user);
 }
 
-export {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL, loginSQL, registerSQL, doSQL}
+function changeSQL(parent, user) {
+    return postSQL(parent, "/user/change", user);
+}
+
+export {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL, loginSQL, registerSQL, changeSQL}
