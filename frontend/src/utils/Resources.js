@@ -1,4 +1,6 @@
 //所有可用的教学资源
+
+
 var supported_resources = {
 	details : {
 		name:'details',

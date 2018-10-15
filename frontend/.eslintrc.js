@@ -2,13 +2,16 @@
 
 module.exports = {
   root: true,
+  parser: 'babel-eslint',//解析器，这里我们使用babel-eslint
+
   parserOptions: {
-    parser: 'babel-eslint'
+  sourceType: 'module'//类型为module，因为代码使用了使用了ECMAScript模块
+
   },
   env: {
     browser: true,
   },
-	"extends": "eslint-config-airbnb",
+	"extends": "eslint:recommended",
 
 	/*
   extends: [
@@ -20,7 +23,8 @@ module.exports = {
   ],*/
   // required to lint *.vue files
   plugins: [
-    'vue'
+    'vue',
+	'html',
   ],
   // add your custom rules here
   rules: {
@@ -41,7 +45,15 @@ module.exports = {
 	'semi': 'warn',
 	'space-before-function-paren': 'warn',
 	'brace-style': 'warn',
+	'no-undef': 'warn',
+	'no-console': 'warn',
+	'no-unused-vars': 'warn',
+	'no-redeclare': 'warn',
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
-  }
+  },
+	settings: {
+		    'html/html-extensions': ['.html', '.vue'],
+		    'html/indent': '+2',
+	},
 }
