@@ -26,29 +26,34 @@
                         :span="16"
                         :offset="2">
                     <el-row v-for="(value, key, index) in inputs" :key="index">
-                        <el-col :span="7">
-                            <label :for="key">
-                                {{ heads[index] }}：
-                            </label>
-                        </el-col>
-                        <el-col :span="16">
-                            <el-input v-if="(key === 'password') || (key === 're_password')"
+                        <el-col :span="24">
+                            <el-input v-if="key === 'password'"
                                       :id="key"
                                       type="password"
                                       clearable
                                       class="input-box"
-                                      size="mini"
+                                      v-model="inputs[key]"
+                                      :placeholder="heads[index]"
+                                      @focus="handlePasswordInput">
+                                <div slot="prepend">{{ heads[index] }}</div>
+                            </el-input>
+                            <el-input v-else-if="key === 're_password' && password_inputQ"
+                                      :id="key"
+                                      type="password"
+                                      clearable
+                                      class="input-box"
                                       v-model="inputs[key]"
                                       :placeholder="heads[index]">
+                                <div slot="prepend">{{ heads[index] }}</div>
                             </el-input>
-                            <el-input v-else
+                            <el-input v-else-if="key !== 'password' && key !== 're_password'"
                                       :id="key"
                                       type="text"
                                       clearable
                                       class="input-box"
-                                      size="mini"
                                       v-model="inputs[key]"
                                       :placeholder="heads[index]">
+                                <div slot="prepend">{{ heads[index] }}</div>
                             </el-input>
                         </el-col>
                     </el-row>
@@ -118,7 +123,7 @@
                     text: '',
                     icon_url: '',
                 },
-                heads: ['真实姓名', '签名', '邮箱', '密码', '重复密码'],     // 输入框提示词
+                heads: ['真实姓名', '签名', '邮箱', '密码', '重复'],     // 输入框提示词
                 editingQ: false,    // if the use pushed the 'edit' button
                 inputs: {
                     realname: '',
@@ -128,6 +133,7 @@
                     re_password: '',
                 },
                 loadingQ: false,
+                password_inputQ: false,     // if password input box was focused
             }
         },
         beforeMount() {
@@ -154,8 +160,9 @@
                 this.inputs.realname = this.user.realname;
                 this.inputs.motto = this.user.motto;
                 this.inputs.email = this.user.email;
-                this.inputs.re_password = this.inputs.password = '';
+                this.inputs.password = '●●●●●●●●●●●●';
                 this.editingQ = true;
+                this.password_inputQ = false;
             },
             handleSave() {  // submit changes
                 if (this.inputs.realname === '') {
@@ -166,13 +173,18 @@
                     this.$message("邮箱不合法。");
                     return;
                 }
-                if (this.inputs.password.length < 6) {
-                    this.$message("密码不能少于6位。");
-                    return;
+                if (this.password_inputQ) {
+                    if (this.inputs.password.length < 6) {
+                        this.$message("密码不能少于6位。");
+                        return;
+                    }
+                    if (this.inputs.password !== this.inputs.re_password) {
+                        this.$message("两次输入的密码不同。");
+                        return;
+                    }
                 }
-                if (this.inputs.password !== this.inputs.re_password) {
-                    this.$message("两次输入的密码不同。");
-                    return;
+                else {
+                    this.inputs.password = '';
                 }
                 delete this.inputs.re_password;
                 this.loadingQ = true;
@@ -183,11 +195,20 @@
                     this.$emit('logined', this.user);
                     this.$message('修改成功。');
                     this.editingQ = false;
+                    this.inputs.password = '●●●●●●●●●●●●';
+                    this.password_inputQ = false;
                 }).
                 catch((err) => {
                     this.loadingQ = false;
-                    this.$message('修改失败。' + JSON.stringify(err.details, null, 3));
+                    this.$message.error('修改失败。' + JSON.stringify(err.details, null, 3));
+                    this.inputs.password = '●●●●●●●●●●●●';
+                    this.password_inputQ = false;
                 });
+            },
+            handlePasswordInput() {
+                if (this.password_inputQ) return;
+                this.password_inputQ = true;
+                this.inputs.re_password = this.inputs.password = '';
             },
             handleLogout() {
                 this.$emit('logout');

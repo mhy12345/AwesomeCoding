@@ -59,7 +59,7 @@ function postSQL(parent, query, params) {       // 向服务器发出post请求
     // TODO simply use post('/api' + query) when push
     // var query_url = 'http://127.0.0.1:8888/api' + query;
     var query_url = '/api' + query;
-    console.log('[post] request sent!', query_url);
+    console.log('[post] request sent!', query_url, params);
     return parent.$http.post(query_url, params).then((resp) => {
         console.log(resp);
         return new Promise((resolve, reject) => {
