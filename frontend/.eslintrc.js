@@ -26,6 +26,21 @@ module.exports = {
   rules: {
     // allow async-await
     'generator-star-spacing': 'off',
+	'indent': 'warn',
+	'camelcase': 'warn',
+	'quotes': 'off',
+	'prefer-template': 'off',
+	'no-var': 'off',
+	'curly': 'warn',
+	'nonblock-statement-body-position': 'warn',
+	'no-multi-spaces': 'warn',
+	'object-curly-newline': 'warn',
+	'vars-on-top': 'warn',
+	'no-restricted-syntax': 'warn',
+	'object-curly-spacing': 'warn',
+	'semi': 'warn',
+	'space-before-function-paren': 'warn',
+	'brace-style': 'warn',
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   }

@@ -60,6 +60,16 @@ export default new Router({
                     name: 'Test',
                     component: () => import('@/components/components/developer/Test.vue')
                 },
+				{
+					path: 'live_player',
+					name: 'LivePlayer',
+					component: () => import('@/components/components/LivePlayer.vue')
+				},
+				{
+					path: 'video_player',
+					name: 'VideoPlayer',
+					component: () => import('@/components/components/VideoPlayer.vue')
+				},
                 {
                     path: 'test_player',
                     name: 'TestPlayer',
