@@ -14,7 +14,10 @@ module.exports = function karmaConfig (config) {
     browsers: ['Chrome'],
     frameworks: ['mocha', 'sinon-chai', 'phantomjs-shim'],
     reporters: ['spec', 'coverage'],
-    files: ['./index.js'],
+    files: [
+	'./index.js',
+      '../*.js'
+	],
     preprocessors: {
       './index.js': ['webpack', 'sourcemap']
     },

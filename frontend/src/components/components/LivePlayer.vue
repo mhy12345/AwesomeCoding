@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import polyvObject from 'polyvObject'
+//import polyvObject from 'polyvObject'
+var polyvObject = Object();
 
 export default {
 	mounted: function() {
