@@ -38,12 +38,12 @@ export default new Router({
         {
             path: '/file/upload',
             name: 'upload-files',
-            component: () => import('./views/FilesUpload.vue')
+            component: () => import('@/views/FilesUpload.vue')
         },
         {
             path: '/file/show',
             name: 'show-my-flies',
-            component: () => import('./views/FilesList.vue')
+            component: () => import('@/views/FilesList.vue')
         },
         {
             path: '/developer',
