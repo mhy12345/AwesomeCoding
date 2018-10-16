@@ -1,5 +1,6 @@
 <template>
 	<el-container id="app">
+        <v-header :user="user"></v-header>
 		<el-header id="nav-header" style='height:62px'>
 			<div>
                 <span style="position: absolute; top: 20px;">
@@ -24,7 +25,7 @@
 		</el-header>
 		<el-container>
 			<el-aside width="auto">
-                <!--此处el-menu设置"min-height: 100%"的目的是使菜单在项目较少的时候也能充满左边的导航栏 by ZFS-->
+				<!--此处el-menu设置"min-height: 100%"的目的是使菜单在项目较少的时候也能充满左边的导航栏 by ZFS-->
 				<el-menu class="el-menu-vertical-demo"
                          style="min-height: 100%"
                          background-color="#f1f5f8"
@@ -63,7 +64,6 @@
 						<el-menu-item index="/developer/file_viewer">文件查看</el-menu-item>
 						<el-menu-item index="1-4-1">选项1</el-menu-item>
 					</el-submenu>
-
                     <el-submenu index="/users">
                         <template slot="title">
                             <i class="el-icon-star-on"></i>
@@ -92,6 +92,20 @@
 							<span slot="title">进入课程</span>
 						</el-menu-item>
 					</el-submenu>
+
+					<el-submenu index="/files">
+						<template slot='title'>
+							<i class='el-icon-upload'></i>
+							<span>文件</span>
+						</template>
+						<el-menu-item index="/file/upload">
+							<span slot="title">上传文件</span>
+						</el-menu-item>
+						<el-menu-item index="/file/show">
+							<span slot="title">我的文件</span>
+						</el-menu-item>
+					</el-submenu>
+
 					<el-menu-item index="/class/123">
 						<i class='el-icon-service'></i>
 						<span slot='title'>房间</span>
@@ -223,21 +237,21 @@ export default {
 
 <style>
 body {
-    margin: 0;
+	margin: 0;
 }
 #app {
 	font-family: 'Avenir', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: #2c3e50;
-    /*以下对position的设定可以保证网页始终能填充满浏览器页面，从而保证跨平台的可能 by ZFS*/
-    position: absolute;
-    width: 100%;
-    height: 100%;
+	/*以下对position的设定可以保证网页始终能填充满浏览器页面，从而保证跨平台的可能 by ZFS*/
+	position: absolute;
+	width: 100%;
+	height: 100%;
 }
 
 .el-menu-item .is-active {
-    border-bottom: 10px;
+	border-bottom: 10px;
 }
 
 .el-menu {
@@ -245,17 +259,17 @@ body {
 }
 
 el-tooltip {
-    padding: 5px;
+	padding: 5px;
 }
 
 .profile-button {
-    position: relative;
-    right: 10px;
-    top: 10px;
+	position: relative;
+	right: 10px;
+	top: 10px;
 }
 
 #nav-header {
-    border-bottom: 2px solid #d3d4e2;
+	border-bottom: 2px solid #d3d4e2;
 	color: #909399;
 }
 .round-icon{
