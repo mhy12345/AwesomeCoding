@@ -3,6 +3,10 @@ FROM node:9.9.0
 RUN npm config set registry https://registry.npm.taobao.org
 RUN apt update
 RUN apt install -y mysql-client
+RUN mkdir /prebuild
+WORKDIR /prebuild
+RUN npm init -y
+RUN npm install phantomjs-prebuilt
 
 #创建前端目录，并安装依赖项
 COPY frontend /frontend
@@ -11,11 +15,12 @@ RUN npm install
 RUN npm run build
 
 #创建后端目录，并安装依赖项
-COPY myapp /app
-WORKDIR /app
+COPY backend /backend
+WORKDIR /backend
 RUN npm install
 
-ENV TEST_ROOT /app
+ENV BACKEND_ROOT /backend
+ENV FRONTEND_ROOT /frontend
 ENV PORT 80
 EXPOSE 80
 #运行

@@ -3,9 +3,17 @@ var mysql = require('mysql');
 var mysql_initializer = require('./mysql_initializer');
 var mysql_config = require('../configures/db_configures');
 
+var db_debugger = require('debug')("database");
+
 function getConnection() { //获取连接connection，并调用回调函数
 	return new Promise(function(resolve,reject) {
-		let connection = mysql.createConnection(mysql_config);
+		let config = {
+			host : mysql_config.host,
+			user : mysql_config.user,
+			password : mysql_config.password,
+			database : mysql_config.database
+		}
+		let connection = mysql.createConnection(config);
 		connection.connect(function (err) {
 			if (err) {
 				connection.end();
@@ -15,8 +23,7 @@ function getConnection() { //获取连接connection，并调用回调函数
 			}
 		});
 	}).catch(function(rejected_reason) {
-		console.log(rejected_reason);
-		console.log("Reinstall database...");
+		db_debugger("Reinstall database...");
 		return mysql_initializer();
 	})
 }
@@ -31,7 +38,7 @@ function doSqlQuery(conn,sql) {           // 执行数据库命令
 	return new Promise(function(resolve,reject) {
 		conn.query(sql, function (error, results, fields) {
 			if (error) {
-				console.log(sql + '[FAILED.]');
+				db_debugger(sql + '[FAILED.]');
 				conn.end();
 				reject(
 					{
@@ -41,8 +48,8 @@ function doSqlQuery(conn,sql) {           // 执行数据库命令
 						details: error,
 					});
 			} else {
-				console.log(sql + '[FILLED.]');
-				console.log(results);
+				db_debugger(sql + '[FILLED.]');
+				db_debugger(results);
 				resolve({
 					conn: conn, 
 					sql_res: { sql : sql, status : 'SUCCESS.', results:results, details : undefined }
@@ -55,14 +62,14 @@ function doSqlQuery(conn,sql) {           // 执行数据库命令
 
 function doSqlQuerySequential(conn,sqls) {
 	return new Promise(function(resolve,reject) {
-		console.log("START TO DO ",sqls);
+		db_debugger("START TO DO ",sqls);
 		async.eachSeries(sqls, function (item, callback) {
 			conn.query(item, function (err, res) {
 				if (err)
-					console.log(item + '[FAILED.]');
+					db_debugger(item + '[FAILED.]');
 				else
-					console.log(item + '[FILLED.]');
-				console.log(res);
+					db_debugger(item + '[FILLED.]');
+				db_debugger(res);
 				callback(err, res);
 			});
 		}, function (err,res) {
