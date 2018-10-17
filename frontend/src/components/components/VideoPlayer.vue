@@ -5,8 +5,8 @@
 </template>
 
 <script>
-    //import polyvPlayer from 'polyvPlayer'
-	var polyvPlayer = Object();
+    import polyvPlayer from 'polyvPlayer'
+	//var polyvPlayer = Object();
 
     export default {
         mounted: function() {

@@ -1,6 +1,6 @@
 <template>
     
-    <LivePlayer />
+    <VideoPlayer />
 
 </template>
 
