@@ -1,6 +1,5 @@
 <template>
 	<el-container id="app">
-        <v-header :user="user"></v-header>
 		<el-header id="nav-header" style='height:62px'>
 			<div>
                 <span style="position: absolute; top: 20px;">

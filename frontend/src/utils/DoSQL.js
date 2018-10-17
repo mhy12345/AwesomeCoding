@@ -57,7 +57,7 @@ function updateSQL(parent, table_name, row) {
 function postSQL(parent, query, params) {       // 向服务器发出post请求
     // TODO simply use post('/api' + query) when push
     var query_url = '/api' + query;
-    console.log('[post] request sent!', query_url);
+    console.log('[post] request sent!', query_url, params);
     return parent.$http.post(query_url, params).then((resp) => {
         console.log(resp);
         return new Promise((resolve, reject) => {
@@ -77,4 +77,8 @@ function registerSQL(parent, user) {
     return postSQL(parent, "/user/register", user);
 }
 
-export {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL, loginSQL, registerSQL, doSQL}
+function changeSQL(parent, user) {
+    return postSQL(parent, "/user/change", user);
+}
+
+export {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL, loginSQL, registerSQL, changeSQL}
