@@ -5,23 +5,30 @@ var mysql=require('mysql');
 var doSqlQuery = require('../utils/funcs').doSqlQuery;
 var getConnection = require('../utils/funcs').getConnection;
 
+var log4js = require("log4js");
+var log4js_config = require("../configures/log.config.js").runtime_configure;
+log4js.configure(log4js_config);
+
+var logger = log4js.getLogger('log_file')
+
+
 router.get('/session', function (req, res, next) {	// 判断用户是否登录
-	console.log('[get] session\n', req.body);
+	logger.info('[get] session\n', req.body);
 	if (typeof(req.session) === 'undefined')
 		req.session = {};
-	console.log('[res]', req.session);
+	logger.info('[res]', req.session);
 	res.send(JSON.stringify(req.session));
 });
 
 router.post('/register', function (req, res, next) {	// 响应注册，并进行合法判断
-    console.log("[post] register\n", req.body);
+    logger.info("[post] register\n", req.body);
     var res_body = {};
 	if (typeof(req.session.user_id) !== 'undefined') {  // 已登录
 		res_body = {
 			status : 'FAILED.',
 			details : 'ALREADY_LOGIN.'
 		};
-		console.log('[res]', res_body);
+		logger.info('[res]', res_body);
 		res.send(JSON.stringify(res_body));
 		return;
 	}
@@ -68,7 +75,7 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 			req.session.role = req.body.role;
 			req.session.email = req.body.email;
 			res_body.results = req.session;
-			console.log('[res]', res_body);
+			logger.info('[res]', res_body);
 			conn.end();
 			res.send(JSON.stringify(res_body));
 		}).
@@ -78,9 +85,17 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 });
 
 router.post('/login', function(req, res, next) {  // 响应登录，并进行合法判断 返回 JSON
-	console.log("[post] login\n", req.body);
+	logger.info("[post] login\n", req.body);
 	let nickname = req.body.nickname;
 	let password = req.body.password;
+	if (typeof(nickname) == 'undefined' || typeof(password) == 'undefined') {
+		logger.info('wrong.');
+		res.status(403).send({
+			status : 'FAILED.',
+			details : 'wrong parameters.'
+		});
+		return;
+	}
 	getConnection().
 		then(function(conn) {
 			let sql = 'SELECT * FROM users WHERE nickname = ' + mysql.escape(nickname);
@@ -98,7 +113,7 @@ router.post('/login', function(req, res, next) {  // 响应登录，并进行合
 			}
 			else {
 				let user = sql_res.results[0];
-				console.log('Found:', user);
+				logger.info('Found:', user);
 				if (password !== user.password) {
 					conn.end();
 					return Promise.reject({
@@ -122,12 +137,12 @@ router.post('/login', function(req, res, next) {  // 响应登录，并进行合
 			}
 		}).
 		catch(function(sql_res) {
-			res.send(JSON.stringify(sql_res));
+			res.status(200).send(JSON.stringify(sql_res));
 		});
 });
 
 router.get('/logout', function (req, res, next) {
-    console.log('[get] logout\n', req.body);
+    logger.info('[get] logout\n', req.body);
     var res_body = {
         status: '',
         details: '',
@@ -138,13 +153,13 @@ router.get('/logout', function (req, res, next) {
     }
     else {
         req.session.destroy((err) => {
-            console.log('Session Destroyed');
-            if (err) console.log(err);
+            logger.info('Session Destroyed');
+            if (err) logger.info(err);
         });
         res_body.status = 'SUCCESS.';
         res_body.details = 'SUCCESS.';
     }
-    console.log('[res]', res_body);
+    logger.info('[res]', res_body);
     res.send(JSON.stringify(res_body));
 });
 

@@ -4,6 +4,7 @@ var mysql=require('mysql');
 
 var getConnection = require('../utils/funcs').getConnection;
 var doSqlQuery = require('../utils/funcs').doSqlQuery;
+var dbConfigure = require('../configures/database.config.js');
 
 router.use(function (req, res, next) {  // 判断用户是否有管理员权限
     console.log('>>> developer request!', req.session);
@@ -24,6 +25,11 @@ router.use(function (req, res, next) {  // 判断用户是否有管理员权限
     }
 });
 
+router.get('/info', function(req, res, next) {
+	res.status(200).send(JSON.stringify({
+		status:'SUCCESS.',
+		db_cfg:dbConfigure}));
+});
 router.get('/show_table', function(req, res, next) { //在数据库中查找表格，并打印
 	getConnection().
 		then(function(conn) {
@@ -43,7 +49,7 @@ router.get('/show_table', function(req, res, next) { //在数据库中查找表�
 router.get('/show_columns', function(req, res, next) {
 	getConnection().
 		then(function(conn) {
-			let mysql_config = require('../configures/db_configures');
+			let mysql_config = require('../configures/database.config.js');
 			let db_name = (mysql_config.database);
 			let sql = 'SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '
 				+ mysql.escape(db_name) + ' AND TABLE_NAME = ' + mysql.escape(req.query.table_name) + '';

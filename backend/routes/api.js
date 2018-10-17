@@ -8,7 +8,7 @@ router.get('*', function(req, res, next) {
 		status : 'FAILED.',
 		details : 'NO API MATCH!'
 	};
-	res.send(JSON.stringify(result));
+	res.status(404).send(JSON.stringify(result));
 });
 
 module.exports = router;
