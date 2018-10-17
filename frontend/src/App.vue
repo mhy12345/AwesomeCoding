@@ -8,8 +8,8 @@
                 </span>
 				<div style='float:right'>
                     <el-menu v-if="(loginQ === false)" mode="horizontal" @select='handleSelectItem'>
-                        <el-menu-item index="/user/sign_in"> 登录 </el-menu-item>
-                        <el-menu-item index="/user/sign_up"> 注册 </el-menu-item>
+                        <el-menu-item index="/user/sign_in"> 登 录 </el-menu-item>
+                        <el-menu-item index="/user/sign_up"> 注 册 </el-menu-item>
                     </el-menu>
                     <el-dropdown v-if="(loginQ === true)" @command="handleSelectItem">
                         <img :src="user.gravatar_url" class="round-icon" alt="">
@@ -131,6 +131,7 @@
 <script>
 var crypto = require('crypto');
 import {copy} from "./utils/Copy";
+import {sessionSQL, logoutSQL} from "./utils/DoSQL";
 
 export default {
 	name: 'App',
@@ -161,48 +162,44 @@ export default {
             this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
         },
         checkLogin() {     // 检验用户是否登录
-            // todo simplify into '/api/user/session'
-            // this.$http.get('http://127.0.0.1:8888/api/user/session').
-            this.$http.get('/api/user/session').
-            then((res) => {
-                console.log(res);
-                if (typeof(res.body.nickname) !== 'undefined') {
-                    this.user = res.body;
-                    this.$message.success("欢迎回来！" + this.user.realname);
-                    this.loginQ = true;
-                    var hash = crypto.createHash('md5');
-                    hash.update(this.user.email);
-                    this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
-                    console.log("GRAVATAR URL = ", this.user.gravatar_url);
-                }
-                else {
-                    this.$message("请登录。");
-                    this.loginQ = false;
-                }
-            }).
-            catch(this.showUnknownError);
-        },
-        logout() {      // 退出登录
-            // todo simplify into '/api/user/session'
-            // this.$http.get('http://127.0.0.1:8888/api/user/logout').
-            this.$http.get('/api/user/logout').
-            then((res) => {
-                console.log(res);
-                if (res.body.status === 'FAILED.') {
-                    if (res.body.details === 'USER_NOT_ONLINE.') {
-                        this.$message.error('您已离线。' );
+            sessionSQL(this).
+                then((resp) => {
+                    console.log(resp);
+                    if (typeof(resp.nickname) !== 'undefined') {
+                        this.user = resp;
+                        this.$message.success("欢迎回来！" + this.user.realname);
+                        this.loginQ = true;
+                        var hash = crypto.createHash('md5');
+                        hash.update(this.user.email);
+                        this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
+                        console.log("GRAVATAR URL = ", this.user.gravatar_url);
                     }
                     else {
-                        throw '登录失败。';
+                        this.$message("请登录。");
+                        this.loginQ = false;
                     }
-                }
-                else {  // SUCCESS.
-                    this.loginQ = false;
-                    this.user = copy(this.default_user);
-                    this.$message.warning('已退出登录。');
-                }
-            }).
-            catch(this.showUnknownError);
+                }).
+                catch(this.showUnknownError);
+        },
+        logout() {      // 退出登录
+            logoutSQL(this).
+                then((resp) => {
+                    console.log(resp);
+                    if (resp.status === 'FAILED.') {
+                        if (resp.details === 'USER_NOT_ONLINE.') {
+                            this.$message.error('您已离线。');
+                        }
+                        else {
+                            throw '登录失败。';
+                        }
+                    }
+                    else {  // SUCCESS.
+                        this.loginQ = false;
+                        this.user = copy(this.default_user);
+                        this.$message.warning('已退出登录。');
+                    }
+                }).
+                catch(this.showUnknownError);
         },
 		handleSelectItem(key) {
 			if (key === "collapse") {

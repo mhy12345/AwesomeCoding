@@ -56,3 +56,9 @@ https://awesomecoding_fantastic67.app.secoder.net/api/show_table?table_name=user
 https://awesomecoding_fantastic67.app.secoder.net/api/do_query?sql=INSERT%20INTO%20users%20(nickname,role,password)%20values%20(%27mhy%27,1,%27123%27)
 ```
 
+## 前端调试说明
+
+前端调试建议使用`npm run dev`，这样便于实时查看代码的效果，但这里的dev相当于新开了一个前端服务器，要实现api还需要运行后端服务器。
+
+于是所有前端的http请求的url都需要修改为后端域名开头的。
+为了方便，我添加了配置文件 `./frontend/config/http_root_url.js` ，这个文件导出了http请求的url头，上部分为本地测试版本（`npm run dev`），下部分为发布版本（或者是`npm run build`）版本，大家可以选择性屏蔽/开启，适应调试需求。
