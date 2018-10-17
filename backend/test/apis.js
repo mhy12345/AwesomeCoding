@@ -11,7 +11,7 @@ log4js.configure(log4js_config);
 describe('# Test user module ...', function () {
 	it('Get info', function(done) {
 		request
-			.get('/api/developer/info')
+			.get('/api/info')
 			.expect(200)
 			.end(function (err, res) {
 				if (err) return done(err);

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import {router_childs} from '@/utils/Resources'
+import Home from '@/views/Home'
 import PageNotFound from '@/views/404'
 
 Vue.use(Router);
@@ -17,7 +18,7 @@ export default new Router({
         {
             path: '/home',
             name: 'home',
-            component: () => import('@/views/Home.vue')
+            component: Home,
         },
 		{
 			path: '/class/:class_id',
@@ -118,7 +119,7 @@ export default new Router({
                 },
                 {
                     path: '*',
-                    component: PageNotFound
+                    component: PageNotFound,
                 }
             ]
         },

@@ -83,7 +83,7 @@
                 inputs: {        // 输入框的信息
                     nickname: '',
                     realname: '',
-                    role: '',  // todo 支持下拉选择
+                    role: '',
                     email: '',
 					motto : '',
                     password: '',

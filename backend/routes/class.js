@@ -7,6 +7,11 @@ var getConnection = require('../utils/funcs').getConnection;
 var doSqlQuerySequential = require('../utils/funcs').doSqlQuerySequential;
 var randomString = require('../utils/funcs').randomString;
 
+var log4js = require("log4js");
+var log4js_config = require("../configures/log.config.js").runtime_configure;
+log4js.configure(log4js_config);
+var logger = log4js.getLogger('log_file')
+
 router.get('/delete', function(req, res, next) { //根据id删除班级
 	let id = req.query.id;
 	let sql = 'DELETE FROM classes WHERE id = ' + mysql.escape(id);
@@ -87,7 +92,7 @@ router.post('/info/query', function(req, res, next) {
 });
 
 router.post('/info/update', function(req, res, next) {
-	console.log('>>>UPDATE CLASS INFO', req.body);
+	logger.info('>>>UPDATE CLASS INFO', req.body);
 	let info = {
 		description : req.body.info.description,
 		notice : req.body.info.notice,
@@ -112,7 +117,7 @@ router.post('/info/update', function(req, res, next) {
 	}
 	sql = sql.substr(0, sql.length-1);
 	sqls.push(sql);
-	console.log('>>>',sqls);
+	logger.info('>>>',sqls);
 	getConnection().
 		then(function(conn) {
 			return doSqlQuerySequential(conn, sqls);
@@ -147,10 +152,10 @@ router.post('/create', function(req, res, next) { //创建新班级
 			}).
 			then(function(packed) {
 				let {conn, sql_res} = packed;
-				console.log('>>>>>', sql_res);
+				logger.info('>>>>>', sql_res);
 				result.id = sql_res.results.insertId;
 				result.status = 'SUCCESS.';
-				console.log(sql_res.results);
+				logger.info(sql_res.results);
 				result.invitation_code = invitation_code;
 				let sql = 'INSERT INTO `resources` (`class_id`, `resource`) VALUES ';
 				for (let w in resources) {

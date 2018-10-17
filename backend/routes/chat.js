@@ -5,6 +5,11 @@ var getConnection = require('../utils/funcs').getConnection;
 var doSqlQuery = require('../utils/funcs').doSqlQuery;
 var doSqlQuerySequential = require('../utils/funcs').doSqlQuerySequential;
 
+var log4js = require("log4js");
+var log4js_config = require("../configures/log.config.js").runtime_configure;
+log4js.configure(log4js_config);
+var logger = log4js.getLogger('log_file')
+
 router.post('/ban', function(req, res, next) { //添加禁言名单 @调整部分逻辑 TODO 确认正确性
 	let userid = req.body.userid;
 	let classid = req.body.classid;
@@ -44,7 +49,7 @@ router.post('/ban', function(req, res, next) { //添加禁言名单 @调整部�
 			}
 			res.send(JSON.stringify(resp));
 			conn.end();
-			console.log("[res] ", resp);
+			logger.info("[res] ", resp);
 		}).
 		catch(function(sql_res) {
 			res.send(JSON.stringify(sql_res));
@@ -64,7 +69,7 @@ router.get('/add_comments', function(req, res, next) {
 		resp.status = 'FAILED.';
 		resp.details = 'ILLEGAL INPUT.';
 		res.send(JSON.stringify(resp));
-		console.log("ERROR WHILING ADDING A COMMENT");
+		logger.info("ERROR WHILING ADDING A COMMENT");
 	} else {
 		//被禁言
 		getConnection().
@@ -78,7 +83,7 @@ router.get('/add_comments', function(req, res, next) {
 					resp.status = 'FAILED.';
 					resp.details = 'STILL IN BLACKLIST.';
 					res.send(JSON.stringify(resp));
-					console.log("FORBID");
+					logger.info("FORBID");
 					conn.end();
 					return Promise.reject({
 						status : 'SKIPPED.'
