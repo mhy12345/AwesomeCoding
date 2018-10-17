@@ -55,8 +55,7 @@
 						</el-menu-item-group>
 
 						<el-menu-item-group title="测试页面">
-							<el-menu-item index="/developer/live_player">直播测试</el-menu-item>
-							<el-menu-item index="/developer/video_player">视频测试</el-menu-item>
+							<el-menu-item index="/developer/test_player">直播测试</el-menu-item>
 							<el-menu-item index="/developer/test">测试</el-menu-item>
 						</el-menu-item-group>
 
