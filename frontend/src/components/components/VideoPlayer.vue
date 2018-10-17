@@ -5,7 +5,8 @@
 </template>
 
 <script>
-    import polyvPlayer from 'polyvPlayer'
+//    import polyvPlayer from 'polyvPlayer'
+import polyvPlayer from '@/../static/player.js'
 	//var polyvPlayer = Object();
 
     export default {

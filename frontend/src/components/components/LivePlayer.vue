@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import polyvObject from 'polyvObject'
+import polyvObject from '@/../static/liveplayer.js'
 //var polyvObject = Object();
 
 export default {
