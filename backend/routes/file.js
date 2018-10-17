@@ -7,6 +7,11 @@ var multer  = require('multer');
 var upload = multer({dest: 'uploads/'});
 var fs = require('fs');
 
+var log4js = require("log4js");
+var log4js_config = require("../configures/log.config.js").runtime_configure;
+log4js.configure(log4js_config);
+var logger = log4js.getLogger('log_file')
+
 router.post('/upload', upload.any(), function(req, res, next) {
 	var user_id = req.session.user_id;
 	if (user_id === undefined) {
@@ -21,7 +26,7 @@ router.post('/upload', upload.any(), function(req, res, next) {
         fs.readFile( req.files[0].path, function (err, data) {
             fs.writeFile(des_file, data, function (err) {
                 if( err ){
-                    console.log( err );
+                    logger.info( err );
                 }
                 else {
                     getConnection().
@@ -96,7 +101,7 @@ router.post('/fetch', function(req, res, next) {
             then(function(packed) {
                 let {conn, sql_res} = packed;
                 conn.end();
-                console.log(sql_res);
+                logger.info(sql_res);
                 res.send(JSON.stringify(sql_res, null, 3));
             }).
             catch(function(sql_res) {

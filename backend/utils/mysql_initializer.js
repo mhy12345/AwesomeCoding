@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-var mysql_config = require('../configures/db_configures');
+var mysql_config = require('../configures/database.config.js');
 var async = require('async');
 
 var db_debugger = require('debug')("database");

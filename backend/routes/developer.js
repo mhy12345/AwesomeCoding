@@ -5,16 +5,20 @@ var mysql=require('mysql');
 var getConnection = require('../utils/funcs').getConnection;
 var doSqlQuery = require('../utils/funcs').doSqlQuery;
 
+var log4js = require("log4js");
+var log4js_config = require("../configures/log.config.js").runtime_configure;
+log4js.configure(log4js_config);
+var logger = log4js.getLogger('log_file')
+
 router.use(function (req, res, next) {  // 判断用户是否有管理员权限
-    console.log('>>> developer request!', req.session);
     if (typeof(req.session) === 'undefined') {
-        res.send(JSON.stringify({
+        res.status(403).send(JSON.stringify({
             status: 'FAILED.',
             details: 'NOT_LOGIN.',
         }));
     }
     else if (req.session.role !== 0) {  // 权限不够
-        res.send(JSON.stringify({
+        res.status(403).send(JSON.stringify({
             status: 'FAILED.',
             details: 'PERMISSION_DENIED.',
         }))
@@ -43,7 +47,7 @@ router.get('/show_table', function(req, res, next) { //在数据库中查找表�
 router.get('/show_columns', function(req, res, next) {
 	getConnection().
 		then(function(conn) {
-			let mysql_config = require('../configures/db_configures');
+			let mysql_config = require('../configures/database.config.js');
 			let db_name = (mysql_config.database);
 			let sql = 'SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '
 				+ mysql.escape(db_name) + ' AND TABLE_NAME = ' + mysql.escape(req.query.table_name) + '';
