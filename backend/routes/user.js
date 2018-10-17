@@ -81,6 +81,18 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
         then(function (packed) {
             let {conn, sql_res} = packed;
             res_body.status = "SUCCESS.";              // 成功注册
+            let sql = 'SELECT * FROM users WHERE nickname = ' + mysql.escape(req.body.nickname);
+            return doSqlQuery(conn, sql);
+        }).
+        then(function (packed) {
+            let {conn, sql_res} = packed;
+            if (sql_res.results.length <= 0) {
+                conn.end();
+                return new Promise.reject({
+                    status: 'FAILED.',
+                    details: 'USER_INFO_LOST.'
+                });
+            }
             let user = sql_res.results[0];
 			logger.info('<<<',sql_res)
             req.session.nickname = user.nickname;
@@ -108,12 +120,10 @@ router.post('/login', function (req, res, next) {  // 响应登录，并进行�
 	}
     getConnection().
         then(function (conn) {
-            logger.info('>>1 sql connected');
             let sql = 'SELECT * FROM users WHERE nickname = ' + mysql.escape(nickname);
             return doSqlQuery(conn, sql);
         }).
         then(function (packed) {
-            logger.info('>>2 sql packed');
             let {conn, sql_res} = packed;
             if (sql_res.results.length === 0) {
                 conn.end();
