@@ -9,13 +9,18 @@ import polyvObject from 'polyvObject'
 //var polyvObject = Object();
 
 export default {
+	props: {
+		'size': [Number, Number],
+		'vid': String,
+		'uid': String
+	},
 	mounted: function() {
 		// eslint-disable-next-line
 		var player = polyvObject('#player').livePlayer({
-			'width':'498',
-			'height':'409',
-			'uid':'047a911d83',
-			'vid':'242576'
+            width: this.size[0],
+            height: this.size[1],
+            uid : this.uid,
+            vid : this.vid
 		});
 	}
 }

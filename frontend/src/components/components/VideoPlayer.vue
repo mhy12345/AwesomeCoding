@@ -9,13 +9,17 @@
 	//var polyvPlayer = Object();
 
     export default {
+        props: {
+            'size': [Number, Number],
+            'vid': String
+        },
         mounted: function() {
             // eslint-disable-next-line
             var player = polyvPlayer({
                 wrap: '#player',
-                width: 800,
-                height: 533,
-                vid: '047a911d833fd4ec0a7f4bbdea2a7b93_0'
+                width: this.size[0],
+                height: this.size[1],
+                vid : this.vid
             });
         }
     }
