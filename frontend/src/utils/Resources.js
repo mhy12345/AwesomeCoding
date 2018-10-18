@@ -33,7 +33,7 @@ var supported_resources = {
 	chatting_room : {
 		name:'chatting_room',
 		title:'讨论区',
-		component: ()=>import('../components/resources/NotComplete.vue'),
+		component: ()=>import('../components/resources/ChattingRoom.vue'),
 		disabled : false,
 		defaultChosen : false,
 	},
