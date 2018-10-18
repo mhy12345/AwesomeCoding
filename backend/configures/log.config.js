@@ -14,7 +14,8 @@ var unittest_configure = {
 		info: { type: 'file', filename: './logs/info.log' }
 	},
 	categories: {
-		default: { appenders: [ 'info' ], level: 'info' }//去掉'out'。控制台不打印日志
+		default: { appenders: [ 'info' ], level: 'info' },//去掉'out'。控制台不打印日志
+		test_info: { appenders: [ 'out', 'info' ], level: 'info' }      // 显示getLogger('test_info')的日志
 	}
 };
 module.exports = {
