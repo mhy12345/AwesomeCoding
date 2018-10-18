@@ -10,52 +10,51 @@ var fs = require('fs');
 var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
-var logger = log4js.getLogger('log_file')
+var logger = log4js.getLogger('log_file');
 
-router.post('/upload', upload.any(), function(req, res, next) {
-	var user_id = req.session.user_id;
-	if (user_id === undefined) {
+router.post('/upload', upload.any(), function (req, res, next) {
+    var user_id = req.session.user_id;
+    if (user_id === undefined) {
         var response = {
-            message:'You must login first.',
-            filename:''
+            message: 'You must login first.',
+            filename: ''
         };
-        res.end( JSON.stringify( response ) );
-	}
-	else {
+        res.end(JSON.stringify(response));
+    }
+    else {
         var des_file = "./uploads/" + req.files[0].originalname;
-        fs.readFile( req.files[0].path, function (err, data) {
+        fs.readFile(req.files[0].path, function (err, data) {
             fs.writeFile(des_file, data, function (err) {
-                if( err ){
-                    logger.info( err );
+                if (err) {
+                    logger.info(err);
                 }
                 else {
                     getConnection().
-                        then(function(conn) {
+                        then(function (conn) {
                             let sql = 'insert into files (`user_id`,`filename`) VALUES ("' + user_id + '","' + req.files[0].originalname + '")';
-
                             return doSqlQuery(conn, sql);
                         }).
-                        then(function(packed) {
+                        then(function (packed) {
                             let {conn, sql_res} = packed;
                             var response = {};
                             if (result.status === 'SUCCESS.') {
                                 response.message = 'File uploaded successfully';
                                 response.filename = req.files[0].originalname;
-                                res.end( JSON.stringify( response ) );
+                                res.end(JSON.stringify(response));
                             }
                             else {
                                 response.message = 'File uploaded unsuccessfully';
                                 response.filename = '';
-                                res.end( JSON.stringify( response ) );
+                                res.end(JSON.stringify(response));
                             }
                         }).
-                        catch(function(sql_res) {
-                            res.send(JSON.stringfy(sql_res));
-                        })
+                        catch(function (sql_res) {
+                            res.send(JSON.stringify(sql_res));
+                        });
                 }
             });
         });
-	}
+    }
 });
 
 
@@ -84,29 +83,29 @@ router.use('/test', function (req, res, next) {
 });
 
 
-router.post('/fetch', function(req, res, next) {
+router.post('/fetch', function (req, res, next) {
     let user_id = req.session.user_id;
     if (user_id === undefined) {
         var response = {
-            message:'You must login first.',
+            message: 'You must login first.',
         };
-        res.end( JSON.stringify( response ) );
+        res.end(JSON.stringify(response));
     }
     else {
         getConnection().
-            then(function(conn) {
+            then(function (conn) {
                 let sql = 'select * from files where user_id = ' + user_id;
                 return doSqlQuery(conn, sql);
             }).
-            then(function(packed) {
+            then(function (packed) {
                 let {conn, sql_res} = packed;
                 conn.end();
                 logger.info(sql_res);
                 res.send(JSON.stringify(sql_res, null, 3));
             }).
-            catch(function(sql_res) {
+            catch(function (sql_res) {
                 res.send(JSON.stringify(sql_res, null, 3));
-            })
+            });
     }
 });
 

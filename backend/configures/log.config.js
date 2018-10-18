@@ -6,7 +6,7 @@ var runtime_configure = {
 	categories: {
 		default: { appenders: [ 'out', 'info' ], level: 'info' }//去掉'out'。控制台不打印日志
 	}
-}
+};
 
 var unittest_configure = {
 	appenders: {
@@ -16,8 +16,8 @@ var unittest_configure = {
 	categories: {
 		default: { appenders: [ 'info' ], level: 'info' }//去掉'out'。控制台不打印日志
 	}
-}
+};
 module.exports = {
-	runtime_configure,
-	unittest_configure
-}
+    runtime_configure,
+    unittest_configure
+};
