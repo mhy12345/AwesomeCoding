@@ -1,0 +1,15 @@
+[2018-10-18T18:47:35.677] [INFO] log_file - [get] session
+ {}
+[2018-10-18T18:47:35.678] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T11:47:35.676Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T18:47:35.684] [INFO] log_file - [post] login
+ {}
+[2018-10-18T18:47:35.693] [INFO] log_file - [post] register
+ {}
+[2018-10-18T18:47:36.371] [INFO] test_info - [res] {}

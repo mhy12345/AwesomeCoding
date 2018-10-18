@@ -43,7 +43,8 @@
 						<span slot="title">主页</span>
 					</el-menu-item>
 
-					<el-submenu index="/developer" :disabled="user.role !== 0" >
+					<!-- todo when release <el-submenu index="/developer" :disabled="user.role !== 0" >-->
+                    <el-submenu index="/developer">
 						<template slot="title">
 							<i class='el-icon-edit-outline'></i>
 							<span slot="title">开发者</span>
