@@ -184,7 +184,7 @@
                     }
                 }
                 else {
-                    this.inputs.password = '';
+                    this.inputs.password = '';      // 空字符表示不修改某个键-值
                 }
                 delete this.inputs.re_password;
                 this.loadingQ = true;

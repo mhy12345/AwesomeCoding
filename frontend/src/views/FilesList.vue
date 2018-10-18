@@ -8,21 +8,21 @@
     export default {
         data() {
             return {
-                tableData : []
+                tableData: []
             }
         },
-        mounted : function() {
+        mounted: function () {
             this.$http.post('/api/file/fetch', {}).
                  then(function (res) {
                      console.log(res.body.results);
                      this.tableData = res.body.results;
                  });
         },
-        methods : {
-            handleCurrentChange : function(item) {
+        methods: {
+            handleCurrentChange: function (item) {
                 this.$router.push({
-                        name: 'file', params: {file_id: item.id}
-                    });
+                    name: 'file', params: {file_id: item.id}
+                });
             }
         }
     }
