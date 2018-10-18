@@ -71,17 +71,16 @@
                         手机验证码：
                     </label>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="7">
                     <el-input id="verify_code"
                               class="input-box"
-                              type="password"
                               v-model="verify_code_inputed"
-                              placeholder="输入验证码">
+                              placeholder="输入6位验证码">
                     </el-input>
                 </el-col>
-                <el-col :span="3" class="verification-button">
-                    <el-button type = "primary" @click="handleVerification">
-                        发送验证码
+                <el-col :span="5" class="verification-button">
+                    <el-button type = "primary" :disabled="verify_disable" @click="handleVerification">
+                        {{verify_content}}
                     </el-button>
                 </el-col>
             </el-row>
@@ -114,6 +113,9 @@
                 re_password: '',
                 verify_code_generated: '',
                 verify_code_inputed: '',
+                verify_content: '发送验证码',
+                verify_countdown: 60,
+                verify_disable: false,
                 loadingQ: false,
                 icon_urls: {
                     administrator: require('../../../assets/images/icons/administrator.png'),
@@ -128,6 +130,17 @@
                     this.$message("请输入中国大陆11位手机号");
                     return;
                 }
+                var clock = window.setInterval(() => {
+                    this.verify_disable = true;
+                    this.verify_countdown--;
+                    this.verify_content = this.verify_countdown + 's后重新发送';
+                    if (this.verify_countdown <= 0) {
+                        window.clearInterval(clock)
+                        this.verify_disable = false;
+                        this.verify_content = '重新发送验证码'
+                        this.verify_countdown = 60
+                    }
+                },1000);
 
                 this.$message("验证码已发送！请注意查收");
                 let url = "https://open.ucpaas.com/ol/sms/sendsms";
