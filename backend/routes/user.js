@@ -8,7 +8,7 @@ var getConnection = require('../utils/funcs').getConnection;
 var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
-var logger = log4js.getLogger('log_file')
+var logger = log4js.getLogger('log_file');
 
 
 router.get('/session', function (req, res, next) {	// 判断用户是否登录
@@ -94,7 +94,7 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
                 });
             }
             let user = sql_res.results[0];
-			logger.info('<<<',sql_res)
+			logger.info('<<<',sql_res);
             req.session.nickname = user.nickname;
             req.session.realname = user.realname;
             req.session.role = user.role;

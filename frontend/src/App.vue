@@ -62,20 +62,27 @@
 						<el-menu-item index="/developer/file_viewer">文件查看</el-menu-item>
 						<el-menu-item index="1-4-1">选项1</el-menu-item>
 					</el-submenu>
-                    <el-submenu index="/users">
+                    <el-submenu index="/user">
                         <template slot="title">
                             <i class="el-icon-star-on"></i>
                             <span slot="title">用户</span>
                         </template>
-                        <el-menu-item index="/user/sign_in">
-                            <span slot="title">登录</span>
-                        </el-menu-item>
-                        <el-menu-item index="/user/sign_up">
-                            <span slot="title">注册</span>
-                        </el-menu-item>
-                        <el-menu-item :disabled="!loginQ" index="/user/profile">
-                            <span slot="title">个人页</span>
-                        </el-menu-item>
+                        <div v-if="!loginQ">
+                            <el-menu-item index="/user/sign_in">
+                                <span slot="title">登录</span>
+                            </el-menu-item>
+                            <el-menu-item index="/user/sign_up">
+                                <span slot="title">注册</span>
+                            </el-menu-item>
+                        </div>
+                        <div v-else>
+                            <el-menu-item index="logout">
+                                <span slot="title">退出登录</span>
+                            </el-menu-item>
+                            <el-menu-item index="/user/profile">
+                                <span slot="title">个人页</span>
+                            </el-menu-item>
+                        </div>
                     </el-submenu>
 
 					<el-submenu index="/courses">
