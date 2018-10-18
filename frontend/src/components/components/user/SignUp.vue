@@ -64,6 +64,28 @@
                 </el-col>
             </el-row>
 
+            <el-row>
+                <el-col :span="8" class="register-prompt">
+                    <label for="re_password">
+                        <i class="el-icon-caret-right" slot="prepend"></i>
+                        手机验证码：
+                    </label>
+                </el-col>
+                <el-col :span="8">
+                    <el-input id="verify_code"
+                              class="input-box"
+                              type="password"
+                              v-model="verify_code_inputed"
+                              placeholder="输入验证码">
+                    </el-input>
+                </el-col>
+                <el-col :span="3" class="verification-button">
+                    <el-button type = "primary" @click="handleVerification">
+                        发送验证码
+                    </el-button>
+                </el-col>
+            </el-row>
+
         </div>
         <div align="center">
             <el-row><el-button type="success" class="register-button" @click="handleSignUp">注册</el-button></el-row>
@@ -79,16 +101,19 @@
         data() {
             return {
                 title: '欢迎注册',
-                heads: ['用户名', '真实姓名', '身份', '邮箱', '签名', '密码'],     // 输入框提示词
+                heads: ['用户名', '真实姓名', '身份', '邮箱', '手机号', '签名', '密码'],     // 输入框提示词
                 inputs: {        // 输入框的信息
                     nickname: '',
                     realname: '',
                     role: '',
                     email: '',
+                    phone: '',
 					motto : '',
                     password: '',
                 },
                 re_password: '',
+                verify_code_generated: '',
+                verify_code_inputed: '',
                 loadingQ: false,
                 icon_urls: {
                     administrator: require('../../../assets/images/icons/administrator.png'),
@@ -98,6 +123,29 @@
             }
         },
         methods: {
+            handleVerification: function () {
+                if (this.inputs.phone <= 10000000000 || this.inputs.phone >= 19999999999) {
+                    this.$message("请输入中国大陆11位手机号");
+                    return;
+                }
+
+                this.$message("验证码已发送！请注意查收");
+                let url = "https://open.ucpaas.com/ol/sms/sendsms";
+                this.verify_code_generated = '';
+                for(let i=0;i<6;i++)
+                {
+                    this.verify_code_generated += Math.ceil(Math.random() * 9);
+                }
+                this.$http.post(url, {
+                    "sid": "55d17519129b8973ea369b5ba8f14f4d",  // const
+                    "token": "43eee5a8cff8d6fd6f54ad612819b466", // const
+                    "appid": "de5779c82e844993b4f28470cf545d77", // const
+                    "templateid": "387977", // const
+                    "param": this.verify_code_generated,
+                    "mobile": this.inputs.phone
+                }).then(function (res) {
+                });
+            },
             handleSignUp: function () {
                 if (this.inputs.nickname === '') {
                     this.$message("用户名不能为空。");
@@ -121,6 +169,14 @@
                 }
                 if (this.inputs.password !== this.re_password) {
                     this.$message("两次输入的密码不同。");
+                    return;
+                }
+                if(!(this.verify_code_inputed >= 111111 && this.verify_code_generated <= 999999)) {
+                    this.$message("验证码不合法。");
+                    return;
+                }
+                if (this.verify_code_inputed !== this.verify_code_generated) {
+                    this.$message("验证码不正确，请重试。");
                     return;
                 }
                 this.loadingQ = true;       // 加载等待圈
@@ -176,6 +232,10 @@
         margin-top: 30px;
         margin-bottom: 30px;
         width: 200px;
+    }
+    .verification-button {
+        position:relative;
+        margin-left: 20px;
     }
     .input-error {
         background-color: #ffa392;
