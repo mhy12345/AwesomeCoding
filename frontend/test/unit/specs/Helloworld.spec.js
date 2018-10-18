@@ -1,5 +1,5 @@
 import UnitTest from '@/components/components/UnitTest';
-import Vue from 'Vue';
+import Vue from '@/../node_modules/vue';
 
 describe('UnitTest.vue', () => {
 	it('should render correct contents', () => {
