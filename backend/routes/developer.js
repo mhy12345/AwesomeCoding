@@ -45,21 +45,26 @@ router.get('/show_table', function(req, res, next) { //在数据库中查找表�
 		});
 });
 
-router.get('/show_columns', function(req, res, next) {
+router.get('/show_columns', function (req, res, next) {
 	getConnection().
-		then(function(conn) {
+		then(function (conn) {
 			let mysql_config = require('../configures/database.config.js');
 			let db_name = (mysql_config.database);
 			let sql = 'SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '
 				+ mysql.escape(db_name) + ' AND TABLE_NAME = ' + mysql.escape(req.query.table_name) + '';
 			return doSqlQuery(conn, sql);
 		}).
-		then(function(packed) {
-			let {conn, sql_res} = packed;
+		then(function (packed) {	// 为什么在这里，没有查找到表格，doSqlQuery不会返回错误？
+			let { conn, sql_res } = packed;
 			conn.end();
+			if (sql_res.results.length === 0)
+				res.send(JSON.stringify({
+					status: 'FAILED.',
+					details: 'TABLE_NOT_FOUND.',
+				}));
 			res.send(JSON.stringify(sql_res, null, 3));
 		}).
-		catch(function(sql_res) {
+		catch(function (sql_res) {
 			res.send(JSON.stringify(sql_res, null, 3));
 		});
 });
@@ -67,16 +72,16 @@ router.get('/show_columns', function(req, res, next) {
 
 router.get('/do_query', function (req, res, next) { //在数据库中执行指定的SQL命令
 	getConnection().
-		then(function(conn) {
+		then(function (conn) {
 			let sql = req.query.sql;
 			return doSqlQuery(conn, sql);
 		}).
-		then(function(packed) {
-			let {conn, sql_res} = packed;
+		then(function (packed) {
+			let { conn, sql_res } = packed;
 			conn.end();
 			res.send(JSON.stringify(sql_res, null, 3));
 		}).
-		catch(function(sql_res) {
+		catch(function (sql_res) {
 			res.send(JSON.stringify(sql_res, null, 3));
 		});
 });
