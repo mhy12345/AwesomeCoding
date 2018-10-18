@@ -53,6 +53,8 @@ router.post('/info/query', function(req, res, next) {
 	getConnection().
 		then(function(conn) {
 			let sql = 'SELECT * FROM classes WHERE id = '+mysql.escape(req.body.class_id);
+			console.log(">>>>>>>>>>>>>/info/query");
+			console.log(sql);
 			return doSqlQuery(conn, sql);
 		}).
 		then(function(packed) {
