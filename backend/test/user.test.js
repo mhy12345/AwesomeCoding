@@ -30,9 +30,6 @@ describe('# Testing /api/user', function () {
 				done();
 			}));
 	});
-	beforeEach(function () {
-		this.timeout(4000);		// 每个测试点时长上限是4s
-	});
 
 	describe('## test register', function () {			// 测试注册
 		describe('### should reject a bad register request', function () {	// 对缺少必要参数的注册，应予以拒绝的反馈
@@ -84,11 +81,53 @@ describe('# Testing /api/user', function () {
 					if (err) return done(err);
 					let body = eval('(' + res.text + ')');
 					logger.info('registration succeed\n', body);
+					body.should.have.key('status').which.is.exactly('SUCCESS.');
 					body.should.have.key('results').which.have.key('nickname').which.is.exactly(test_user.nickname);
-					request.
-						get('/api/user/logout').
-						end(done);
+					done();
 				});
+		});
+		it('should not register when already login', function (done) {
+			request.
+				post('/api/user/login').send(test_user).
+				end(function () {
+					let test_user2 = {
+						nickname: 'test_second_name' + randomString(8),
+						realname: 'TESTER',
+						email: '123456@mail.com',
+						role: 0,
+						motto: 'just for test',
+						password: '111111',
+					};
+					request.
+						post('/api/user/register').
+						send(test_user2).
+						expect(200).
+						end(function (err, res) {
+							if (err) return done(err);
+							let body = eval('(' + res.text + ')');
+							body.should.have.key('status').which.is.exactly('FAILED.');
+							body.should.have.key('details');
+							body.details.toLowerCase().should.containEql('already').and.containEql('login');
+							done();
+						});
+				})
+		});
+		it('should not register twice of the same nickname', function (done) {
+			request.
+				post('/api/user/register').
+				send(test_user).
+				expect(200).
+				end(function (err, res) {
+					if (err) return done(err);
+					let body = eval('(' + res.text + ')');
+					body.should.have.key('status').which.is.exactly('FAILED.');
+					body.should.have.key('details');
+					body.details.toLowerCase().should.containEql('duplication');
+					done();
+				});
+		});
+		afterEach(function (done) {
+			request.get('/api/user/logout').end(done);
 		});
 	});
 
@@ -133,6 +172,9 @@ describe('# Testing /api/user', function () {
 							done();
 						});
 				});
+		});
+		afterEach(function (done) {
+			request.get('/api/user/logout').end(done);
 		});
 	});
 
@@ -190,10 +232,7 @@ describe('# Testing /api/user', function () {
 			logger.info('try logging in', test_user.nickname);
 			request.
 				post('/api/user/login').
-				send({
-					nickname: test_user.nickname,
-					password: '111111',
-				}).
+				send(test_user).
 				expect(200).
 				end(function (err, res) {
 					if (err) return done(err);
@@ -204,9 +243,73 @@ describe('# Testing /api/user', function () {
 					done();
 				});
 		});
+		afterEach(function (done) {
+			request.get('/api/user/logout').end(done);
+		});
+	});
+
+	describe('## test change', function () {		// 修改用户信息
+		before(function (done) {
+			request.
+				post('/api/user/login').
+				send(test_user).
+				end(done);
+		});
+		it("should fail to change in response to an invalid request", function (done) {	// 错误的请求，不应该修改
+			request.
+				post('/api/user/change').
+				send({
+					nickname: 'xxx',
+					role: 1,
+				}).
+				expect(200).
+				end(function (err, res) {
+					if (err) return done(err);
+					let body = eval('(' + res.text + ')');
+					logger.warn('request rejected.\n', body);
+					body.should.have.key('status').which.is.exactly('FAILED.');
+					done();
+				});
+		});
+		it("should succeed in changing user info", function (done) {		// 符合规范应该成功修改
+			request.
+				post('/api/user/change').
+				send({
+					realname: 'xxx',
+					password: '123123',
+				}).
+				expect(200).
+				end(function (err, res) {
+					if (err) return done(err);
+					let body = eval('(' + res.text + ')');
+					body.should.have.key('status').which.is.exactly('SUCCESS.');
+					body.should.have.key('results');
+					body.results.realname.should.eql('xxx');
+					test_user.realname = 'xxx';
+					test_user.password = '123123';
+					request.
+						post('/api/user/login').send(test_user).		// 登录测试密码是否被修改
+						expect(200).
+						end(function (err2, res2) {
+							if (err2) done(err2);
+							let body2 = eval('(' + res2.text + ')');
+							body2.should.have.key('status').which.is.exactly('SUCCESS.');
+							done();
+						});
+				});
+		});
+		after(function (done) {
+			request.get('/api/user/logout').end(done);
+		});
 	});
 
 	describe('## test logout', function () {
+		before(function (done) {
+			request.
+				post('/api/user/login').
+				send(test_user).
+				end(done);
+		});
 		it("should successfully logout when online", function (done) {		// 登录状态下应该成功登出
 			request.
 				get('/api/user/logout').
