@@ -192,14 +192,10 @@
                     this.$message("两次输入的密码不同。");
                     return;
                 }
-                // if(!(this.verify_code_inputed >= 111111 && this.verify.code_generated <= 999999)) {
-                //     this.$message("验证码不合法。");
-                //     return;
-                // }
-                // if (this.verify_code_inputed !== this.verify.code_generated) {
-                //     this.$message("验证码不正确，请重试。");
-                //     return;
-                // }
+                if (this.inputs.verify_code !== this.verify.code_generated) { // todo 移到后端
+                    this.$message("验证码不正确，请重试。");
+                    return;
+                }
                 this.loadingQ = true;       // 加载等待圈
                 registerSQL(this, this.inputs).
                 then((resp) => {
