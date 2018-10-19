@@ -143,7 +143,7 @@ describe('# Testing Developer Tool', function () {
 						});
 				});
 		});
-		it('should catch error when doing a bad query', function (done) {
+		it('should catch error when doing a bad query', function (done) {	// 请求出错，拒绝操作
 			request.
 				get("/api/developer/do_query?sql=INSERT INTO users " +
 					"(nickname, realname, password) VALUES ('" + test_name + "', 'TESTER', '1')").

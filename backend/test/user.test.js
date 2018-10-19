@@ -1,7 +1,7 @@
 // 一个没有监听端口的 Express 实例
 const app = require('../app');
 // Express 实例传入 supertest，使其运行实例
-const request = require('supertest')(app);
+const request = require('supertest-session')(app);
 // 断言测测试库
 const should = require('should');
 const randomString = require('../utils/funcs').randomString;
@@ -13,9 +13,87 @@ log4js.configure(log4js_config);
 var logger = log4js.getLogger('test_info');
 
 describe('# Testing /api/user', function () {
+	var test_user;
+	before(function (done) {			// 测试前
+		test_user = {
+			nickname: 'test_name' + randomString(8),
+			realname: 'TESTER',
+			email: '123456@mail.com',
+			role: 0,
+			motto: 'just for test',
+			password: '111111',
+		};
+		request.
+			get('/api/user/logout').
+			end((function (err, res) {
+				logger.info('TEST BEGINS\n', res.text);
+				done();
+			}));
+	});
+	beforeEach(function () {
+		this.timeout(4000);		// 每个测试点时长上限是4s
+	});
 
-	describe('## test session', function () {
-		it("should respond with 'FAILED.' when offline", function (done) {	// 未登录时应该没有session信息
+	describe('## test register', function () {			// 测试注册
+		describe('### should reject a bad register request', function () {	// 对缺少必要参数的注册，应予以拒绝的反馈
+			let users = [];
+			users[0] = {	// without role
+				nickname: 'test_name1' + randomString(8),
+				realname: 'TESTER',
+				email: '123456@mail.com',
+				motto: 'just for test',
+				password: '111111',
+			};
+			users[1] = {	// without email
+				nickname: 'test_name2' + randomString(8),
+				realname: 'TESTER',
+				role: 0,
+				motto: 'just for test',
+				password: '111111',
+			};
+			users[2] = {	// without password
+				nickname: 'test_name' + randomString(8),
+				realname: 'TESTER',
+				email: '123456@mail.com',
+				role: 0,
+				motto: 'just for test',
+			};
+			users.forEach((user, index) => {
+				it('test #' + index, function (done) {
+					request.
+						post('/api/user/register').
+						send(user).
+						expect(200).
+						end(function (err, res) {
+							if (err) done(err);
+							let body = eval('(' + res.text + ')');
+							// logger.info(body.details);
+							body.should.have.key('status').which.is.exactly('FAILED.');
+							body.should.have.key('details').which.have.key('sqlMessage').containEql('cannot be null');
+							done();
+						});
+				});
+			});
+		});
+		it('should register successfully', function (done) {	// 正确注册
+			request.
+				post('/api/user/register').
+				send(test_user).
+				expect(200).
+				end(function (err, res) {
+					if (err) return done(err);
+					let body = eval('(' + res.text + ')');
+					logger.info('registration succeed\n', body);
+					body.should.have.key('results').which.have.key('nickname').which.is.exactly(test_user.nickname);
+					request.
+						get('/api/user/logout').
+						end(done);
+				});
+		});
+	});
+
+	describe('## test session', function () {				// 测试 session
+		it("should respond with an empty body when offline", function (done) {	// 未登录时应该没有session信息
 			request.
 				get('/api/user/session').
 				expect(200).
@@ -23,15 +101,42 @@ describe('# Testing /api/user', function () {
 					if (err) return done(err);
 					let body = eval('(' + res.text + ')');
 					logger.info(body);
-					body.should.have.keys('status', 'details');
-					body.should.not.have.keys('nickname', 'id');
-					body.status.should.be.exactly('FAILED.');
+					body.should.have.key('status').which.is.exactly('SUCCESS.');
+					body.should.not.have.keys('nickname', 'user_id', 'realname');
 					done();
+				});
+		});
+		it("should respond with 'SUCCESS.' when online", function (done) {	// 登录状态下应该有反馈
+			logger.info('try logging in', test_user.nickname);
+			request.
+				post('/api/user/login').									// 先登录
+				send({
+					nickname: test_user.nickname,
+					password: '111111',
+				}).
+				expect(200).
+				end(function (err, res) {
+					if (err) return done(err);
+					let body = eval('(' + res.text + ')');
+					body.should.have.key('status').which.is.exactly('SUCCESS.');
+					body.should.have.key('results').which.is.an.Object().and.is.not.empty();
+					request.
+						get('/api/user/session').							// 后检查session
+						expect(200).
+						end(function (err, res) {
+							if (err) return done(err);
+							let body = eval('(' + res.text + ')');
+							logger.info('checkin successfully!\n', body);
+							body.should.have.keys('status');
+							body.should.have.keys('nickname', 'realname', 'user_id');
+							body.status.should.be.exactly('SUCCESS.');
+							done();
+						});
 				});
 		});
 	});
 
-	describe('## test login', function () {
+	describe('## test login', function () {						// 测试登录
 		it('should not login without params', function (done) {
 			request.
 				post('/api/user/login').
@@ -43,13 +148,13 @@ describe('# Testing /api/user', function () {
 				});
 		});
 		it('should fail to login with a nonexistent nickname', function (done) {		// 不存在的用户名应该登录失败
-			let test_nickname = 'test_name' + randomString(8);
+			let test_nickname = 'test_name#' + randomString(8);
 			logger.info('try logging in', test_nickname);
 			request.
 				post('/api/user/login').
 				send({
 					nickname: test_nickname,
-					password: '123123',
+					password: '111111',
 				}).
 				expect(200).
 				end(function (err, res) {
@@ -63,12 +168,11 @@ describe('# Testing /api/user', function () {
 				});
 		});
 		it('should fail to login with an existent nickname but an incorrect password', function (done) {		// 密码不正确时应该登录失败
-			let test_nickname = 'test_name123';
-			logger.info('try logging in', test_nickname);
+			logger.info('try logging in', test_user.nickname);
 			request.
 				post('/api/user/login').
 				send({
-					nickname: test_nickname,
+					nickname: test_user.nickname,
 					password: '321321',
 				}).
 				expect(200).
@@ -83,13 +187,12 @@ describe('# Testing /api/user', function () {
 				});
 		});
 		it('should login successfully with an existent nickname and a correct password', function (done) {		// 存在的用户名并且密码应该登录成功
-			let test_nickname = 'test_name123';
-			logger.info('try logging in', test_nickname);
+			logger.info('try logging in', test_user.nickname);
 			request.
 				post('/api/user/login').
 				send({
-					nickname: test_nickname,
-					password: '123123',
+					nickname: test_user.nickname,
+					password: '111111',
 				}).
 				expect(200).
 				end(function (err, res) {
@@ -100,23 +203,10 @@ describe('# Testing /api/user', function () {
 					logger.info('login successfully!\n', body.results);
 					done();
 				});
-		})
+		});
 	});
 
 	describe('## test logout', function () {
-		it("should respond with 'FAILED.' when offline", function (done) {	// 未登录时应该无法登出
-			request.
-				get('/api/user/logout').
-				expect(200).
-				end(function (err, res) {
-					if (err) return done(err);
-					let body = eval('(' + res.text + ')');
-					logger.info(body);
-					body.should.have.keys('status', 'details');
-					body.status.should.be.exactly('FAILED.');
-					done();
-				});
-		});
 		it("should successfully logout when online", function (done) {		// 登录状态下应该成功登出
 			request.
 				get('/api/user/logout').
@@ -130,24 +220,27 @@ describe('# Testing /api/user', function () {
 					done();
 				});
 		});
-	});
-
-	describe('## test register', function () {
-		it('Register with user-example', function (done) {
-			user = {
-				nickname: 'example',
-				role: '0',
-				password: '111111',
-			};
+		it("should respond with 'FAILED.' when offline", function (done) {	// 未登录时应该无法登出
 			request.
-				post('/api/user/register', user).
+				get('/api/user/logout').
 				expect(200).
 				end(function (err, res) {
-					logger.info('[res]', res.body); // todo no response here
 					if (err) return done(err);
+					let body = eval('(' + res.text + ')');
+					logger.info(body);
+					body.should.have.keys('status', 'details');
+					body.status.should.be.exactly('FAILED.');
 					done();
 				});
 		});
 	});
 
+	after(function (done) {				// 清理测试
+		request.
+			get("/api/developer/do_query?sql=DELETE FROM users WHERE nickname = '" + test_user.nickname + "'").
+			end(function () {
+				logger.info('TEST OVER');
+				done();
+			});
+	});
 });

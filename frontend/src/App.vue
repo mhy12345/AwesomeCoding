@@ -192,21 +192,18 @@ export default {
             logoutSQL(this).
                 then((resp) => {
                     console.log(resp);
-                    if (resp.status === 'FAILED.') {
-                        if (resp.details === 'USER_NOT_ONLINE.') {
-                            this.$message.error('您已离线。');
-                        }
-                        else {
-                            throw '登录失败。';
-                        }
-                    }
-                    else {  // SUCCESS.
-                        this.loginQ = false;
-                        this.user = copy(this.default_user);
-                        this.$message.warning('已退出登录。');
-                    }
+                    this.loginQ = false;
+                    this.user = copy(this.default_user);
+                    this.$message.warning('已退出登录。');
                 }).
-                catch(this.showUnknownError);
+                catch((err) => {
+                    console.log(err);
+                    if (err.status === 'FAILED.' && err.details === 'USER_NOT_ONLINE.') {
+                        this.$message.error('您已离线。');
+                        return;
+                    }
+                    this.showUnknownError(err);
+                });
         },
 		handleSelectItem(key) {
 			if (key === "collapse") {
