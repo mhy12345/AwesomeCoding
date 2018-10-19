@@ -12,19 +12,20 @@ var logger = log4js.getLogger('log_file');
 
 
 router.get('/session', function (req, res, next) {	// 判断用户是否登录
-    var res_body = {
-        status: 'SUCCESS.',
-        details: 'SUCCESS.',
-    };
+	var res_body = {
+		status: '',
+		details: '',
+	};
 	logger.info('[get] session\n', req.body);
 	if (typeof(req.session) === 'undefined') {
-        req.session = {};
-    }
-    else {
-        res_body = req.session;
-        res_body.status = 'SUCCESS.';
-        res_body.details = 'SUCCESS.';
-    }
+		res_body.status = 'FAILED.';
+		res_body.details = 'USER_NOT_ONLINE.'
+	}
+	else {
+		res_body = req.session;
+		res_body.status = 'SUCCESS.';
+		res_body.details = 'SUCCESS.';
+	}
 	logger.info('[res]', res_body);
 	res.send(JSON.stringify(res_body));
 });
