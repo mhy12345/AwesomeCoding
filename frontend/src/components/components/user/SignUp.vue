@@ -4,21 +4,22 @@
             <h1>{{ title }}</h1>
         </div>
         <div @keydown.enter="handleSignUp">
-            <el-row v-for="(value, key, index) in inputs" :key="index">
+            <!--Registration Info-->
+            <el-row v-for="(value, key, index) in heads" :key="index">
                 <el-col :span="8" class="register-prompt">
                     <label :for="key">
                         <i class="el-icon-caret-right" slot="prepend"></i>
-                        {{ heads[index] }}：
+                        {{ heads[key] }}：
                     </label>
                 </el-col>
                 <el-col :span="15">
-                    <el-input v-if="key === 'password'"
+                    <el-input v-if="key === 'password' || key === 're_password'"
                               :id="key"
                               type="password"
                               clearable
                               class="input-box"
                               v-model="inputs[key]"
-                              :placeholder="heads[index]">
+                              :placeholder="heads[key]">
                     </el-input>
                     <el-select v-else-if="key === 'role'"
                                v-model="inputs[key]"
@@ -43,44 +44,35 @@
                               clearable
                               class="input-box"
                               v-model="inputs[key]"
-                              :placeholder="heads[index]">
+                              :placeholder="heads[key]">
                     </el-input>
                 </el-col>
             </el-row>
+            <!--Verification Code-->
             <el-row>
                 <el-col :span="8" class="register-prompt">
-                    <label for="re_password">
-                        <i class="el-icon-caret-right" slot="prepend"></i>
-                        确认密码：
-                    </label>
-                </el-col>
-                <el-col :span="15">
-                    <el-input id="re_password"
-                              class="input-box"
-                              type="password"
-                              v-model="re_password"
-                              placeholder="确认密码">
-                    </el-input>
-                </el-col>
-            </el-row>
-
-            <el-row>
-                <el-col :span="8" class="register-prompt">
-                    <label for="re_password">
+                    <label for="verify_code">
                         <i class="el-icon-caret-right" slot="prepend"></i>
                         手机验证码：
                     </label>
                 </el-col>
                 <el-col :span="7">
-                    <el-input id="verify_code"
-                              class="input-box"
-                              v-model="verify_code_inputed"
-                              placeholder="输入6位验证码">
-                    </el-input>
+                    <el-input-number
+                        id="verify_code"
+                        ref="verify_input"
+                        :min="100000" :max="999999"
+                        :controls="false"
+                        class="input-box"
+                        v-model="inputs.verify_code"
+                        @focus="handleFocusingOnVerify">
+                    </el-input-number>
                 </el-col>
-                <el-col :span="5" class="verification-button">
-                    <el-button type = "primary" :disabled="verify_disable" @click="handleVerification">
-                        {{verify_content}}
+                <el-col :span="7" class="verification-button">
+                    <el-button
+                        type="primary"
+                        :disabled="verify.disableQ"
+                        @click="handleVerification">
+                        {{ verify.prompt }}
                     </el-button>
                 </el-col>
             </el-row>
@@ -100,7 +92,16 @@
         data() {
             return {
                 title: '欢迎注册',
-                heads: ['用户名', '真实姓名', '身份', '邮箱', '手机号', '签名', '密码'],     // 输入框提示词
+                heads: {        // 输入框提示词
+                    nickname: '用户名',
+                    realname: '真实姓名',
+                    role: '身份',
+                    email: '邮箱',
+                    phone:'手机号',
+                    motto: '签名',
+                    password: '密码',
+                    re_password: '重复密码',
+                },
                 inputs: {        // 输入框的信息
                     nickname: '',
                     realname: '',
@@ -109,13 +110,15 @@
                     phone: '',
 					motto : '',
                     password: '',
+                    re_password: '',
+                    verify_code: undefined,
                 },
-                re_password: '',
-                verify_code_generated: '',
-                verify_code_inputed: '',
-                verify_content: '发送验证码',
-                verify_countdown: 60,
-                verify_disable: false,
+                verify: {
+                    code_generated: '',
+                    prompt: '发送验证码',
+                    countdown: 60,
+                    disableQ: false,
+                },
                 loadingQ: false,
                 icon_urls: {
                     administrator: require('../../../assets/images/icons/administrator.png'),
@@ -131,33 +134,38 @@
                     return;
                 }
                 var clock = window.setInterval(() => {
-                    this.verify_disable = true;
-                    this.verify_countdown--;
-                    this.verify_content = this.verify_countdown + 's后重新发送';
-                    if (this.verify_countdown <= 0) {
-                        window.clearInterval(clock)
-                        this.verify_disable = false;
-                        this.verify_content = '重新发送验证码'
-                        this.verify_countdown = 60
+                    this.verify.disableQ = true;
+                    this.verify.countdown--;
+                    this.verify.prompt = this.verify.countdown + 's后重新发送';
+                    if (this.verify.countdown <= 0) {
+                        window.clearInterval(clock);
+                        this.verify.disableQ = false;
+                        this.verify.prompt = '重新发送验证码';
+                        this.verify.countdown = 60;
                     }
-                },1000);
+                }, 1000);
 
-                this.$message("验证码已发送！请注意查收");
+                this.$message.warning("验证码已发送！请注意查收");
+                /*
+                   下一语句将自动获取验证码输入框的焦点，这种$ref的用法在Vue里面很常用
+                   建议参考：https://github.com/ElemeFE/element/issues/3871
+                 */
+                this.$refs.verify_input.focus();
+                this.verify.code_generated = '';
                 let url = "https://open.ucpaas.com/ol/sms/sendsms";
-                this.verify_code_generated = '';
-                for(let i=0;i<6;i++)
-                {
-                    this.verify_code_generated += Math.ceil(Math.random() * 9);
+                for (let i = 0; i < 6; i++) {
+                    this.verify.code_generated += Math.ceil(Math.random() * 9);
                 }
                 this.$http.post(url, {
                     "sid": "55d17519129b8973ea369b5ba8f14f4d",  // const
                     "token": "43eee5a8cff8d6fd6f54ad612819b466", // const
                     "appid": "de5779c82e844993b4f28470cf545d77", // const
                     "templateid": "387977", // const
-                    "param": this.verify_code_generated,
+                    "param": this.verify.code_generated,
                     "mobile": this.inputs.phone
-                }).then(function (res) {
-                });
+                }).
+                     then(function (res) {
+                     });
             },
             handleSignUp: function () {
                 if (this.inputs.nickname === '') {
@@ -180,18 +188,18 @@
                     this.$message("密码不能少于6位。");
                     return;
                 }
-                if (this.inputs.password !== this.re_password) {
+                if (this.inputs.password !== this.inputs.re_password) {
                     this.$message("两次输入的密码不同。");
                     return;
                 }
-                if(!(this.verify_code_inputed >= 111111 && this.verify_code_generated <= 999999)) {
-                    this.$message("验证码不合法。");
-                    return;
-                }
-                if (this.verify_code_inputed !== this.verify_code_generated) {
-                    this.$message("验证码不正确，请重试。");
-                    return;
-                }
+                // if(!(this.verify_code_inputed >= 111111 && this.verify.code_generated <= 999999)) {
+                //     this.$message("验证码不合法。");
+                //     return;
+                // }
+                // if (this.verify_code_inputed !== this.verify.code_generated) {
+                //     this.$message("验证码不正确，请重试。");
+                //     return;
+                // }
                 this.loadingQ = true;       // 加载等待圈
                 registerSQL(this, this.inputs).
                 then((resp) => {
@@ -211,6 +219,9 @@
                     else
                         this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
                 });
+            },
+            handleFocusingOnVerify() {
+                this.inputs.verify_code = undefined;
             }
         }
     }
