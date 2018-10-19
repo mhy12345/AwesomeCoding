@@ -58,7 +58,7 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
             // 不重复
             var values = [];
 			var keys = [];
-            var items = ['id', 'nickname', 'realname', 'role', 'email', 'registration_date', 'password'];
+            var items = ['id', 'nickname', 'realname', 'role', 'email', 'motto', 'registration_date', 'password'];
             for (var item of items) {
 				keys.push(item);
                 if (req.body[item] === undefined || req.body[item] === null || req.body[item] === '')
@@ -75,7 +75,7 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
             for (var value of values) {
                 value = mysql.escape(value);
             }
-            var sql = 'insert into users ('+keys.join(',')+') values (' + values.join(',') + ')';
+			var sql = 'insert into users (' + keys.join(',') + ') values (' + values.join(',') + ')';
             return doSqlQuery(conn, sql);
         }).
         then(function (packed) {
