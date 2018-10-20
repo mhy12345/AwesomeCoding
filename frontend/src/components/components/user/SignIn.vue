@@ -15,11 +15,13 @@
 </template>
 
 <script>
-    import {loginSQL} from '../../../utils/DoSQL'
+    /* eslint-disable camelcase */
+
+    import {loginSQL} from '../../../utils/DoSQL';
 
     export default {
         name: "SignIn",
-        data() {
+        data () {
             return {
                 title: '欢迎登录',
                 inputs: {
@@ -27,8 +29,8 @@
                     password: ''
                 },
                 loadingQ: false,
-                expire_secs: 360,         // cookie 的有效期
-            }
+                expire_secs: 360, // cookie 的有效期
+            };
         },
         methods: {
             handleSignIn: function () {
@@ -38,7 +40,7 @@
                     console.log(resp);
                     this.loadingQ = false;
                     this.$message.success("登录成功！" + resp.results.realname);
-                    this.$emit('logined', resp.results);      // 通知父级已登录
+                    this.$emit('logined', resp.results); // 通知父级已登录
                     this.$router.push('/user/profile');
                 }).
                 catch((resp) => {
@@ -46,11 +48,11 @@
                     this.loadingQ = false;
                     if (resp.details === 'WRONG_PASSWORD.') {
                         this.$message.error("登录失败，密码错误！");
-                    }
-                    else if (resp.details === 'USER_NOT_FOUND.') {
+                    } else if (resp.details === 'USER_NOT_FOUND.') {
                         this.$message.error("登录失败，用户名不存在！");
-                    }
-                    else this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.details));
+                    } else {
+this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.details));
+}
                 });
             },
             handleForgetPassword: function () {
@@ -58,7 +60,7 @@
                 this.loadingQ = true;
             }
         }
-    }
+    };
 </script>
 
 <style scoped>

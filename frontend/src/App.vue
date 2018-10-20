@@ -136,20 +136,22 @@
 </template>
 
 <script>
-var crypto = require('crypto');
+    /* eslint-disable camelcase,no-undef */
+
+    var crypto = require('crypto');
 import {copy} from "./utils/Copy";
 import {sessionSQL, logoutSQL} from "./utils/DoSQL";
 
 export default {
 	name: 'App',
-	data() {
+	data () {
 		return {
             title: "AwesomeCoding",
             logo_url: require('./assets/images/icons/logo.png'),
 
 			collapseQ: false,
 			active_index : '/',
-            loginQ: undefined,         // 是否登录，初始为 undefined 这样右上角既不显示'登录'也不显示头像
+            loginQ: undefined, // 是否登录，初始为 undefined 这样右上角既不显示'登录'也不显示头像
             default_user: {
                 nickname: 'somebody',
                 realname: 'SOMENAME',
@@ -157,38 +159,38 @@ export default {
                 role: 3,
             },
             user: {},
-		}
+		};
 	},
-    beforeMount() {
+    beforeMount () {
         this.user = copy(this.default_user);
         this.checkLogin();
     },
 	methods: {
-        showUnknownError(err) {
+        showUnknownError (err) {
             console.log(err);
             this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
         },
-        checkLogin() {     // 检验用户是否登录
+        checkLogin () { // 检验用户是否登录
             sessionSQL(this).
                 then((resp) => {
+                    var hash;
                     console.log(resp);
                     if (typeof(resp.nickname) !== 'undefined') {
                         this.user = resp;
                         this.$message.success("欢迎回来！" + this.user.realname);
                         this.loginQ = true;
-                        var hash = crypto.createHash('md5');
+                        hash = crypto.createHash('md5');
                         hash.update(this.user.email);
                         this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
                         console.log("GRAVATAR URL = ", this.user.gravatar_url);
-                    }
-                    else {
+                    } else {
                         this.$message("请登录。");
                         this.loginQ = false;
                     }
                 }).
                 catch(this.showUnknownError);
         },
-        logout() {      // 退出登录
+        logout () { // 退出登录
             logoutSQL(this).
                 then((resp) => {
                     console.log(resp);
@@ -205,29 +207,28 @@ export default {
                     this.showUnknownError(err);
                 });
         },
-		handleSelectItem(key) {
+		handleSelectItem (key) {
 			if (key === "collapse") {
 				this.collapseQ = !this.collapseQ;
-			}
-			else if (key === "logout") {
+			} else if (key === "logout") {
                 this.logout();
                 this.$router.push('/home');
-            }
-			else {
+            } else {
 				this.$router.push(key);
 				console.log(key);
 			}
 		},
-        handleLogined(user_info) {       // logined event emitted by children router-view
+        handleLogined (user_info) { // logined event emitted by children router-view
+            var hash;
             console.log('>>>in app logined! info:', user_info);
             this.loginQ = true;
-            var hash = crypto.createHash('md5');
+            hash = crypto.createHash('md5');
             hash.update(user_info.email);
             this.user = user_info;
             this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
             console.log("GRAVATAR URL = ", this.user.gravatar_url);
         },
-        handleLogout() {                // logout event emitted by children router-view
+        handleLogout () { // logout event emitted by children router-view
             console.log('>>>in app logout!');
             this.logout();
         },

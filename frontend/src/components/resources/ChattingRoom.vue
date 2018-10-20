@@ -22,8 +22,10 @@
 </template>
 
 <script>
-export default {
-	data() {
+    /* eslint-disable camelcase */
+
+    export default {
+	data () {
 		return {
 			chatrecords : [],
 			class_id : "undefined",
@@ -32,16 +34,16 @@ export default {
 				classId : undefined,
 				message : undefined,
 			}
-		}
+		};
 	},
-	mounted : function() {
+	mounted : function () {
 		this.class_id = this.$route.params.class_id;
 		this.inputData.classId = this.class_id;
 		this.$http.get('/api/user/session',{})
-		.then(function(res) {
+		.then(function (res) {
 			this.inputData.userId = res.body.user_id;
 			this.$http.post('/api/chat/info/query',{class_id:this.class_id})
-			.then(function(res) {
+			.then(function (res) {
 			if (res.body.status === 'NOT FOUND.') {
                 this.$message("Room " + this.title + " not found!");
 			}else {
@@ -52,14 +54,14 @@ export default {
 		});
 	},
 	methods : {
-		onSubmit() {
+		onSubmit () {
 			this.$http
 				.post('/api/chat/add_comments',{
 					userid : this.inputData.userId,
 					classid : this.inputData.classId,
 					message : this.inputData.message,
 				})
-				.then(function(res){
+				.then(function (res){
 					console.log(res);
 					if(res.body.status === 'SUCCESS.') {
 						console.log(res.body.results);
@@ -67,12 +69,10 @@ export default {
 					}
 				});
 		},
-		onClear() {
+		onClear () {
 			this.$http
-				.post('/api/chat/clear_comments',{
-					classid : this.inputData.classId,
-				})
-				.then(function(res){
+				.post('/api/chat/clear_comments',{classid : this.inputData.classId,})
+				.then(function (res){
 					console.log(res);
 					if(res.body.status === 'SUCCESS.') {
 						this.chatrecords = [];
@@ -80,5 +80,5 @@ export default {
 				});
 		},
 	},
-}
+};
 </script>

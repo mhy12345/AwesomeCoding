@@ -18,34 +18,34 @@
 	</el-form>
 </template>
 <script>
-export default {
+    /* eslint-disable no-unused-vars */
+
+    export default {
 	data () {
 		return {
 			fileList: [],
-			ruleForm: {
-				fileList: []
-			},
-		}
+			ruleForm: {fileList: []},
+		};
 	},
 	methods: {
 		handleRemove (file, fileList) {
 		// 删除时在表单的某个字段里移除一个值
-		let tmp = this.ruleForm.fileList
-		let url = file.response.result[0].url
+		let tmp = this.ruleForm.fileList;
+		let url = file.response.result[0].url;
 		if (tmp.includes(url)) {
 			tmp.splice(tmp.findIndex(item => {
-				return item === url
-			}), 1)
+				return item === url;
+			}), 1);
 		}
 	},
 	successUpload (response, file, fileList, $event) {
 		// 上传成功在表单的某个字段里加一个值
-		this.ruleForm.fileList.push(file.response.result[0].url)
+		this.ruleForm.fileList.push(file.response.result[0].url);
 	},
 	submitForm (formName) {
-		let fileList = this.ruleForm.fileList
+		let fileList = this.ruleForm.fileList;
 		// 使用fileList与服务端交互 该字段只包含服务端数据
 	},
   }
-}
+};
 </script>

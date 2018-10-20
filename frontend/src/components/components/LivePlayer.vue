@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import polyvObject from '@/../static/liveplayer.js'
+import polyvObject from '@/../static/liveplayer.js';
 //var polyvObject = Object();
 
 export default {
@@ -14,7 +14,7 @@ export default {
 		'vid': String,
 		'uid': String
 	},
-	mounted: function() {
+	mounted: function () {
 		// eslint-disable-next-line
 		var player = polyvObject('#player').livePlayer({
             width: this.size[0],
@@ -23,7 +23,7 @@ export default {
             vid : this.vid
 		});
 	}
-}
+};
 </script>
 
 <style scoped>

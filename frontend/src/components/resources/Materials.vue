@@ -13,10 +13,8 @@
 
 <script>
 export default {
-	data() {
-		return {
-			teacher : undefined
-		}
+	data () {
+		return {teacher : undefined};
 	}
-}
+};
 </script>

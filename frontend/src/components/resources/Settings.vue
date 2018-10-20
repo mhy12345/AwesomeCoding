@@ -30,9 +30,11 @@
 </template>
 
 <script>
-import {avaliable_resources} from '../../utils/Resources';
+    /* eslint-disable camelcase */
+
+    import {avaliable_resources} from '../../utils/Resources';
 export default{
-	data(){
+	data (){
 		return {
 			class_id : undefined,
 			CourseData : {
@@ -43,14 +45,14 @@ export default{
 			resources : undefined,
 			loading : true,
 			avaliable_resources : avaliable_resources
-		}
+		};
 	},
-	mounted : function() {
+	mounted : function () {
 		this.class_id = this.$route.params.class_id;
 		this.$http.post('/api/class/info/query',{class_id:this.class_id})
-			.then(function(res) {
+			.then(function (res) {
 				if (res.body.status === 'NOT FOUND.') {
-					this.$message("Room "+this.class_id+" not found!");
+					this.$message("Room " + this.class_id + " not found!");
 				}else {
 					this.CourseData = res.body.info;
 					this.resources = res.body.resources;
@@ -59,7 +61,7 @@ export default{
 			});
 	},
 	methods : {
-		onSubmit() {
+		onSubmit () {
 			console.log(this.CourseData);
 			this.$http
 				.post('/api/class/info/update',{
@@ -67,14 +69,14 @@ export default{
 					info:this.CourseData,
 					class_id : this.class_id
 				})
-				.then(function(res){
+				.then(function (res){
 					console.log(res.bodyText);
 					this.$message("课程信息已更新");
-					location.reload()
+					location.reload();
 				});
 		}
 	}
-}
+};
 </script>
 
 <style scoped>

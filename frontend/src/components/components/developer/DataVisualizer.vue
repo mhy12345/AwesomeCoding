@@ -88,62 +88,66 @@
 </template>
 
 <script>
-import {copy} from "../../../utils/Copy";
-import {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL} from '../../../utils/DoSQL.js'
+    /* eslint-disable camelcase */
+
+    import {copy} from "../../../utils/Copy";
+import {showSQL, getSQLColumns, insertSQL, deleteSQL, updateSQL} from '../../../utils/DoSQL.js';
 
 export default {
     name: "DataVisualizer",
-    data() {
+    data () {
         return {
             table_name: '',
-            heads: [],          // 表头
+            heads: [], // 表头
             table_data: [],
-            input: {            // 用户输入的内容
+            input: { // 用户输入的内容
                 table_name: 'users',
                 items: {},
             },
-            edit_dialog: {      // 编辑对话框的属性
+            edit_dialog: { // 编辑对话框的属性
                 visual: false,
                 row: {}
             },
-            loadingQ: false,    // 是否处于加载中的状态
-            loadedQ: false,     // 是否已经加载完成
-        }
+            loadingQ: false, // 是否处于加载中的状态
+            loadedQ: false, // 是否已经加载完成
+        };
     },
     methods: {
         showUnknownError: function (err) {
+            var msg;
             console.log("UNKNOWN ERROR!", err);
-            var msg = "操作失败。" + JSON.stringify(err['details']);
+            msg = "操作失败。" + JSON.stringify(err['details']);
             this.$message.error(msg);
         },
-        handleLoad: function () {     // 向后端发出显示数据库的请求
+        handleLoad: function () { // 向后端发出显示数据库的请求
             this.loadingQ = true;
             this.table_name = this.input.table_name;
             this.heads = [];
             this.input.items = {};
 
-            getSQLColumns(this, this.table_name).                             // 异步执行请求，先获取表头
-            then((resp) => {                                         // 成功，被 getSQLColumns 的 resolve 调用
+            getSQLColumns(this, this.table_name). // 异步执行请求，先获取表头
+            then((resp) => { // 成功，被 getSQLColumns 的 resolve 调用
+                var item;
                 console.log(resp);
-                for (var item of resp.results) {
+                for (item of resp.results) {
                     this.heads.push(item['COLUMN_NAME']);
                     this.input.items[item['COLUMN_NAME']] = '';
                 }
-                return showSQL(this, this.table_name);                        // 然后获取表中数据
+                return showSQL(this, this.table_name); // 然后获取表中数据
             }).
-            then((resp) => {                                         // 成功，被 showSQL 的 resolve 调用
+            then((resp) => { // 成功，被 showSQL 的 resolve 调用
                 console.log(resp);
                 this.table_data = resp.results;
                 this.loadingQ = false;
                 this.loadedQ = true;
             }).
-            catch((err)=>{                                    // 某个步骤失败，交给 showUnknownError 统一处理
+            catch((err)=>{ // 某个步骤失败，交给 showUnknownError 统一处理
                 this.loadingQ = false;
                 this.loadedQ = false;
                 this.showUnknownError(err);
             });
         },
-        handleAdd: function () {      // 向后端数据库发出添加数据的请求
+        handleAdd: function () { // 向后端数据库发出添加数据的请求
             this.loadingQ = true;
             insertSQL(this, this.table_name, this.input.items).
             then((resp) => {
@@ -158,9 +162,9 @@ export default {
             catch((err) =>{
                 this.loadingQ = false;
                 this.showUnknownError(err);
-            })
+            });
         },
-        handleDelete: function (id) {  // 向后端数据库发出删除数据的请求
+        handleDelete: function (id) { // 向后端数据库发出删除数据的请求
             this.loadingQ = true;
             deleteSQL(this, this.table_name, id).
             then((resp) => {
@@ -177,11 +181,11 @@ export default {
                 this.showUnknownError(err);
             });
         },
-        handleEdit: function (row) {    // 调出修改行的对话框
-            this.edit_dialog.row = copy(row);       // 原先的 row 是表中的引用，因此要先复制一份到对话框
+        handleEdit: function (row) { // 调出修改行的对话框
+            this.edit_dialog.row = copy(row); // 原先的 row 是表中的引用，因此要先复制一份到对话框
             this.edit_dialog.visual = true;
         },
-        handleChange: function () {   // 向后端数据库发出修改数据的请求
+        handleChange: function () { // 向后端数据库发出修改数据的请求
             this.loadingQ = true;
             this.edit_dialog.visual = false;
             updateSQL(this, this.table_name, this.edit_dialog.row).then((resp) => {
@@ -197,7 +201,7 @@ export default {
             });
         }
     },
-}
+};
 </script>
 
 <style scoped>

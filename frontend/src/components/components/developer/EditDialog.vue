@@ -17,9 +17,7 @@
 <script>
 export default {
     name: "EditDialog",
-    props: {
-        config: Object
-    },
+    props: {config: Object},
     methods: {
         handleOpened: function () {
             console.log('对话框开启。');
@@ -33,7 +31,7 @@ export default {
             this.config.response = true;
         }
     }
-}
+};
 </script>
 
 <style scoped>

@@ -13,7 +13,7 @@
 					<pdf 
 						id = 'pdf-frame'
 						:page='page'
-						:src='pdf_src'
+						:src='pdfSrc'
 						@num-pages="page_num = $event"
 						ref='pdf'
 						>
@@ -30,33 +30,33 @@
 </template>
 
 <script>
-import pdf from 'vue-pdf'
+import pdf from 'vue-pdf';
 //https://www.npmjs.com/package/vue-pdf
 
 export default {
-	data() {
+	data () {
 		return {
 			page : 1,
-			pdf_src:"https://cseweb.ucsd.edu/classes/fa13/cse160-a/Lectures/Lec07.pdf",
-			page_num : 0
-		}
+			pdfSrc:"https://cseweb.ucsd.edu/classes/fa13/cse160-a/Lectures/Lec07.pdf",
+			pageNum : 0
+		};
 	},
-	components: {
-		pdf : pdf
-	},
-	mounted : function() {
+	components: {pdf : pdf},
+	mounted : function () {
 	},
 	methods : {
-		nextPage : function() {
-			if (this.page+1 <= this.page_num)
-				this.page += 1
+		nextPage : function () {
+			if (this.page+1 <= this.pageNum) {
+this.page += 1;
+}
 		},
-		prevPage : function() {
-			if (this.page-1>0)
-				this.page -= 1
+		prevPage : function () {
+			if (this.page-1>0) {
+this.page -= 1;
+}
 		}
 	}
-}
+};
 </script>
 
 <style>

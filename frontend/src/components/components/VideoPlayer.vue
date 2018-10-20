@@ -14,7 +14,7 @@ import polyvPlayer from '@/../static/player.js';
             'size': [Number, Number],
             'vid': String
         },
-        mounted: function() {
+        mounted: function () {
             // eslint-disable-next-line
             var player = polyvPlayer({
                 wrap: '#player',
@@ -23,7 +23,7 @@ import polyvPlayer from '@/../static/player.js';
                 vid : this.vid
             });
         }
-    }
+    };
 </script>
 
 <style scoped>

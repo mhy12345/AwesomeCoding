@@ -9,12 +9,10 @@
 <script>
     export default {
         name: "Settings",
-        data() {
-            return {
-                title: "这里是用户设置页面",
-            }
+        data () {
+            return {title: "这里是用户设置页面",};
         }
-    }
+    };
 </script>
 
 <style scoped>

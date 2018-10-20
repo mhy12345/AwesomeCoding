@@ -9,35 +9,36 @@
 </template>
 
 <script>
-import {supported_resources} from '@/utils/CourseLists';
+    /* eslint-disable camelcase */
+
+    import {supported_resources} from '@/utils/CourseLists';
 
 export default {
-	data() {
+	data () {
 		return {
 			tableData : [],
 			title : ' '
-		}
+		};
 	},
 	props : ['idx'],
-	mounted : function() {
+	mounted : function () {
 		this.title = supported_resources[this.idx].title;
-		this.$http.post(supported_resources[this.idx].url + '/fetch',{page_number : 1, page_size : 20 }).
-			then(function(res) {
+		this.$http.post(supported_resources[this.idx].url + '/fetch',{page_number : 1, page_size : 20}).
+			then(function (res) {
 				console.log(res.body);
 				this.tableData = res.body.results;
 			}).
-			catch(function(res) {
+			catch(function (res) {
 				this.$message(res);
 			});
 	},
 	methods : {
-		handleCurrentChange : function(item) {
+		handleCurrentChange : function (item) {
 			this.$router.push(
-				{name: 'class',params: {class_id : item.id} 
-				});
+				{name: 'class',params: {class_id : item.id}});
 		}
 	}
-}
+};
 </script>
 
 <style scoped>

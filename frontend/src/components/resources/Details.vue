@@ -24,22 +24,23 @@
 </template>
 
 <script>
-export default {
-	data() {
+    /* eslint-disable camelcase */
+
+    export default {
+	data () {
 		return {
-			info : {
-			},
+			info : {},
 			default_items: [ "title","id","description","notice","invitation_code"],
 			translation: {"id":"课程号","title":"课程名称","description":"课程简介","notice":"课程公告","invitation_code":"邀请码"},
 			class_id: "undefined",
 			invitation_url: '',
 			loading: true
-		}
+		};
 	},
-	mounted : function() {
+	mounted : function () {
 		this.class_id = this.$route.params.class_id;
 		this.$http.post('/api/class/info/query',{class_id:this.class_id})
-		.then(function(res) {
+		.then(function (res) {
 			if (res.body.status === 'NOT FOUND.') {
                 this.$message("Room " + this.title + " not found!");
 			}else {
@@ -50,5 +51,5 @@ export default {
 			this.loading = false;
 		});
 	}
-}
+};
 </script>

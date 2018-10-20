@@ -85,14 +85,16 @@
 </template>
 
 <script>
+    /* eslint-disable camelcase,no-undef,no-unused-vars */
+
     import {registerSQL} from "../../../utils/DoSQL";
 
     export default {
         name: "SignUp",
-        data() {
+        data () {
             return {
                 title: '欢迎注册',
-                heads: {        // 输入框提示词
+                heads: { // 输入框提示词
                     nickname: '用户名',
                     realname: '真实姓名',
                     role: '身份',
@@ -102,7 +104,7 @@
                     password: '密码',
                     re_password: '重复密码',
                 },
-                inputs: {        // 输入框的信息
+                inputs: { // 输入框的信息
                     nickname: '',
                     realname: '',
                     role: '',
@@ -125,15 +127,16 @@
                     student: require('../../../assets/images/icons/student.png'),
                     teacher: require('../../../assets/images/icons/teacher.png'),
                 }
-            }
+            };
         },
         methods: {
             handleVerification: function () {
+                var clock;
                 if (this.inputs.phone <= 10000000000 || this.inputs.phone >= 19999999999) {
                     this.$message("请输入中国大陆11位手机号");
                     return;
                 }
-                var clock = window.setInterval(() => {
+                clock = window.setInterval(() => {
                     this.verify.disableQ = true;
                     this.verify.countdown--;
                     this.verify.prompt = this.verify.countdown + 's后重新发送';
@@ -157,7 +160,7 @@
                     this.verify.code_generated += Math.ceil(Math.random() * 9);
                 }
                 this.$http.post(url, {
-                    "sid": "55d17519129b8973ea369b5ba8f14f4d",  // const
+                    "sid": "55d17519129b8973ea369b5ba8f14f4d", // const
                     "token": "43eee5a8cff8d6fd6f54ad612819b466", // const
                     "appid": "de5779c82e844993b4f28470cf545d77", // const
                     "templateid": "387977", // const
@@ -196,31 +199,32 @@
                     this.$message("验证码不正确，请重试。");
                     return;
                 }
-                this.loadingQ = true;       // 加载等待圈
+                this.loadingQ = true; // 加载等待圈
                 registerSQL(this, this.inputs).
                 then((resp) => {
                     console.log(resp);
                     this.loadingQ = false;
                     this.$message.success("注册成功！");
-                    this.$emit('logined', this.inputs);      // 通知父级路由已注册
+                    this.$emit('logined', this.inputs); // 通知父级路由已注册
                     this.$router.push('/user/profile');
                 }).
                 catch((resp) => {
                     console.log(resp);
                     this.loadingQ = false;
-                    if (resp.details === 'DUPLICATION_OF_REGISTRATION.')
-                        this.$message.error("注册失败，用户名已存在！");
-                    else if (resp.details === 'ALREADY_LOGIN.')
-                        this.$message.error("注册失败，用户已登录！");
-                    else
-                        this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
+                    if (resp.details === 'DUPLICATION_OF_REGISTRATION.') {
+this.$message.error("注册失败，用户名已存在！");
+} else if (resp.details === 'ALREADY_LOGIN.') {
+this.$message.error("注册失败，用户已登录！");
+} else {
+this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
+}
                 });
             },
-            handleFocusingOnVerify() {
+            handleFocusingOnVerify () {
                 this.inputs.verify_code = undefined;
             }
         }
-    }
+    };
 </script>
 
 <style scoped>

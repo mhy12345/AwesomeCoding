@@ -130,7 +130,9 @@
 </template>
 
 <script>
-import EditDialog from './EditDialog'
+    /* eslint-disable camelcase */
+
+    import EditDialog from './EditDialog';
 // import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 // import Vue from 'vue'
 //
@@ -167,7 +169,7 @@ export default {
             },
             cur_date: date.toUTCString(),
             cur_date2: date2.toUTCString()
-        }
+        };
     },
     methods: {
         createDialog: function () {
@@ -176,23 +178,26 @@ export default {
         },
         handleClose: function () {
             //console.log("对话框关闭。");
-            if (this.dialog.response === true)
-                this.input = this.dialog.input;
+            if (this.dialog.response === true) {
+this.input = this.dialog.input;
+}
         },
         getCookies: function () {
             var str_cookie = document.cookie;
+            var list, cookie;
             console.log(str_cookie);
-            var list = str_cookie.split(';');
+            list = str_cookie.split(';');
             this.cookies = [];
-            for (var cookie of list) {
+            for (cookie of list) {
                 this.cookies.push(cookie.trim());
             }
             console.log(this.cookies);
         },
         createCookie: function () {
+            var str_cookie;
             var d = new Date();
             d.setTime(d.getTime() + this.exp_secs * 1000);
-            var str_cookie = this.new_cookie.name + '=' + this.new_cookie.value + ';' + "expires=" + d.toUTCString();       // 这相当于一个字典，‘=’兼有判重和追加的作用
+            str_cookie = this.new_cookie.name + '=' + this.new_cookie.value + ';' + "expires=" + d.toUTCString(); // 这相当于一个字典，‘=’兼有判重和追加的作用
             document.cookie = str_cookie;
             this.getCookies();
         }
@@ -201,7 +206,7 @@ export default {
         EditDialog,
         // CollapseTransition
     }
-}
+};
 </script>
 
 <style scoped>

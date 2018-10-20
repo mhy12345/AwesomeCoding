@@ -8,8 +8,7 @@
 export default {
 	name: 'UnitTest',
 	data () {
-		return {
-		}
+		return {};
 	}
-}
+};
 </script>
