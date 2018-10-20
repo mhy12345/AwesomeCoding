@@ -19,6 +19,10 @@
 					<a :href='invitation_url'>{{info.invitation_code}}</a>
 				</el-col>
 			</el-row>
+			<el-row>
+				<el-col :span='4'>用户角色</el-col>
+				<el-col :span='20'>{{course_status.role_title}}</el-col>
+			</el-row>
 		</el-main>
 	</el-container>
 </template>
@@ -36,6 +40,7 @@ export default {
 			loading: true
 		}
 	},
+	props : ['course_status'],
 	mounted : function() {
 		this.class_id = this.$route.params.class_id;
 		this.$http.post('/api/class/info/query',{class_id:this.class_id})

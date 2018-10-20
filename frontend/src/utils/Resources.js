@@ -84,6 +84,18 @@ var supported_resources = {
 			2: true,
 		}
 	},
+	train_area_teacher : {
+		name:'train_area_teacher',
+		title:'练习区(教师)',
+		component: ()=>import('../components/resources/NotComplete.vue'),
+		disabled : false,
+		defaultChosen : false,
+		access: {
+			0: true,
+			1: true,
+			2: true,
+		}
+	},
 };
 var router_childs = [{path:'',redirect:'details'}];
 for (var key in supported_resources) {

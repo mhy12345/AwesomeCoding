@@ -1,7 +1,7 @@
 <template>
 	<el-tabs @tab-click="onTabClick" v-model='activeName' type="border-card" v-loading='loading'>
 		<el-tab-pane v-for="option in options" :label="option.name" :name="options.route">
-			<router-view :course_user_info='course_user_info'>
+			<router-view :course_status='course_status' class='lecture-panel'>
 			</router-view>
 		</el-tab-pane>
 	</el-tabs>
@@ -16,9 +16,9 @@ export default {
     data() {
         return {
             title: undefined,//标题
-            activeName: 'details',
+            activeName: '0',
             class_resources: undefined,
-			course_user_info : undefined,
+			course_status : {role : undefined},
 			loading: true
         }
     },
@@ -43,11 +43,23 @@ export default {
              then(function (res) {
                  this.class_resources = res.body.resources;
 				 this.loading = false;
+				 return this.$http.post('/api/class/status', {class_id: this.title}, null);
+			}).
+			then(function (res) {
+				console.log("STATUS>>>",res.body.results);
+				this.course_status = res.body.results;
+				if (this.course_status.role == 0) this.course_status.role_title = '教师';
+				if (this.course_status.role == 1) this.course_status.role_title = '助教';
+				if (this.course_status.role == 2) this.course_status.role_title = '学生';
+				console.log("PNT COURSE STATUS",this.course_status);
+			}).
+			catch(function(res) {
+				this.$message(res);
 			});
     },
 
     methods: {
-        onTabClick(a, b, c) {
+        onTabClick() {
             this.$router.push({name: 'class-' + this.options[this.activeName].route, params: {class_id: this.title}});
         }
     },
@@ -56,4 +68,7 @@ export default {
 </script>
 
 <style scoped>
+.lecture-panel {
+	min-height:500px;
+}
 </style>

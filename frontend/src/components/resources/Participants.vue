@@ -4,29 +4,27 @@
 			<h2>班级成员管理</h2>
 		</el-header>
 		<div id="DataVisualizer" v-loading="loadingQ">
-			<el-collapse-transition>
-				<div v-if="loadedQ">
-					<el-table id="display-table"
-							  :data="fancy_data"
-							  style="width: 100%; margin: auto; padding: 5px;"
-							  highlight-current-row stripe>
-						<el-table-column v-for="obj in heads"
-										 :key="obj.idx"
-										 :label="obj.title"
-										 align="center"
-										 :prop="obj.idx">
-						</el-table-column>
-						<el-table-column align="center" label="操作">
-							<template slot-scope="scope">
-								<el-button type="danger"
-										   icon="el-icon-delete" circle
-										   @click="handleDelete(scope.row.id)">
-								</el-button>
-							</template>
-						</el-table-column>
-					</el-table>
-				</div>
-			</el-collapse-transition>
+			<div v-if="loadedQ">
+				<el-table id="display-table"
+						  :data="fancy_data"
+						  style="width: 100%; margin: auto; padding: 5px;"
+						  highlight-current-row stripe>
+					<el-table-column v-for="obj in heads"
+									 :key="obj.idx"
+									 :label="obj.title"
+									 align="center"
+									 :prop="obj.idx">
+					</el-table-column>
+					<el-table-column align="center" label="操作" v-if='course_status.role!==2'>
+						<template slot-scope="scope">
+							<el-button type="danger"
+									   icon="el-icon-delete" circle
+									   @click="handleDelete(scope.row.id)">
+							</el-button>
+						</template>
+					</el-table-column>
+				</el-table>
+			</div>
 		</div>
 	</el-container>
 </template>
@@ -44,27 +42,20 @@ export default {
 				{idx:'role_title',title:'角色'}
 			],          // 表头
 			table_data: [],
-			input: {            // 用户输入的内容
-				table_name: 'users',
-				items: {},
-			},
-			edit_dialog: {      // 编辑对话框的属性
-				visual: false,
-				row: {}
-			},
 			loadingQ: false,    // 是否处于加载中的状态
 			loadedQ: false,     // 是否已经加载完成
 		}
 	},
+	props: ['course_status'],
 	computed: {
 		fancy_data: function() {
 			let data = [];
 			for (let item of this.table_data) {
-				if (item.role == 0) {
-					item.role_title = '教师';
-				}
+				if (item.role == 0) item.role_title = '教师';
+				if (item.role == 1) item.role_title = '助教';
+				if (item.role == 2) item.role_title = '学生';
 				data.push(item);
-console.log(item);
+				console.log(item);
 			}
 			return data;
 		}
@@ -73,6 +64,8 @@ console.log(item);
 		this.class_id = this.$route.params.class_id;
 		this.loadingQ = true;//...
 
+		let _this = this;
+
 		this.$http.post('/api/class/participants/show',{class_id:this.class_id},null).
 			then((resp) => {                                         // 成功，被 showSQL 的 resolve 调用
 				this.table_data = resp.body.results;
@@ -80,25 +73,32 @@ console.log(item);
 				this.loadingQ = false;
 				this.loadedQ = true;
 			}).
-			catch((err)=>{                                    // 某个步骤失败，交给 showUnknownError 统一处理
+			catch((resp)=>{           
 				this.loadingQ = false;
 				this.loadedQ = false;
-				this.showUnknownError(err);
+				if (resp.body == 'NOT_LOGIN.') {
+					_this.$message("请登录...");
+				} else {
+					_this.$message("未知错误");
+				}
 			});
 	},
 	methods: {
-		showUnknownError: function (err) {
-			console.log("UNKNOWN ERROR!", err);
-			var msg = "操作失败。" + JSON.stringify(err['details']);
-			this.$message.error(msg);
-		},
 		handleAdd: function () {      // 向后端数据库发出添加数据的请求
 			this.loadingQ = true;
 			//TODO
 		},
 		handleDelete: function (id) {  // 向后端数据库发出删除数据的请求
 			this.loadingQ = true;
-			//TODO
+			this.$http.post('/api/class/participants/delete',{class_id:this.class_id, user_id: id}, null).
+				then(function() {
+					this.$messgae("成功");
+					this.loadingQ = false;
+				}).
+				catch(function() {
+					this.$message("失败");
+					this.loadingQ = false;
+				});
 		},
 		handleChange: function () {   // 向后端数据库发出修改数据的请求
 			this.loadingQ = true;

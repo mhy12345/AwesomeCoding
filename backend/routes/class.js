@@ -12,6 +12,44 @@ var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file')
 
+function checkPermission(conn, class_id, user_id) {
+	return new Promise((resolve,reject) => {
+		if (typeof(class_id) == 'undefined') {
+			conn.end();
+			reject({
+				status: 'FAILED.',
+				details: 'Undefined class_id',
+			});
+			return ;
+		}
+		if (typeof(user_id) == 'undefined') {
+			conn.end();
+			reject({
+				status: 'FAILED.',
+				details: 'Undefined user_id',
+			});
+			return ;
+		}
+		let sql = 'SELECT * FROM classusers WHERE user_id = '+mysql.escape(user_id) + ' AND class_id = '+mysql.escape(class_id);
+		doSqlQuery(conn,sql).
+			then(function(packed) {
+				let {conn, sql_res} = packed;
+				if (sql_res.results.length === 0) {
+					conn.end();
+					reject({
+						status: 'FAILED.',
+						details: 'Not in class.',
+					});
+					return;
+				}
+				resolve({conn:conn,role:sql_res.results[0].role});
+			}).
+			catch(function(err) {
+				reject(err);
+			});
+	});
+}
+
 router.get('/delete', function(req, res, next) { //根据id删除班级
 	let id = req.query.id;
 	let sql = 'DELETE FROM classes WHERE id = ' + mysql.escape(id);
@@ -21,6 +59,7 @@ router.get('/delete', function(req, res, next) { //根据id删除班级
 		}).
 		then(function(packed) {
 			let {conn, sql_res} = packed;
+			conn.end();
 			res.send(JSON.stringify(sql_res, null,3));
 		}).
 		catch(function(sql_res) {
@@ -28,8 +67,64 @@ router.get('/delete', function(req, res, next) { //根据id删除班级
 		});
 });
 
-router.get('/status', function(req, res, next) {
-	let id = req.query.id;
+router.post('/status', function(req, res, next) {
+	if (typeof(req.session.user_id) === 'undefined') {
+		res.send(JSON.stringify({
+			status: 'FAILED.',
+			details: 'NOT_LOGIN.'
+		}));
+		return ;
+	}
+	getConnection().
+		then(function(conn) {
+			return checkPermission(conn, req.body.class_id, req.session.user_id);
+		}).
+		then(function(packed) {
+			let {conn, role} = packed;
+			conn.end();
+			res.send(JSON.stringify({
+				status: 'SUCCESS.',
+				results: {role:role},
+			}));
+		}).
+		catch(function(sql_res) {
+			res.send(JSON.stringify(sql_res));
+		});
+});
+
+router.post('/participants/delete', function(req, res, next) {
+	let user_id = +req.session.user_id;
+	let target_id = +req.body.user_id;
+	let class_id = +req.body.class_id;
+	let user_role = req.session.role;
+	let target_role = undefined;
+	getConnection().
+		then(function(conn) {
+			return checkPermission(conn, class_id, user_id);
+		}).
+		then(function(packed) {
+			let {conn, role} = packed;
+			user_role = role;
+			return checkPermission(conn, class_id, target_id);
+		}).
+		then(function(packed) {
+			let {conn, role} = packed;
+			target_role = role;
+			if (target_role <= user_role) {
+				conn.end();
+				return Promise.reject({status:"FAILED.",details:"PermissionDenied."});
+			}
+			let sql = 'DELETE FROM classusers WHERE user_id = '+mysql.escape(target_id) + ' AND class_id = '+mysql.escape(class_id);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			res.send(JSON.stringify(sql_res));
+		}).
+		catch(function(sql_res) {
+			res.send(JSON.stringify(sql_res));
+		});
 });
 
 router.post('/participants/show', function(req, res, next) {
@@ -39,24 +134,20 @@ router.post('/participants/show', function(req, res, next) {
 	}
 	getConnection().
 		then(function(conn) {
-			let sql = 'SELECT `role` FROM classusers WHERE class_id = '+mysql.escape(req.body.class_id)+' AND user_id = '+mysql.escape(req.session.user_id);
-			return doSqlQuery(conn, sql);
+			return checkPermission(conn, req.body.class_id, req.session.user_id);
 		}).
 		then(function(packed) {
-			let {conn, sql_res} = packed;
-			if (sql_res.length === 0) {
-				conn.end();
-				return Promise.reject('NOT_IN_CLASS.');
-			}
+			let {conn, role} = packed;
 			let sql = 'SELECT users.id, users.realname, users.nickname, users.email, classusers.role FROM users LEFT JOIN classusers ON classusers.user_id = users.id WHERE classusers.class_id = '+mysql.escape(req.body.class_id)+' ORDER BY classusers.role DESC';
 			return doSqlQuery(conn, sql);
 		}).
 		then(function(packed) {
 			let {conn, sql_res} = packed;
+			conn.end();
 			res.send(JSON.stringify(sql_res));
 		}).
 		catch(function(sql_res) {
-			res.status(403).send(sql_res);
+			res.status(403).send(JSON.stringify(sql_res));
 		});
 });
 
@@ -229,7 +320,6 @@ router.post('/info/update', function(req, res, next) {
 });
 
 router.post('/create', function(req, res, next) { //创建新班级
-	console.log(req.session);
 	if (req.session.role != 1) {
 		res.status(403).send('Only teacher can create a course.');
 		return ;
@@ -322,14 +412,13 @@ router.post('/my_course/fetch', function(req, res, next) {
 	}
 	let m = (+req.body.page_number -1) * req.body.page_size;
 	let n = (+req.body.page_number) * req.body.page_size;
-	let sql = 'SELECT classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role='+mysql.escape(req.session.role)+' WHERE classusers.user_id = ' + mysql.escape(+req.session.user_id) + ' ORDER BY classusers.registration_date DESC';
+	let sql = 'SELECT classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role='+mysql.escape(req.session.role == 2?2:0)+' WHERE classusers.user_id = ' + mysql.escape(+req.session.user_id) + ' ORDER BY classusers.registration_date DESC';
 	getConnection().
 		then(function(conn) {
 			return doSqlQuery(conn, sql);
 		}).
 		then(function(packed) {
 			let {conn, sql_res} = packed;
-			console.log(sql_res);
 			conn.end();
 			res.send(JSON.stringify(sql_res, null,3));
 		}).
