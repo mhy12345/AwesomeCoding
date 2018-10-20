@@ -86,15 +86,15 @@
                         </div>
                     </el-submenu>
 
-					<el-submenu index="/courses">
+					<el-submenu index="/course">
 						<template slot='title'>
 							<i class='el-icon-news'></i>
 							<span>课程</span>
 						</template>
-						<el-menu-item index="/courses/add">
+						<el-menu-item index="/course/add">
 							<span slot="title">新建课程</span>
 						</el-menu-item>
-						<el-menu-item index="/courses/enter">
+						<el-menu-item index="/course/enter">
 							<span slot="title">进入课程</span>
 						</el-menu-item>
 					</el-submenu>

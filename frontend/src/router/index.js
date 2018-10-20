@@ -27,14 +27,19 @@ export default new Router({
 			children: router_childs//子路由已经在utils/Resources中生成出来了
 		},
 		{
-			path: '/courses/add',
+			path: '/course/add',
 			name: 'add-courses',
-			component: () => import('@/views/CoursesAdd.vue')
+			component: () => import('@/views/CourseAdd.vue')
 		},
 		{
-			path: '/courses/enter',
+			path: '/course/enter',
 			name: 'enter-courses',
-			component: () => import('@/views/CoursesList.vue')
+			component: () => import('@/views/CourseEntry.vue')
+		},
+		{
+			path: '/course/invite/:invitation_code',
+			name: 'invite-course',
+			component: () => import('@/views/CourseInvite.vue')
 		},
         {
             path: '/file/upload',

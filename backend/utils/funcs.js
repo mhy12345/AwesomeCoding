@@ -3,7 +3,10 @@ var mysql = require('mysql');
 var mysql_initializer = require('./mysql_initializer');
 var mysql_config = require('../configures/database.config.js');
 
-var db_debugger = require('debug')("database");
+var log4js = require("log4js");
+var log4js_config = require("../configures/log.config.js").runtime_configure;
+log4js.configure(log4js_config);
+var logger = log4js.getLogger('log_file')
 
 function getConnection() { //获取连接connection，并调用回调函数
 	return new Promise(function(resolve,reject) {
@@ -23,7 +26,8 @@ function getConnection() { //获取连接connection，并调用回调函数
 			}
 		});
 	}).catch(function(rejected_reason) {
-		db_debugger("Reinstall database...");
+		logger.warn("Reinstall database...");
+		logger.warn(rejected_reason);
 		return mysql_initializer();
 	})
 }
@@ -36,9 +40,10 @@ function doSqlQuery(conn,sql) {           // 执行数据库命令
 		});
 	}
 	return new Promise(function(resolve,reject) {
+		logger.info(sql + '[TODO.]');
 		conn.query(sql, function (error, results, fields) {
 			if (error) {
-				db_debugger(sql + '[FAILED.]');
+				logger.info(sql + '[FAILED.]');
 				conn.end();
 				reject(
 					{
@@ -48,8 +53,8 @@ function doSqlQuery(conn,sql) {           // 执行数据库命令
 						details: error,
 					});
 			} else {
-				db_debugger(sql + '[FILLED.]');
-				db_debugger(results);
+				logger.info(sql + '[FILLED.]');
+				logger.info(results);
 				resolve({
 					conn: conn, 
 					sql_res: { sql : sql, status : 'SUCCESS.', results:results, details : undefined }
@@ -62,14 +67,14 @@ function doSqlQuery(conn,sql) {           // 执行数据库命令
 
 function doSqlQuerySequential(conn,sqls) {
 	return new Promise(function(resolve,reject) {
-		db_debugger("START TO DO ",sqls);
+		logger.info("START TO DO ",sqls);
 		async.eachSeries(sqls, function (item, callback) {
 			conn.query(item, function (err, res) {
 				if (err)
-					db_debugger(item + '[FAILED.]');
+					logger.info(item + '[FAILED.]');
 				else
-					db_debugger(item + '[FILLED.]');
-				db_debugger(res);
+					logger.info(item + '[FILLED.]');
+				logger.info(res);
 				callback(err, res);
 			});
 		}, function (err,res) {
