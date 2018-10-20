@@ -10,21 +10,12 @@ var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file');
 
+var fixed_items = ['id', 'nickname', 'role', 'registration_date'];	// 不允许用户修改的表项，后期加入email?
 
 router.get('/session', function (req, res, next) {	// 判断用户是否登录
-    var res_body = {
-        status: 'SUCCESS.',
-        details: 'SUCCESS.',
-    };
 	logger.info('[get] session\n', req.body);
-	if (typeof(req.session) === 'undefined') {
-        req.session = {};
-    }
-    else {
-        res_body = req.session;
-        res_body.status = 'SUCCESS.';
-        res_body.details = 'SUCCESS.';
-    }
+	let res_body = req.session;
+	res_body.status = 'SUCCESS.';
 	logger.info('[res]', res_body);
 	res.send(JSON.stringify(res_body));
 });
@@ -169,7 +160,7 @@ router.get('/logout', function (req, res, next) {
         status: '',
         details: '',
     };
-    if (typeof(req.session) === 'undefined') {
+    if (typeof(req.session.user_id) === 'undefined') {
         res_body.status = 'FAILED.';
         res_body.details = 'USER_NOT_ONLINE.';
     }
@@ -185,49 +176,56 @@ router.get('/logout', function (req, res, next) {
     res.send(JSON.stringify(res_body));
 });
 
-router.post('/change', function (req, res, next) {  // 响应设置个人信息
+router.post('/change', function (req, res, next) {  // 响应设置个人信息修改
     logger.info('[post] change\n', req.body);
     var res_body = {
         status: '',
         details: '',
     };
-    if (typeof(req.session) === 'undefined') {      // user offline
-        res_body.status = 'FAILED.';
-        res_body.details = 'USER_NOT_ONLINE.';
-        logger.info('[res]', res_body);
-        res.send(JSON.stringify(res_body));
-        return;
-    }
-    getConnection().
-        then(function (conn) {
-            let sql = "UPDATE users SET ";
-            let arr = [];
-            for (let item in req.body) {
-                if (req.body[item])
-                    arr.push(item + ' = \'' + req.body[item] + '\'');
-            }
-            sql += arr.join(',');
-            sql += " WHERE id = " + req.session.user_id;
-            return doSqlQuery(conn, sql);
-        }).
-        then(function (packed) {
-            let {conn, sql_res} = packed;
-            let sql = 'SELECT * FROM users WHERE id = ' + req.session.user_id;
-            return doSqlQuery(conn, sql);
-        }).
-        then(function (packed) {
-            let {conn, sql_res} = packed;
-            res_body.results = sql_res.results[0];
-            delete res_body.results.password;
-            res_body.status = 'SUCCESS.';
-            logger.info(res_body);
-            res.send(JSON.stringify(res_body));
-            conn.end();
-            logger.info('[res]', res_body);
-        }).
-        catch(function (sql_res) {
-            res.send(JSON.stringify(sql_res, null, 3));
-        });
+    // if (typeof(req.session) === 'undefined') {      // user offline
+    //     res_body.status = 'FAILED.';
+    //     res_body.details = 'USER_NOT_ONLINE.';
+    //     logger.info('[res]', res_body);
+    //     res.send(JSON.stringify(res_body));
+    //     return;
+    // }
+	getConnection().
+		then(function (conn) {
+			let sql = "UPDATE users SET ";
+			let arr = [];
+			for (let item in req.body) {
+				if (fixed_items.indexOf(item) >= 0) {
+					res_body.status = 'FAILED.';
+					res_body.details = 'property ' + item + ' cannot be changed.';
+					res.send(JSON.stringify(res_body));
+					conn.end();
+					return;
+				}
+				if (req.body[item])
+					arr.push(item + ' = \'' + req.body[item] + '\'');
+			}
+			sql += arr.join(',');
+			sql += " WHERE id = " + req.session.user_id;
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let { conn, sql_res } = packed;
+			let sql = 'SELECT * FROM users WHERE id = ' + req.session.user_id;
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let { conn, sql_res } = packed;
+			res_body.results = sql_res.results[0];
+			delete res_body.results.password;
+			res_body.status = 'SUCCESS.';
+			logger.info(res_body);
+			res.send(JSON.stringify(res_body));
+			conn.end();
+			logger.info('[res]', res_body);
+		}).
+		catch(function (sql_res) {
+			res.send(JSON.stringify(sql_res, null, 3));
+		});
 });
 
 module.exports = router;

@@ -7,4 +7,4 @@ describe('UnitTest.vue', () => {
 		const ListComponent = new Constructor().$mount();
 		expect(ListComponent.$el.textContent).to.contain('Welcome to Your Vue.js App');
 	})
-})
+});
