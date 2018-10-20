@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 var supported_resources = {
 	publicCourses : {
 		name : 'public',

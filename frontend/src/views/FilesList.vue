@@ -5,11 +5,11 @@
 </template>
 
 <script>
+    /* eslint-disable camelcase */
+
     export default {
-        data() {
-            return {
-                tableData: []
-            }
+        data () {
+            return {tableData: []};
         },
         mounted: function () {
             this.$http.post('/api/file/fetch', {}).
@@ -20,10 +20,8 @@
         },
         methods: {
             handleCurrentChange: function (item) {
-                this.$router.push({
-                    name: 'file', params: {file_id: item.id}
-                });
+                this.$router.push({name: 'file', params: {file_id: item.id}});
             }
         }
-    }
+    };
 </script>

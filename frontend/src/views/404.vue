@@ -3,14 +3,14 @@
 </template>
 
 <script>
+    /* eslint-disable camelcase,no-undef */
+
     export default {
         name: "PageNotFound",
-        data() {
-            return {
-                page_url: require('../assets/images/photos/404.jpeg')
-            }
+        data () {
+            return {page_url: require('../assets/images/photos/404.jpeg')};
         }
-    }
+    };
 </script>
 
 <style scoped>

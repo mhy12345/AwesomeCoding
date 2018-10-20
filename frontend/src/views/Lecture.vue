@@ -8,26 +8,30 @@
 </template>
 
 <script>
+    /* eslint-disable camelcase,no-unused-vars */
 
-var default_options = ['details'];
+
+    var default_options = ['details'];
 import {supported_resources} from '../utils/Resources';
 
 export default {
-    data() {
+    data () {
         return {
             title: undefined,//标题
             activeName: 'details',
             class_resources: undefined,
 			course_user_info : undefined,
 			loading: true
-        }
+        };
     },
     computed: {
         options: function () {
             var result = [];
+            var k;
+            var key;
             var current_options = this.class_resources ? this.class_resources : default_options;
-            for (var k in current_options) {
-                var key = current_options[k];
+            for (k in current_options) {
+                key = current_options[k];
                 result.push({
                     name: supported_resources[key].title,
                     route: key
@@ -42,12 +46,12 @@ export default {
         this.$http.post('/api/class/resources/query', {class_id: this.title}, null).
              then(function (res) {
                  this.class_resources = res.body.resources;
-				 this.loading = false;
+                 this.loading = false;
 			});
     },
 
     methods: {
-        onTabClick(a, b, c) {
+        onTabClick (a, b, c) {
             this.$router.push({name: 'class-' + this.options[this.activeName].route, params: {class_id: this.title}});
         }
     },

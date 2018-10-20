@@ -1,3 +1,4 @@
+/* eslint-disable camelcase,vars-on-top,no-redeclare */
 //所有可用的教学资源
 var supported_resources = {
 	details : {

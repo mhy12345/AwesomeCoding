@@ -27,9 +27,12 @@
 </template>
 
 <script>
-import {avaliable_resources,default_resources} from '../utils/Resources';
+    /* eslint-disable camelcase */
+
+
+    import {avaliable_resources,default_resources} from '../utils/Resources';
 export default{
-	data(){
+	data (){
 		return {
 			CourseData : {
 				title : "",
@@ -37,20 +40,20 @@ export default{
 				resources : default_resources,
 			},
 			avaliable_resources : avaliable_resources
-		}
+		};
 	},
 	methods : {
-		onSubmit() {
+		onSubmit () {
 			console.log(this.CourseData);
 			this.$http
 				.post('/api/class/create',this.CourseData)
-				.then(function(res){
+				.then(function (res){
 					console.log(res.bodyText);
 					this.$message(res.bodyText);
 				});
 		}
 	}
-}
+};
 </script>
 
 <style scoped>

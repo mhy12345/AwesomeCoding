@@ -29,18 +29,18 @@
 </template>
 
 <script>
-import CourseList from '@/components/components/CourseList.vue';
+    /* eslint-disable camelcase */
+
+    import CourseList from '@/components/components/CourseList.vue';
 
 
 export default {
-	data() {
-		return {
-			invitation_code: undefined,
-		}
+	data () {
+		return {invitation_code: undefined,};
 	},
 	methods : {
-		handleEnterByInvitation: function() {
-		　　window.location.href="/class/invite/"+self.invitation_code;
+		handleEnterByInvitation: function () {
+            window.location.href="/class/invite/"+self.invitation_code;
 		}
 	},
 	components : {

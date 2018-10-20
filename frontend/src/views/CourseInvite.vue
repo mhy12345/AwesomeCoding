@@ -7,28 +7,29 @@
 </template>
 
 <script>
-export default {
-	data : function() {
+    /* eslint-disable camelcase,no-unused-vars */
+
+    export default {
+	data : function () {
 		return {
 			invitation_code: undefined,
 			class_id: undefined
-		}
+		};
 	},
-	computed : {
-	},
-	mounted : function() {
+	computed : {},
+	mounted : function () {
 		this.invitation_code = this.$route.params.invitation_code;
 		let _this = this;
 		this.$http.post('/api/class/invite/check', {invitation_code:this.invitation_code}, null).
-			then(function(res) {
+			then(function (res) {
 				this.class_id = res.body.class_id;
 				return this.$confirm('你即将加入班级 ' + res.body.class_title + '. 是否继续?', '提示', {
 					confirmButtonText: '继续',
 					cancelButtonText: '取消',
 					type: 'warning'
-				})
+				});
 			}).
-			then(function ()  {
+			then(function () {
 				return this.$http.post('/api/class/join', {class_id : this.class_id}, null);
 			}).
 			then((res) => {
@@ -50,5 +51,5 @@ export default {
 				});          
 			});
 	}
-}
+};
 </script>

@@ -1,5 +1,5 @@
 // json的深复制和浅复制
-function copy(a) {
+function copy (a) {
     var b = {};
     for (let prop in a) {
         b[prop] = a[prop];
@@ -7,15 +7,17 @@ function copy(a) {
     return b;
 }
 
-function deepCopy(a) {
+function deepCopy (a) {
     var b = {};
-    for (var prop in a) {
-        if (typeof a[prop] === 'object')
-            b[prop] = deepCopy(a[prop]);
-        else
-            b[prop] = a[prop];
+    var prop;
+    for (prop in a) {
+        if (typeof a[prop] === 'object') {
+b[prop] = deepCopy(a[prop]);
+} else {
+b[prop] = a[prop];
+}
     }
     return b;
 }
 
-export {copy, deepCopy}
+export {copy, deepCopy};
