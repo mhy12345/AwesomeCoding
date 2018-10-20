@@ -9,8 +9,8 @@
 					<el-input v-model="CourseData.title" placeholder="请输入"></el-input>
 				</el-form-item>
 				<el-form-item label="课程权限：">
-					<el-radio v-model="CourseData.type" label="1">公开</el-radio>
-					<el-radio v-model="CourseData.type" label="2">私密</el-radio>
+					<el-radio v-model="CourseData.type" label=1>公开</el-radio>
+					<el-radio v-model="CourseData.type" label=2>私密</el-radio>
 				</el-form-item>
 				<el-form-item label="课程资源：">
 					<el-transfer v-model="resources" :data="avaliable_resources" :titles="['可用资源','已选资源']"></el-transfer>
@@ -52,11 +52,9 @@ export default{
 				if (res.body.status === 'NOT FOUND.') {
 					this.$message("Room "+this.class_id+" not found!");
 				}else {
-					this.loading = false;
-					console.log("PREPARED...");
 					this.CourseData = res.body.info;
 					this.resources = res.body.resources;
-					console.log(this.CourseData);
+					this.loading = false;
 				}
 			});
 	},
@@ -71,7 +69,8 @@ export default{
 				})
 				.then(function(res){
 					console.log(res.bodyText);
-					this.$message(res.bodyText);
+					this.$message("课程信息已更新");
+					location.reload()
 				});
 		}
 	}

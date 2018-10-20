@@ -9,8 +9,8 @@
 					<el-input v-model="CourseData.title" placeholder="请输入"></el-input>
 				</el-form-item>
 				<el-form-item label="课程权限：">
-					<el-radio v-model="CourseData.type" label="1">公开</el-radio>
-					<el-radio v-model="CourseData.type" label="2">私密</el-radio>
+					<el-radio v-model="CourseData.type" label=1>公开</el-radio>
+					<el-radio v-model="CourseData.type" label=2>私密</el-radio>
 				</el-form-item>
 				<el-form-item label="课程资源：">
 					<el-transfer v-model="CourseData.resources" :data="avaliable_resources" :titles="['可用资源','已选资源']"></el-transfer>

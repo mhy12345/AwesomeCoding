@@ -28,6 +28,103 @@ router.get('/delete', function(req, res, next) { //根据id删除班级
 		});
 });
 
+router.get('/status', function(req, res, next) {
+	let id = req.query.id;
+});
+
+router.post('/participants/show', function(req, res, next) {
+	if (typeof(req.session.user_id) === 'undefined') {
+		res.status(403).send('NOT_LOGIN.');
+		return ;
+	}
+	getConnection().
+		then(function(conn) {
+			let sql = 'SELECT `role` FROM classusers WHERE class_id = '+mysql.escape(req.body.class_id)+' AND user_id = '+mysql.escape(req.session.user_id);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			if (sql_res.length === 0) {
+				conn.end();
+				return Promise.reject('NOT_IN_CLASS.');
+			}
+			let sql = 'SELECT users.id, users.realname, users.nickname, users.email, classusers.role FROM users LEFT JOIN classusers ON classusers.user_id = users.id WHERE classusers.class_id = '+mysql.escape(req.body.class_id)+' ORDER BY classusers.role DESC';
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			res.send(JSON.stringify(sql_res));
+		}).
+		catch(function(sql_res) {
+			res.status(403).send(sql_res);
+		});
+});
+
+router.post('/join', function(req, res, next) { //学生加入班级
+	if (typeof(req.session.user_id) === 'undefined') {
+		res.status(403).send("NOT_LOGIN.");
+		return ;
+	}
+	if (req.session.role !== 2) {
+		res.status(403).send("NOT_STUDENT.");
+		return ;
+	}
+	getConnection().
+		then(function(conn) {
+			let sql = 'SELECT COUNT(*) FROM classusers WHERE class_id = '+mysql.escape(req.body.class_id)+' AND user_id = '+mysql.escape(req.session.user_id);
+			return doSqlQuery(conn,sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			if (sql_res.results[0]['COUNT(*)'] !== 0 ) {
+				conn.end();
+				return Promise.reject("ALREADY_IN.");
+			}
+			let sql = 'INSERT INTO classusers (`class_id`,`user_id`,`role`) VALUES ('+mysql.escape(+req.body.class_id)+','+mysql.escape(+req.session.user_id) + ','+mysql.escape(2)+')';
+			return doSqlQuery(conn,sql);
+
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			res.send('SUCCESS.');
+		}).
+		catch(function(sql_res) {
+			res.status(403).send(sql_res);
+		});
+});
+
+router.post('/invite/check', function(req, res, next) { //学生通过邀请码，找到对应班级
+	if (typeof(req.session.user_id) === 'undefined') {
+		res.status(403).send("NOT_LOGIN.");
+		return ;
+	}
+	getConnection().
+		then(function(conn) {
+			let sql = 'SELECT `id`,`title` FROM classes WHERE `invitation_code` = '+mysql.escape(req.body.invitation_code);
+			return doSqlQuery(conn,sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			if (sql_res.results.length === 0 ) {
+				return Promise.reject('The code is not found in the class list.');
+			}
+			res.send({
+				status : 'SUCCESS.',
+				class_id : sql_res.results[0].id,
+				class_title : sql_res.results[0].title
+			});
+		}).
+		catch(function(sql_res) {
+			res.status(403).send({
+				status : 'FAILED.',
+				details : sql_res
+			});
+		});
+
+});
+
 router.post('/resources/query', function(req, res, next) {
 	getConnection().
 		then(function(conn) {
@@ -58,8 +155,6 @@ router.post('/info/query', function(req, res, next) {
 	getConnection().
 		then(function(conn) {
 			let sql = 'SELECT * FROM classes WHERE id = '+mysql.escape(req.body.class_id);
-			console.log(">>>>>>>>>>>>>/info/query");
-			console.log(sql);
 			return doSqlQuery(conn, sql);
 		}).
 		then(function(packed) {
@@ -119,7 +214,6 @@ router.post('/info/update', function(req, res, next) {
 	}
 	sql = sql.substr(0, sql.length-1);
 	sqls.push(sql);
-	logger.info('>>>',sqls);
 	getConnection().
 		then(function(conn) {
 			return doSqlQuerySequential(conn, sqls);
@@ -135,6 +229,11 @@ router.post('/info/update', function(req, res, next) {
 });
 
 router.post('/create', function(req, res, next) { //创建新班级
+	console.log(req.session);
+	if (req.session.role != 1) {
+		res.status(403).send('Only teacher can create a course.');
+		return ;
+	}
 	var title = req.body.title;
 	var description = req.body.description;
 	var invitation_code = randomString(20);
@@ -148,13 +247,12 @@ router.post('/create', function(req, res, next) { //创建新班级
 		let result = {};
 		getConnection().
 			then(function(conn) {
-				let sql = 'INSERT INTO classes (`title`, `description`, `invitation_code`, `registration_date`) VALUES (' +
-					mysql.escape(title) + ',' +mysql.escape(description)+','+mysql.escape(invitation_code)+','+mysql.escape(new Date()) + ')';
+				let sql = 'INSERT INTO classes (`title`, `description`, `invitation_code`, `registration_date`, `type`) VALUES (' +
+					mysql.escape(title) + ',' +mysql.escape(description)+','+mysql.escape(invitation_code)+','+mysql.escape(new Date()) + ',' + mysql.escape(+req.body.type) + ')';
 				return doSqlQuery(conn, sql);
 			}).
 			then(function(packed) {
 				let {conn, sql_res} = packed;
-				logger.info('>>>>>', sql_res);
 				result.id = sql_res.results.insertId;
 				result.status = 'SUCCESS.';
 				logger.info(sql_res.results);
@@ -168,6 +266,11 @@ router.post('/create', function(req, res, next) { //创建新班级
 			}).
 			then(function(packed) {
 				let {conn, sql_res} = packed;
+				let sql = 'INSERT INTO `classusers` (`class_id`,`role`,`user_id`,`registration_date`) VALUES ('+mysql.escape(+result.id)+','+mysql.escape(0)+','+mysql.escape(+req.session.user_id) + ',' + mysql.escape(new Date()) + ')';
+				return doSqlQuery(conn, sql);
+			}).
+			then(function(packed) {
+				let {conn, sql_res} = packed;
 				conn.end();
 				res.send(JSON.stringify(result, null, 3));
 			}).
@@ -177,11 +280,17 @@ router.post('/create', function(req, res, next) { //创建新班级
 	}
 });
 
-
-//分页获取
-router.post('/fetch', function(req, res, next) {
-	let m = (req.body.m === undefined? 0: req.body.m); //从第几条开始取
-	let n = (req.body.n === undefined? 100: req.body.n);
+router.post('/public/fetch', function(req, res, next) {//公开课程目录获取
+	if (typeof(req.body.page_number) === 'undefined') {
+		res.status(403).send('Pagenum not defined.');
+		return ;
+	}
+	if (typeof(req.body.page_size) === 'undefined') {
+		req.body.page_size = 20;
+		logger.warn('Page size not defined...');
+	}
+	let m = (+req.body.page_number -1) * req.body.page_size;
+	let n = (+req.body.page_number) * req.body.page_size;
 	let sql = 'SELECT * FROM classes LIMIT ' + m + ',' + n;
 	getConnection().
 		then(function(conn) {
@@ -193,7 +302,39 @@ router.post('/fetch', function(req, res, next) {
 			res.send(JSON.stringify(sql_res, null,3));
 		}).
 		catch(function(sql_res) {
+			res.status(403).send(JSON.stringify(sql_res, null,3));
+		});
+});
+
+router.post('/my_course/fetch', function(req, res, next) {
+	if (typeof(req.body.page_number) == 'undefined') {
+		res.status(403).send('Pagenum not defined.');
+		return ;
+	}
+	if (typeof(req.body.page_size) === 'undefined') {
+		req.body.page_size = 20;
+		logger.warn('Page size not defined...');
+		return ;
+	}
+	if (typeof(req.session.user_id) === 'undefined') {
+		res.status(403).send('User not login...');
+		return ;
+	}
+	let m = (+req.body.page_number -1) * req.body.page_size;
+	let n = (+req.body.page_number) * req.body.page_size;
+	let sql = 'SELECT classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role='+mysql.escape(req.session.role)+' WHERE classusers.user_id = ' + mysql.escape(+req.session.user_id) + ' ORDER BY classusers.registration_date DESC';
+	getConnection().
+		then(function(conn) {
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			console.log(sql_res);
+			conn.end();
 			res.send(JSON.stringify(sql_res, null,3));
+		}).
+		catch(function(sql_res) {
+			res.status(403).send(JSON.stringify(sql_res));
 		});
 });
 

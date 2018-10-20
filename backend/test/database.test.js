@@ -146,13 +146,13 @@ describe('#database', function () {
 							let {conn, sql_res} = packed;
 							conn.end();
 							sql_res.results.should.matchAny((val) => {
-								val.COLUMN_NAME.should.be.eql('id');
+								val.COLUMN_NAME.should.be.eql('class_id');
 							});
 							sql_res.results.should.matchAny((val) => {
 								val.COLUMN_NAME.should.be.eql('role');
 							});
 							sql_res.results.should.matchAny((val) => {
-								val.COLUMN_NAME.should.be.eql('userid');
+								val.COLUMN_NAME.should.be.eql('user_id');
 							});
 							sql_res.results.should.matchAny((val) => {
 								val.COLUMN_NAME.should.be.eql('registration_date');

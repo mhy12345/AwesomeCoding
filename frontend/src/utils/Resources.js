@@ -1,6 +1,4 @@
 //所有可用的教学资源
-
-
 var supported_resources = {
 	details : {
 		name:'details',
@@ -8,13 +6,35 @@ var supported_resources = {
 		component : ()=>import('../components/resources/Details.vue'),
 		disabled : true,
 		defaultChosen : true,
+		access : {
+			0: true,
+			1: true,
+			2: true,
+		}
+	},
+	participants: {
+		name: 'participants',
+		title: '成员',
+		component: () => import('../components/resources/Participants.vue'),
+		disabled: false,
+		defaultChosen: true,
+		access: {
+			0: true,
+			1: true,
+			2: true,
+		}
 	},
 	live : {
 		name:'live',
 		title:'在线授课',
-		component : ()=>import('../components/resources/Live.vue'),
-		disabled : false,
-		defaultChosen : false,
+		component: ()=>import('../components/resources/Live.vue'),
+		disabled: false,
+		defaultChosen: false,
+		access: {
+			0: true,
+			1: true,
+			2: true,
+		}
 	},
 	materials : {
 		name:'materials',
@@ -22,6 +42,11 @@ var supported_resources = {
 		component : ()=>import('../components/resources/Materials.vue'),
 		disabled : false,
 		defaultChosen : false,
+		access: {
+			0: true,
+			1: true,
+			2: true,
+		}
 	},
 	settings : {
 		name:'settings',
@@ -29,6 +54,11 @@ var supported_resources = {
 		component: ()=>import('../components/resources/Settings.vue'),
 		disabled : true,
 		defaultChosen : true,
+		access: {
+			0: true,
+			1: true,
+			2: false,
+		}
 	},
 	chatting_room : {
 		name:'chatting_room',
@@ -36,6 +66,11 @@ var supported_resources = {
 		component: ()=>import('../components/resources/ChattingRoom.vue'),
 		disabled : false,
 		defaultChosen : false,
+		access: {
+			0: true,
+			1: true,
+			2: true,
+		}
 	},
 	train_area : {
 		name:'train_area',
@@ -43,6 +78,11 @@ var supported_resources = {
 		component: ()=>import('../components/resources/NotComplete.vue'),
 		disabled : false,
 		defaultChosen : false,
+		access: {
+			0: true,
+			1: true,
+			2: true,
+		}
 	},
 };
 var router_childs = [{path:'',redirect:'details'}];

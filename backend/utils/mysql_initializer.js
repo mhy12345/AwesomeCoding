@@ -25,15 +25,17 @@ var sqls = {
 		"`description` VARCHAR(500), " +
 		"`notice` VARCHAR(500), "+ //班级公告
 		"`title` VARCHAR(80) NOT NULL, "+ //班级名
+		"`type` INT UNSIGNED, " + //公开度
 		"`registration_date` TIMESTAMP, "+ //注册日期
 		"`invitation_code` CHAR(40), "+
 		"PRIMARY KEY (`id`) "+
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 
 	'create_class_user_table' : "CREATE TABLE IF NOT EXISTS `classusers`(" +
-		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " + //班级id
-		"`role` INT UNSIGNED NOT NULL, "+ //0表示学生，1表示助教，2表示老师
-		"`userid` INT UNSIGNED NOT NULL,"+ //教室id
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
+		"`class_id` INT UNSIGNED NOT NULL, " + //班级id
+		"`role` INT UNSIGNED NOT NULL, "+ //2表示学生，1表示助教，0表示老师
+		"`user_id` INT UNSIGNED NOT NULL,"+ //教室id
 		"`registration_date` TIMESTAMP, "+
 		"PRIMARY KEY (`id`) "+
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
@@ -43,7 +45,7 @@ var sqls = {
 		"`email` CHAR(30) NOT NULL,"+
 		"`nickname` VARCHAR(40), "+
 		"`realname` VARCHAR(40), "+
-		"`role` INT UNSIGNED NOT NULL, "+
+		"`role` INT UNSIGNED NOT NULL, "+//0管理员,1教师，2学生
 		"`motto` VARCHAR(200), "+
 		"`registration_date` TIMESTAMP, "+
 		"`password` CHAR(40) NOT NULL, "+
