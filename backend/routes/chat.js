@@ -10,7 +10,7 @@ var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file')
 
-router.post('/ban', function(req, res, next) { //添加禁言名单 @调整部分逻辑 TODO 确认正确性
+router.post('/ban', function (req, res, next) { //添加禁言名单 @调整部分逻辑 TODO 确认正确性
 	let userid = req.body.userid;
 	let classid = req.body.classid;
 	let status = req.body.status;
@@ -21,11 +21,11 @@ router.post('/ban', function(req, res, next) { //添加禁言名单 @调整部�
 		results: {},
 	};
 	getConnection().
-		then(function(conn) {
+		then(function (conn) {
 			let sql = 'select * from bannedlist where userid = ' + userid + ' and classid = ' + classid;
 			return doSqlQuery(conn, sql);
 		}).
-		then(function(packed) {
+		then(function (packed) {
 			let {conn, sql_res} = packed;
 			let sql = "";
 			if (sql_res.results.length > 0) tag = 1;
@@ -38,7 +38,7 @@ router.post('/ban', function(req, res, next) { //添加禁言名单 @调整部�
 			}
 			return doSqlQuery(conn, sql);
 		}).
-		then(function(packed) {
+		then(function (packed) {
 			let {conn, sql_res} = packed;
 			if (sql_res.status === 'SUCCESS.') {
 				resp.status = "SUCCESS.";              // 成功注册
@@ -51,13 +51,13 @@ router.post('/ban', function(req, res, next) { //添加禁言名单 @调整部�
 			conn.end();
 			logger.info("[res] ", resp);
 		}).
-		catch(function(sql_res) {
+		catch(function (sql_res) {
 			res.send(JSON.stringify(sql_res));
 		})
 });
 
 
-router.post('/add_comments', function(req, res, next) {
+router.post('/add_comments', function (req, res, next) {
 	let userid = req.body.userid;
 	let classid = req.body.classid;
 	let message = req.body.message;
@@ -74,11 +74,11 @@ router.post('/add_comments', function(req, res, next) {
 	} else {
 		//被禁言
 		getConnection().
-			then(function(conn) {
+			then(function (conn) {
 				let sql = 'select * from bannedlist where userid = ' + userid + ' and classid = ' + classid;
 				return doSqlQuery(conn, sql);
 			}).
-			then(function(packed) {
+			then(function (packed) {
 				let {conn, sql_res} = packed;
 				if (sql_res.results.length > 0 && sql_res.results[0].status === 0) {
 					resp.status = 'FAILED.';
@@ -87,16 +87,16 @@ router.post('/add_comments', function(req, res, next) {
 					logger.info("FORBID");
 					conn.end();
 					return Promise.reject({
-						status : 'SKIPPED.'
+						status: 'SKIPPED.'
 					});
-				} 
+				}
 				else {
 					let sql = 'insert into forums (`userid`, `classid`, `message`, `registration_date`) VALUES ("' +
 						userid + '","' + classid + '","' + message + '","' + registration_date + '")';
 					return doSqlQuery(conn, sql);
 				}
 			}).
-			then(function(packed) {
+			then(function (packed) {
 				let {conn, sql_res} = packed;
 				console.log(">>>>>>>>/add_comments");
 				console.log(sql_res);
@@ -108,34 +108,34 @@ router.post('/add_comments', function(req, res, next) {
 				res.send(JSON.stringify(resp));
 				conn.end();
 			}).
-			catch(function(sql_res) {
+			catch(function (sql_res) {
 				res.send(sql_res);
 			})
 	}
 });
 
-router.post('/info/query', function(req, res, next) {
+router.post('/info/query', function (req, res, next) {
 	let result = {
-		status : undefined
+		status: undefined
 	};
 	getConnection().
-		then(function(conn) {
+		then(function (conn) {
 			let sql = 'SELECT * FROM forums WHERE classid = ' + req.body.class_id;
 			return doSqlQuery(conn, sql);
 		}).
-		then(function(packed) {
+		then(function (packed) {
 			let {conn, sql_res} = packed;
 			if (sql_res.results.length === 0) {
-				res.send(JSON.stringify(result, null,3));
+				res.send(JSON.stringify(result, null, 3));
 				conn.end();
 				return Promise.reject({
-					status : 'NOT FOUND.'
+					status: 'NOT FOUND.'
 				});
 			}
 			else {
 				result.status = "SUCCESS.";
 				result.chatrecords = [];
-				for(var i=0 ; i < sql_res.results.length ; i++){
+				for (var i = 0; i < sql_res.results.length; i++) {
 					var chatrecord = {};
 					chatrecord.userid = sql_res.results[i].userid;
 					chatrecord.message = sql_res.results[i].message;
@@ -147,14 +147,14 @@ router.post('/info/query', function(req, res, next) {
 				res.send(JSON.stringify(result));
 			}
 		}).
-		catch(function(result) {
+		catch(function (result) {
 			if (result.status === 'FAILED.')
-				res.send(JSON.stringify(result, null,3));
+				res.send(JSON.stringify(result, null, 3));
 		});
 });
 
 
-router.post('/clear_comments', function(req, res, next) {
+router.post('/clear_comments', function (req, res, next) {
 	let classid = req.body.classid;
 	var resp = {};
 	if (classid === undefined) {
@@ -164,18 +164,18 @@ router.post('/clear_comments', function(req, res, next) {
 		console.log("ERROR WHILING ADDING A COMMENT");
 	} else {
 		getConnection().
-			then(function(conn) {
+			then(function (conn) {
 				let sql = 'delete from forums where classid = ' + classid;
 				return doSqlQuery(conn, sql);
 			}).
-			then(function(packed){
+			then(function (packed) {
 				let {conn, sql_res} = packed;
 				console.log(">>>>>>>>>clear");
 				console.log(sql_res);
 				res.send(JSON.stringify(sql_res));
 				coon.end();
 			}).
-			catch(function(sql_res) {
+			catch(function (sql_res) {
 				res.send(sql_res);
 			})
 	}

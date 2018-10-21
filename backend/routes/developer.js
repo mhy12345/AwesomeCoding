@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var mysql=require('mysql');
+var mysql = require('mysql');
 
 var getConnection = require('../utils/funcs').getConnection;
 var doSqlQuery = require('../utils/funcs').doSqlQuery;
@@ -29,18 +29,18 @@ var doSqlQuery = require('../utils/funcs').doSqlQuery;
 //     }
 // });
 
-router.get('/show_table', function(req, res, next) { //在数据库中查找表格，并打印
+router.get('/show_table', function (req, res, next) { //在数据库中查找表格，并打印
 	getConnection().
-		then(function(conn) {
+		then(function (conn) {
 			let sql = 'SELECT * FROM ' + mysql.escapeId(req.query.table_name);
 			return doSqlQuery(conn, sql);
 		}).
-		then(function(packed) {
+		then(function (packed) {
 			let {conn, sql_res} = packed;
 			conn.end();
 			res.send(JSON.stringify(sql_res, null, 3));
 		}).
-		catch(function(sql_res) {
+		catch(function (sql_res) {
 			res.send(JSON.stringify(sql_res, null, 3));
 		});
 });
@@ -55,7 +55,7 @@ router.get('/show_columns', function (req, res, next) {
 			return doSqlQuery(conn, sql);
 		}).
 		then(function (packed) {	// 为什么在这里，没有查找到表格，doSqlQuery不会返回错误？
-			let { conn, sql_res } = packed;
+			let {conn, sql_res} = packed;
 			conn.end();
 			if (sql_res.results.length === 0)
 				res.send(JSON.stringify({
@@ -77,7 +77,7 @@ router.get('/do_query', function (req, res, next) { //在数据库中执行指�
 			return doSqlQuery(conn, sql);
 		}).
 		then(function (packed) {
-			let { conn, sql_res } = packed;
+			let {conn, sql_res} = packed;
 			conn.end();
 			res.send(JSON.stringify(sql_res, null, 3));
 		}).

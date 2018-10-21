@@ -148,11 +148,11 @@ describe('# Testing /api/user', function () {
 		it("should respond with 'SUCCESS.' when online", function (done) {	// 登录状态下应该有反馈
 			logger.info('try logging in', test_user.nickname);
 			request.
-				post('/api/user/login').									// 先登录
-				send({
-					nickname: test_user.nickname,
-					password: '111111',
-				}).
+				post('/api/user/login').// 先登录
+			send({
+				nickname: test_user.nickname,
+				password: '111111',
+			}).
 				expect(200).
 				end(function (err, res) {
 					if (err) return done(err);
@@ -160,8 +160,8 @@ describe('# Testing /api/user', function () {
 					body.should.have.key('status').which.is.exactly('SUCCESS.');
 					body.should.have.key('results').which.is.an.Object().and.is.not.empty();
 					request.
-						get('/api/user/session').							// 后检查session
-						expect(200).
+						get('/api/user/session').// 后检查session
+					expect(200).
 						end(function (err, res) {
 							if (err) return done(err);
 							let body = eval('(' + res.text + ')');
@@ -288,8 +288,8 @@ describe('# Testing /api/user', function () {
 					test_user.realname = 'xxx';
 					test_user.password = '123123';
 					request.
-						post('/api/user/login').send(test_user).		// 登录测试密码是否被修改
-						expect(200).
+						post('/api/user/login').send(test_user).// 登录测试密码是否被修改
+					expect(200).
 						end(function (err2, res2) {
 							if (err2) done(err2);
 							let body2 = eval('(' + res2.text + ')');

@@ -25,7 +25,7 @@ function getConnection() { //获取连接connection，并调用回调函数
 				resolve(connection);
 			}
 		});
-	}).catch(function(rejected_reason) {
+	}).catch(function (rejected_reason) {
 		logger.warn("Reinstall database...");
 		logger.warn(rejected_reason);
 		return mysql_initializer();
@@ -56,16 +56,16 @@ function doSqlQuery(conn, sql) {           // 执行数据库命令
 				logger.info(results);
 				resolve({
 					conn: conn,
-					sql_res: { sql: sql, status: 'SUCCESS.', results: results, details: undefined }
+					sql_res: {sql: sql, status: 'SUCCESS.', results: results, details: undefined}
 				});
 			}
 		});
 	});
 }
 
-function doSqlQuerySequential(conn,sqls) {
-	return new Promise(function(resolve,reject) {
-		logger.info("START TO DO ",sqls);
+function doSqlQuerySequential(conn, sqls) {
+	return new Promise(function (resolve, reject) {
+		logger.info("START TO DO ", sqls);
 		async.eachSeries(sqls, function (item, callback) {
 			conn.query(item, function (err, res) {
 				if (err)
@@ -75,23 +75,23 @@ function doSqlQuerySequential(conn,sqls) {
 				logger.info(res);
 				callback(err, res);
 			});
-		}, function (err,res) {
+		}, function (err, res) {
 			if (err) {
 				conn.end();
 				reject({
-					querys : sqls,
-					results : undefined,
-					status : 'FAILED',
-					details : rejected_reason
+					querys: sqls,
+					results: undefined,
+					status: 'FAILED',
+					details: rejected_reason
 				});
 			} else {
 				resolve({
-					conn : conn,
-					sql_res : {
-						querys : sqls,
-						results : res,
-						status : 'SUCCESS.',
-						details : undefined
+					conn: conn,
+					sql_res: {
+						querys: sqls,
+						results: res,
+						status: 'SUCCESS.',
+						details: undefined
 					}
 				});
 			}

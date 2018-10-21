@@ -101,7 +101,7 @@ describe('# Testing Developer Tool', function () {
 					done();
 				});
 		});
-		it ('should respond with expected user info when selecting a user by nickname', function (done) {	// 测试之前的插入和修改是否成功
+		it('should respond with expected user info when selecting a user by nickname', function (done) {	// 测试之前的插入和修改是否成功
 			request.
 				get("/api/developer/do_query?sql=SELECT * FROM users WHERE nickname = '" + test_name + "'").
 				expect(200).
