@@ -163,7 +163,7 @@
                     "sid": "55d17519129b8973ea369b5ba8f14f4d", // const
                     "token": "43eee5a8cff8d6fd6f54ad612819b466", // const
                     "appid": "de5779c82e844993b4f28470cf545d77", // const
-                    "templateid": "387977", // const
+                    "templateid": "388909", // const
                     "param": this.verify.code_generated,
                     "mobile": this.inputs.phone
                 }).
