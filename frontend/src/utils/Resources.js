@@ -1,111 +1,111 @@
 /* eslint-disable camelcase,vars-on-top,no-redeclare */
 //所有可用的教学资源
 var supported_resources = {
-	details : {
-		name:'details',
-		title:'课程信息',
-		component : ()=>import('../components/resources/Details.vue'),
-		disabled : true,
-		defaultChosen : true,
-		access : {
-			0: true,
-			1: true,
-			2: true,
-		}
-	},
-	participants: {
-		name: 'participants',
-		title: '成员',
-		component: () => import('../components/resources/Participants.vue'),
-		disabled: false,
-		defaultChosen: true,
-		access: {
-			0: true,
-			1: true,
-			2: true,
-		}
-	},
-	live : {
-		name:'live',
-		title:'在线授课',
-		component: ()=>import('../components/resources/Live.vue'),
-		disabled: false,
-		defaultChosen: false,
-		access: {
-			0: true,
-			1: true,
-			2: true,
-		}
-	},
-	materials : {
-		name:'materials',
-		title:'课程资料',
-		component : ()=>import('../components/resources/Materials.vue'),
-		disabled : false,
-		defaultChosen : false,
-		access: {
-			0: true,
-			1: true,
-			2: true,
-		}
-	},
-	settings : {
-		name:'settings',
-		title:'课程设置',
-		component: ()=>import('../components/resources/Settings.vue'),
-		disabled : true,
-		defaultChosen : true,
-		access: {
-			0: true,
-			1: true,
-			2: false,
-		}
-	},
-	chatting_room : {
-		name:'chatting_room',
-		title:'讨论区',
-		component: ()=>import('../components/resources/ChattingRoom.vue'),
-		disabled : false,
-		defaultChosen : false,
-		access: {
-			0: true,
-			1: true,
-			2: true,
-		}
-	},
-	train_area : {
-		name:'train_area',
-		title:'练习区',
-		component: ()=>import('../components/resources/NotComplete.vue'),
-		disabled : false,
-		defaultChosen : false,
-		access: {
-			0: true,
-			1: true,
-			2: true,
-		}
-	},
+    details: {
+        name: 'details',
+        title: '课程信息',
+        component: () => import('../components/resources/Details.vue'),
+        disabled: true,
+        defaultChosen: true,
+        access: {
+            0: true,
+            1: true,
+            2: true,
+        }
+    },
+    participants: {
+        name: 'participants',
+        title: '成员',
+        component: () => import('../components/resources/Participants.vue'),
+        disabled: false,
+        defaultChosen: true,
+        access: {
+            0: true,
+            1: true,
+            2: true,
+        }
+    },
+    live: {
+        name: 'live',
+        title: '在线授课',
+        component: () => import('../components/resources/Live.vue'),
+        disabled: false,
+        defaultChosen: false,
+        access: {
+            0: true,
+            1: true,
+            2: true,
+        }
+    },
+    materials: {
+        name: 'materials',
+        title: '课程资料',
+        component: () => import('../components/resources/Materials.vue'),
+        disabled: false,
+        defaultChosen: false,
+        access: {
+            0: true,
+            1: true,
+            2: true,
+        }
+    },
+    settings: {
+        name: 'settings',
+        title: '课程设置',
+        component: () => import('../components/resources/Settings.vue'),
+        disabled: true,
+        defaultChosen: true,
+        access: {
+            0: true,
+            1: true,
+            2: false,
+        }
+    },
+    chatting_room: {
+        name: 'chatting_room',
+        title: '讨论区',
+        component: () => import('../components/resources/ChattingRoom.vue'),
+        disabled: false,
+        defaultChosen: false,
+        access: {
+            0: true,
+            1: true,
+            2: true,
+        }
+    },
+    train_area: {
+        name: 'train_area',
+        title: '练习区',
+        component: () => import('../components/resources/NotComplete.vue'),
+        disabled: false,
+        defaultChosen: false,
+        access: {
+            0: true,
+            1: true,
+            2: true,
+        }
+    },
 };
-var router_childs = [{path:'',redirect:'details'}];
+var router_childs = [{path: '', redirect: 'details'}];
 for (var key in supported_resources) {
-	router_childs.push({
-		path:key,
-		component:supported_resources[key].component,
-		name:'class-'+key
-	});
+    router_childs.push({
+        path: key,
+        component: supported_resources[key].component,
+        name: 'class-' + key
+    });
 }
 var avaliable_resources = [];
 for (var key in supported_resources) {
-	avaliable_resources.push({
-		key : key,
-		label : supported_resources[key].title,
-		disabled : supported_resources[key].disabled
-	});
+    avaliable_resources.push({
+        key: key,
+        label: supported_resources[key].title,
+        disabled: supported_resources[key].disabled
+    });
 }
 var default_resources = [];
 for (var key in supported_resources) {
-	if (supported_resources[key].defaultChosen) {
-		default_resources.push(key);
-	}
+    if (supported_resources[key].defaultChosen) {
+        default_resources.push(key);
+    }
 }
-export {supported_resources,router_childs,avaliable_resources,default_resources};
+export {supported_resources, router_childs, avaliable_resources, default_resources};

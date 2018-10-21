@@ -5,8 +5,8 @@
 </template>
 
 <script>
-//    import polyvPlayer from 'polyvPlayer'
-import polyvPlayer from '@/../static/player.js';
+    //    import polyvPlayer from 'polyvPlayer'
+    import polyvPlayer from '@/../static/player.js';
     //var polyvPlayer = Object();
 
     export default {
@@ -20,7 +20,7 @@ import polyvPlayer from '@/../static/player.js';
                 wrap: '#player',
                 width: this.size[0],
                 height: this.size[1],
-                vid : this.vid
+                vid: this.vid
             });
         }
     };

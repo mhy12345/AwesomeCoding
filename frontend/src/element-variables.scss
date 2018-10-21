@@ -11,37 +11,45 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 @import "~element-ui/packages/theme-chalk/src/index";
 
 .el-row {
-  margin: 5px;
+    margin: 5px;
 }
+
 .el-col {
-  border-radius: 4px;
+    border-radius: 4px;
 }
+
 .bg-purple-dark {
-  background: #99a9bf;
+    background: #99a9bf;
 }
+
 .bg-purple {
-  background: #d3dce6;
+    background: #d3dce6;
 }
+
 .bg-purple-light {
-  background: #e5e9f2;
+    background: #e5e9f2;
 }
+
 .grid-content {
-  border-radius: 4px;
-  min-height: 36px;
+    border-radius: 4px;
+    min-height: 36px;
 }
+
 .row-bg {
-  padding: 10px 0;
-  background-color: #f9fafc;
+    padding: 10px 0;
+    background-color: #f9fafc;
 }
+
 .sticky-top {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 10px;
-  z-index: 100;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 10px;
+    z-index: 100;
 }
+
 .sticky-bottom {
-  position: -webkit-sticky;
-  position: sticky;
-  bottom: 10px;
-  z-index: 100;
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 10px;
+    z-index: 100;
 }

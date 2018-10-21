@@ -2,7 +2,7 @@
 
 // cookie 的创建、获取操作
 
-function getCookie () {
+function getCookie() {
     var cookie = {};
     var list = document.cookie.split(';');
     var item;
@@ -11,12 +11,13 @@ function getCookie () {
     for (item of list) {
         elems = item.split('=');
         if (elems.length < 2) {
-continue;
-}
+            continue;
+        }
         cookie[elems[0].trim()] = elems[1].trim();
     }
     return cookie;
 }
+
 /* cookie 形如:
 var cookie = {
     nickname: '',
@@ -24,7 +25,7 @@ var cookie = {
 };
 */
 
-function createCookie (cookie, expire_secs) {
+function createCookie(cookie, expire_secs) {
     var d = new Date();
     var expires, cname;
     d.setTime(d.getTime() + expire_secs * 1000);

@@ -79,7 +79,9 @@
 
         </div>
         <div align="center">
-            <el-row><el-button type="success" class="register-button" @click="handleSignUp">注册</el-button></el-row>
+            <el-row>
+                <el-button type="success" class="register-button" @click="handleSignUp">注册</el-button>
+            </el-row>
         </div>
     </el-card>
 </template>
@@ -91,7 +93,7 @@
 
     export default {
         name: "SignUp",
-        data () {
+        data() {
             return {
                 title: '欢迎注册',
                 heads: { // 输入框提示词
@@ -99,7 +101,7 @@
                     realname: '真实姓名',
                     role: '身份',
                     email: '邮箱',
-                    phone:'手机号',
+                    phone: '手机号',
                     motto: '签名',
                     password: '密码',
                     re_password: '重复密码',
@@ -110,7 +112,7 @@
                     role: '',
                     email: '',
                     phone: '',
-					motto : '',
+                    motto: '',
                     password: '',
                     re_password: '',
                     verify_code: undefined,
@@ -201,26 +203,26 @@
                 }
                 this.loadingQ = true; // 加载等待圈
                 registerSQL(this, this.inputs).
-                then((resp) => {
-                    console.log(resp);
-                    this.loadingQ = false;
-                    this.$message.success("注册成功！");
-                    this.$emit('logined', this.inputs); // 通知父级路由已注册
-                    this.$router.push('/user/profile');
-                }).
-                catch((resp) => {
-                    console.log(resp);
-                    this.loadingQ = false;
-                    if (resp.details === 'DUPLICATION_OF_REGISTRATION.') {
-this.$message.error("注册失败，用户名已存在！");
-} else if (resp.details === 'ALREADY_LOGIN.') {
-this.$message.error("注册失败，用户已登录！");
-} else {
-this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
-}
-                });
+                    then((resp) => {
+                        console.log(resp);
+                        this.loadingQ = false;
+                        this.$message.success("注册成功！");
+                        this.$emit('logined', this.inputs); // 通知父级路由已注册
+                        this.$router.push('/user/profile');
+                    }).
+                    catch((resp) => {
+                        console.log(resp);
+                        this.loadingQ = false;
+                        if (resp.details === 'DUPLICATION_OF_REGISTRATION.') {
+                            this.$message.error("注册失败，用户名已存在！");
+                        } else if (resp.details === 'ALREADY_LOGIN.') {
+                            this.$message.error("注册失败，用户已登录！");
+                        } else {
+                            this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
+                        }
+                    });
             },
-            handleFocusingOnVerify () {
+            handleFocusingOnVerify() {
                 this.inputs.verify_code = undefined;
             }
         }
@@ -241,6 +243,7 @@ this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.detai
         display: table;
         content: "";
     }
+
     .clear-fix:after {
         clear: both
     }
@@ -248,25 +251,30 @@ this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.detai
     .box-card {
         width: 480px;
     }
+
     .input-box {
         width: 100%;
         margin-bottom: 20px;
     }
+
     .register-button {
         margin-top: 30px;
         margin-bottom: 30px;
         width: 200px;
     }
+
     .verification-button {
-        position:relative;
+        position: relative;
         margin-left: 20px;
     }
+
     .input-error {
         background-color: #ffa392;
         margin-bottom: 20px;
     }
+
     .register-prompt {
-        position:relative;
+        position: relative;
         margin-top: 5px;
     }
 

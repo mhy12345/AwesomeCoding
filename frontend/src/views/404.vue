@@ -7,7 +7,7 @@
 
     export default {
         name: "PageNotFound",
-        data () {
+        data() {
             return {page_url: require('../assets/images/photos/404.jpeg')};
         }
     };

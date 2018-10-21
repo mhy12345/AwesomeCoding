@@ -1,6 +1,6 @@
 <template>
-    <el-table :data="tableData" stripe style="width: 100%"     @current-change="handleCurrentChange" >
-        <el-table-column prop="filename" label="文件名" width="180"> </el-table-column>
+    <el-table :data="tableData" stripe style="width: 100%" @current-change="handleCurrentChange">
+        <el-table-column prop="filename" label="文件名" width="180"></el-table-column>
     </el-table>
 </template>
 
@@ -8,7 +8,7 @@
     /* eslint-disable camelcase */
 
     export default {
-        data () {
+        data() {
             return {tableData: []};
         },
         mounted: function () {

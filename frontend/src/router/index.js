@@ -12,36 +12,36 @@ export default new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [
-		{
-			path: '/',
-			redirect : '/home',
-		},
+        {
+            path: '/',
+            redirect: '/home',
+        },
         {
             path: '/home',
             name: 'home',
             component: Home,
         },
-		{
-			path: '/class/:class_id',
-			name: 'class',
-			component: () => import('@/views/Lecture.vue'),
-			children: router_childs//子路由已经在utils/Resources中生成出来了
-		},
-		{
-			path: '/course/add',
-			name: 'add-courses',
-			component: () => import('@/views/CourseAdd.vue')
-		},
-		{
-			path: '/course/enter',
-			name: 'enter-courses',
-			component: () => import('@/views/CourseEntry.vue')
-		},
-		{
-			path: '/course/invite/:invitation_code',
-			name: 'invite-course',
-			component: () => import('@/views/CourseInvite.vue')
-		},
+        {
+            path: '/class/:class_id',
+            name: 'class',
+            component: () => import('@/views/Lecture.vue'),
+            children: router_childs//子路由已经在utils/Resources中生成出来了
+        },
+        {
+            path: '/course/add',
+            name: 'add-courses',
+            component: () => import('@/views/CourseAdd.vue')
+        },
+        {
+            path: '/course/enter',
+            name: 'enter-courses',
+            component: () => import('@/views/CourseEntry.vue')
+        },
+        {
+            path: '/course/invite/:invitation_code',
+            name: 'invite-course',
+            component: () => import('@/views/CourseInvite.vue')
+        },
         {
             path: '/file/upload',
             name: 'upload-files',
@@ -55,38 +55,38 @@ export default new Router({
         {
             path: '/developer',
             name: 'Developer',
-			component: () => import('@/views/Developer.vue'),
+            component: () => import('@/views/Developer.vue'),
             children: [
                 {
                     path: 'data_visualizer',
                     name: 'DataVisualizer',
                     component: () => import('@/components/components/developer/DataVisualizer.vue')
                 },
-				{
-					path: 'file_uploader',
-					name: 'FileUploader',
+                {
+                    path: 'file_uploader',
+                    name: 'FileUploader',
                     component: () => import('@/components/components/FileUploader.vue')
-				},
-				{
-					path: 'file_viewer',
-					name: 'FileViewer',
-					component: () => import('@/components/components/FileViewer.vue')
-				},
+                },
+                {
+                    path: 'file_viewer',
+                    name: 'FileViewer',
+                    component: () => import('@/components/components/FileViewer.vue')
+                },
                 {
                     path: 'test',
                     name: 'Test',
                     component: () => import('@/components/components/developer/Test.vue')
                 },
-				{
-					path: 'live_player',
-					name: 'LivePlayer',
-					component: () => import('@/components/components/LivePlayer.vue')
-				},
-				{
-					path: 'video_player',
-					name: 'VideoPlayer',
-					component: () => import('@/components/components/VideoPlayer.vue')
-				},
+                {
+                    path: 'live_player',
+                    name: 'LivePlayer',
+                    component: () => import('@/components/components/LivePlayer.vue')
+                },
+                {
+                    path: 'video_player',
+                    name: 'VideoPlayer',
+                    component: () => import('@/components/components/VideoPlayer.vue')
+                },
                 {
                     path: 'test_player',
                     name: 'TestPlayer',
@@ -101,7 +101,7 @@ export default new Router({
         {
             path: '/user',
             name: 'User',
-            component : () => import('@/views/User.vue'),
+            component: () => import('@/views/User.vue'),
             children: [
                 {
                     path: 'sign_in',

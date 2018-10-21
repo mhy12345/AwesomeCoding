@@ -5,11 +5,16 @@
         </div>
         <div @keydown.enter="handleSignIn">
             <el-input placeholder="用户名..." v-model="inputs.nickname" class="input-box" clearable></el-input>
-            <el-input placeholder="密码..." v-model="inputs.password" class="input-box" type="password" clearable></el-input>
+            <el-input placeholder="密码..." v-model="inputs.password" class="input-box" type="password"
+                      clearable></el-input>
         </div>
         <div align="center">
-            <el-row><el-button type="primary" class="login-button" @click="handleSignIn">登录</el-button></el-row>
-            <el-row><el-button type="text" @click="handleForgetPassword">忘记密码</el-button></el-row>
+            <el-row>
+                <el-button type="primary" class="login-button" @click="handleSignIn">登录</el-button>
+            </el-row>
+            <el-row>
+                <el-button type="text" @click="handleForgetPassword">忘记密码</el-button>
+            </el-row>
         </div>
     </el-card>
 </template>
@@ -21,7 +26,7 @@
 
     export default {
         name: "SignIn",
-        data () {
+        data() {
             return {
                 title: '欢迎登录',
                 inputs: {
@@ -36,24 +41,24 @@
             handleSignIn: function () {
                 this.loadingQ = true;
                 loginSQL(this, this.inputs).
-                then((resp) => {
-                    console.log(resp);
-                    this.loadingQ = false;
-                    this.$message.success("登录成功！" + resp.results.realname);
-                    this.$emit('logined', resp.results); // 通知父级已登录
-                    this.$router.push('/user/profile');
-                }).
-                catch((resp) => {
-                    console.log(resp);
-                    this.loadingQ = false;
-                    if (resp.details === 'WRONG_PASSWORD.') {
-                        this.$message.error("登录失败，密码错误！");
-                    } else if (resp.details === 'USER_NOT_FOUND.') {
-                        this.$message.error("登录失败，用户名不存在！");
-                    } else {
-this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.details));
-}
-                });
+                    then((resp) => {
+                        console.log(resp);
+                        this.loadingQ = false;
+                        this.$message.success("登录成功！" + resp.results.realname);
+                        this.$emit('logined', resp.results); // 通知父级已登录
+                        this.$router.push('/user/profile');
+                    }).
+                    catch((resp) => {
+                        console.log(resp);
+                        this.loadingQ = false;
+                        if (resp.details === 'WRONG_PASSWORD.') {
+                            this.$message.error("登录失败，密码错误！");
+                        } else if (resp.details === 'USER_NOT_FOUND.') {
+                            this.$message.error("登录失败，用户名不存在！");
+                        } else {
+                            this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.details));
+                        }
+                    });
             },
             handleForgetPassword: function () {
                 // TODO 实现忘记密码
@@ -77,6 +82,7 @@ this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.detai
         display: table;
         content: "";
     }
+
     .clear-fix:after {
         clear: both
     }
@@ -84,11 +90,13 @@ this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.detai
     .box-card {
         width: 480px;
     }
-    .input-box{
+
+    .input-box {
         margin-top: 30px;
         margin-bottom: 30px;
     }
-    .login-button{
+
+    .login-button {
         margin-top: 30px;
         margin-bottom: 30px;
         width: 200px;

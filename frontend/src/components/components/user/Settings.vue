@@ -9,7 +9,7 @@
 <script>
     export default {
         name: "Settings",
-        data () {
+        data() {
             return {title: "这里是用户设置页面",};
         }
     };
@@ -29,6 +29,7 @@
         display: table;
         content: "";
     }
+
     .clear-fix:after {
         clear: both
     }
@@ -36,6 +37,7 @@
     .box-card {
         width: 480px;
     }
+
     .input-box {
         /*width: 80%;*/
         margin-bottom: 20px;

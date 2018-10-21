@@ -8,12 +8,14 @@
                        :on-remove="handleRemove"
                        :file-list="fileList">
                 <el-button size="small"
-                           type="primary">点击上传</el-button>
+                           type="primary">点击上传
+                </el-button>
             </el-upload>
         </el-form-item>
         <el-form-item>
             <el-button type="primary"
-                       @click="submitForm('ruleForm')">导出</el-button>
+                       @click="submitForm('ruleForm')">导出
+            </el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -21,14 +23,14 @@
     /* eslint-disable no-unused-vars,no-undef */
 
     export default {
-        data () {
+        data() {
             return {
                 fileList: [],
                 ruleForm: {fileList: []},
             };
         },
         methods: {
-            handleRemove (file, fileList) {
+            handleRemove(file, fileList) {
                 // 删除时在表单的某个字段里移除一个值
                 let tmp = this.ruleForm.fileList;
                 let url = file.response.result[0].url;
@@ -38,7 +40,7 @@
                     }), 1);
                 }
             },
-            successUpload (response, file, fileList, $event) {
+            successUpload(response, file, fileList, $event) {
                 // 上传成功在表单的某个字段里加一个值
                 if (response.message !== "File uploaded successfully") {
                     fileList.pop();
@@ -46,7 +48,7 @@
                 }
 
             },
-            submitForm (formName) {
+            submitForm(formName) {
                 //just a test
                 console.log(formName);
                 this.$http.post('/api/file/test', {filename: "lecture11.pdf"}).
