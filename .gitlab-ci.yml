@@ -28,8 +28,6 @@ test:
   stage: test
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
   script:
-    - cd $FRONTEND_ROOT
-    - npm test
     - cd $BACKEND_ROOT
     - npm test
   after_script:
