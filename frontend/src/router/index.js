@@ -41,6 +41,13 @@ export default new Router({
 			name: 'invite-course',
 			component: () => import('@/views/CourseInvite.vue')
 		},
+		/*
+		{
+			path: '/editor/:path+',
+			name: 'editor',
+			component: () => import('@/views/Editor.vue')
+		},
+		*/
         {
             path: '/file/upload',
             name: 'upload-files',

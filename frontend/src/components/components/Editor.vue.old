@@ -1,0 +1,166 @@
+<template>
+	<div>
+		<el-row>
+			<el-col>
+				<vue-editor 
+					id='haha'
+					ref='my_vue_editor' 
+					v-model='content' 
+					placeholder='在这里输入内容' 
+					>
+				</vue-editor>
+			</el-col>
+		</el-row>
+		<el-row>
+			<el-button 
+				@click='handleClicked_A'
+				:disabled='filled'
+				>
+				单选题
+			</el-button>
+		</el-row>
+		<el-row>
+			<el-button
+				@click='handleSave'
+				>
+				保存
+			</el-button>
+		</el-row>
+		<SelectionDialog
+			:dialog_form_visible='show_answer_dialog'
+			:dialog_problem_id='current_problem_id'
+			:content='content'
+			@close_dialog='handleCloseAnswerDialog'
+			>
+		</SelectionDialog>
+	</div>
+</template>
+
+<script>
+import { VueEditor, Quill } from 'vue2-editor';
+function randomString(len) {
+	　　len = len || 32;
+	　　var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
+	　　var maxPos = $chars.length;
+	　　var pwd = '';
+	　　for (let i = 0; i < len; i++) {
+		　　　　pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+		　　}
+	　　return pwd;
+}
+
+/*
+var Embed = Quill.import('blots/embed');
+class SelectProblemEmbeder extends Embed {
+	static create(values) {
+		let node = super.create();
+		let class_id = values.class_id;
+		let problem_id = values.problem_id;
+		let choices = values.choices;
+		let context = values.context;
+		node.setAttribute('id','problem-'+class_id+'-'+problem_id);
+		node.setAttribute('pid',problem_id);
+		let container = document.createElement('div');
+		for (var item in choices) {
+			let choice_node = document.createElement('div');
+			choice_node.appendChild(document.createTextNode(item + '.'+ choices[item]));
+			container.appendChild(choice_node);
+		}
+		node.appendChild(container);
+		let panel = document.createElement('div');
+		let panel_answer = document.createElement('span');
+		panel_answer.appendChild(document.createTextNode('[编辑]'));
+		panel_answer.setAttribute('class','correct-answer-button');
+		panel_answer.onclick = function() {
+			context.handleShowAnswerDialog(problem_id);
+		};
+		let panel_analyze = document.createElement('span');
+		panel_analyze.appendChild(document.createTextNode('[情况分析]'));
+		panel_analyze.setAttribute('class','analyze-button');
+		panel.appendChild(panel_answer);
+		panel.appendChild(panel_analyze);
+		node.appendChild(panel);
+		return node;
+	}
+
+	static value(node) {
+		return node.innerHtml;
+	}
+}
+
+SelectProblemEmbeder.blotName = 'select-problem';
+SelectProblemEmbeder.className = 'smart-area';
+SelectProblemEmbeder.tagName = 'span';
+
+Quill.register(SelectProblemEmbeder);
+ */
+export default {
+	data: function() {
+		return {
+			content: null,
+			filled: false,
+			edit_problem: {
+				name: '',
+				choices: {},
+				answer: '',
+			},
+			show_answer_dialog: false,
+			current_problem_id: null,
+			problem_set: {},
+		}
+	},
+	props: ['class_id'],
+	computed: {
+	},
+	methods: {
+		handleClicked_A: function() {
+			let problem_info = {
+				class_id: this.class_id,
+				problem_id: randomString(16),
+				context: this,
+				choices: {
+					'A': "2",
+					'B': "3",
+					'C': "4",
+					'D': "不知道"
+				}
+			};
+			this.problem_set[problem_info.problem_id] = problem_info;
+			var range = this.quill.getSelection();
+			if (range) {
+				//this.quill.insertEmbed(range.index, 'select-problem',problem_info);
+			}
+		},
+		handleSave: function() {
+			this.$http.post('/api/problem/save',{content:this.content,class_id:this.class_id}).
+				then(function(res) {
+					this.$message("保存成功");
+				}).
+				catch(function(res) {
+					this.$message("保存失败");
+				});
+		},
+		handleCloseAnswerDialog: function(res) {
+			this.show_answer_dialog = false;
+		},
+		handleShowAnswerDialog: function(problem_id) {
+			this.current_problem_id = problem_id;
+			this.show_answer_dialog = true;
+		},
+	},
+	components: {
+		VueEditor,
+		//		'SelectionDialog':SelectionDialog
+	},
+	mounted : function() {
+		this.path = this.$route.params.path;
+		this.quill= this.$refs.my_vue_editor.quill;
+		this.$http.post('/api/problem/load',{class_id:this.class_id}).
+			then(function(res) {
+				console.log(res.body.contents);
+				this.content = res.body.contents;
+				console.log("SET COUNTENT",this.content);
+			});
+	}
+}
+</script>

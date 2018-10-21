@@ -2,9 +2,27 @@ var mysql = require('mysql');
 var mysql_config = require('../configures/database.config.js');
 var async = require('async');
 
-var db_debugger = require('debug')("database");
+var log4js = require("log4js");
+var log4js_config = require("../configures/log.config.js").runtime_configure;
+log4js.configure(log4js_config);
+var logger = log4js.getLogger('log_file')
 
 var sqls = {
+	'create_problem_table' : "CREATE TABLE IF NOT EXISTS `problems` (" +
+		"`code` CHAR(20) NOT NULL, " +
+		"`alias` VARCHAR(100) , " +
+		"`answer` VARCHAR(800) , " +
+		"`state` INT UNSIGNED NOT NULL, " +
+		"PRIMARY KEY (`code`) " +
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+	'create_content_table' : "CREATE TABLE IF NOT EXISTS `contents` (" +
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
+		"`path` VARCHAR(150) NOT NULL, " +
+		"`content` VARCHAR(10000) NOT NULL, " +
+		"`deltas` VARCHAR(10000) NOT NULL, " +
+		"PRIMARY KEY (`id`) " +
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
+
 	'create_file_table' : "CREATE TABLE IF NOT EXISTS `files`(" + //文件表
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`user_id` INT UNSIGNED NOT NULL, " +
@@ -81,7 +99,7 @@ function mysql_initializer() { //倘若数据库不存在，则重新新建数�
 		};
 		sqls['create_database'] = 'CREATE DATABASE ' + mysql_config.database;
 		sqls['use_database'] ='USE ' + mysql_config.database;
-		db_debugger(cfg);
+		logger.info(cfg);
 		let conn = mysql.createConnection(cfg);
 		conn.connect(function(err) {
 			if (err) {
@@ -91,9 +109,9 @@ function mysql_initializer() { //倘若数据库不存在，则重新新建数�
 				});
 				return ;
 			}
-			var tasks = ['create_database', 'use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list'];
+			var tasks = ['create_database', 'use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list', 'create_content_table', 'create_problem_table'];
 			async.eachSeries(tasks, function (item, next) {
-				db_debugger(item + " ==> " + sqls[item]);
+				logger.info(item + " ==> " + sqls[item]);
 				conn.query(sqls[item], function (err, res) {
 					if (err) {
 						next({

@@ -142,7 +142,7 @@ import {sessionSQL, logoutSQL} from "./utils/DoSQL";
 
 export default {
 	name: 'App',
-	data() {
+	data: function() {
 		return {
             title: "AwesomeCoding",
             logo_url: require('./assets/images/icons/logo.png'),

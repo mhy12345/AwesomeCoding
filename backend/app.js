@@ -11,6 +11,7 @@ var api_class = require('./routes/class');
 var api_chat = require('./routes/chat');
 var api_file = require('./routes/file');
 var api_developer = require('./routes/developer');
+var api_problem = require('./routes/problem');
 
 var app = express();
 
@@ -48,6 +49,7 @@ app.use('/api/user', api_user);
 app.use('/api/class', api_class);
 app.use('/api/chat', api_chat);
 app.use('/api/file', api_file);
+app.use('/api/problem', api_problem);
 app.use('/api', api);
 
 // catch 404 and forward to error handler
