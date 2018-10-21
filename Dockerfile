@@ -6,7 +6,6 @@ RUN apt install -y mysql-client
 RUN mkdir /prebuild
 WORKDIR /prebuild
 RUN npm init -y
-RUN npm install phantomjs-prebuilt
 
 #创建前端目录，并安装依赖项
 COPY frontend /frontend
