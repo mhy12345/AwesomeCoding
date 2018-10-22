@@ -3,15 +3,12 @@
 			   :visible="visible"
 			   v-loading='loading'
 			   >
-			   <el-form :model="form">
+			   <el-form :model="info">
 				   <el-form-item label="题目编号" label-width=120px>
-					   <el-input v-model="problem_id" autocomplete="off" disabled></el-input>
+					   <el-input v-model="info.problem_id" autocomplete="off" disabled></el-input>
 				   </el-form-item>
-				   <el-form-item label="题目名称" label-width=120px>
-					   <el-input v-model="form.name" autocomplete="off"></el-input>
-				   </el-form-item>
-				   <el-form-item label="答案" label-width=120px>
-					   <el-input v-model="form.answer" autocomplete="off"></el-input>
+				   <el-form-item :label="'选项'+item" label-width=120px v-for='item of ["A","B","C","D"]'>
+					   <el-input v-model="info.choices[item]" autocomplete="off"></el-input>
 				   </el-form-item>
 			   </el-form>
 			   <div slot="footer" class="dialog-footer">
@@ -28,52 +25,32 @@ export default {
 		return {
 			visible: false,
 			loading: false,
-			problem_id: null,
-			form: {
-				alias: '',
-				answer: '',
-				state: 0,
+			info: {
+				class_id: null,
+				problem_id: null,
+				choices: {
+					A: null,
+					B: null,
+					C: null,
+					D: null
+				}
 			}
 		}
 	},
 	methods: {
 		handleOpen: function(problem_id) {
-			this.problem_id = problem_id;
+			this.info.problem_id = problem_id;
 			this.visible = true;
-			this.loading = true;
-			this.$http.post('/api/problem/get',{problem_id:problem_id}).
-				then(function(res) {
-					this.form.answer = res.body.answer;
-					this.form.state = res.body.state;
-					this.form.alias = res.body.alias;
-					this.loading = false;
-				}).
-				catch(function(res) {
-					this.loading = false;
-					this.$message("无法获取题目信息!");
-				});
+			this.loading = false;
+			console.log("INIT",this.info);
 		},
 		handleCancel: function() {
 			this.visible = false;
 		},
 		handleChecked: function() {
-			this.loading = true;
-			this.$http.post('/api/problem/save',
-				{
-					problem_id: this.problem_id,
-					state: 0,
-					alias: this.form.alias,
-					answer: this.form.answer,
-				}).
-				then(function(res) {
-					console.log('>>>',this);
-					this.$message('成功');
-					this.visible = false;
-				}).
-				catch(function(res) {
-					this.$message('失败');
-					this.visible = false;
-				});
+			console.log("CHECKED>>>");
+			this.$emit('handle_complete',this.info);
+			this.visible = false;
 		},
 		handleClose: function(done) {
 			this.$confirm('确认关闭？')
@@ -83,7 +60,6 @@ export default {
 					done();
 				})
 				.catch(_ => {
-					this.visible = false;
 				});
 		}
 	}

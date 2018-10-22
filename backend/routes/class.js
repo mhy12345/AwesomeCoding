@@ -38,7 +38,7 @@ function checkPermission(conn, class_id, user_id) {
 					conn.end();
 					reject({
 						status: 'FAILED.',
-						details: 'Not in class.',
+						details: 'NOT_IN_CLASS.',
 					});
 					return;
 				}

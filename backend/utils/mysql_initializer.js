@@ -8,6 +8,13 @@ log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file')
 
 var sqls = {
+	'create_paper_table' : "CREATE TABLE IF NOT EXISTS `papers` (" +
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT," +
+		"`code` CHAR(20) NOT NULL, " +
+		"`user_id` INT UNSIGNED, " +
+		"`text` VARCHAR(800) , " +
+		"PRIMARY KEY (`id`) " +
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
 	'create_problem_table' : "CREATE TABLE IF NOT EXISTS `problems` (" +
 		"`code` CHAR(20) NOT NULL, " +
 		"`alias` VARCHAR(100) , " +
@@ -90,7 +97,7 @@ var sqls = {
 	'use_database' : 'USE ' + mysql_config.database,
 }
 
-function mysql_initializer() { //倘若数据库不存在，则重新新建数据库
+function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新建数据库
 	return new Promise(function(resolve,reject) {
 		let cfg = {
 			host : mysql_config.host,
@@ -109,7 +116,11 @@ function mysql_initializer() { //倘若数据库不存在，则重新新建数�
 				});
 				return ;
 			}
-			var tasks = ['create_database', 'use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list', 'create_content_table', 'create_problem_table'];
+			var tasks = ['use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list', 'create_content_table', 'create_problem_table','create_paper_table'];
+			if (db_cfg.no_create !== true) {
+				tasks = ['create_database'].concat(tasks);
+			}
+			console.log(tasks);
 			async.eachSeries(tasks, function (item, next) {
 				logger.info(item + " ==> " + sqls[item]);
 				conn.query(sqls[item], function (err, res) {

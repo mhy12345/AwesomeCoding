@@ -78,9 +78,10 @@ export default {
 				this.loadedQ = false;
 				if (resp.body == 'NOT_LOGIN.') {
 					_this.$message("请登录...");
-				} else {
+				} else if (resp.body === "NOT_IN_CLASS.") {
+					_this.$message("请先加入班级");
+				} else 
 					_this.$message("未知错误");
-				}
 			});
 	},
 	methods: {

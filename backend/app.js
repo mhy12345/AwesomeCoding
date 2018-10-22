@@ -12,6 +12,7 @@ var api_chat = require('./routes/chat');
 var api_file = require('./routes/file');
 var api_developer = require('./routes/developer');
 var api_problem = require('./routes/problem');
+var api_backend = require('./routes/backend');
 
 var app = express();
 
@@ -23,6 +24,12 @@ app.use(history({
 	rewrites: [
 		{
 			from: /^\/api\/.*$/,
+			to: function(context) {
+				return context.parsedUrl.path
+			}
+		},
+		{
+			from: /^\/backend\/.*$/,
 			to: function(context) {
 				return context.parsedUrl.path
 			}
@@ -42,6 +49,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // 设置需要使用的 router 函数
+app.use(express.static(path.join(__dirname, './public')));
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 app.use('/api/developer', api_developer);
@@ -51,6 +59,7 @@ app.use('/api/chat', api_chat);
 app.use('/api/file', api_file);
 app.use('/api/problem', api_problem);
 app.use('/api', api);
+app.use('/backend', api_backend);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

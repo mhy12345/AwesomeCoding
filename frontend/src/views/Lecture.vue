@@ -54,7 +54,7 @@ export default {
 			}).
 			then(function (res) {
 				if (res.body.status !== 'SUCCESS.') {
-					this.$message("出错了!");
+					console.log("/api/class/status : "+res.body.details);
 					return ;
 				}
 				this.course_status = res.body.results;

@@ -12,8 +12,64 @@ var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file')
 
-router.post('/save', function(req, res, next) {
+router.post('/paper/put', function(req, res, next) {
+	if (req.session.user_id === undefined) {
+		res.status(403).send("NOT_LOGIN.");
+		return ;
+	}
 	getConnection(req).
+		then(function(conn) {
+			let sql = 'SELECT * FROM `papers` WHERE `code` = '+mysql.escape(req.body.problem_id)+' AND `user_id` = ' + mysql.escape(req.session.user_id);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			if (sql_res.results.length === 0) {
+				let sql = 'INSERT INTO `papers` (`code`,`text`,`user_id`) VALUES ('+mysql.escape(req.body.problem_id)+','+mysql.escape(req.body.text)+' , '+mysql.escape(req.session.user_id)+')';
+				return doSqlQuery(conn, sql);
+			} else {
+				let sql = 'UPDATE `papers` SET `text`='+mysql.escape(req.body.text)+' WHERE `code`='+mysql.escape(req.body.problem_id)+' AND `user_id` = '+mysql.escape(req.session.user_id);
+				return doSqlQuery(conn, sql);
+			}
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			res.send(JSON.stringify({
+				status: 'SUCCESS.',
+				answer: null,
+				state: 0,
+			}));
+		}).
+		catch(function(sql_res) {
+			res.send(JSON.stringify(sql_res));
+		});
+});
+router.post('/paper/get', function(req, res, next) {
+	if (req.session.user_id === undefined) {
+		res.status(403).send("NOT_LOGIN.");
+		return ;
+	}
+	getConnection().
+		then(function(conn) {
+			let sql = 'SELECT `text` FROM `papers` WHERE `code` = '+mysql.escape(req.body.problem_id) + ' AND `user_id` = '+mysql.escape(req.session.user_id);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			res.send(JSON.stringify({
+				status: 'SUCCESS.',
+				text : sql_res.results[0].text
+			}));
+		}).
+		catch(function(sql_res) {
+			res.send(JSON.stringify(sql_res));
+		});
+});
+
+router.post('/save', function(req, res, next) {
+	getConnection().
 		then(function(conn) {
 			let sql = 'UPDATE `problems` SET `state`='+mysql.escape(req.body.state)+', `answer`='+mysql.escape(req.body.answer)+' WHERE `code`='+mysql.escape(req.body.problem_id);
 			return doSqlQuery(conn, sql);

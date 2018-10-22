@@ -1,11 +1,12 @@
 <template>
 	<div>
-		<VueEditor ref='problem_editor' v-model='content'>
+		<VueEditor ref='problem_editor' v-model='content' :editorOptions="editorOption" >
 		</VueEditor>
 		<el-button @click='handleInsertA'> 单选题 </el-button>
 		<el-button @click='handleSave' > 保存 </el-button>
 		<el-button @click='handleLoad' > 同步 </el-button>
 		<CorrectAnswerDialog ref='correct_answer_dialog' />
+		<SelectionDialog ref='selection_dialog' @handle_complete='handleCreateA' />
 	</div>
 </template>
 
@@ -13,6 +14,7 @@
 import {VueEditor,Quill} from 'vue2-editor';
 import SelectProblemEmbeder from './embedder/select';
 import CorrectAnswerDialog from './CorrectAnswerDiaglog.vue';
+import SelectionDialog from './SelectionDialog.vue';
 
 Quill.register(SelectProblemEmbeder);
 
@@ -31,32 +33,36 @@ export default {
 	data : function() {
 		return {
 			content : null,
-			problem_set: {}
+			problem_set: {},
+			editorOption:{
+				modules:{
+					toolbar:[
+						['background','bold','color',/*'font',*/'code','italic','link',/*'size',*/'strike',/*'script',*/'underline','blockquote'],
+						['header','indent','list','align','direction','code-block','formula','image','video','clean'],
+					]
+				}
+			}
 		}
 	},
 	props: ['class_id'],
 	components: {
 		'VueEditor': VueEditor,
 		'CorrectAnswerDialog': CorrectAnswerDialog,
+		'SelectionDialog': SelectionDialog,
 	},
 	methods: {
-		handleInsertA: function() {
-			let info = {
-				class_id: this.class_id,
-				problem_id: randomString(16),
-				context: this,
-				choices: {
-					'A': "2",
-					'B': "3",
-					'C': "4",
-					'D': "不知道"
-				}
-			};
+		handleCreateA: function(info) {
+			info.class_id = this.class_id;
+			console.log("CALLED",info);
 			this.problem_set[info.problem_id] = info;
 			var range = this.quill.getSelection();
 			if (range) {
 				this.quill.insertEmbed(range.index, 'select-problem', info);
 			}
+		},
+		handleInsertA: function() {
+			let pid = randomString(16);
+			this.$refs.selection_dialog.handleOpen(pid);
 		},
 		handleSave: function() {
 			let quill_deltas = JSON.stringify(this.quill.getContents());

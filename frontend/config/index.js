@@ -17,6 +17,13 @@ module.exports = {
 				pathRewrite: {
 					'^/api': '/'
 				}
+			},
+			'/backend': {
+				target:'http://localhost:80/backend',//接口的域名
+				changeOrigin: true,
+				pathRewrite: {
+					'^/backend': '/'
+				}
 			}
 		},
 

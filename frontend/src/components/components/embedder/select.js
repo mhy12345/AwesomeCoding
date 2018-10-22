@@ -20,7 +20,7 @@ class SelectProblemEmbeder extends Embed {
 		let container = document.createElement('div');
 		for (var item in choices) {
 			let choice_node = document.createElement('div');
-			choice_node.setAttribute('class','option');
+			choice_node.setAttribute('class','select-option');
 			choice_node.setAttribute('index',item);
 			choice_node.setAttribute('content',choices[item]);
 			choice_node.appendChild(document.createTextNode(item + '.'+ choices[item]));
