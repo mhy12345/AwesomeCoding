@@ -1,0 +1,9 @@
+.correct-answer-button {
+	display:none
+}
+.analyze-button {
+	display:none
+}
+.select-option {
+	cursor:pointer
+}
