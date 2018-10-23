@@ -31,7 +31,7 @@ module.exports = {
     // allow async-await
     'generator-star-spacing': 'off',
 	'indent': 'off',
-	'camelcase': 'warn',
+	'camelcase': 'off',
 	'quotes': 'off',
 	'prefer-template': 'off',
 	'no-var': 'off',
