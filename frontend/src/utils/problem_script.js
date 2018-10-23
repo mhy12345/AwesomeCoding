@@ -11,7 +11,7 @@ function generateProblem(configures) {
 		console.log(body);
 	}
 	return prefix+body+suffix;
-};
+}
 
 var problemStudio = {
 	'choice' : generateProblem

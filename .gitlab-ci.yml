@@ -29,6 +29,7 @@ test:
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
   script:
     - cd $BACKEND_ROOT
+    - npm lint
     - npm test
   after_script:
     - mv .git $BACKEND_ROOT

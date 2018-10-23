@@ -32,7 +32,9 @@ function getConnection() { //获取连接connection，并调用回调函数
 	}).catch(function (rejected_reason) {
 		logger.warn("Reinstall database...");
 		logger.warn(rejected_reason);
-		return mysql_initializer();
+		return mysql_initializer({
+			no_create:false
+		});
 	})
 }
 

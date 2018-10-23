@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var crypto = require('crypto');
-var moment = require('moment');
 var dbConfigure = require('../configures/database.config.js');
 
 router.get('/info', function (req, res, next) {
