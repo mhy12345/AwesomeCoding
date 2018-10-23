@@ -110,6 +110,8 @@
 </template>
 
 <script>
+    /* eslint-disable no-undef,camelcase */
+
     import {changeSQL} from "../../../utils/DoSQL";
 
     export default {
@@ -123,8 +125,8 @@
                     text: '',
                     icon_url: '',
                 },
-                heads: ['真实姓名', '签名', '邮箱', '密码', '重复'],     // 输入框提示词
-                editingQ: false,    // if the use pushed the 'edit' button
+                heads: ['真实姓名', '签名', '邮箱', '密码', '重复'], // 输入框提示词
+                editingQ: false, // if the use pushed the 'edit' button
                 inputs: {
                     realname: '',
                     motto: '',
@@ -133,24 +135,21 @@
                     re_password: '',
                 },
                 loadingQ: false,
-                password_inputQ: false,     // if password input box was focused
-            }
+                password_inputQ: false, // if password input box was focused
+            };
         },
         beforeMount() {
             console.log('role =', this.user.role);
             if (this.user.role === 0) {
                 this.role.text = '管理员';
                 this.role.icon_url = require('../../../assets/images/icons/administrator.png');
-            }
-            else if (this.user.role === 1) {
+            } else if (this.user.role === 1) {
                 this.role.text = '教师';
                 this.role.icon_url = require('../../../assets/images/icons/teacher.png');
-            }
-            else if (this.user.role === 2) {
+            } else if (this.user.role === 2) {
                 this.role.text = '学生';
                 this.role.icon_url = require('../../../assets/images/icons/student.png');
-            }
-            else {
+            } else {
                 this.role.text = '未知身份';
             }
         },
@@ -164,12 +163,12 @@
                 this.editingQ = true;
                 this.password_inputQ = false;
             },
-            handleSave() {  // submit changes
+            handleSave() { // submit changes
                 if (this.inputs.realname === '') {
                     this.$message("真实姓名不能为空。");
                     return;
                 }
-                if (this.inputs.email === '') {     // todo 用正则表达式校验邮箱的合法性
+                if (this.inputs.email === '') { // todo 用正则表达式校验邮箱的合法性
                     this.$message("邮箱不合法。");
                     return;
                 }
@@ -182,31 +181,32 @@
                         this.$message("两次输入的密码不同。");
                         return;
                     }
-                }
-                else {
-                    this.inputs.password = '';
+                } else {
+                    this.inputs.password = ''; // 空字符表示不修改某个键-值
                 }
                 delete this.inputs.re_password;
                 this.loadingQ = true;
                 changeSQL(this, this.inputs).
-                then((res) => {
-                    this.loadingQ = false;
-                    this.user = res.results;
-                    this.$emit('logined', this.user);
-                    this.$message('修改成功。');
-                    this.editingQ = false;
-                    this.inputs.password = '●●●●●●●●●●●●';
-                    this.password_inputQ = false;
-                }).
-                catch((err) => {
-                    this.loadingQ = false;
-                    this.$message.error('修改失败。' + JSON.stringify(err.details, null, 3));
-                    this.inputs.password = '●●●●●●●●●●●●';
-                    this.password_inputQ = false;
-                });
+                    then((res) => {
+                        this.loadingQ = false;
+                        this.user = res.results;
+                        this.$emit('logined', this.user);
+                        this.$message('修改成功。');
+                        this.editingQ = false;
+                        this.inputs.password = '●●●●●●●●●●●●';
+                        this.password_inputQ = false;
+                    }).
+                    catch((err) => {
+                        this.loadingQ = false;
+                        this.$message.error('修改失败。' + JSON.stringify(err.details, null, 3));
+                        this.inputs.password = '●●●●●●●●●●●●';
+                        this.password_inputQ = false;
+                    });
             },
             handlePasswordInput() {
-                if (this.password_inputQ) return;
+                if (this.password_inputQ) {
+                    return;
+                }
                 this.password_inputQ = true;
                 this.inputs.re_password = this.inputs.password = '';
             },
@@ -218,7 +218,7 @@
                 this.editingQ = false;
             }
         }
-    }
+    };
 </script>
 
 <style scoped>
@@ -228,6 +228,7 @@
         display: table;
         content: "";
     }
+
     .clear-fix:after {
         clear: both
     }
@@ -247,6 +248,7 @@
         margin: 10px;
         border: 2px #dedede solid;
     }
+
     .input-box {
         width: 100%;
         margin-bottom: 20px;

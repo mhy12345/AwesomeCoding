@@ -10,11 +10,9 @@
     export default {
         name: "Settings",
         data() {
-            return {
-                title: "这里是用户设置页面",
-            }
+            return {title: "这里是用户设置页面",};
         }
-    }
+    };
 </script>
 
 <style scoped>
@@ -31,6 +29,7 @@
         display: table;
         content: "";
     }
+
     .clear-fix:after {
         clear: both
     }
@@ -38,6 +37,7 @@
     .box-card {
         width: 480px;
     }
+
     .input-box {
         /*width: 80%;*/
         margin-bottom: 20px;

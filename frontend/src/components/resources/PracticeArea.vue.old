@@ -1,0 +1,73 @@
+<template>
+	<div ref='pa' id='practice-area-container' v-html="contents" >
+		{{contents}}
+	</div>
+</template>
+
+<script>
+import Editor from '@/components/components/Editor.vue';
+export default {
+	data: function() {
+		return {
+			class_id: this.$route.params.class_id,
+			contents: null
+		};
+	},
+	props: ['course_status'],
+	mounted : function() {
+		this.class_id = this.$route.params.class_id;
+		this.$http.post('/api/problem/content/load',{class_id:this.class_id}).
+			then(function(res) {
+this.contents = res.body.contents;
+			});
+		let self = this;
+		window.setTimeout(function() {
+			self.handleUpdate();
+		} ,1000);
+		/*
+		for (let task of document.getElementsByClassName('smart-area')){
+			let problem_id = task.getAttribute('pid');
+			let class_id = task.getAttribute('cid');
+			for (let item of task.getElementsByClassName('select-option')) {
+				console.log(item);
+				item.addEventListener('click', function() {
+					alert('ha');
+				});
+			}
+		}*/
+	},
+	computed : {
+	},
+
+	methods: {
+		handleUpdate: function() {
+			console.log("HAHA");
+			global.a = this.$refs.pa;
+			console.log(this.$refs.pa.querySelectorAll('.smart-area'));
+			for (let task of this.$refs.pa.querySelectorAll('.smart-area')) {
+				console.log(task);
+				let problem_id = task.getAttribute('pid');
+				let class_id = task.getAttribute('cid');
+				for (let item of task.getElementsByClassName('select-option')) {
+					item.addEventListener('click', function(event) {
+						event.preventDefault();
+
+						console.log(item);item.setAttribute('style','size:100px');
+						item.style.size=100;
+					});
+				}
+			}
+		},
+	},
+}
+</script>
+
+<style>
+#practice-area-container .correct-answer-button {
+	display:none;
+}
+.analyze-button {
+}
+.submit-area {
+}
+</style>

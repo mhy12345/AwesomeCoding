@@ -30,8 +30,8 @@ module.exports = {
   rules: {
     // allow async-await
     'generator-star-spacing': 'off',
-	'indent': 'warn',
-	'camelcase': 'warn',
+	'indent': 'off',
+	'camelcase': 'off',
 	'quotes': 'off',
 	'prefer-template': 'off',
 	'no-var': 'off',
@@ -46,7 +46,7 @@ module.exports = {
 	'space-before-function-paren': 'warn',
 	'brace-style': 'warn',
 	'no-undef': 'warn',
-	'no-console': 'warn',
+	'no-console': 'off',
 	'no-unused-vars': 'warn',
 	'no-redeclare': 'warn',
     // allow debugger during development

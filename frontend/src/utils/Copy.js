@@ -9,13 +9,15 @@ function copy(a) {
 
 function deepCopy(a) {
     var b = {};
-    for (var prop in a) {
-        if (typeof a[prop] === 'object')
+    var prop;
+    for (prop in a) {
+        if (typeof a[prop] === 'object') {
             b[prop] = deepCopy(a[prop]);
-        else
+        } else {
             b[prop] = a[prop];
+        }
     }
     return b;
 }
 
-export {copy, deepCopy}
+export {copy, deepCopy};

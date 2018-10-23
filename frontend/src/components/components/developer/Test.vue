@@ -6,10 +6,10 @@
             <el-col :span="5">
                 <h5>默认颜色</h5>
                 <el-menu
-                        default-active="2"
-                        class="el-menu-vertical-demo"
-                        @open="handleOpen"
-                        @close="handleClose" style="min-height: 400px">
+                    default-active="2"
+                    class="el-menu-vertical-demo"
+                    @open="handleOpen"
+                    @close="handleClose" style="min-height: 400px">
                     <el-submenu index="1">
                         <template slot="title">
                             <i class="el-icon-location"></i>
@@ -45,13 +45,13 @@
             <el-col :span="12">
                 <h5>自定义颜色</h5>
                 <el-menu
-                        default-active="2"
-                        class="el-menu-vertical-demo"
-                        @open="handleOpen"
-                        @close="handleClose"
-                        background-color="#545c64"
-                        text-color="#fff"
-                        active-text-color="#ffd04b">
+                    default-active="2"
+                    class="el-menu-vertical-demo"
+                    @open="handleOpen"
+                    @close="handleClose"
+                    background-color="#545c64"
+                    text-color="#fff"
+                    active-text-color="#ffd04b">
                     <el-submenu index="1">
                         <template slot="title">
                             <i class="el-icon-location"></i>
@@ -130,78 +130,83 @@
 </template>
 
 <script>
-import EditDialog from './EditDialog'
-// import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
-// import Vue from 'vue'
-//
-// Vue.component(CollapseTransition.name, CollapseTransition);
-export default {
-    name: 'Test',
-    data () {
-        var date = new Date();
-        var date2 = new Date();
-        date2.setTime(date.getTime() + 60 * 1000);
-        return {
-            host: {
-                host1: window.location.host,
-                host2: document.domain
-            },
-            my_url: window.location.href,
-            my_protocol: window.location.protocol,
-            my_path: location.pathname,
+    /* eslint-disable camelcase */
 
-            input: '',
-            dialog: {
-                title: '一个平凡的标题',
-                content: '一个平凡的段落。',
-                visible: false,
+    import EditDialog from './EditDialog';
+    // import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
+    // import Vue from 'vue'
+    //
+    // Vue.component(CollapseTransition.name, CollapseTransition);
+    export default {
+        name: 'Test',
+        data() {
+            var date = new Date();
+            var date2 = new Date();
+            date2.setTime(date.getTime() + 60 * 1000);
+            return {
+                host: {
+                    host1: window.location.host,
+                    host2: document.domain
+                },
+                my_url: window.location.href,
+                my_protocol: window.location.protocol,
+                my_path: location.pathname,
+
                 input: '',
-                response: false
-            },
-            showColumn: true,
-            cookies: [],
-            exp_secs: 120,
-            new_cookie: {
-                name: '',
-                value: '',
-            },
-            cur_date: date.toUTCString(),
-            cur_date2: date2.toUTCString()
-        }
-    },
-    methods: {
-        createDialog: function () {
-            this.dialog.visible = true;
-            this.dialog.input = this.input;
+                dialog: {
+                    title: '一个平凡的标题',
+                    content: '一个平凡的段落。',
+                    visible: false,
+                    input: '',
+                    response: false
+                },
+                showColumn: true,
+                cookies: [],
+                exp_secs: 120,
+                new_cookie: {
+                    name: '',
+                    value: '',
+                },
+                cur_date: date.toUTCString(),
+                cur_date2: date2.toUTCString()
+            };
         },
-        handleClose: function () {
-            //console.log("对话框关闭。");
-            if (this.dialog.response === true)
-                this.input = this.dialog.input;
-        },
-        getCookies: function () {
-            var str_cookie = document.cookie;
-            console.log(str_cookie);
-            var list = str_cookie.split(';');
-            this.cookies = [];
-            for (var cookie of list) {
-                this.cookies.push(cookie.trim());
+        methods: {
+            createDialog: function () {
+                this.dialog.visible = true;
+                this.dialog.input = this.input;
+            },
+            handleClose: function () {
+                //console.log("对话框关闭。");
+                if (this.dialog.response === true) {
+                    this.input = this.dialog.input;
+                }
+            },
+            getCookies: function () {
+                var str_cookie = document.cookie;
+                var list, cookie;
+                console.log(str_cookie);
+                list = str_cookie.split(';');
+                this.cookies = [];
+                for (cookie of list) {
+                    this.cookies.push(cookie.trim());
+                }
+                console.log(this.cookies);
+            },
+            createCookie: function () {
+                var str_cookie;
+                var d = new Date();
+                d.setTime(d.getTime() + this.exp_secs * 1000);
+                str_cookie = this.new_cookie.name + '=' + this.new_cookie.value + ';' + "expires=" + d.toUTCString(); // 这相当于一个字典，‘=’兼有判重和追加的作用
+                document.cookie = str_cookie;
+                this.getCookies();
             }
-            console.log(this.cookies);
         },
-        createCookie: function () {
-            var d = new Date();
-            d.setTime(d.getTime() + this.exp_secs * 1000);
-            var str_cookie = this.new_cookie.name + '=' + this.new_cookie.value + ';' + "expires=" + d.toUTCString();       // 这相当于一个字典，‘=’兼有判重和追加的作用
-            document.cookie = str_cookie;
-            this.getCookies();
+        components: {
+            EditDialog,
+            // CollapseTransition
         }
-    },
-    components: {
-        EditDialog,
-        // CollapseTransition
-    }
-}
+    };
 </script>
 
 <style scoped>
