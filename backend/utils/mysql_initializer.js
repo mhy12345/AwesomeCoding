@@ -30,7 +30,7 @@ var sqls = {
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 
-	'create_class_file_table' : "CREATE TABLE IF NOT EXISTS `classfiles`(" +
+	'create_class_file_table' : "CREATE TABLE IF NOT EXISTS `coursefiles`(" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`class_id` INT UNSIGNED NOT NULL, " +
 		"`file_id` INT UNSIGNED NOT NULL, " +
