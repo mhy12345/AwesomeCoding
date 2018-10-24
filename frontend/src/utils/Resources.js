@@ -49,6 +49,18 @@ var supported_resources = {
 			2: true,
 		}
 	},
+    file_settings : {
+        name: "file_settings",
+        title: '资料设置',
+        component : ()=>import('../components/resources/FileSettings.vue'),
+        disabled: false,
+        defaultChosen: false,
+        access: {
+            0: true,
+            1: true,
+            2: true,
+        }
+    },
 	settings: {
 		name: 'settings',
 		title: '课程设置',
