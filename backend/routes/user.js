@@ -1,3 +1,5 @@
+const axios = require('axios')
+
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
@@ -18,6 +20,33 @@ router.get('/session', function (req, res, next) {	// 判断用户是否登录
 	res_body.status = 'SUCCESS.';
 	logger.info('[res]', res_body);
 	res.send(JSON.stringify(res_body));
+});
+
+router.post('/verification', function (req, res, next) {	// 让后端程序发送验证码
+
+	var code_generated = '';
+	for (let i = 0; i < 6; i++) {
+        code_generated += Math.ceil(Math.random() * 9);
+    }
+
+    let url = "https://open.ucpaas.com/ol/sms/sendsms";
+
+    console.log('sending sms...');
+	console.log(req.body);
+
+    axios.post(url, {
+        "sid": "55d17519129b8973ea369b5ba8f14f4d", // const
+        "token": "43eee5a8cff8d6fd6f54ad612819b466", // const
+        "appid": "de5779c82e844993b4f28470cf545d77", // const
+        "templateid": "388909", // const
+        "param": code_generated,
+        "mobile": req.body.number
+	}).then(() => {
+        let res_body = req.session;
+        res_body.status = 'SUCCESS.';
+        res_body.code_generated = code_generated;
+        res.send(JSON.stringify(res_body));
+    });
 });
 
 router.post('/register', function (req, res, next) {	// 响应注册，并进行合法判断
