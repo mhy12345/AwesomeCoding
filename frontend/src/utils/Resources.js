@@ -55,6 +55,11 @@ var supported_resources = {
         component : ()=>import('../components/resources/FileSettings.vue'),
         disabled: false,
         defaultChosen: false,
+        access: {
+            0: true,
+            1: true,
+            2: true,
+        }
     },
 	settings: {
 		name: 'settings',
