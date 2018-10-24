@@ -1,0 +1,6364 @@
+[2018-10-18T10:53:29.801] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:53:29.801] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:53:29.786Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:53:34.232] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-18T10:53:34.544] [INFO] log_file - Found: RowDataPacket {
+  id: 4,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: '584324893@qq.com',
+  registration_date: 2018-10-12T08:29:27.000Z,
+  password: '123456' }
+[2018-10-18T10:53:39.567] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:53:39.567] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:53:39.442Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T10:53:39.582] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:53:39.582] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:53:39.567Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T10:53:39.614] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:53:39.614] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:53:39.582Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T10:56:17.081] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:56:17.081] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:56:17.065Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:56:21.464] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-18T10:56:21.730] [INFO] log_file - Found: RowDataPacket {
+  id: 4,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: '584324893@qq.com',
+  registration_date: 2018-10-12T08:29:27.000Z,
+  password: '123456' }
+[2018-10-18T10:56:33.180] [INFO] log_file - >>>UPDATE CLASS INFO { resources: [ 'details', 'settings', 'live', 'materials' ],
+  info: 
+   { id: 6,
+     description: 'asdasd',
+     notice: null,
+     title: '语文课',
+     registration_date: '2018-10-12T14:40:25.000Z',
+     invitation_code: 'S1SYRUU3U2OGJ4JOJ9Q0' },
+  class_id: 6 }
+[2018-10-18T10:56:33.180] [INFO] log_file - >>> [ 'UPDATE classes SET description=\'asdasd\',notice=NULL,title=\'语文课\' WHERE id = 6',
+  'DELETE  FROM resources WHERE class_id = 6',
+  'INSERT INTO `resources` (`class_id`, `resource`) VALUES (6,\'details\'),(6,\'settings\'),(6,\'live\'),(6,\'materials\')' ]
+[2018-10-18T10:56:43.226] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:56:43.226] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:56:43.211Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T10:56:55.987] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:56:55.987] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:56:55.925Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T10:56:56.003] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:56:56.003] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:56:55.987Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T10:56:56.034] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:56:56.034] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:56:56.018Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T10:57:10.121] [INFO] log_file - [get] logout
+ {}
+[2018-10-18T10:57:10.121] [INFO] log_file - [res] { status: 'SUCCESS.', details: 'SUCCESS.' }
+[2018-10-18T10:57:10.136] [INFO] log_file - Session Destroyed
+[2018-10-18T10:57:15.378] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang6', password: '123456' }
+[2018-10-18T10:57:15.534] [INFO] log_file - Found: RowDataPacket {
+  id: 14,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  motto: '584324893@qq.com',
+  registration_date: 2018-10-13T13:43:13.000Z,
+  password: '123456' }
+[2018-10-18T10:57:20.401] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:57:20.401] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:57:19.231Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:57:20.417] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:57:20.417] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:57:20.401Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:57:20.432] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:57:20.432] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:57:20.417Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:58:27.965] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:58:27.965] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:57:33.599Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:58:27.996] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:58:27.996] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:58:27.965Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:58:28.027] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:58:28.027] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:58:27.996Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:58:46.264] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:58:46.264] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:58:44.704Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:58:46.279] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:58:46.279] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:58:46.264Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:58:46.311] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:58:46.311] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:58:46.279Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:58:46.342] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:58:46.342] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:58:46.311Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:58:46.342] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:58:46.342] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:58:46.311Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:58:46.357] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:58:46.357] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:58:46.357Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:59:17.682] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:59:17.682] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:59:16.278Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:59:17.698] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:59:17.698] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:59:16.278Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:59:17.745] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:59:17.745] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:59:17.698Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:59:24.780] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:59:24.780] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:59:23.610Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:59:24.796] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:59:24.796] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:59:24.780Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:59:24.811] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:59:24.811] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:59:24.796Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:59:24.827] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:59:24.827] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:59:24.811Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:59:44.467] [INFO] log_file - >>>UPDATE CLASS INFO { resources: [ 'details', 'settings', 'live', 'materials', 'chatting_room' ],
+  info: 
+   { id: 9,
+     description: null,
+     notice: null,
+     title: '一个课程',
+     registration_date: '2018-10-13T11:13:26.000Z',
+     invitation_code: 'QNU48KOP9MGY577EMOUP' },
+  class_id: 9 }
+[2018-10-18T10:59:44.467] [INFO] log_file - >>> [ 'UPDATE classes SET description=NULL,notice=NULL,title=\'一个课程\' WHERE id = 9',
+  'DELETE  FROM resources WHERE class_id = 9',
+  'INSERT INTO `resources` (`class_id`, `resource`) VALUES (9,\'details\'),(9,\'settings\'),(9,\'live\'),(9,\'materials\'),(9,\'chatting_room\')' ]
+[2018-10-18T10:59:54.576] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:59:54.576] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:59:53.313Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:59:54.592] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:59:54.592] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:59:54.576Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:59:54.607] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:59:54.607] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:59:54.592Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:59:54.623] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:59:54.623] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:59:54.607Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T10:59:54.639] [INFO] log_file - [get] session
+ {}
+[2018-10-18T10:59:54.639] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T03:59:54.623Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:00:20.176] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:00:20.176] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:00:20.176Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:00:20.426] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:00:20.426] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:00:20.223Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:00:20.644] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:00:20.644] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:00:20.566Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:00:20.691] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:00:20.691] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:00:20.660Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:00:20.691] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:00:20.706] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:00:20.660Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:00:20.706] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:00:20.706] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:00:20.660Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:00:56.664] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:00:56.664] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:00:55.120Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:00:56.696] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:00:56.696] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:00:56.664Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:00:56.711] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:00:56.711] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:00:56.696Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:00:56.727] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:00:56.727] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:00:56.711Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:00:56.758] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:00:56.758] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:00:56.727Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:00:56.774] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:00:56.774] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:00:56.758Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:06.664] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:06.664] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:06.664Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:06.914] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:06.914] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:06.680Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:07.132] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:07.132] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:07.054Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:07.132] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:07.132] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:07.054Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:07.148] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:07.148] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:07.054Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:07.148] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:07.148] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:07.148Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:07.163] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:07.163] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:07.148Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:11.328] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:11.328] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:09.425Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:11.344] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:11.344] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:09.425Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:11.344] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:11.344] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:11.344Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:11.360] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:11.360] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:11.344Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:11.391] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:11.391] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:11.360Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:11.406] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:11.406] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:11.391Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:32.810] [INFO] log_file - >>>UPDATE CLASS INFO { resources: [ 'details', 'settings', 'live', 'materials', 'chatting_room' ],
+  info: 
+   { id: 6,
+     description: 'asdasd',
+     notice: null,
+     title: '语文课',
+     registration_date: '2018-10-12T14:40:25.000Z',
+     invitation_code: 'S1SYRUU3U2OGJ4JOJ9Q0' },
+  class_id: 6 }
+[2018-10-18T11:01:32.810] [INFO] log_file - >>> [ 'UPDATE classes SET description=\'asdasd\',notice=NULL,title=\'语文课\' WHERE id = 6',
+  'DELETE  FROM resources WHERE class_id = 6',
+  'INSERT INTO `resources` (`class_id`, `resource`) VALUES (6,\'details\'),(6,\'settings\'),(6,\'live\'),(6,\'materials\'),(6,\'chatting_room\')' ]
+[2018-10-18T11:01:36.430] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:36.430] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:36.430Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:38.614] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:38.629] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:38.473Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:38.661] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:38.661] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:38.629Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:38.676] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:38.676] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:38.661Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:38.707] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:38.707] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:38.692Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:38.723] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:38.723] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:38.707Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:44.511] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:44.511] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:44.495Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:44.760] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:44.760] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:44.542Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:44.994] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:44.994] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:44.947Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:44.994] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:44.994] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:44.994Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:45.010] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:45.010] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:44.994Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T11:01:45.010] [INFO] log_file - [get] session
+ {}
+[2018-10-18T11:01:45.010] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T04:01:45.010Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang6',
+  realname: 'lzq',
+  role: 1,
+  user_id: 14,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T12:25:55.808] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:25:55.811] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:25:55.792Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T12:26:03.967] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-18T12:26:04.734] [INFO] log_file - Found: RowDataPacket {
+  id: 4,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: '584324893@qq.com',
+  registration_date: 2018-10-12T08:29:27.000Z,
+  password: '123456' }
+[2018-10-18T12:26:10.871] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:26:10.873] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:26:10.819Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:26:10.889] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:26:10.890] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:26:10.875Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:26:10.912] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:26:10.914] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:26:10.892Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:27:00.835] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:27:00.836] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:26:59.436Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:27:00.854] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:27:00.855] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:27:00.838Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:27:00.872] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:27:00.873] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:27:00.857Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:27:00.893] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:27:00.894] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:27:00.875Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:27:55.018] [INFO] log_file - >>>UPDATE CLASS INFO { resources: [ 'details', 'settings', 'live', 'materials', 'chatting_room' ],
+  info: 
+   { id: 8,
+     description: 'cw',
+     notice: null,
+     title: 'vwev',
+     registration_date: '2018-10-13T02:54:46.000Z',
+     invitation_code: 'PJUHNEUD3ATZTFVJKMAN' },
+  class_id: 8 }
+[2018-10-18T12:27:55.020] [INFO] log_file - >>> [ 'UPDATE classes SET description=\'cw\',notice=NULL,title=\'vwev\' WHERE id = 8',
+  'DELETE  FROM resources WHERE class_id = 8',
+  'INSERT INTO `resources` (`class_id`, `resource`) VALUES (8,\'details\'),(8,\'settings\'),(8,\'live\'),(8,\'materials\'),(8,\'chatting_room\')' ]
+[2018-10-18T12:27:58.349] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:27:58.349] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:27:58.343Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:28:00.553] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:28:00.554] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:28:00.438Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:28:00.577] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:28:00.578] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:28:00.554Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:28:00.600] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:28:00.600] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:28:00.578Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:28:00.620] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:28:00.620] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:28:00.600Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:28:00.643] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:28:00.644] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:28:00.621Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:28:07.510] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:28:07.511] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:28:07.158Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:28:07.689] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:28:07.692] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:28:07.512Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:28:07.961] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:28:07.962] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:28:07.935Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:28:07.968] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:28:07.969] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:28:07.963Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:28:07.976] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:28:07.977] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:28:07.969Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:28:07.982] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:28:07.983] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:28:07.977Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:02.021] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:02.021] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:00.749Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:02.043] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:02.044] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:02.022Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:02.062] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:02.063] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:02.044Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:02.082] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:02.082] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:02.063Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:02.105] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:02.105] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:02.082Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:03.945] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:03.945] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:02.625Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:03.957] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:03.958] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:03.945Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:03.972] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:03.972] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:03.959Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:03.984] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:03.985] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:03.972Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:04.001] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:04.002] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:03.986Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:14.554] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:14.555] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:13.417Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:14.569] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:14.569] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:14.555Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:14.601] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:14.601] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:14.569Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:14.619] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:14.620] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:14.602Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:14.637] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:14.638] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:14.620Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:14.652] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:14.652] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:14.638Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:24.057] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:24.058] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:24.052Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:24.323] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:24.323] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:24.068Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:24.572] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:24.573] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:24.512Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:24.577] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:24.578] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:24.573Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:24.591] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:24.591] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:24.578Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:24.596] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:24.597] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:24.591Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T12:29:24.606] [INFO] log_file - [get] session
+ {}
+[2018-10-18T12:29:24.607] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T05:29:24.597Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T13:56:20.267] [INFO] log_file - [get] session
+ {}
+[2018-10-18T13:56:20.269] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T06:56:19.650Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T13:56:36.185] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-18T13:56:36.861] [INFO] log_file - Found: RowDataPacket {
+  id: 4,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: '584324893@qq.com',
+  registration_date: 2018-10-12T08:29:27.000Z,
+  password: '123456' }
+[2018-10-18T13:56:45.596] [INFO] log_file - [get] session
+ {}
+[2018-10-18T13:56:45.597] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T06:56:45.548Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T13:56:45.613] [INFO] log_file - [get] session
+ {}
+[2018-10-18T13:56:45.614] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T06:56:45.598Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T13:56:45.628] [INFO] log_file - [get] session
+ {}
+[2018-10-18T13:56:45.628] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T06:56:45.615Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T13:56:45.648] [INFO] log_file - [get] session
+ {}
+[2018-10-18T13:56:45.648] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T06:56:45.630Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T13:59:58.942] [INFO] log_file - [get] session
+ {}
+[2018-10-18T13:59:58.942] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T06:59:57.882Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T13:59:58.960] [INFO] log_file - [get] session
+ {}
+[2018-10-18T13:59:58.961] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T06:59:58.944Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T13:59:58.980] [INFO] log_file - [get] session
+ {}
+[2018-10-18T13:59:58.980] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T06:59:58.962Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T13:59:58.999] [INFO] log_file - [get] session
+ {}
+[2018-10-18T13:59:59.000] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T06:59:58.982Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T14:00:07.392] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:00:07.393] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:00:07.386Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T14:00:07.680] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:00:07.681] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:00:07.410Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T14:00:07.805] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:00:07.806] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:00:07.753Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T14:00:07.810] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:00:07.811] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:00:07.753Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T14:00:07.817] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:00:07.819] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:00:07.807Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T14:00:10.245] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:00:10.246] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:00:08.796Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T14:00:10.251] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:00:10.251] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:00:08.796Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T14:00:10.258] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:00:10.259] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:00:10.252Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T14:00:10.268] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:00:10.269] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:00:10.261Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T14:02:11.671] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:02:11.674] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:02:11.663Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T14:02:16.108] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-18T14:02:16.387] [INFO] log_file - Found: RowDataPacket {
+  id: 4,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: '584324893@qq.com',
+  registration_date: 2018-10-12T08:29:27.000Z,
+  password: '123456' }
+[2018-10-18T14:02:26.621] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:02:26.622] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:02:26.533Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T14:02:26.650] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:02:26.650] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:02:26.623Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T14:02:26.670] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:02:26.671] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:02:26.652Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T14:02:26.690] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:02:26.691] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:02:26.672Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T14:58:44.331] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:58:44.334] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:58:44.070Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T14:58:49.475] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-18T14:59:00.876] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-18T14:59:36.324] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-18T14:59:36.900] [INFO] log_file - Found: RowDataPacket {
+  id: 4,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: '584324893@qq.com',
+  registration_date: 2018-10-12T08:29:27.000Z,
+  password: '123456' }
+[2018-10-18T14:59:50.800] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:59:50.800] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:59:49.969Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T14:59:50.815] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:59:50.816] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:59:50.801Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T14:59:50.833] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:59:50.833] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:59:50.817Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T14:59:50.849] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:59:50.850] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:59:50.834Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T14:59:57.687] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:59:57.688] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:59:57.682Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T14:59:57.897] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:59:57.898] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:59:57.700Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T14:59:58.065] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:59:58.065] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:59:58.019Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T14:59:58.075] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:59:58.076] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:59:58.070Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T14:59:58.081] [INFO] log_file - [get] session
+ {}
+[2018-10-18T14:59:58.082] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T07:59:58.076Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T15:02:33.907] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:02:33.910] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:02:33.899Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T15:02:37.678] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-18T15:02:38.239] [INFO] log_file - Found: RowDataPacket {
+  id: 4,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: '584324893@qq.com',
+  registration_date: 2018-10-12T08:29:27.000Z,
+  password: '123456' }
+[2018-10-18T15:02:44.250] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:02:44.251] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:02:44.201Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T15:02:44.268] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:02:44.269] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:02:44.252Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T15:02:44.285] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:02:44.286] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:02:44.270Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T15:02:53.193] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:02:53.194] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:02:53.188Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T15:02:53.390] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:02:53.391] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:02:53.205Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T15:02:53.579] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:02:53.583] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:02:53.554Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T15:02:53.587] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:02:53.587] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:02:53.585Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T15:04:21.973] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:04:21.975] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:04:21.965Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T15:04:22.200] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:04:22.201] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:04:21.985Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T15:04:22.859] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:04:22.859] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:04:22.818Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T15:04:22.863] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:04:22.863] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:04:22.818Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T15:04:25.322] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-18T15:04:25.452] [INFO] log_file - Found: RowDataPacket {
+  id: 4,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: '584324893@qq.com',
+  registration_date: 2018-10-12T08:29:27.000Z,
+  password: '123456' }
+[2018-10-18T15:04:32.083] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:04:32.083] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:04:31.355Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T15:04:32.086] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:04:32.087] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:04:31.355Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T15:04:32.091] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:04:32.093] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:04:31.355Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T15:04:32.104] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:04:32.104] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:04:32.096Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T15:06:40.357] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:06:40.359] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:06:40.344Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T15:06:40.735] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:06:40.735] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:06:40.373Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T15:06:41.352] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:06:41.352] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:06:41.192Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T15:06:41.363] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:06:41.364] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:06:41.355Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T15:06:41.398] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:06:41.398] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:06:41.364Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-18T15:06:46.342] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-18T15:06:46.529] [INFO] log_file - Found: RowDataPacket {
+  id: 4,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: '584324893@qq.com',
+  registration_date: 2018-10-12T08:29:27.000Z,
+  password: '123456' }
+[2018-10-18T15:06:53.497] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:06:53.498] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:06:51.850Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T15:06:53.501] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:06:53.501] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:06:51.850Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T15:06:53.516] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:06:53.516] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:06:53.503Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-18T15:06:53.544] [INFO] log_file - [get] session
+ {}
+[2018-10-18T15:06:53.545] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-18T08:06:53.517Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 4,
+  email: '584324893@qq.com' }
+[2018-10-24T19:20:49.718] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:20:49.720] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:20:49.711Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T19:20:50.254] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:20:50.254] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:20:50.175Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T19:20:50.532] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:20:50.533] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:20:50.504Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T19:20:50.538] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:20:50.539] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:20:50.533Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T19:20:54.632] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T19:20:54.779] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T19:21:02.547] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:21:02.547] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:21:01.381Z,
+     originalMaxAge: 3599998,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T19:21:02.561] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:21:02.562] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:21:02.547Z,
+     originalMaxAge: 3599998,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T19:21:02.577] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:21:02.578] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:21:02.562Z,
+     originalMaxAge: 3599998,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T19:21:10.044] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:21:10.050] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:21:02.737Z,
+     originalMaxAge: 3599998,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T19:21:10.270] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:21:10.277] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:21:10.233Z,
+     originalMaxAge: 3599998,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T19:21:10.292] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:21:10.293] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:21:10.233Z,
+     originalMaxAge: 3599998,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T19:51:39.926] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:51:39.929] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:51:39.511Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T19:51:40.730] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:51:40.730] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:51:40.608Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T19:51:41.219] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:51:41.221] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:51:41.199Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T19:51:41.226] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:51:41.226] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:51:41.223Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T19:51:45.562] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T19:51:45.720] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T19:51:55.273] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:51:55.274] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:51:54.053Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T19:51:55.276] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:51:55.277] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:51:54.053Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T19:51:55.287] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:51:55.288] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:51:55.279Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T19:52:33.473] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:52:33.476] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:51:56.706Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T19:52:33.489] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:52:33.492] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:52:33.482Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T19:52:33.515] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:52:33.517] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:52:33.493Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T19:59:21.833] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:59:21.840] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:59:21.218Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T19:59:26.676] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T19:59:26.963] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T19:59:32.151] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:59:32.152] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:59:31.972Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T19:59:32.158] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:59:32.158] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:59:31.972Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T19:59:32.161] [INFO] log_file - [get] session
+ {}
+[2018-10-24T19:59:32.161] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T12:59:31.972Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T20:28:45.896] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:28:45.900] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:28:45.563Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T20:28:51.154] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T20:28:51.485] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T20:28:56.660] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:28:56.661] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:28:56.614Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:28:56.673] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:28:56.673] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:28:56.662Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:28:56.689] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:28:56.690] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:28:56.675Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:28:58.833] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:28:58.834] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:28:58.796Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:28:58.855] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:28:58.856] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:28:58.835Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:28:58.873] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:28:58.874] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:28:58.857Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:02.382] [INFO] log_file - ERROR WHILING ADDING A COMMENT
+[2018-10-24T20:29:06.030] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:06.031] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:06.023Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:06.183] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:06.184] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:06.151Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:06.373] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:06.373] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:06.335Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:06.381] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:06.382] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:06.374Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:07.743] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:07.743] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:07.690Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:07.760] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:07.761] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:07.745Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:07.777] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:07.778] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:07.762Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:09.533] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:09.533] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:07.947Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:09.543] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:09.543] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:09.536Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:09.555] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:09.555] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:09.545Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:11.557] [INFO] log_file - ERROR WHILING ADDING A COMMENT
+[2018-10-24T20:29:37.025] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:37.027] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:11.557Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:37.029] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:37.029] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:11.557Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:37.032] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:37.033] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:11.557Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:38.789] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:38.789] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:37.180Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:38.820] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:38.821] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:38.791Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:38.823] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:38.824] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:38.791Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:40.899] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:40.900] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:38.994Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:40.906] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:40.906] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:40.901Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:40.920] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:40.920] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:40.908Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:42.312] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:42.313] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:41.091Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:42.322] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:42.323] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:42.314Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:42.333] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:29:42.334] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:29:42.324Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:29:44.768] [INFO] log_file - ERROR WHILING ADDING A COMMENT
+[2018-10-24T20:37:08.108] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:08.111] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:07.774Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T20:37:13.017] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T20:37:13.257] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T20:37:18.477] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:18.478] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:18.420Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:37:18.510] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:18.510] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:18.480Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:37:18.513] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:18.514] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:18.480Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:37:20.041] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:20.042] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:20.002Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:37:20.062] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:20.062] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:20.043Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:37:20.086] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:20.087] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:20.065Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:37:27.007] [INFO] log_file - ERROR WHILING ADDING A COMMENT
+[2018-10-24T20:37:29.356] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:29.356] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:29.348Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:37:29.508] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:29.509] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:29.478Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:37:29.696] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:29.697] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:29.661Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:37:29.704] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:29.704] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:29.698Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:37:30.680] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:30.681] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:30.621Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:37:30.699] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:30.700] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:30.682Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:37:30.718] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:30.719] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:30.701Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:37:31.842] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:31.842] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:30.886Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:37:31.862] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:31.863] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:31.843Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:37:31.880] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:37:31.880] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:37:31.864Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:45:48.353] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:45:48.356] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:45:48.038Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T20:45:53.444] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T20:45:53.793] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T20:45:58.676] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:45:58.677] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:45:58.627Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:45:58.692] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:45:58.693] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:45:58.679Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:45:58.710] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:45:58.711] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:45:58.694Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:46:00.444] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:46:00.446] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:46:00.391Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:46:00.454] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:46:00.455] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:46:00.448Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:46:00.477] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:46:00.478] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:46:00.459Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:46:03.062] [INFO] log_file - ERROR WHILING ADDING A COMMENT
+[2018-10-24T20:46:13.703] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:46:13.703] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:46:13.698Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:46:13.822] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:46:13.823] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:46:13.797Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:46:13.978] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:46:13.980] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:46:13.948Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:46:13.983] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:46:13.984] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:46:13.982Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:46:15.381] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:46:15.382] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:46:15.311Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:46:15.385] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:46:15.386] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:46:15.311Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:46:15.397] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:46:15.398] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:46:15.387Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:46:16.465] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:46:16.466] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:46:15.559Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:46:16.482] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:46:16.482] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:46:16.467Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:46:16.496] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:46:16.496] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:46:16.484Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:47:31.828] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:47:31.829] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:46:16.669Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:47:31.845] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:47:31.846] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:47:31.830Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:47:31.862] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:47:31.862] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:47:31.847Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:47:43.797] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:47:43.798] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:47:43.779Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:47:43.947] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:47:43.947] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:47:43.906Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:47:44.135] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:47:44.135] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:47:44.098Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:47:44.144] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:47:44.144] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:47:44.142Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:47:47.592] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:47:47.593] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:47:47.522Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:47:47.607] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:47:47.608] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:47:47.594Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:47:47.625] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:47:47.626] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:47:47.609Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:47:50.679] [INFO] log_file - ERROR WHILING ADDING A COMMENT
+[2018-10-24T20:49:42.770] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:49:42.773] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:49:42.433Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T20:49:47.559] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T20:49:47.765] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T20:49:55.251] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:49:55.252] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:49:55.201Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:49:55.262] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:49:55.262] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:49:55.253Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:49:55.273] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:49:55.274] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:49:55.263Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:49:58.018] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:49:58.019] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:49:57.957Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:49:58.034] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:49:58.034] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:49:58.020Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:49:58.053] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:49:58.054] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:49:58.036Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:50:01.179] [INFO] log_file - ERROR WHILING ADDING A COMMENT
+[2018-10-24T20:50:07.628] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:50:07.629] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:50:01.178Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:50:07.643] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:50:07.644] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:50:07.630Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:50:07.663] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:50:07.663] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:50:07.645Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:50:09.096] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:50:09.097] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:50:07.842Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:50:09.115] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:50:09.116] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:50:09.098Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:50:09.129] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:50:09.129] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:50:09.117Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:50:16.058] [INFO] log_file - ERROR WHILING ADDING A COMMENT
+[2018-10-24T20:51:54.650] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:51:54.652] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:51:54.295Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T20:52:01.681] [INFO] log_file - [post] login
+ { nickname: '', password: '123456' }
+[2018-10-24T20:52:06.262] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T20:52:06.413] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T20:52:11.430] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:52:11.431] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:52:11.380Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:52:11.444] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:52:11.445] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:52:11.432Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:52:11.460] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:52:11.461] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:52:11.446Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:52:13.193] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:52:13.193] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:52:13.148Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:52:13.198] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:52:13.199] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:52:13.195Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:52:13.222] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:52:13.222] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:52:13.200Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:52:15.394] [INFO] log_file - ERROR WHILING ADDING A COMMENT
+[2018-10-24T20:53:11.416] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:53:11.418] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:53:11.230Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T20:53:16.274] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T20:53:16.510] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T20:53:20.740] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:53:20.740] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:53:20.594Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:53:20.743] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:53:20.743] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:53:20.594Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:53:20.745] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:53:20.746] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:53:20.594Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:53:21.938] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:53:21.939] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:53:21.896Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:53:21.956] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:53:21.957] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:53:21.941Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:53:21.976] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:53:21.977] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:53:21.958Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:53:24.209] [INFO] log_file - ERROR WHILING ADDING A COMMENT
+[2018-10-24T20:56:16.493] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:56:16.496] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:56:16.189Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T20:56:21.522] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T20:56:21.863] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T20:56:26.120] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:56:26.121] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:56:26.074Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:56:26.134] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:56:26.135] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:56:26.122Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:56:26.151] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:56:26.152] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:56:26.136Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:56:27.477] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:56:27.479] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:56:27.429Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:56:27.493] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:56:27.494] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:56:27.480Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:56:27.510] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:56:27.511] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:56:27.496Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:56:29.707] [INFO] log_file - ERROR WHILING ADDING A COMMENT
+[2018-10-24T20:59:49.940] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:59:49.942] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:59:49.624Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T20:59:54.442] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T20:59:54.671] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T20:59:59.350] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:59:59.350] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:59:59.299Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:59:59.363] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:59:59.364] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:59:59.351Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T20:59:59.383] [INFO] log_file - [get] session
+ {}
+[2018-10-24T20:59:59.383] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T13:59:59.364Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:00:47.849] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:00:47.850] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:00:47.777Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:00:47.868] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:00:47.868] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:00:47.850Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:00:47.885] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:00:47.885] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:00:47.868Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:00:50.806] [INFO] log_file - ERROR WHILING ADDING A COMMENT
+[2018-10-24T21:03:28.139] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:03:28.143] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:03:27.814Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T21:03:33.963] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T21:03:34.163] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T21:03:45.588] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:03:45.588] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:03:45.521Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:03:45.601] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:03:45.602] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:03:45.591Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:03:45.613] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:03:45.614] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:03:45.603Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:03:47.611] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:03:47.612] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:03:47.549Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:03:47.632] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:03:47.632] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:03:47.613Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:03:47.650] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:03:47.650] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:03:47.633Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:21.961] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:21.965] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:21.652Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T21:07:26.466] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T21:07:26.833] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T21:07:31.964] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:31.966] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:31.911Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:31.981] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:31.982] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:31.967Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:31.999] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:32.000] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:31.983Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:34.382] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:34.383] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:34.315Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:34.393] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:34.400] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:34.385Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:34.406] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:34.407] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:34.403Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:48.219] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:48.220] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:48.207Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:48.405] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:48.405] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:48.361Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:48.875] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:48.876] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:48.672Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:48.916] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:48.918] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:48.877Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:50.068] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:50.069] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:49.986Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:50.088] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:50.089] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:50.070Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:50.109] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:50.109] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:50.090Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:51.741] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:51.742] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:50.381Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:51.761] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:51.761] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:51.743Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:07:51.787] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:07:51.787] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:07:51.764Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:20.265] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:20.268] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:19.896Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T21:13:27.252] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T21:13:27.467] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T21:13:36.467] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:36.468] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:36.414Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:36.485] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:36.485] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:36.470Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:36.496] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:36.497] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:36.487Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:39.998] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:39.998] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:39.944Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:40.015] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:40.015] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:40.000Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:40.025] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:40.026] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:40.016Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:49.845] [INFO] log_file - ERROR WHILING ADDING A COMMENT
+[2018-10-24T21:13:54.807] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:54.808] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:54.796Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:55.013] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:55.015] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:54.987Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:55.323] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:55.324] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:55.258Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:55.328] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:55.330] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:55.326Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:56.413] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:56.413] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:56.339Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:56.431] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:56.432] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:56.415Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:56.452] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:56.453] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:56.433Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:58.595] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:58.596] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:56.687Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:58.611] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:58.612] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:58.597Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:13:58.632] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:13:58.633] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:13:58.613Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:14:03.991] [INFO] log_file - ERROR WHILING ADDING A COMMENT
+[2018-10-24T21:17:57.128] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:17:57.131] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:17:56.764Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T21:18:02.574] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T21:18:02.923] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T21:18:09.904] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:18:09.904] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:18:09.847Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:18:09.921] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:18:09.922] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:18:09.906Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:18:09.939] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:18:09.939] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:18:09.923Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:27:37.869] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:27:37.872] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:27:37.561Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T21:27:43.714] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T21:27:43.932] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T21:27:48.856] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:27:48.863] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:27:48.800Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:27:48.878] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:27:48.879] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:27:48.866Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:27:48.896] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:27:48.897] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:27:48.885Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:27:51.164] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:27:51.165] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:27:51.112Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:27:51.185] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:27:51.186] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:27:51.166Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:27:51.205] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:27:51.205] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:27:51.188Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:27:55.380] [INFO] log_file - ERROR WHILING ADDING A COMMENT
+[2018-10-24T21:29:54.474] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:29:54.475] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:27:55.380Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:29:54.493] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:29:54.494] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:29:54.476Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:29:54.509] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:29:54.510] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:29:54.496Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:00.795] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:00.798] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:00.420Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T21:35:06.324] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T21:35:06.543] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T21:35:12.056] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:12.056] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:11.997Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:12.070] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:12.071] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:12.058Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:12.096] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:12.097] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:12.072Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:15.332] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:15.333] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:15.281Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:15.347] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:15.347] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:15.335Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:15.370] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:15.371] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:15.349Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:30.880] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:30.881] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:30.870Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:31.103] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:31.109] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:31.090Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:31.383] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:31.383] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:31.329Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:31.386] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:31.389] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:31.329Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:32.189] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:32.190] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:32.149Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:32.213] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:32.214] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:32.192Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:32.231] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:32.231] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:32.215Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:33.711] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:33.713] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:32.484Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:33.730] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:33.731] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:33.714Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:35:33.753] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:35:33.755] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:35:33.732Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:38:16.102] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:38:16.105] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:38:15.698Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T21:38:22.519] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T21:38:22.731] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T21:38:28.725] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:38:28.726] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:38:28.654Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:38:28.733] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:38:28.734] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:38:28.728Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:38:28.752] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:38:28.752] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:38:28.735Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:38:30.206] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:38:30.207] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:38:30.113Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:38:30.209] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:38:30.209] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:38:30.113Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:38:30.239] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:38:30.240] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:38:30.212Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:41:55.125] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:41:55.128] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:41:54.740Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T21:42:00.657] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T21:42:01.001] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T21:42:07.177] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:42:07.178] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:42:07.107Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:42:07.198] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:42:07.199] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:42:07.179Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:42:07.220] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:42:07.220] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:42:07.200Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:42:08.711] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:42:08.712] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:42:08.632Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:42:08.718] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:42:08.719] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:42:08.632Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:42:08.727] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:42:08.728] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:42:08.721Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:44:14.836] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:44:14.838] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:44:14.479Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T21:44:20.527] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T21:44:20.759] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T21:44:26.814] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:44:26.815] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:44:26.745Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:44:26.829] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:44:26.830] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:44:26.817Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:44:26.848] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:44:26.849] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:44:26.831Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:44:28.938] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:44:28.938] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:44:28.886Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:44:28.950] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:44:28.950] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:44:28.940Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:44:28.965] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:44:28.966] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:44:28.951Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:47:43.618] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:47:43.621] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:47:43.607Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T21:47:44.359] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:47:44.360] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:47:44.263Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T21:47:44.545] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:47:44.546] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:47:44.527Z,
+     originalMaxAge: 3599998,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T21:47:44.557] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:47:44.558] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:47:44.545Z,
+     originalMaxAge: 3599998,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.' }
+[2018-10-24T21:47:51.312] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-24T21:47:51.437] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-24T21:47:58.961] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:47:58.961] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:47:58.908Z,
+     originalMaxAge: 3599998,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:47:58.976] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:47:58.977] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:47:58.960Z,
+     originalMaxAge: 3599998,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:47:58.988] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:47:58.989] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:47:58.976Z,
+     originalMaxAge: 3599998,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:48:01.697] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:48:01.698] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:47:59.219Z,
+     originalMaxAge: 3599998,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:48:01.720] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:48:01.720] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:48:01.697Z,
+     originalMaxAge: 3599998,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-24T21:48:01.738] [INFO] log_file - [get] session
+ {}
+[2018-10-24T21:48:01.739] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-24T14:48:01.720Z,
+     originalMaxAge: 3599998,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  details: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }

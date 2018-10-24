@@ -37,6 +37,13 @@ var supported_resources = {
 		disabled : false,
 		defaultChosen : false,
 	},
+	posts : {
+		name:'posts',
+		title:'主题贴',
+		component: ()=>import('../components/resources/posts.vue'),
+		disabled : false,
+		defaultChosen : false,
+	},
 	train_area : {
 		name:'train_area',
 		title:'练习区',

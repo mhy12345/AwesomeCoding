@@ -65,6 +65,15 @@ var sqls = {
         "`message` VARCHAR(200), " + //发言内容
         "`registration_date` TIMESTAMP, "+
         "PRIMARY KEY (`id`) "+
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
+		
+	'create_posts' : "CREATE TABLE IF NOT EXISTS `posts`(" +
+        "`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, "+ //消息id
+        "`userid` INT UNSIGNED NOT NULL, "+ //发言者id
+        "`forumid` INT UNSIGNED NOT NULL, "+ //属于哪个主题贴
+        "`message` VARCHAR(200), " + //发言内容
+        "`registration_date` TIMESTAMP, "+
+        "PRIMARY KEY (`id`) "+
         ")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 	'create_database' : 'CREATE DATABASE ' + mysql_config.database,
 	'use_database' : 'USE ' + mysql_config.database,
@@ -89,7 +98,7 @@ function mysql_initializer() { //倘若数据库不存在，则重新新建数�
 				});
 				return ;
 			}
-			var tasks = ['create_database', 'use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list'];
+			var tasks = ['create_database', 'use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list','create_posts',];
 			async.eachSeries(tasks, function (item, next) {
 				db_debugger(item + " ==> " + sqls[item]);
 				conn.query(sqls[item], function (err, res) {
