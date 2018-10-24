@@ -30,6 +30,7 @@ var sqls = {
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 
+
 	'create_file_table' : "CREATE TABLE IF NOT EXISTS `files`(" + //文件表
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`user_id` INT UNSIGNED NOT NULL, " +
@@ -95,7 +96,7 @@ var sqls = {
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
 	'create_database': 'CREATE DATABASE ' + mysql_config.database,
 	'use_database': 'USE ' + mysql_config.database,
-}
+};
 
 function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新建数据库
 	return new Promise(function(resolve,reject) {

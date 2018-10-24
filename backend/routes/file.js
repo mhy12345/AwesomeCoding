@@ -108,4 +108,40 @@ router.post('/fetch', function (req, res, next) {
 });
 
 
+
+router.post('/add', function(req, res, next) {
+	console.log(req.session);
+
+	/*    let user_id = req.session.user_id;
+		let file_id = req.body.file_id;
+		let class_id = req.
+		if (user_id === undefined) {
+			var response = {
+				message:'You must login first.',
+			};
+			res.end( JSON.stringify( response ) );
+		}
+		else {
+			getConnection().
+			then(function(conn) {
+				let sql = 'select * from files where user_id = ' + user_id;
+				return doSqlQuery(conn, sql);
+			}).
+			then(function(packed) {
+				let {conn, sql_res} = packed;
+				conn.end();
+				console.log(sql_res);
+				res.send(JSON.stringify(sql_res, null, 3));
+			}).
+			catch(function(sql_res) {
+				res.send(JSON.stringify(sql_res, null, 3));
+			})
+		}*/
+});
+
+router.post('/delete', function(req, res, next) {
+	//just remained
+	console.log(req.session);
+});
+
 module.exports = router;
