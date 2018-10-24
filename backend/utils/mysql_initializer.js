@@ -30,6 +30,13 @@ var sqls = {
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 
+	'create_class_file_table' : "CREATE TABLE IF NOT EXISTS `classfiles`(" +
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
+		"`class_id` INT UNSIGNED NOT NULL, " +
+		"`file_id` INT UNSIGNED NOT NULL, " +
+		"`filename` VARCHAR(100) NOT NULL, " +
+		"PRIMARY KEY (`id`) " +
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 
 	'create_file_table' : "CREATE TABLE IF NOT EXISTS `files`(" + //文件表
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
@@ -117,7 +124,9 @@ function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新�
 				});
 				return;
 			}
-			var tasks = ['use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list', 'create_content_table', 'create_problem_table','create_paper_table'];
+			var tasks = ['use_database', 'create_user_table', 'create_class_table', 'create_class_user_table',
+						"create_class_resources", 'create_forums', 'create_file_table','create_banned_list',
+						'create_content_table', 'create_problem_table','create_paper_table', 'create_class_file_table'];
 			if (db_cfg.no_create !== true) {
 				tasks = ['create_database'].concat(tasks);
 			}

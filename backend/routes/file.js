@@ -108,40 +108,70 @@ router.post('/fetch', function (req, res, next) {
 });
 
 
-
-router.post('/add', function(req, res, next) {
-	console.log(req.session);
-
-	/*    let user_id = req.session.user_id;
-		let file_id = req.body.file_id;
-		let class_id = req.
-		if (user_id === undefined) {
-			var response = {
-				message:'You must login first.',
-			};
-			res.end( JSON.stringify( response ) );
-		}
-		else {
-			getConnection().
+router.post('/fetch_coursefiles', function (req, res, next) {
+	let classid = req.body.classid;
+	let userid = req.body.userid;
+	if (userid === undefined) {
+		var response = {
+			message: 'You must login first.',
+			filename: '',
+			status: 'Failed'
+		};
+		res.end(JSON.stringify(response));
+	}
+	else {
+		getConnection().
 			then(function(conn) {
-				let sql = 'select * from files where user_id = ' + user_id;
-				return doSqlQuery(conn, sql);
+				let sql = 'select * from classfiles where class_id = ' + classid;
 			}).
-			then(function(packed) {
+			then(function (packed) {
 				let {conn, sql_res} = packed;
 				conn.end();
-				console.log(sql_res);
+				logger.info(sql_res);
 				res.send(JSON.stringify(sql_res, null, 3));
 			}).
 			catch(function(sql_res) {
 				res.send(JSON.stringify(sql_res, null, 3));
 			})
-		}*/
+	}
 });
 
+
+
+router.post('/add', function(req, res, next) {
+	let userid = req.body.userid;
+	let classid = req.body.classid;
+	let fileid = req.body.fileid;
+	if (userid === undefined) {
+		var response = {
+			message: 'You must login first.',
+			filename: '',
+			status: 'Failed'
+		};
+		res.end(JSON.stringify(response));
+	}
+	else {
+		getConnection().
+			then(function(conn) {
+				let sql = 'insert into classfiles (`class_id`,`file_id`) VALUES ("' + classid + '","' + fileid + '")';
+				return doSqlQuery(conn, sql);
+			}).
+			then(function(packed) {
+				let {conn, sql_res} = packed;
+				conn.end();
+				logger.info(sql_res);
+				res.send(JSON.stringify(sql_res, null, 3));
+			}).
+			catch(function(sql_res) {
+				res.send(JSON.stringify(sql_res, null, 3));
+			})
+	}
+});
+
+
+
 router.post('/delete', function(req, res, next) {
-	//just remained
-	console.log(req.session);
+	//just to be added;
 });
 
 module.exports = router;
