@@ -2,8 +2,9 @@
 	<el-container>
 		<el-main>
 			<el-row v-for="record in chatrecords">
-				<router-link :to="{path:'posts',query:{forumid : record.forumid}}">{{record.message}}</router-link>
-				<router-link :to="{path:'posts',query:{forumid : record.forumid}}">{{record.forumid}}</router-link>
+				<el-col :span='4'> {{record.userid}} </el-col>
+                <el-col :span='20'> {{record.message}} </el-col>
+                <el-col :span='4'> {{record.registration_date}} </el-col>
 			</el-row>
 			<el-form>
 				<el-form-item label="Input ">
@@ -25,21 +26,25 @@ export default {
 	data() {
 		return {
 			chatrecords : [],
-			class_id : "undefined",
+            forumid : "undefined",
+            classid : "undefined",
 			inputData : {
 				userId : undefined,
-				classId : undefined,
-				message : undefined,
+				forumId : undefined,
+                message : undefined,
+                classId : undefined,
 			}
 		}
 	},
 	mounted : function() {
-		this.class_id = this.$route.params.class_id;
-		this.inputData.classId = this.class_id;
+        this.forumid = this.$route.query.forumid;
+        this.inputData.forumId = this.forumid;
+        this.classid = this.$route.params.classid;
+		this.inputData.classId = this.classid;
 		this.$http.get('/api/user/session',{})
 		.then(function(res) {
 			this.inputData.userId = res.body.user_id;
-			this.$http.post('/api/chat/info/query',{class_id:this.class_id})
+			this.$http.post('/api/chat/info/query/posts',{forumid:this.forumid})
 			.then(function(res) {
 			if (res.body.status === 'NOT FOUND.') {
                 this.$message("Room " + this.title + " not found!");
@@ -53,15 +58,17 @@ export default {
 	methods : {
 		onSubmit() {
 			this.$http
-				.post('/api/chat/add_comments',{
+				.post('/api/chat/add_comments/posts',{
 					userid : this.inputData.userId,
-					classid : this.inputData.classId,
-					message : this.inputData.message,
+					forumid : this.forumid,
+                    message : this.inputData.message,
+                    classid : this.inputData.classId,
 				})
 				.then(function(res){
 					console.log(res);
 					if(res.body.status === 'SUCCESS.') {
-						this.$router.go(0);
+						console.log(res.body.results);
+						this.chatrecords.push(res.body.results);
 					}
 				});
 		},

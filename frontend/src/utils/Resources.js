@@ -88,7 +88,19 @@ var supported_resources = {
 	train_area_teacher : {
 		name:'train_area_teacher',
 		title:'练习区(教师)',
-		component: ()=>import('../components/resources/PracticeAreaTeacher.vue'),
+		component: ()=>import('../components/resources/PracticeAreaTeacher.vue')
+	},
+	posts : {
+		name:'posts',
+		title:'主题贴',
+		component: ()=>import('../components/resources/posts.vue'),
+		disabled : false,
+		defaultChosen : false,
+	},
+	train_area : {
+		name:'train_area',
+		title:'练习区',
+		component: ()=>import('../components/resources/NotComplete.vue'),
 		disabled : false,
 		defaultChosen : false,
 		access: {
