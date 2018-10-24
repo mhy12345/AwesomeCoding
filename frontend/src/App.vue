@@ -147,7 +147,7 @@ export default {
 			title: "AwesomeCoding",
 			logo_url: require('./assets/images/icons/logo.png'),
 
-			collapseQ: false,
+			collapseQ: true,
 			active_index : '/',
 			loginQ: undefined,		 // 是否登录，初始为 undefined 这样右上角既不显示'登录'也不显示头像
 			default_user: {
