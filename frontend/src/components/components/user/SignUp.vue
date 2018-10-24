@@ -90,6 +90,8 @@
     /* eslint-disable camelcase,no-undef,no-unused-vars */
 
     import {registerSQL} from "../../../utils/DoSQL";
+    import axios from 'axios'
+    var root_url = require('../../../../config/http_root_url');
 
     export default {
         name: "SignUp",
@@ -156,23 +158,21 @@
                    建议参考：https://github.com/ElemeFE/element/issues/3871
                  */
                 this.$refs.verify_input.focus();
-                this.verify.code_generated = '';
-                let url = "https://open.ucpaas.com/ol/sms/sendsms";
-                for (let i = 0; i < 6; i++) {
-                    this.verify.code_generated += Math.ceil(Math.random() * 9);
-                }
-                this.$http.post(url, {
-                    "sid": "55d17519129b8973ea369b5ba8f14f4d", // const
-                    "token": "43eee5a8cff8d6fd6f54ad612819b466", // const
-                    "appid": "de5779c82e844993b4f28470cf545d77", // const
-                    "templateid": "388909", // const
-                    "param": this.verify.code_generated,
-                    "mobile": this.inputs.phone
-                }).
-                     then(function (res) {
-                     });
+
+                let nowpath = root_url + '/api/user/verification';
+                console.log(nowpath);
+                axios.post(nowpath, {
+                    number: this.inputs.phone
+                })
+                    .then((resp) => {
+                        console.log(resp);
+                        this.verify.code_generated = parseInt(resp.data.code_generated);
+                        console.log(this.verify.code_generated);
+                    });
             },
             handleSignUp: function () {
+                console.log(this.inputs.verify_code);
+                console.log(this.verify.code_generated);
                 if (this.inputs.nickname === '') {
                     this.$message("用户名不能为空。");
                     return;
@@ -203,24 +203,24 @@
                 }
                 this.loadingQ = true; // 加载等待圈
                 registerSQL(this, this.inputs).
-                    then((resp) => {
-                        console.log(resp);
-                        this.loadingQ = false;
-                        this.$message.success("注册成功！");
-                        this.$emit('logined', this.inputs); // 通知父级路由已注册
-                        this.$router.push('/user/profile');
-                    }).
-                    catch((resp) => {
-                        console.log(resp);
-                        this.loadingQ = false;
-                        if (resp.details === 'DUPLICATION_OF_REGISTRATION.') {
-                            this.$message.error("注册失败，用户名已存在！");
-                        } else if (resp.details === 'ALREADY_LOGIN.') {
-                            this.$message.error("注册失败，用户已登录！");
-                        } else {
-                            this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
-                        }
-                    });
+                then((resp) => {
+                    console.log(resp);
+                    this.loadingQ = false;
+                    this.$message.success("注册成功！");
+                    this.$emit('logined', this.inputs); // 通知父级路由已注册
+                    this.$router.push('/user/profile');
+                }).
+                catch((resp) => {
+                    console.log(resp);
+                    this.loadingQ = false;
+                    if (resp.details === 'DUPLICATION_OF_REGISTRATION.') {
+                        this.$message.error("注册失败，用户名已存在！");
+                    } else if (resp.details === 'ALREADY_LOGIN.') {
+                        this.$message.error("注册失败，用户已登录！");
+                    } else {
+                        this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
+                    }
+                });
             },
             handleFocusingOnVerify() {
                 this.inputs.verify_code = undefined;
