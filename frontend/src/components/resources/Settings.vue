@@ -51,15 +51,16 @@
         },
         mounted: function () {
             this.class_id = this.$route.params.class_id;
-            this.$http.post('/api/class/info/query', {class_id: this.class_id}).then(function (res) {
-                if (res.body.status === 'NOT FOUND.') {
-                    this.$message("Room " + this.class_id + " not found!");
-                } else {
-                    this.CourseData = res.body.info;
-                    this.resources = res.body.resources;
-                    this.loading = false;
-                }
-            });
+            this.$http.post('/api/class/info/query', {class_id: this.class_id}).
+                 then(function (res) {
+                     if (res.body.status === 'NOT FOUND.') {
+                         this.$message("Room " + this.class_id + " not found!");
+                     } else {
+                         this.CourseData = res.body.info;
+                         this.resources = res.body.resources;
+                         this.loading = false;
+                     }
+                 });
         },
         methods: {
             onSubmit() {
@@ -68,11 +69,12 @@
                     resources: this.resources,
                     info: this.CourseData,
                     class_id: this.class_id
-                }).then(function (res) {
-                    console.log(res.bodyText);
-                    this.$message("课程信息已更新");
-                    location.reload();
-                });
+                }).
+                     then(function (res) {
+                         console.log(res.bodyText);
+                         this.$message("课程信息已更新");
+                         location.reload();
+                     });
             }
         }
     };
