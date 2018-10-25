@@ -93,7 +93,6 @@ var sqls = {
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
 
-<<<<<<< HEAD
     'create_forums' : "CREATE TABLE IF NOT EXISTS `forums`(" +
         "`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, "+ //消息id
         "`userid` INT UNSIGNED NOT NULL, "+ //发言者id
@@ -114,19 +113,6 @@ var sqls = {
 	'create_database' : 'CREATE DATABASE ' + mysql_config.database,
 	'use_database' : 'USE ' + mysql_config.database,
 }
-=======
-	'create_forums': "CREATE TABLE IF NOT EXISTS `forums`(" +
-		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " + //消息id
-		"`userid` INT UNSIGNED NOT NULL, " + //发言者id
-		"`classid` INT UNSIGNED NOT NULL, " + //讨论区位置id
-		"`message` VARCHAR(200), " + //发言内容
-		"`registration_date` TIMESTAMP, " +
-		"PRIMARY KEY (`id`) " +
-		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
-	'create_database': 'CREATE DATABASE ' + mysql_config.database,
-	'use_database': 'USE ' + mysql_config.database,
-};
->>>>>>> edf3369aebf350dafb2566e370d5aaa66597f474
 
 function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新建数据库
 	return new Promise(function(resolve,reject) {
