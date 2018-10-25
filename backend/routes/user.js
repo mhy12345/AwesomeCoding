@@ -10,7 +10,7 @@ var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file');
 
-var fixed_items = ['id', 'nickname', 'role', 'registration_date'];	// 不允许用户修改的表项，后期加入email?
+var fixed_items = ['id', 'nickname', 'role', 'registration_date'];	// 不允许用户修改的表项，to be added, 加入邮箱
 
 router.get('/session', function (req, res, next) {	// 判断用户是否登录
 	logger.info('[get] session\n', req.body);
