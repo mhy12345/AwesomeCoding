@@ -59,7 +59,7 @@ router.post('/upload', upload.any(), function (req, res, next) {
 
 
 //https://blog.csdn.net/qq_36228442/article/details/81709272
-router.use('/download', function (req, res, next) {
+router.post('/test', function (req, res, next) {
 	var filename = req.body.filename;
 	var file = './uploads/' + filename;
 	res.writeHead(200, {
@@ -75,7 +75,7 @@ router.use('/download', function (req, res, next) {
 	})
 });
 
-router.use('/test', function (req, res, next) {
+router.post('/download', function (req, res, next) {
 	var path = './uploads/' + req.body.filename;
 	res.download(path);
 });
