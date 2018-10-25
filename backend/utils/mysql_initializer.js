@@ -125,11 +125,11 @@ function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新�
 				});
 				return;
 			}
-			var tasks = ['use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list', 'create_content_table', 'create_problem_table','create_paper_table'];
+			var tasks = ['use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list', 'create_content_table', 'create_problem_table','create_paper_table','create_posts'];
 			if (db_cfg.no_create !== true) {
 				tasks = ['create_database'].concat(tasks);
 			}
-			var tasks = ['create_database', 'use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list','create_posts',];
+			//var tasks = ['create_database', 'use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list','create_posts',];
 			async.eachSeries(tasks, function (item, next) {
 				logger.info(item + " ==> " + sqls[item]);
 				conn.query(sqls[item], function (err, res) {

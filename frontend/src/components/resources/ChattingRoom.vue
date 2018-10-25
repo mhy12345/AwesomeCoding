@@ -2,15 +2,14 @@
 	<el-container>
 		<el-main>
 			<el-row v-for="record in chatrecords">
-				<router-link :to="{path:'posts',query:{forumid : record.forumid}}">{{record.message}}</router-link>
-				<router-link :to="{path:'posts',query:{forumid : record.forumid}}">{{record.forumid}}</router-link>
+				<router-link :to="{path:'posts',query:{forumid : record.forumid, theme : record.message, userid : record.userid}}">{{record.message}}</router-link>
 			</el-row>
 			<el-form>
 				<el-form-item label="Input ">
 					<el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="inputData.message"> </el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" @click="onSubmit">submit</el-button>
+					<el-button type="primary" @click="onSubmit">发贴</el-button>
 				</el-form-item>
 				<el-form-item>
 					<el-button type="primary" @click="onClear">clear</el-button>
