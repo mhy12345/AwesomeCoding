@@ -1,0 +1,388 @@
+[2018-10-25T11:11:16.272] [INFO] log_file - [get] session
+ {}
+[2018-10-25T11:11:16.275] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T04:11:16.257Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-10-25T11:11:23.572] [INFO] log_file - [post] login
+ { nickname: 'teacher', password: '123456' }
+[2018-10-25T11:11:24.099] [INFO] log_file - SELECT * FROM users WHERE nickname = 'teacher'[FILLED.]
+[2018-10-25T11:11:24.099] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    email: '123@123',
+    nickname: 'teacher',
+    realname: '123',
+    role: 1,
+    motto: '123',
+    registration_date: 2018-10-21T13:51:02.000Z,
+    password: '123456' } ]
+[2018-10-25T11:11:24.100] [INFO] log_file - Found: RowDataPacket {
+  id: 1,
+  email: '123@123',
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  motto: '123',
+  registration_date: 2018-10-21T13:51:02.000Z,
+  password: '123456' }
+[2018-10-25T11:11:28.857] [INFO] log_file - select * from files where user_id = 1[FILLED.]
+[2018-10-25T11:11:28.858] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    user_id: 1,
+    filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+    type: null },
+  RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+  RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+  RowDataPacket { id: 5, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T11:11:28.858] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 1,
+       user_id: 1,
+       filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+       type: null },
+     RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+     RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+     RowDataPacket { id: 5, user_id: 1, filename: 'lecture11.pdf', type: null } ],
+  details: undefined }
+[2018-10-25T11:12:13.280] [INFO] log_file - [get] session
+ {}
+[2018-10-25T11:12:13.282] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T04:12:13.269Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-10-25T11:12:21.569] [INFO] log_file - [post] login
+ { nickname: 'teacher', password: '123456' }
+[2018-10-25T11:12:22.032] [INFO] log_file - SELECT * FROM users WHERE nickname = 'teacher'[FILLED.]
+[2018-10-25T11:12:22.032] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    email: '123@123',
+    nickname: 'teacher',
+    realname: '123',
+    role: 1,
+    motto: '123',
+    registration_date: 2018-10-21T13:51:02.000Z,
+    password: '123456' } ]
+[2018-10-25T11:12:22.033] [INFO] log_file - Found: RowDataPacket {
+  id: 1,
+  email: '123@123',
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  motto: '123',
+  registration_date: 2018-10-21T13:51:02.000Z,
+  password: '123456' }
+[2018-10-25T11:12:25.372] [INFO] log_file - select * from files where user_id = 1[FILLED.]
+[2018-10-25T11:12:25.373] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    user_id: 1,
+    filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+    type: null },
+  RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+  RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+  RowDataPacket { id: 5, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T11:12:25.374] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 1,
+       user_id: 1,
+       filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+       type: null },
+     RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+     RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+     RowDataPacket { id: 5, user_id: 1, filename: 'lecture11.pdf', type: null } ],
+  details: undefined }
+[2018-10-25T11:13:18.653] [INFO] log_file - [get] session
+ {}
+[2018-10-25T11:13:18.656] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T04:13:18.643Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-10-25T11:13:28.163] [INFO] log_file - [post] login
+ { nickname: 'teacher', password: '123456' }
+[2018-10-25T11:13:28.551] [INFO] log_file - SELECT * FROM users WHERE nickname = 'teacher'[FILLED.]
+[2018-10-25T11:13:28.551] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    email: '123@123',
+    nickname: 'teacher',
+    realname: '123',
+    role: 1,
+    motto: '123',
+    registration_date: 2018-10-21T13:51:02.000Z,
+    password: '123456' } ]
+[2018-10-25T11:13:28.552] [INFO] log_file - Found: RowDataPacket {
+  id: 1,
+  email: '123@123',
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  motto: '123',
+  registration_date: 2018-10-21T13:51:02.000Z,
+  password: '123456' }
+[2018-10-25T11:13:30.729] [INFO] log_file - select * from files where user_id = 1[FILLED.]
+[2018-10-25T11:13:30.729] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    user_id: 1,
+    filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+    type: null },
+  RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+  RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+  RowDataPacket { id: 5, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T11:13:30.730] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 1,
+       user_id: 1,
+       filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+       type: null },
+     RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+     RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+     RowDataPacket { id: 5, user_id: 1, filename: 'lecture11.pdf', type: null } ],
+  details: undefined }
+[2018-10-25T11:14:37.723] [INFO] log_file - insert into files (`user_id`,`filename`) VALUES ("1","lecture11.pdf")[FILLED.]
+[2018-10-25T11:14:37.723] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 7,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T11:14:41.327] [INFO] log_file - select * from files where user_id = 1[FILLED.]
+[2018-10-25T11:14:41.327] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    user_id: 1,
+    filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+    type: null },
+  RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+  RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+  RowDataPacket { id: 5, user_id: 1, filename: 'lecture11.pdf', type: null },
+  RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T11:14:41.328] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 1,
+       user_id: 1,
+       filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+       type: null },
+     RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+     RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+     RowDataPacket { id: 5, user_id: 1, filename: 'lecture11.pdf', type: null },
+     RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null } ],
+  details: undefined }
+[2018-10-25T11:14:50.056] [INFO] log_file - SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'ac_database' AND TABLE_NAME = 'files'[FILLED.]
+[2018-10-25T11:14:50.057] [INFO] log_file - [ RowDataPacket { COLUMN_NAME: 'id' },
+  RowDataPacket { COLUMN_NAME: 'user_id' },
+  RowDataPacket { COLUMN_NAME: 'filename' },
+  RowDataPacket { COLUMN_NAME: 'type' } ]
+[2018-10-25T11:14:50.391] [INFO] log_file - SELECT * FROM `files`[FILLED.]
+[2018-10-25T11:14:50.391] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    user_id: 1,
+    filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+    type: null },
+  RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+  RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+  RowDataPacket { id: 5, user_id: 1, filename: 'lecture11.pdf', type: null },
+  RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T11:14:53.761] [INFO] log_file - DELETE FROM files WHERE id = 5[FILLED.]
+[2018-10-25T11:14:53.761] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T11:14:54.117] [INFO] log_file - SELECT * FROM `files`[FILLED.]
+[2018-10-25T11:14:54.118] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    user_id: 1,
+    filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+    type: null },
+  RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+  RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+  RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T11:15:40.829] [INFO] log_file - select * from files where user_id = 1[FILLED.]
+[2018-10-25T11:15:40.829] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    user_id: 1,
+    filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+    type: null },
+  RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+  RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+  RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T11:15:40.829] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 1,
+       user_id: 1,
+       filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+       type: null },
+     RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+     RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+     RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null } ],
+  details: undefined }
+[2018-10-25T11:16:37.878] [INFO] log_file - select * from files where user_id = 1[FILLED.]
+[2018-10-25T11:16:37.879] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    user_id: 1,
+    filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+    type: null },
+  RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+  RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+  RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T11:16:37.881] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 1,
+       user_id: 1,
+       filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+       type: null },
+     RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+     RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+     RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null } ],
+  details: undefined }
+[2018-10-25T11:16:47.941] [INFO] log_file - select * from files where user_id = 1[FILLED.]
+[2018-10-25T11:16:47.941] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    user_id: 1,
+    filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+    type: null },
+  RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+  RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+  RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T11:16:47.942] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 1,
+       user_id: 1,
+       filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+       type: null },
+     RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+     RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+     RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null } ],
+  details: undefined }
+[2018-10-25T11:18:25.394] [INFO] log_file - insert into files (`user_id`,`filename`) VALUES ("1","lecture11.pdf")[FILLED.]
+[2018-10-25T11:18:25.394] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 8,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:09:14.527] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:09:14.527] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:09:14.514Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-10-25T13:09:20.183] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:09:20.183] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:09:20.169Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-10-25T13:09:31.426] [INFO] log_file - [post] login
+ { nickname: 'teacher', password: '123456' }
+[2018-10-25T13:09:33.935] [INFO] log_file - SELECT * FROM users WHERE nickname = 'teacher'[FILLED.]
+[2018-10-25T13:09:33.935] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    email: '123@123',
+    nickname: 'teacher',
+    realname: '123',
+    role: 1,
+    motto: '123',
+    registration_date: 2018-10-21T13:51:02.000Z,
+    password: '123456' } ]
+[2018-10-25T13:09:33.936] [INFO] log_file - Found: RowDataPacket {
+  id: 1,
+  email: '123@123',
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  motto: '123',
+  registration_date: 2018-10-21T13:51:02.000Z,
+  password: '123456' }
+[2018-10-25T13:09:42.777] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:09:42.777] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:09:42.766Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  user_id: 1,
+  email: '123@123' }
+[2018-10-25T13:09:46.408] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:09:46.408] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:09:46.394Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  user_id: 1,
+  email: '123@123' }
+[2018-10-25T13:11:15.183] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:11:15.183] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:11:15.169Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  user_id: 1,
+  email: '123@123' }
+[2018-10-25T13:11:24.105] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:11:24.105] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:11:24.094Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  user_id: 1,
+  email: '123@123' }

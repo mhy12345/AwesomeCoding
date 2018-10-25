@@ -1,0 +1,2085 @@
+[2018-10-25T13:19:33.890] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:19:33.892] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:19:32.599Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-10-25T13:19:43.103] [INFO] log_file - [post] login
+ { nickname: 'teacher', password: '123456' }
+[2018-10-25T13:19:43.623] [INFO] log_file - SELECT * FROM users WHERE nickname = 'teacher'[FILLED.]
+[2018-10-25T13:19:43.623] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    email: '123@123',
+    nickname: 'teacher',
+    realname: '123',
+    role: 1,
+    motto: '123',
+    registration_date: 2018-10-21T13:51:02.000Z,
+    password: '123456' } ]
+[2018-10-25T13:19:43.623] [INFO] log_file - Found: RowDataPacket {
+  id: 1,
+  email: '123@123',
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  motto: '123',
+  registration_date: 2018-10-21T13:51:02.000Z,
+  password: '123456' }
+[2018-10-25T13:19:45.889] [INFO] log_file - [get] logout
+ {}
+[2018-10-25T13:19:45.890] [INFO] log_file - [res] { status: 'SUCCESS.', details: 'SUCCESS.' }
+[2018-10-25T13:19:45.891] [INFO] log_file - Session Destroyed
+[2018-10-25T13:19:55.070] [INFO] log_file - [post] login
+ { nickname: 'teacher', password: '123456' }
+[2018-10-25T13:19:55.504] [INFO] log_file - SELECT * FROM users WHERE nickname = 'teacher'[FILLED.]
+[2018-10-25T13:19:55.504] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    email: '123@123',
+    nickname: 'teacher',
+    realname: '123',
+    role: 1,
+    motto: '123',
+    registration_date: 2018-10-21T13:51:02.000Z,
+    password: '123456' } ]
+[2018-10-25T13:19:55.505] [INFO] log_file - Found: RowDataPacket {
+  id: 1,
+  email: '123@123',
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  motto: '123',
+  registration_date: 2018-10-21T13:51:02.000Z,
+  password: '123456' }
+[2018-10-25T13:19:58.711] [INFO] log_file - SELECT * FROM classes LIMIT 0,20[FILLED.]
+[2018-10-25T13:19:58.712] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    description: null,
+    notice: null,
+    title: 'test',
+    type: 1,
+    registration_date: 2018-10-21T13:51:35.000Z,
+    invitation_code: '6NWVUX5YL6FFVGTW8E99' },
+  RowDataPacket {
+    id: 2,
+    description: null,
+    notice: null,
+    title: '123',
+    type: null,
+    registration_date: 2018-10-24T00:34:26.000Z,
+    invitation_code: '4OPTPKT6RSLLTDW0S40C' },
+  RowDataPacket {
+    id: 3,
+    description: null,
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-24T15:20:31.000Z,
+    invitation_code: 'DHLI9802DU4GVVIVTB0Y' },
+  RowDataPacket {
+    id: 4,
+    description: null,
+    notice: null,
+    title: '111',
+    type: 1,
+    registration_date: 2018-10-24T15:21:04.000Z,
+    invitation_code: 'YLVH3VJX44J8OM5JB0KX' },
+  RowDataPacket {
+    id: 5,
+    description: null,
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-24T15:23:39.000Z,
+    invitation_code: 'A1V709FSBKHLY2LM2OVP' },
+  RowDataPacket {
+    id: 6,
+    description: '11111',
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-25T00:50:57.000Z,
+    invitation_code: '84T8ERJ1DF0J5PG1OJOY' },
+  RowDataPacket {
+    id: 7,
+    description: null,
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-25T01:27:03.000Z,
+    invitation_code: '5ZV4C5NBDF2PBNX7B0EK' },
+  RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:19:58.777] [INFO] log_file - SELECT classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role=1 WHERE classusers.user_id = 1 ORDER BY classusers.registration_date DESC[FILLED.]
+[2018-10-25T13:19:58.777] [INFO] log_file - []
+[2018-10-25T13:20:01.195] [INFO] log_file - SELECT resource FROM resources WHERE `class_id` = 8[FILLED.]
+[2018-10-25T13:20:01.196] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' } ]
+[2018-10-25T13:20:01.726] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 1 AND class_id = 8[FILLED.]
+[2018-10-25T13:20:01.726] [INFO] log_file - []
+[2018-10-25T13:20:03.923] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:03.923] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:03.925] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:03.925] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:03.944] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:03.944] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:03.979] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:03.980] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:04.020] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:04.020] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:04.028] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:04.028] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:04.389] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:04.389] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:04.438] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:04.438] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:05.513] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:05.513] [INFO] log_file - []
+[2018-10-25T13:20:05.514] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:05.514] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:05.518] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:05.518] [INFO] log_file - []
+[2018-10-25T13:20:05.519] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:05.519] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:05.522] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:05.523] [INFO] log_file - []
+[2018-10-25T13:20:05.523] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:05.523] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:05.608] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:05.608] [INFO] log_file - []
+[2018-10-25T13:20:05.609] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:05.609] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:05.611] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:05.611] [INFO] log_file - []
+[2018-10-25T13:20:05.611] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:05.611] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:05.612] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:05.612] [INFO] log_file - []
+[2018-10-25T13:20:05.613] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:05.613] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:06.025] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:06.025] [INFO] log_file - []
+[2018-10-25T13:20:06.026] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:06.026] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:06.071] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:06.072] [INFO] log_file - []
+[2018-10-25T13:20:06.072] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:06.073] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:08.711] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:08.712] [INFO] log_file - []
+[2018-10-25T13:20:08.712] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:08.713] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:08.715] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:08.715] [INFO] log_file - []
+[2018-10-25T13:20:08.715] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:08.715] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:08.729] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:08.729] [INFO] log_file - []
+[2018-10-25T13:20:08.730] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:08.730] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:08.745] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:08.746] [INFO] log_file - []
+[2018-10-25T13:20:08.746] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:08.746] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:08.794] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:08.794] [INFO] log_file - []
+[2018-10-25T13:20:08.795] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:08.795] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:08.817] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:08.817] [INFO] log_file - []
+[2018-10-25T13:20:08.818] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:08.818] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:08.846] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:20:08.846] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:20:08.821Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  user_id: 1,
+  email: '123@123',
+  status: 'SUCCESS.' }
+[2018-10-25T13:20:08.853] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:20:08.854] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:20:08.847Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  user_id: 1,
+  email: '123@123',
+  status: 'SUCCESS.' }
+[2018-10-25T13:20:08.859] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:20:08.859] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:20:08.854Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  user_id: 1,
+  email: '123@123',
+  status: 'SUCCESS.' }
+[2018-10-25T13:20:08.867] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:20:08.867] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:20:08.860Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  user_id: 1,
+  email: '123@123',
+  status: 'SUCCESS.' }
+[2018-10-25T13:20:08.877] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:20:08.877] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:20:08.868Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  user_id: 1,
+  email: '123@123',
+  status: 'SUCCESS.' }
+[2018-10-25T13:20:08.882] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:20:08.882] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:20:08.877Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  user_id: 1,
+  email: '123@123',
+  status: 'SUCCESS.' }
+[2018-10-25T13:20:08.886] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:20:08.886] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:20:08.882Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  user_id: 1,
+  email: '123@123',
+  status: 'SUCCESS.' }
+[2018-10-25T13:20:08.891] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:20:08.891] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:20:08.887Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  user_id: 1,
+  email: '123@123',
+  status: 'SUCCESS.' }
+[2018-10-25T13:20:09.200] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:09.201] [INFO] log_file - []
+[2018-10-25T13:20:09.201] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:09.201] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:09.218] [INFO] log_file - select * from coursefiles where class_id = 8[FILLED.]
+[2018-10-25T13:20:09.218] [INFO] log_file - []
+[2018-10-25T13:20:09.219] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:20:09.219] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:20:09.385] [INFO] log_file - SELECT * FROM forums WHERE classid = 8[FILLED.]
+[2018-10-25T13:20:09.385] [INFO] log_file - [ RowDataPacket {
+    id: 29,
+    userid: 7,
+    classid: 8,
+    message: '讨论一下。',
+    registration_date: 2018-10-24T19:16:21.000Z },
+  RowDataPacket {
+    id: 30,
+    userid: 7,
+    classid: 8,
+    message: '讨论两下。',
+    registration_date: 2018-10-24T19:16:35.000Z },
+  RowDataPacket {
+    id: 31,
+    userid: 7,
+    classid: 8,
+    message: '讨论三下。',
+    registration_date: 2018-10-24T19:16:40.000Z },
+  RowDataPacket {
+    id: 32,
+    userid: 8,
+    classid: 8,
+    message: '老师讲的好！',
+    registration_date: 2018-10-24T19:21:54.000Z } ]
+[2018-10-25T13:20:09.388] [INFO] log_file - SELECT * FROM forums WHERE classid = 8[FILLED.]
+[2018-10-25T13:20:09.388] [INFO] log_file - [ RowDataPacket {
+    id: 29,
+    userid: 7,
+    classid: 8,
+    message: '讨论一下。',
+    registration_date: 2018-10-24T19:16:21.000Z },
+  RowDataPacket {
+    id: 30,
+    userid: 7,
+    classid: 8,
+    message: '讨论两下。',
+    registration_date: 2018-10-24T19:16:35.000Z },
+  RowDataPacket {
+    id: 31,
+    userid: 7,
+    classid: 8,
+    message: '讨论三下。',
+    registration_date: 2018-10-24T19:16:40.000Z },
+  RowDataPacket {
+    id: 32,
+    userid: 8,
+    classid: 8,
+    message: '老师讲的好！',
+    registration_date: 2018-10-24T19:21:54.000Z } ]
+[2018-10-25T13:20:09.415] [INFO] log_file - SELECT * FROM forums WHERE classid = 8[FILLED.]
+[2018-10-25T13:20:09.415] [INFO] log_file - [ RowDataPacket {
+    id: 29,
+    userid: 7,
+    classid: 8,
+    message: '讨论一下。',
+    registration_date: 2018-10-24T19:16:21.000Z },
+  RowDataPacket {
+    id: 30,
+    userid: 7,
+    classid: 8,
+    message: '讨论两下。',
+    registration_date: 2018-10-24T19:16:35.000Z },
+  RowDataPacket {
+    id: 31,
+    userid: 7,
+    classid: 8,
+    message: '讨论三下。',
+    registration_date: 2018-10-24T19:16:40.000Z },
+  RowDataPacket {
+    id: 32,
+    userid: 8,
+    classid: 8,
+    message: '老师讲的好！',
+    registration_date: 2018-10-24T19:21:54.000Z } ]
+[2018-10-25T13:20:09.418] [INFO] log_file - SELECT * FROM forums WHERE classid = 8[FILLED.]
+[2018-10-25T13:20:09.418] [INFO] log_file - [ RowDataPacket {
+    id: 29,
+    userid: 7,
+    classid: 8,
+    message: '讨论一下。',
+    registration_date: 2018-10-24T19:16:21.000Z },
+  RowDataPacket {
+    id: 30,
+    userid: 7,
+    classid: 8,
+    message: '讨论两下。',
+    registration_date: 2018-10-24T19:16:35.000Z },
+  RowDataPacket {
+    id: 31,
+    userid: 7,
+    classid: 8,
+    message: '讨论三下。',
+    registration_date: 2018-10-24T19:16:40.000Z },
+  RowDataPacket {
+    id: 32,
+    userid: 8,
+    classid: 8,
+    message: '老师讲的好！',
+    registration_date: 2018-10-24T19:21:54.000Z } ]
+[2018-10-25T13:20:09.686] [INFO] log_file - SELECT * FROM forums WHERE classid = 8[FILLED.]
+[2018-10-25T13:20:09.687] [INFO] log_file - [ RowDataPacket {
+    id: 29,
+    userid: 7,
+    classid: 8,
+    message: '讨论一下。',
+    registration_date: 2018-10-24T19:16:21.000Z },
+  RowDataPacket {
+    id: 30,
+    userid: 7,
+    classid: 8,
+    message: '讨论两下。',
+    registration_date: 2018-10-24T19:16:35.000Z },
+  RowDataPacket {
+    id: 31,
+    userid: 7,
+    classid: 8,
+    message: '讨论三下。',
+    registration_date: 2018-10-24T19:16:40.000Z },
+  RowDataPacket {
+    id: 32,
+    userid: 8,
+    classid: 8,
+    message: '老师讲的好！',
+    registration_date: 2018-10-24T19:21:54.000Z } ]
+[2018-10-25T13:20:09.712] [INFO] log_file - SELECT * FROM forums WHERE classid = 8[FILLED.]
+[2018-10-25T13:20:09.712] [INFO] log_file - [ RowDataPacket {
+    id: 29,
+    userid: 7,
+    classid: 8,
+    message: '讨论一下。',
+    registration_date: 2018-10-24T19:16:21.000Z },
+  RowDataPacket {
+    id: 30,
+    userid: 7,
+    classid: 8,
+    message: '讨论两下。',
+    registration_date: 2018-10-24T19:16:35.000Z },
+  RowDataPacket {
+    id: 31,
+    userid: 7,
+    classid: 8,
+    message: '讨论三下。',
+    registration_date: 2018-10-24T19:16:40.000Z },
+  RowDataPacket {
+    id: 32,
+    userid: 8,
+    classid: 8,
+    message: '老师讲的好！',
+    registration_date: 2018-10-24T19:21:54.000Z } ]
+[2018-10-25T13:20:09.881] [INFO] log_file - SELECT * FROM forums WHERE classid = 8[FILLED.]
+[2018-10-25T13:20:09.881] [INFO] log_file - [ RowDataPacket {
+    id: 29,
+    userid: 7,
+    classid: 8,
+    message: '讨论一下。',
+    registration_date: 2018-10-24T19:16:21.000Z },
+  RowDataPacket {
+    id: 30,
+    userid: 7,
+    classid: 8,
+    message: '讨论两下。',
+    registration_date: 2018-10-24T19:16:35.000Z },
+  RowDataPacket {
+    id: 31,
+    userid: 7,
+    classid: 8,
+    message: '讨论三下。',
+    registration_date: 2018-10-24T19:16:40.000Z },
+  RowDataPacket {
+    id: 32,
+    userid: 8,
+    classid: 8,
+    message: '老师讲的好！',
+    registration_date: 2018-10-24T19:21:54.000Z } ]
+[2018-10-25T13:20:09.894] [INFO] log_file - SELECT * FROM forums WHERE classid = 8[FILLED.]
+[2018-10-25T13:20:09.894] [INFO] log_file - [ RowDataPacket {
+    id: 29,
+    userid: 7,
+    classid: 8,
+    message: '讨论一下。',
+    registration_date: 2018-10-24T19:16:21.000Z },
+  RowDataPacket {
+    id: 30,
+    userid: 7,
+    classid: 8,
+    message: '讨论两下。',
+    registration_date: 2018-10-24T19:16:35.000Z },
+  RowDataPacket {
+    id: 31,
+    userid: 7,
+    classid: 8,
+    message: '讨论三下。',
+    registration_date: 2018-10-24T19:16:40.000Z },
+  RowDataPacket {
+    id: 32,
+    userid: 8,
+    classid: 8,
+    message: '老师讲的好！',
+    registration_date: 2018-10-24T19:21:54.000Z } ]
+[2018-10-25T13:20:10.042] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:10.042] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:10.103] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:10.103] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:10.152] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:10.153] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:10.212] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:10.212] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:10.352] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:10.352] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:10.393] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:10.393] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:10.542] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:10.543] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:10.581] [INFO] log_file - SELECT * FROM `contents` WHERE `path`='/class/8'[FILLED.]
+[2018-10-25T13:20:10.581] [INFO] log_file - [ RowDataPacket {
+    id: 2,
+    path: '/class/8',
+    content: '<p>1+1=？<div class="smart-area" id="problem-8-XmmzS7YZaYmGendR" pid="XmmzS7YZaYmGendR" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="4">D.4</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p><p>2+2=？</p><p><div class="smart-area" id="problem-8-mr67fzfSJrKytatn" pid="mr67fzfSJrKytatn" cid="8">﻿<span contenteditable="false"><div><div class="select-option" index="A" content="1">A.1</div><div class="select-option" index="B" content="2">B.2</div><div class="select-option" index="C" content="3">C.3</div><div class="select-option" index="D" content="5">D.5</div></div><div><span class="correct-answer-button">[编辑]</span><span class="analyze-button">[情况分析]</span></div></span>﻿</div></p>',
+    deltas: '{"ops":[{"insert":"1+1=？"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"X","11":"m","12":"m","13":"z","14":"S","15":"7","16":"Y","17":"Z","18":"a","19":"Y","20":"m","21":"G","22":"e","23":"n","24":"d","25":"R"},"insert":{"select-problem":{"class_id":"8","problem_id":"XmmzS7YZaYmGendR","choices":{"A":"1","B":"2","C":"3","D":"4"}}}},{"insert":"\\n2+2=？\\n"},{"attributes":{"0":"p","1":"r","2":"o","3":"b","4":"l","5":"e","6":"m","7":"-","8":"8","9":"-","10":"m","11":"r","12":"6","13":"7","14":"f","15":"z","16":"f","17":"S","18":"J","19":"r","20":"K","21":"y","22":"t","23":"a","24":"t","25":"n"},"insert":{"select-problem":{"class_id":"8","problem_id":"mr67fzfSJrKytatn","choices":{"A":"1","B":"2","C":"3","D":"5"}}}},{"insert":"\\n"}]}' } ]
+[2018-10-25T13:20:11.178] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 1 AND class_id = 8[FILLED.]
+[2018-10-25T13:20:11.178] [INFO] log_file - []
+[2018-10-25T13:20:11.223] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 1 AND class_id = 8[FILLED.]
+[2018-10-25T13:20:11.223] [INFO] log_file - []
+[2018-10-25T13:20:11.228] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 1 AND class_id = 8[FILLED.]
+[2018-10-25T13:20:11.228] [INFO] log_file - []
+[2018-10-25T13:20:11.231] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 1 AND class_id = 8[FILLED.]
+[2018-10-25T13:20:11.232] [INFO] log_file - []
+[2018-10-25T13:20:11.241] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 1 AND class_id = 8[FILLED.]
+[2018-10-25T13:20:11.241] [INFO] log_file - []
+[2018-10-25T13:20:11.242] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 1 AND class_id = 8[FILLED.]
+[2018-10-25T13:20:11.242] [INFO] log_file - []
+[2018-10-25T13:20:11.705] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 1 AND class_id = 8[FILLED.]
+[2018-10-25T13:20:11.705] [INFO] log_file - []
+[2018-10-25T13:20:11.723] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 1 AND class_id = 8[FILLED.]
+[2018-10-25T13:20:11.723] [INFO] log_file - []
+[2018-10-25T13:20:14.889] [INFO] log_file - SELECT * FROM classes LIMIT 0,20[FILLED.]
+[2018-10-25T13:20:14.889] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    description: null,
+    notice: null,
+    title: 'test',
+    type: 1,
+    registration_date: 2018-10-21T13:51:35.000Z,
+    invitation_code: '6NWVUX5YL6FFVGTW8E99' },
+  RowDataPacket {
+    id: 2,
+    description: null,
+    notice: null,
+    title: '123',
+    type: null,
+    registration_date: 2018-10-24T00:34:26.000Z,
+    invitation_code: '4OPTPKT6RSLLTDW0S40C' },
+  RowDataPacket {
+    id: 3,
+    description: null,
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-24T15:20:31.000Z,
+    invitation_code: 'DHLI9802DU4GVVIVTB0Y' },
+  RowDataPacket {
+    id: 4,
+    description: null,
+    notice: null,
+    title: '111',
+    type: 1,
+    registration_date: 2018-10-24T15:21:04.000Z,
+    invitation_code: 'YLVH3VJX44J8OM5JB0KX' },
+  RowDataPacket {
+    id: 5,
+    description: null,
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-24T15:23:39.000Z,
+    invitation_code: 'A1V709FSBKHLY2LM2OVP' },
+  RowDataPacket {
+    id: 6,
+    description: '11111',
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-25T00:50:57.000Z,
+    invitation_code: '84T8ERJ1DF0J5PG1OJOY' },
+  RowDataPacket {
+    id: 7,
+    description: null,
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-25T01:27:03.000Z,
+    invitation_code: '5ZV4C5NBDF2PBNX7B0EK' },
+  RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:14.975] [INFO] log_file - SELECT classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role=1 WHERE classusers.user_id = 1 ORDER BY classusers.registration_date DESC[FILLED.]
+[2018-10-25T13:20:14.975] [INFO] log_file - []
+[2018-10-25T13:20:16.462] [INFO] log_file - SELECT resource FROM resources WHERE `class_id` = 8[FILLED.]
+[2018-10-25T13:20:16.462] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' } ]
+[2018-10-25T13:20:16.941] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 1 AND class_id = 8[FILLED.]
+[2018-10-25T13:20:16.941] [INFO] log_file - []
+[2018-10-25T13:20:17.715] [INFO] log_file - SELECT * FROM classes WHERE id = 8[FILLED.]
+[2018-10-25T13:20:17.715] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:17.739] [INFO] log_file - SELECT * FROM classes WHERE id = 8[FILLED.]
+[2018-10-25T13:20:17.739] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:17.758] [INFO] log_file - SELECT * FROM classes WHERE id = 8[FILLED.]
+[2018-10-25T13:20:17.759] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:17.779] [INFO] log_file - SELECT * FROM classes WHERE id = 8[FILLED.]
+[2018-10-25T13:20:17.779] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:17.797] [INFO] log_file - SELECT * FROM classes WHERE id = 8[FILLED.]
+[2018-10-25T13:20:17.798] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:17.822] [INFO] log_file - SELECT * FROM classes WHERE id = 8[FILLED.]
+[2018-10-25T13:20:17.822] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:17.840] [INFO] log_file - SELECT resource from resources WHERE class_id = 8[FILLED.]
+[2018-10-25T13:20:17.840] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' } ]
+[2018-10-25T13:20:17.860] [INFO] log_file - SELECT resource from resources WHERE class_id = 8[FILLED.]
+[2018-10-25T13:20:17.860] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' } ]
+[2018-10-25T13:20:17.880] [INFO] log_file - SELECT resource from resources WHERE class_id = 8[FILLED.]
+[2018-10-25T13:20:17.880] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' } ]
+[2018-10-25T13:20:17.893] [INFO] log_file - SELECT resource from resources WHERE class_id = 8[FILLED.]
+[2018-10-25T13:20:17.893] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' } ]
+[2018-10-25T13:20:17.930] [INFO] log_file - SELECT resource from resources WHERE class_id = 8[FILLED.]
+[2018-10-25T13:20:17.930] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' } ]
+[2018-10-25T13:20:17.948] [INFO] log_file - SELECT resource from resources WHERE class_id = 8[FILLED.]
+[2018-10-25T13:20:17.948] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' } ]
+[2018-10-25T13:20:18.292] [INFO] log_file - SELECT * FROM classes WHERE id = 8[FILLED.]
+[2018-10-25T13:20:18.292] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:18.374] [INFO] log_file - SELECT * FROM classes WHERE id = 8[FILLED.]
+[2018-10-25T13:20:18.374] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:18.439] [INFO] log_file - SELECT resource from resources WHERE class_id = 8[FILLED.]
+[2018-10-25T13:20:18.439] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' } ]
+[2018-10-25T13:20:18.525] [INFO] log_file - SELECT resource from resources WHERE class_id = 8[FILLED.]
+[2018-10-25T13:20:18.526] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' } ]
+[2018-10-25T13:20:23.259] [INFO] log_file - >>>UPDATE CLASS INFO { resources: 
+   [ 'details',
+     'settings',
+     'live',
+     'materials',
+     'chatting_room',
+     'train_area',
+     'train_area_teacher',
+     'participants',
+     'file_settings' ],
+  info: 
+   { id: 8,
+     description: '测试一下。',
+     notice: null,
+     title: 'james‘ course',
+     type: 1,
+     registration_date: '2018-10-24T19:15:25.000Z',
+     invitation_code: 'RX7JCWZ2LPSPQHPA171J' },
+  class_id: 8 }
+[2018-10-25T13:20:23.622] [INFO] log_file - START TO DO  [ 'UPDATE classes SET description=\'测试一下。\',notice=NULL,title=\'james‘ course\' WHERE id = 8',
+  'DELETE  FROM resources WHERE class_id = 8',
+  'INSERT INTO `resources` (`class_id`, `resource`) VALUES (8,\'details\'),(8,\'settings\'),(8,\'live\'),(8,\'materials\'),(8,\'chatting_room\'),(8,\'train_area\'),(8,\'train_area_teacher\'),(8,\'participants\'),(8,\'file_settings\')' ]
+[2018-10-25T13:20:23.726] [INFO] log_file - UPDATE classes SET description='测试一下。',notice=NULL,title='james‘ course' WHERE id = 8[FILLED.]
+[2018-10-25T13:20:23.727] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:20:23.882] [INFO] log_file - DELETE  FROM resources WHERE class_id = 8[FILLED.]
+[2018-10-25T13:20:23.883] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 8,
+  insertId: 0,
+  serverStatus: 34,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:20:23.993] [INFO] log_file - INSERT INTO `resources` (`class_id`, `resource`) VALUES (8,'details'),(8,'settings'),(8,'live'),(8,'materials'),(8,'chatting_room'),(8,'train_area'),(8,'train_area_teacher'),(8,'participants'),(8,'file_settings')[FILLED.]
+[2018-10-25T13:20:23.993] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 9,
+  insertId: 54,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '&Records: 9  Duplicates: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:20:24.351] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:20:24.351] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:20:24.347Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  user_id: 1,
+  email: '123@123',
+  status: 'SUCCESS.' }
+[2018-10-25T13:20:24.845] [INFO] log_file - SELECT * FROM classes WHERE id = '8'[FILLED.]
+[2018-10-25T13:20:24.845] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:24.846] [INFO] log_file - SELECT resource FROM resources WHERE `class_id` = '8'[FILLED.]
+[2018-10-25T13:20:24.846] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:20:24.944] [INFO] log_file - SELECT resource from resources WHERE class_id = '8'[FILLED.]
+[2018-10-25T13:20:24.944] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:20:25.341] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 1 AND class_id = '8'[FILLED.]
+[2018-10-25T13:20:25.341] [INFO] log_file - []
+[2018-10-25T13:20:25.435] [INFO] log_file - SELECT * FROM classes WHERE id = '8'[FILLED.]
+[2018-10-25T13:20:25.435] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:25.477] [INFO] log_file - SELECT * FROM classes WHERE id = '8'[FILLED.]
+[2018-10-25T13:20:25.477] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:25.480] [INFO] log_file - SELECT * FROM classes WHERE id = '8'[FILLED.]
+[2018-10-25T13:20:25.480] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:25.529] [INFO] log_file - SELECT * FROM classes WHERE id = '8'[FILLED.]
+[2018-10-25T13:20:25.529] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:25.539] [INFO] log_file - SELECT * FROM classes WHERE id = '8'[FILLED.]
+[2018-10-25T13:20:25.539] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:25.574] [INFO] log_file - SELECT resource from resources WHERE class_id = '8'[FILLED.]
+[2018-10-25T13:20:25.574] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:20:25.577] [INFO] log_file - SELECT resource from resources WHERE class_id = '8'[FILLED.]
+[2018-10-25T13:20:25.577] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:20:25.583] [INFO] log_file - SELECT resource from resources WHERE class_id = '8'[FILLED.]
+[2018-10-25T13:20:25.583] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:20:25.641] [INFO] log_file - SELECT resource from resources WHERE class_id = '8'[FILLED.]
+[2018-10-25T13:20:25.641] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:20:25.679] [INFO] log_file - SELECT resource from resources WHERE class_id = '8'[FILLED.]
+[2018-10-25T13:20:25.679] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:20:25.874] [INFO] log_file - SELECT * FROM classes WHERE id = '8'[FILLED.]
+[2018-10-25T13:20:25.874] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:25.987] [INFO] log_file - SELECT resource from resources WHERE class_id = '8'[FILLED.]
+[2018-10-25T13:20:25.987] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:20:26.081] [INFO] log_file - SELECT * FROM classes WHERE id = '8'[FILLED.]
+[2018-10-25T13:20:26.082] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:26.084] [INFO] log_file - SELECT * FROM classes WHERE id = '8'[FILLED.]
+[2018-10-25T13:20:26.084] [INFO] log_file - [ RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:20:26.183] [INFO] log_file - SELECT resource from resources WHERE class_id = '8'[FILLED.]
+[2018-10-25T13:20:26.183] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:20:26.185] [INFO] log_file - SELECT resource from resources WHERE class_id = '8'[FILLED.]
+[2018-10-25T13:20:26.186] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'live' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'train_area_teacher' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:20:28.961] [INFO] log_file - select * from files where user_id = 1[FILLED.]
+[2018-10-25T13:20:28.961] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    user_id: 1,
+    filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+    type: null },
+  RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+  RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+  RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null },
+  RowDataPacket { id: 8, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T13:20:28.962] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 1,
+       user_id: 1,
+       filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+       type: null },
+     RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+     RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+     RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null },
+     RowDataPacket { id: 8, user_id: 1, filename: 'lecture11.pdf', type: null } ],
+  details: undefined }
+[2018-10-25T13:20:33.530] [INFO] log_file - select * from files where user_id = 1[FILLED.]
+[2018-10-25T13:20:33.530] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    user_id: 1,
+    filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+    type: null },
+  RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+  RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+  RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null },
+  RowDataPacket { id: 8, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T13:20:33.531] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 1,
+       user_id: 1,
+       filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+       type: null },
+     RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+     RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+     RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null },
+     RowDataPacket { id: 8, user_id: 1, filename: 'lecture11.pdf', type: null } ],
+  details: undefined }
+[2018-10-25T13:21:12.513] [INFO] log_file - SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'ac_database' AND TABLE_NAME = ''[FILLED.]
+[2018-10-25T13:21:12.513] [INFO] log_file - []
+[2018-10-25T13:21:15.754] [INFO] log_file - SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'ac_database' AND TABLE_NAME = 'files'[FILLED.]
+[2018-10-25T13:21:15.755] [INFO] log_file - [ RowDataPacket { COLUMN_NAME: 'id' },
+  RowDataPacket { COLUMN_NAME: 'user_id' },
+  RowDataPacket { COLUMN_NAME: 'filename' },
+  RowDataPacket { COLUMN_NAME: 'type' } ]
+[2018-10-25T13:21:16.239] [INFO] log_file - SELECT * FROM `files`[FILLED.]
+[2018-10-25T13:21:16.239] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    user_id: 1,
+    filename: '屏幕快照 2018-10-23 下午8.33.37.png',
+    type: null },
+  RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+  RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+  RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null },
+  RowDataPacket { id: 8, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T13:21:19.857] [INFO] log_file - DELETE FROM files WHERE id = 1[FILLED.]
+[2018-10-25T13:21:19.858] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:21:20.359] [INFO] log_file - SELECT * FROM `files`[FILLED.]
+[2018-10-25T13:21:20.360] [INFO] log_file - [ RowDataPacket { id: 2, user_id: 1, filename: 'flag.txt', type: null },
+  RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+  RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null },
+  RowDataPacket { id: 8, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T13:21:21.846] [INFO] log_file - DELETE FROM files WHERE id = 2[FILLED.]
+[2018-10-25T13:21:21.846] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:21:22.256] [INFO] log_file - SELECT * FROM `files`[FILLED.]
+[2018-10-25T13:21:22.257] [INFO] log_file - [ RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+  RowDataPacket { id: 7, user_id: 1, filename: 'lecture11.pdf', type: null },
+  RowDataPacket { id: 8, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T13:21:23.301] [INFO] log_file - DELETE FROM files WHERE id = 7[FILLED.]
+[2018-10-25T13:21:23.301] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:21:23.742] [INFO] log_file - SELECT * FROM `files`[FILLED.]
+[2018-10-25T13:21:23.742] [INFO] log_file - [ RowDataPacket { id: 3, user_id: 1, filename: 'tmu.vue.rtf', type: null },
+  RowDataPacket { id: 8, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T13:21:24.643] [INFO] log_file - DELETE FROM files WHERE id = 3[FILLED.]
+[2018-10-25T13:21:24.644] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:21:25.075] [INFO] log_file - SELECT * FROM `files`[FILLED.]
+[2018-10-25T13:21:25.076] [INFO] log_file - [ RowDataPacket { id: 8, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T13:21:26.366] [INFO] log_file - DELETE FROM files WHERE id = 8[FILLED.]
+[2018-10-25T13:21:26.366] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:21:26.805] [INFO] log_file - SELECT * FROM `files`[FILLED.]
+[2018-10-25T13:21:26.805] [INFO] log_file - []
+[2018-10-25T13:22:34.048] [INFO] log_file - insert into files (`user_id`,`filename`) VALUES ("1","lecture11.pdf")[FILLED.]
+[2018-10-25T13:22:34.048] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 9,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:23:08.397] [INFO] log_file - insert into files (`user_id`,`filename`) VALUES ("1","lecture11.pdf")[FILLED.]
+[2018-10-25T13:23:08.397] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 10,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:29:48.967] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:29:48.969] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:29:48.956Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-10-25T13:29:57.593] [INFO] log_file - [post] login
+ { nickname: 'teacher', password: '123456' }
+[2018-10-25T13:29:58.022] [INFO] log_file - SELECT * FROM users WHERE nickname = 'teacher'[FILLED.]
+[2018-10-25T13:29:58.023] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    email: '123@123',
+    nickname: 'teacher',
+    realname: '123',
+    role: 1,
+    motto: '123',
+    registration_date: 2018-10-21T13:51:02.000Z,
+    password: '123456' } ]
+[2018-10-25T13:29:58.023] [INFO] log_file - Found: RowDataPacket {
+  id: 1,
+  email: '123@123',
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  motto: '123',
+  registration_date: 2018-10-21T13:51:02.000Z,
+  password: '123456' }
+[2018-10-25T13:30:06.189] [INFO] log_file - SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'ac_database' AND TABLE_NAME = ''[FILLED.]
+[2018-10-25T13:30:06.189] [INFO] log_file - []
+[2018-10-25T13:30:09.149] [INFO] log_file - SELECT (COLUMN_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'ac_database' AND TABLE_NAME = 'files'[FILLED.]
+[2018-10-25T13:30:09.149] [INFO] log_file - [ RowDataPacket { COLUMN_NAME: 'id' },
+  RowDataPacket { COLUMN_NAME: 'user_id' },
+  RowDataPacket { COLUMN_NAME: 'filename' },
+  RowDataPacket { COLUMN_NAME: 'type' } ]
+[2018-10-25T13:30:09.549] [INFO] log_file - SELECT * FROM `files`[FILLED.]
+[2018-10-25T13:30:09.549] [INFO] log_file - [ RowDataPacket { id: 9, user_id: 1, filename: 'lecture11.pdf', type: null },
+  RowDataPacket { id: 10, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T13:30:11.971] [INFO] log_file - DELETE FROM files WHERE id = 9[FILLED.]
+[2018-10-25T13:30:11.971] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:30:12.364] [INFO] log_file - SELECT * FROM `files`[FILLED.]
+[2018-10-25T13:30:12.364] [INFO] log_file - [ RowDataPacket { id: 10, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T13:30:13.626] [INFO] log_file - DELETE FROM files WHERE id = 10[FILLED.]
+[2018-10-25T13:30:13.626] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:30:13.990] [INFO] log_file - SELECT * FROM `files`[FILLED.]
+[2018-10-25T13:30:13.990] [INFO] log_file - []
+[2018-10-25T13:30:20.225] [INFO] log_file - insert into files (`user_id`,`filename`) VALUES ("1","lecture11.pdf")[FILLED.]
+[2018-10-25T13:30:20.225] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 11,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:31:14.966] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:31:14.969] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:31:14.956Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-10-25T13:31:21.730] [INFO] log_file - [post] login
+ { nickname: 'teacher', password: '123456' }
+[2018-10-25T13:31:22.147] [INFO] log_file - SELECT * FROM users WHERE nickname = 'teacher'[FILLED.]
+[2018-10-25T13:31:22.148] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    email: '123@123',
+    nickname: 'teacher',
+    realname: '123',
+    role: 1,
+    motto: '123',
+    registration_date: 2018-10-21T13:51:02.000Z,
+    password: '123456' } ]
+[2018-10-25T13:31:22.149] [INFO] log_file - Found: RowDataPacket {
+  id: 1,
+  email: '123@123',
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  motto: '123',
+  registration_date: 2018-10-21T13:51:02.000Z,
+  password: '123456' }
+[2018-10-25T13:31:24.696] [INFO] log_file - select * from files where user_id = 1[FILLED.]
+[2018-10-25T13:31:24.697] [INFO] log_file - [ RowDataPacket { id: 11, user_id: 1, filename: 'lecture11.pdf', type: null } ]
+[2018-10-25T13:31:24.698] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 11, user_id: 1, filename: 'lecture11.pdf', type: null } ],
+  details: undefined }
+[2018-10-25T13:46:03.956] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:46:03.957] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:46:02.355Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-10-25T13:46:20.359] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-10-25T13:46:21.281] [INFO] log_file - SELECT * FROM users WHERE nickname = 'lzq'[FILLED.]
+[2018-10-25T13:46:21.281] [INFO] log_file - [ RowDataPacket {
+    id: 3,
+    email: '584324893@qq.com',
+    nickname: 'lzq',
+    realname: 'lzq',
+    role: 1,
+    motto: null,
+    registration_date: 2018-10-24T00:26:15.000Z,
+    password: '123456' } ]
+[2018-10-25T13:46:21.282] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-10-24T00:26:15.000Z,
+  password: '123456' }
+[2018-10-25T13:46:40.589] [INFO] log_file - insert into files (`user_id`,`filename`) VALUES ("3","flag.txt")[FILLED.]
+[2018-10-25T13:46:40.590] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 12,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:46:43.636] [INFO] log_file - select * from files where user_id = 3[FILLED.]
+[2018-10-25T13:46:43.636] [INFO] log_file - [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ]
+[2018-10-25T13:46:43.637] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ],
+  details: undefined }
+[2018-10-25T13:46:48.232] [INFO] log_file - SELECT * FROM classes LIMIT 0,20[FILLED.]
+[2018-10-25T13:46:48.232] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    description: null,
+    notice: null,
+    title: 'test',
+    type: 1,
+    registration_date: 2018-10-21T13:51:35.000Z,
+    invitation_code: '6NWVUX5YL6FFVGTW8E99' },
+  RowDataPacket {
+    id: 2,
+    description: null,
+    notice: null,
+    title: '123',
+    type: null,
+    registration_date: 2018-10-24T00:34:26.000Z,
+    invitation_code: '4OPTPKT6RSLLTDW0S40C' },
+  RowDataPacket {
+    id: 3,
+    description: null,
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-24T15:20:31.000Z,
+    invitation_code: 'DHLI9802DU4GVVIVTB0Y' },
+  RowDataPacket {
+    id: 4,
+    description: null,
+    notice: null,
+    title: '111',
+    type: 1,
+    registration_date: 2018-10-24T15:21:04.000Z,
+    invitation_code: 'YLVH3VJX44J8OM5JB0KX' },
+  RowDataPacket {
+    id: 5,
+    description: null,
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-24T15:23:39.000Z,
+    invitation_code: 'A1V709FSBKHLY2LM2OVP' },
+  RowDataPacket {
+    id: 6,
+    description: '11111',
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-25T00:50:57.000Z,
+    invitation_code: '84T8ERJ1DF0J5PG1OJOY' },
+  RowDataPacket {
+    id: 7,
+    description: null,
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-25T01:27:03.000Z,
+    invitation_code: '5ZV4C5NBDF2PBNX7B0EK' },
+  RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' } ]
+[2018-10-25T13:46:48.306] [INFO] log_file - SELECT classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role=1 WHERE classusers.user_id = 3 ORDER BY classusers.registration_date DESC[FILLED.]
+[2018-10-25T13:46:48.306] [INFO] log_file - []
+[2018-10-25T13:46:55.409] [INFO] log_file - SELECT resource FROM resources WHERE `class_id` = 4[FILLED.]
+[2018-10-25T13:46:55.410] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' } ]
+[2018-10-25T13:46:55.727] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 3 AND class_id = 4[FILLED.]
+[2018-10-25T13:46:55.728] [INFO] log_file - [ RowDataPacket {
+    id: 4,
+    class_id: 4,
+    role: 0,
+    user_id: 3,
+    registration_date: 2018-10-24T15:21:04.000Z } ]
+[2018-10-25T13:46:58.385] [INFO] log_file - SELECT * FROM classes WHERE id = 4[FILLED.]
+[2018-10-25T13:46:58.385] [INFO] log_file - [ RowDataPacket {
+    id: 4,
+    description: null,
+    notice: null,
+    title: '111',
+    type: 1,
+    registration_date: 2018-10-24T15:21:04.000Z,
+    invitation_code: 'YLVH3VJX44J8OM5JB0KX' } ]
+[2018-10-25T13:46:58.388] [INFO] log_file - SELECT * FROM classes WHERE id = 4[FILLED.]
+[2018-10-25T13:46:58.388] [INFO] log_file - [ RowDataPacket {
+    id: 4,
+    description: null,
+    notice: null,
+    title: '111',
+    type: 1,
+    registration_date: 2018-10-24T15:21:04.000Z,
+    invitation_code: 'YLVH3VJX44J8OM5JB0KX' } ]
+[2018-10-25T13:46:58.401] [INFO] log_file - SELECT * FROM classes WHERE id = 4[FILLED.]
+[2018-10-25T13:46:58.401] [INFO] log_file - [ RowDataPacket {
+    id: 4,
+    description: null,
+    notice: null,
+    title: '111',
+    type: 1,
+    registration_date: 2018-10-24T15:21:04.000Z,
+    invitation_code: 'YLVH3VJX44J8OM5JB0KX' } ]
+[2018-10-25T13:46:58.460] [INFO] log_file - SELECT * FROM classes WHERE id = 4[FILLED.]
+[2018-10-25T13:46:58.460] [INFO] log_file - [ RowDataPacket {
+    id: 4,
+    description: null,
+    notice: null,
+    title: '111',
+    type: 1,
+    registration_date: 2018-10-24T15:21:04.000Z,
+    invitation_code: 'YLVH3VJX44J8OM5JB0KX' } ]
+[2018-10-25T13:46:58.468] [INFO] log_file - SELECT resource from resources WHERE class_id = 4[FILLED.]
+[2018-10-25T13:46:58.469] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' } ]
+[2018-10-25T13:46:58.476] [INFO] log_file - SELECT resource from resources WHERE class_id = 4[FILLED.]
+[2018-10-25T13:46:58.476] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' } ]
+[2018-10-25T13:46:58.500] [INFO] log_file - SELECT resource from resources WHERE class_id = 4[FILLED.]
+[2018-10-25T13:46:58.500] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' } ]
+[2018-10-25T13:46:58.543] [INFO] log_file - SELECT resource from resources WHERE class_id = 4[FILLED.]
+[2018-10-25T13:46:58.543] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' } ]
+[2018-10-25T13:47:11.738] [INFO] log_file - >>>UPDATE CLASS INFO { resources: 
+   [ 'details',
+     'settings',
+     'chatting_room',
+     'train_area',
+     'materials',
+     'file_settings' ],
+  info: 
+   { id: 4,
+     description: null,
+     notice: null,
+     title: '111',
+     type: 1,
+     registration_date: '2018-10-24T15:21:04.000Z',
+     invitation_code: 'YLVH3VJX44J8OM5JB0KX' },
+  class_id: 4 }
+[2018-10-25T13:47:11.994] [INFO] log_file - START TO DO  [ 'UPDATE classes SET description=NULL,notice=NULL,title=\'111\' WHERE id = 4',
+  'DELETE  FROM resources WHERE class_id = 4',
+  'INSERT INTO `resources` (`class_id`, `resource`) VALUES (4,\'details\'),(4,\'settings\'),(4,\'chatting_room\'),(4,\'train_area\'),(4,\'materials\'),(4,\'file_settings\')' ]
+[2018-10-25T13:47:12.078] [INFO] log_file - UPDATE classes SET description=NULL,notice=NULL,title='111' WHERE id = 4[FILLED.]
+[2018-10-25T13:47:12.078] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:47:12.169] [INFO] log_file - DELETE  FROM resources WHERE class_id = 4[FILLED.]
+[2018-10-25T13:47:12.169] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 4,
+  insertId: 0,
+  serverStatus: 34,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:47:12.258] [INFO] log_file - INSERT INTO `resources` (`class_id`, `resource`) VALUES (4,'details'),(4,'settings'),(4,'chatting_room'),(4,'train_area'),(4,'materials'),(4,'file_settings')[FILLED.]
+[2018-10-25T13:47:12.259] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 6,
+  insertId: 63,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '&Records: 6  Duplicates: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:47:12.620] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:47:12.620] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:47:12.617Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-25T13:47:13.017] [INFO] log_file - SELECT * FROM classes WHERE id = '4'[FILLED.]
+[2018-10-25T13:47:13.017] [INFO] log_file - [ RowDataPacket {
+    id: 4,
+    description: null,
+    notice: null,
+    title: '111',
+    type: 1,
+    registration_date: 2018-10-24T15:21:04.000Z,
+    invitation_code: 'YLVH3VJX44J8OM5JB0KX' } ]
+[2018-10-25T13:47:13.019] [INFO] log_file - SELECT resource FROM resources WHERE `class_id` = '4'[FILLED.]
+[2018-10-25T13:47:13.019] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:47:13.092] [INFO] log_file - SELECT resource from resources WHERE class_id = '4'[FILLED.]
+[2018-10-25T13:47:13.092] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:47:13.443] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 3 AND class_id = '4'[FILLED.]
+[2018-10-25T13:47:13.443] [INFO] log_file - [ RowDataPacket {
+    id: 4,
+    class_id: 4,
+    role: 0,
+    user_id: 3,
+    registration_date: 2018-10-24T15:21:04.000Z } ]
+[2018-10-25T13:47:13.480] [INFO] log_file - SELECT * FROM classes WHERE id = '4'[FILLED.]
+[2018-10-25T13:47:13.480] [INFO] log_file - [ RowDataPacket {
+    id: 4,
+    description: null,
+    notice: null,
+    title: '111',
+    type: 1,
+    registration_date: 2018-10-24T15:21:04.000Z,
+    invitation_code: 'YLVH3VJX44J8OM5JB0KX' } ]
+[2018-10-25T13:47:13.492] [INFO] log_file - SELECT * FROM classes WHERE id = '4'[FILLED.]
+[2018-10-25T13:47:13.492] [INFO] log_file - [ RowDataPacket {
+    id: 4,
+    description: null,
+    notice: null,
+    title: '111',
+    type: 1,
+    registration_date: 2018-10-24T15:21:04.000Z,
+    invitation_code: 'YLVH3VJX44J8OM5JB0KX' } ]
+[2018-10-25T13:47:13.494] [INFO] log_file - SELECT * FROM classes WHERE id = '4'[FILLED.]
+[2018-10-25T13:47:13.495] [INFO] log_file - [ RowDataPacket {
+    id: 4,
+    description: null,
+    notice: null,
+    title: '111',
+    type: 1,
+    registration_date: 2018-10-24T15:21:04.000Z,
+    invitation_code: 'YLVH3VJX44J8OM5JB0KX' } ]
+[2018-10-25T13:47:13.523] [INFO] log_file - SELECT * FROM classes WHERE id = '4'[FILLED.]
+[2018-10-25T13:47:13.523] [INFO] log_file - [ RowDataPacket {
+    id: 4,
+    description: null,
+    notice: null,
+    title: '111',
+    type: 1,
+    registration_date: 2018-10-24T15:21:04.000Z,
+    invitation_code: 'YLVH3VJX44J8OM5JB0KX' } ]
+[2018-10-25T13:47:13.526] [INFO] log_file - SELECT * FROM classes WHERE id = '4'[FILLED.]
+[2018-10-25T13:47:13.526] [INFO] log_file - [ RowDataPacket {
+    id: 4,
+    description: null,
+    notice: null,
+    title: '111',
+    type: 1,
+    registration_date: 2018-10-24T15:21:04.000Z,
+    invitation_code: 'YLVH3VJX44J8OM5JB0KX' } ]
+[2018-10-25T13:47:13.564] [INFO] log_file - SELECT resource from resources WHERE class_id = '4'[FILLED.]
+[2018-10-25T13:47:13.565] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:47:13.573] [INFO] log_file - SELECT resource from resources WHERE class_id = '4'[FILLED.]
+[2018-10-25T13:47:13.573] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:47:13.601] [INFO] log_file - SELECT resource from resources WHERE class_id = '4'[FILLED.]
+[2018-10-25T13:47:13.601] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:47:13.604] [INFO] log_file - SELECT resource from resources WHERE class_id = '4'[FILLED.]
+[2018-10-25T13:47:13.604] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:47:13.608] [INFO] log_file - SELECT resource from resources WHERE class_id = '4'[FILLED.]
+[2018-10-25T13:47:13.608] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'train_area' },
+  RowDataPacket { resource: 'materials' },
+  RowDataPacket { resource: 'file_settings' } ]
+[2018-10-25T13:47:15.175] [INFO] log_file - select * from coursefiles where class_id = 4[FILLED.]
+[2018-10-25T13:47:15.176] [INFO] log_file - []
+[2018-10-25T13:47:15.176] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 4',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:47:15.176] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:47:15.190] [INFO] log_file - select * from coursefiles where class_id = 4[FILLED.]
+[2018-10-25T13:47:15.190] [INFO] log_file - []
+[2018-10-25T13:47:15.190] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 4',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:47:15.190] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:47:15.192] [INFO] log_file - select * from coursefiles where class_id = 4[FILLED.]
+[2018-10-25T13:47:15.192] [INFO] log_file - []
+[2018-10-25T13:47:15.192] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 4',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:47:15.192] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:47:15.232] [INFO] log_file - select * from coursefiles where class_id = 4[FILLED.]
+[2018-10-25T13:47:15.232] [INFO] log_file - []
+[2018-10-25T13:47:15.232] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 4',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:47:15.233] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:47:15.247] [INFO] log_file - select * from coursefiles where class_id = 4[FILLED.]
+[2018-10-25T13:47:15.247] [INFO] log_file - []
+[2018-10-25T13:47:15.248] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 4',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:47:15.248] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:47:15.251] [INFO] log_file - select * from coursefiles where class_id = 4[FILLED.]
+[2018-10-25T13:47:15.251] [INFO] log_file - []
+[2018-10-25T13:47:15.252] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 4',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-10-25T13:47:15.252] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:47:16.321] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:47:16.322] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:47:16.302Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-25T13:47:16.326] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:47:16.326] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:47:16.322Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-25T13:47:16.330] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:47:16.330] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:47:16.326Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-25T13:47:16.335] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:47:16.335] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:47:16.330Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-25T13:47:16.339] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:47:16.339] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:47:16.336Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-25T13:47:16.344] [INFO] log_file - [get] session
+ {}
+[2018-10-25T13:47:16.344] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-10-25T06:47:16.340Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  user_id: 3,
+  email: '584324893@qq.com' }
+[2018-10-25T13:47:16.718] [INFO] log_file - select * from files where user_id = 3[FILLED.]
+[2018-10-25T13:47:16.718] [INFO] log_file - [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ]
+[2018-10-25T13:47:16.719] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ],
+  details: undefined }
+[2018-10-25T13:47:16.733] [INFO] log_file - select * from files where user_id = 3[FILLED.]
+[2018-10-25T13:47:16.733] [INFO] log_file - [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ]
+[2018-10-25T13:47:16.734] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ],
+  details: undefined }
+[2018-10-25T13:47:16.736] [INFO] log_file - select * from files where user_id = 3[FILLED.]
+[2018-10-25T13:47:16.737] [INFO] log_file - [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ]
+[2018-10-25T13:47:16.737] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ],
+  details: undefined }
+[2018-10-25T13:47:16.794] [INFO] log_file - select * from files where user_id = 3[FILLED.]
+[2018-10-25T13:47:16.794] [INFO] log_file - [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ]
+[2018-10-25T13:47:16.795] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ],
+  details: undefined }
+[2018-10-25T13:47:16.796] [INFO] log_file - select * from files where user_id = 3[FILLED.]
+[2018-10-25T13:47:16.796] [INFO] log_file - [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ]
+[2018-10-25T13:47:16.797] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ],
+  details: undefined }
+[2018-10-25T13:47:16.798] [INFO] log_file - select * from files where user_id = 3[FILLED.]
+[2018-10-25T13:47:16.798] [INFO] log_file - [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ]
+[2018-10-25T13:47:16.798] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ],
+  details: undefined }
+[2018-10-25T13:47:19.683] [INFO] log_file - insert into coursefiles (`class_id`,`file_id`, `filename`) VALUES ("4","12","flag.txt")[FILLED.]
+[2018-10-25T13:47:19.683] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 8,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:47:19.685] [INFO] log_file - { sql: 'insert into coursefiles (`class_id`,`file_id`, `filename`) VALUES ("4","12","flag.txt")',
+  status: 'SUCCESS.',
+  results: 
+   OkPacket {
+     fieldCount: 0,
+     affectedRows: 1,
+     insertId: 8,
+     serverStatus: 2,
+     warningCount: 0,
+     message: '',
+     protocol41: true,
+     changedRows: 0 },
+  details: undefined }
+[2018-10-25T13:47:20.027] [INFO] log_file - select * from files where user_id = 3[FILLED.]
+[2018-10-25T13:47:20.028] [INFO] log_file - [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ]
+[2018-10-25T13:47:20.028] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ],
+  details: undefined }
+[2018-10-25T13:47:20.708] [INFO] log_file - insert into coursefiles (`class_id`,`file_id`, `filename`) VALUES ("4","12","flag.txt")[FILLED.]
+[2018-10-25T13:47:20.708] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 9,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:47:20.709] [INFO] log_file - { sql: 'insert into coursefiles (`class_id`,`file_id`, `filename`) VALUES ("4","12","flag.txt")',
+  status: 'SUCCESS.',
+  results: 
+   OkPacket {
+     fieldCount: 0,
+     affectedRows: 1,
+     insertId: 9,
+     serverStatus: 2,
+     warningCount: 0,
+     message: '',
+     protocol41: true,
+     changedRows: 0 },
+  details: undefined }
+[2018-10-25T13:47:21.120] [INFO] log_file - select * from files where user_id = 3[FILLED.]
+[2018-10-25T13:47:21.120] [INFO] log_file - [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ]
+[2018-10-25T13:47:21.120] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ],
+  details: undefined }
+[2018-10-25T13:47:23.233] [INFO] log_file - insert into coursefiles (`class_id`,`file_id`, `filename`) VALUES ("4","12","flag.txt")[FILLED.]
+[2018-10-25T13:47:23.233] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 10,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-10-25T13:47:23.234] [INFO] log_file - { sql: 'insert into coursefiles (`class_id`,`file_id`, `filename`) VALUES ("4","12","flag.txt")',
+  status: 'SUCCESS.',
+  results: 
+   OkPacket {
+     fieldCount: 0,
+     affectedRows: 1,
+     insertId: 10,
+     serverStatus: 2,
+     warningCount: 0,
+     message: '',
+     protocol41: true,
+     changedRows: 0 },
+  details: undefined }
+[2018-10-25T13:47:23.660] [INFO] log_file - select * from files where user_id = 3[FILLED.]
+[2018-10-25T13:47:23.660] [INFO] log_file - [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ]
+[2018-10-25T13:47:23.661] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 12, user_id: 3, filename: 'flag.txt', type: null } ],
+  details: undefined }
+[2018-10-25T13:47:26.241] [INFO] log_file - select * from coursefiles where class_id = 4[FILLED.]
+[2018-10-25T13:47:26.241] [INFO] log_file - [ RowDataPacket { id: 8, class_id: 4, file_id: 12, filename: 'flag.txt' },
+  RowDataPacket { id: 9, class_id: 4, file_id: 12, filename: 'flag.txt' },
+  RowDataPacket { id: 10, class_id: 4, file_id: 12, filename: 'flag.txt' } ]
+[2018-10-25T13:47:26.242] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 4',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 8, class_id: 4, file_id: 12, filename: 'flag.txt' },
+     RowDataPacket { id: 9, class_id: 4, file_id: 12, filename: 'flag.txt' },
+     RowDataPacket { id: 10, class_id: 4, file_id: 12, filename: 'flag.txt' } ],
+  details: undefined }
+[2018-10-25T13:47:26.242] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:47:26.257] [INFO] log_file - select * from coursefiles where class_id = 4[FILLED.]
+[2018-10-25T13:47:26.257] [INFO] log_file - [ RowDataPacket { id: 8, class_id: 4, file_id: 12, filename: 'flag.txt' },
+  RowDataPacket { id: 9, class_id: 4, file_id: 12, filename: 'flag.txt' },
+  RowDataPacket { id: 10, class_id: 4, file_id: 12, filename: 'flag.txt' } ]
+[2018-10-25T13:47:26.257] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 4',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 8, class_id: 4, file_id: 12, filename: 'flag.txt' },
+     RowDataPacket { id: 9, class_id: 4, file_id: 12, filename: 'flag.txt' },
+     RowDataPacket { id: 10, class_id: 4, file_id: 12, filename: 'flag.txt' } ],
+  details: undefined }
+[2018-10-25T13:47:26.258] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:47:26.268] [INFO] log_file - select * from coursefiles where class_id = 4[FILLED.]
+[2018-10-25T13:47:26.268] [INFO] log_file - [ RowDataPacket { id: 8, class_id: 4, file_id: 12, filename: 'flag.txt' },
+  RowDataPacket { id: 9, class_id: 4, file_id: 12, filename: 'flag.txt' },
+  RowDataPacket { id: 10, class_id: 4, file_id: 12, filename: 'flag.txt' } ]
+[2018-10-25T13:47:26.269] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 4',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 8, class_id: 4, file_id: 12, filename: 'flag.txt' },
+     RowDataPacket { id: 9, class_id: 4, file_id: 12, filename: 'flag.txt' },
+     RowDataPacket { id: 10, class_id: 4, file_id: 12, filename: 'flag.txt' } ],
+  details: undefined }
+[2018-10-25T13:47:26.269] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:47:26.279] [INFO] log_file - select * from coursefiles where class_id = 4[FILLED.]
+[2018-10-25T13:47:26.279] [INFO] log_file - [ RowDataPacket { id: 8, class_id: 4, file_id: 12, filename: 'flag.txt' },
+  RowDataPacket { id: 9, class_id: 4, file_id: 12, filename: 'flag.txt' },
+  RowDataPacket { id: 10, class_id: 4, file_id: 12, filename: 'flag.txt' } ]
+[2018-10-25T13:47:26.279] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 4',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 8, class_id: 4, file_id: 12, filename: 'flag.txt' },
+     RowDataPacket { id: 9, class_id: 4, file_id: 12, filename: 'flag.txt' },
+     RowDataPacket { id: 10, class_id: 4, file_id: 12, filename: 'flag.txt' } ],
+  details: undefined }
+[2018-10-25T13:47:26.279] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:47:26.311] [INFO] log_file - select * from coursefiles where class_id = 4[FILLED.]
+[2018-10-25T13:47:26.311] [INFO] log_file - [ RowDataPacket { id: 8, class_id: 4, file_id: 12, filename: 'flag.txt' },
+  RowDataPacket { id: 9, class_id: 4, file_id: 12, filename: 'flag.txt' },
+  RowDataPacket { id: 10, class_id: 4, file_id: 12, filename: 'flag.txt' } ]
+[2018-10-25T13:47:26.311] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 4',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 8, class_id: 4, file_id: 12, filename: 'flag.txt' },
+     RowDataPacket { id: 9, class_id: 4, file_id: 12, filename: 'flag.txt' },
+     RowDataPacket { id: 10, class_id: 4, file_id: 12, filename: 'flag.txt' } ],
+  details: undefined }
+[2018-10-25T13:47:26.312] [INFO] log_file - 到底发生了啥？
+[2018-10-25T13:47:26.317] [INFO] log_file - select * from coursefiles where class_id = 4[FILLED.]
+[2018-10-25T13:47:26.317] [INFO] log_file - [ RowDataPacket { id: 8, class_id: 4, file_id: 12, filename: 'flag.txt' },
+  RowDataPacket { id: 9, class_id: 4, file_id: 12, filename: 'flag.txt' },
+  RowDataPacket { id: 10, class_id: 4, file_id: 12, filename: 'flag.txt' } ]
+[2018-10-25T13:47:26.317] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 4',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 8, class_id: 4, file_id: 12, filename: 'flag.txt' },
+     RowDataPacket { id: 9, class_id: 4, file_id: 12, filename: 'flag.txt' },
+     RowDataPacket { id: 10, class_id: 4, file_id: 12, filename: 'flag.txt' } ],
+  details: undefined }
+[2018-10-25T13:47:26.317] [INFO] log_file - 到底发生了啥？
