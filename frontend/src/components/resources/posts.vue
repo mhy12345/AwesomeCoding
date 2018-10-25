@@ -1,9 +1,17 @@
 <template>
 	<el-container>
 		<el-main>
+			<el-row>
+				<el-col :span='2'> 发贴人 </el-col>
+				<el-col :span='4'> {{userid}} </el-col>
+			</el-row>
+			<el-row>
+				<el-col :span='2'> 主题: </el-col>
+				<el-col :span='20'>{{theme}} </el-col>
+			</el-row>
 			<el-row v-for="record in chatrecords">
 				<el-col :span='4'> {{record.userid}} </el-col>
-                <el-col :span='20'> {{record.message}} </el-col>
+                <el-col :span='16'> {{record.message}} </el-col>
                 <el-col :span='4'> {{record.registration_date}} </el-col>
 			</el-row>
 			<el-form>
@@ -11,10 +19,7 @@
 					<el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="inputData.message"> </el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" @click="onSubmit">submit</el-button>
-				</el-form-item>
-				<el-form-item>
-					<el-button type="primary" @click="onClear">clear</el-button>
+					<el-button type="primary" @click="onSubmit">回复</el-button>
 				</el-form-item>
 			</el-form>
 		</el-main>
@@ -27,7 +32,9 @@ export default {
 		return {
 			chatrecords : [],
             forumid : "undefined",
-            classid : "undefined",
+			classid : "undefined",
+			userid : "undefined",//发贴人
+			theme : "undefined",//发贴主题
 			inputData : {
 				userId : undefined,
 				forumId : undefined,
@@ -39,8 +46,8 @@ export default {
 	mounted : function() {
         this.forumid = this.$route.query.forumid;
         this.inputData.forumId = this.forumid;
-        this.classid = this.$route.params.classid;
-		this.inputData.classId = this.classid;
+		this.userid = this.$route.query.userid;
+		this.theme = this.$route.query.theme;
 		this.$http.get('/api/user/session',{})
 		.then(function(res) {
 			this.inputData.userId = res.body.user_id;
