@@ -5,13 +5,12 @@
 </template>
 
 <script>
-    //    import polyvPlayer from 'polyvPlayer'
-    import polyvPlayer from '@/../static/player.js';
+    import polyvPlayer from 'polyvPlayer'
     //var polyvPlayer = Object();
 
     export default {
         props: {
-            'size': [Number, Number],
+            'size': Array,
             'vid': String
         },
         mounted: function () {

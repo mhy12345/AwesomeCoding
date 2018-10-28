@@ -428,4 +428,29 @@ router.post('/my_course/fetch', function (req, res, next) {
 		});
 });
 
+router.post('/liveid/query', function (req, res, next) {
+	let result = {
+		status: undefined
+	};
+	getConnection().
+		then(function (conn) {
+			let sql = 'SELECT * FROM lives WHERE class = ' + mysql.escape(req.body.class_id);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let {conn, sql_res} = packed;
+			result.liveplayer_uid = sql_res.results[0].liveplayer_uid;
+			result.liveplayer_vid = sql_res.results[0].liveplayer_vid;
+			result.status = "SUCCESS.";
+			console.log('fuckfuck');
+			console.log(result);
+			conn.end();
+			res.send(JSON.stringify(result, null, 3));
+		}).
+		catch(function (result) {
+			if (result.status === 'FAILED.')
+				res.send(JSON.stringify(result, null, 3));
+		});
+});
+
 module.exports = router;
