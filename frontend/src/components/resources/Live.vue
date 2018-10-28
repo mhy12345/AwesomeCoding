@@ -1,13 +1,5 @@
 <template>
-
-    <el-container>
-        <el-header>
-            <h2>课程设置</h2>
-        </el-header>
-        <el-main>
-            <div id="player"></div>
-        </el-main>
-    </el-container>
+    <div id="player"> </div>
 </template>
 
 
@@ -18,12 +10,6 @@
 
     var root_url = require('../../../config/http_root_url');
 
-	var player = polyvObject('#player').livePlayer({
-		width: this.PlayerWindow[0],
-		height: this.PlayerWindow[1],
-		uid: this.liveplayer_uid,
-		vid: this.liveplayer_vid
-	});
 
     export default {
         data() {
@@ -34,8 +20,12 @@
             };
         },
         mounted: function () {
-
-
+            var player = polyvObject('#player').livePlayer({
+                width: this.PlayerWindow[0],
+                height: this.PlayerWindow[1],
+                uid: this.liveplayer_uid,
+                vid: this.liveplayer_vid
+            });
 
             let nowpath = root_url + '/api/class/liveid/query';
             console.log('fuck you');
