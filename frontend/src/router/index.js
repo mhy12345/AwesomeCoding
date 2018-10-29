@@ -23,6 +23,7 @@ export default new Router({
 		},
 		{
 			path: '/class/:class_id',
+			redirect: '/class/:class_id/details',
 			name: 'class',
 			component: () => import('@/views/Lecture.vue'),
 			children: router_childs//子路由已经在utils/Resources中生成出来了

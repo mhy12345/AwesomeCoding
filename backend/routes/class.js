@@ -321,7 +321,7 @@ router.post('/info/update', function (req, res, next) {
 
 router.post('/create', function (req, res, next) { //创建新班级
 	console.log(req.session);
-	if (req.session.role != 1) {
+	if (req.session.role != 1 && req.session.role != 0) {
 		res.status(403).send('Only teacher can create a course.');
 		return;
 	}
