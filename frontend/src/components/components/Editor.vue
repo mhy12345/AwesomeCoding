@@ -53,7 +53,6 @@ export default {
 	methods: {
 		handleCreateA: function(info) {
 			info.class_id = this.class_id;
-			console.log("CALLED",info);
 			this.problem_set[info.problem_id] = info;
 			var range = this.quill.getSelection();
 			if (range) {
@@ -81,13 +80,18 @@ export default {
 		handleLoad: function() {
 			this.$http.post('/api/problem/content/load',{class_id:this.class_id}).
 				then(function(res) {
-					let quill_deltas = JSON.parse(res.body.deltas);
-					this.quill.setContents(quill_deltas);
-					console.log("SET COUNTENT",this.content);
+					if (res.body.deltas !== undefined) {
+						let quill_deltas = JSON.parse(res.body.deltas);
+						this.quill.setContents(quill_deltas);
+						console.log("Resume content...");
+					} else
+					{
+						//NO CONTENT
+					}
 				});
 		},
 		handleShowAnswerDialog: function(pid) {
-			this.$message("SHOW!");
+			console.log("SHOW DIALOG...");
 			this.$refs.correct_answer_dialog.handleOpen(pid);
 		},
 	},
