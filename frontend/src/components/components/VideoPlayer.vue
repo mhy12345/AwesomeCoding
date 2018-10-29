@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import polyvPlayer from 'polyvPlayer'
+    import polyvPlayer from 'polyvPlayer';
     //var polyvPlayer = Object();
 
     export default {
