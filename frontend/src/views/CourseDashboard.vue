@@ -14,7 +14,7 @@ var default_options = ['details'];
 import {supported_resources} from '../utils/Resources';
 
 export default {
-	data: function() {
+	data: function () {
 		return {
 			title: undefined,//标题
 			activeTitle: 'details',
@@ -26,7 +26,7 @@ export default {
 				role: null,
 			},
 			loading: true
-		}
+		};
 	},
 	computed: {
 		options: function () {
@@ -60,7 +60,7 @@ export default {
 				this.course_status = res.body.results;
 				if (this.course_status.role == 0) {
 					this.course_status.role_title = '教师';
-				} else if (this.course_status.role == 1) { 
+				} else if (this.course_status.role == 1) {
 					this.course_status.role_title = '助教';
 				} else if (this.course_status.role == 2) {
 					this.course_status.role_title = '学生';

@@ -1,5 +1,5 @@
 /* eslint-disable camelcase,vars-on-top,no-redeclare */
-//所有可用的教学资源
+// 课程面板里所有可用的教学资源
 var supported_resources = {
 	details: {
 		name: 'details',
@@ -108,18 +108,6 @@ var supported_resources = {
 		component: ()=>import('../components/resources/posts.vue'),
 		disabled : false,
 		defaultChosen : false,
-	},
-	train_area : {
-		name:'train_area',
-		title:'练习区',
-		component: ()=>import('../components/resources/PracticeArea.vue'),
-		disabled : false,
-		defaultChosen : false,
-		access: {
-			0: true,
-			1: true,
-			2: true,
-		}
 	},
 };
 var router_childs = [{path: '', redirect: 'details'}];
