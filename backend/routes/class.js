@@ -327,6 +327,7 @@ router.post('/create', function (req, res, next) { //创建新班级
 	}
 	var title = req.body.title;
 	var description = req.body.description;
+	var notice = req.body.notice;
 	var invitation_code = randomString(20);
 	var resources = req.body.resources;
 	if (title === undefined || title.length < 3) {
@@ -338,8 +339,8 @@ router.post('/create', function (req, res, next) { //创建新班级
 		let result = {};
 		getConnection().
 			then(function (conn) {
-				let sql = 'INSERT INTO classes (`title`, `description`, `invitation_code`, `registration_date`, `type`) VALUES (' +
-					mysql.escape(title) + ',' + mysql.escape(description) + ',' + mysql.escape(invitation_code) + ',' + mysql.escape(new Date()) + ',' + mysql.escape(+req.body.type) + ')';
+				let sql = 'INSERT INTO classes (`title`, `description`, `invitation_code`, `registration_date`, `type`, `notice`) VALUES (' +
+					mysql.escape(title) + ',' + mysql.escape(description) + ',' + mysql.escape(invitation_code) + ',' + mysql.escape(new Date()) + ',' + mysql.escape(+req.body.type) + ',' + mysql.escape(notice) + ')';
 				return doSqlQuery(conn, sql);
 			}).
 			then(function (packed) {

@@ -12,6 +12,7 @@ var api_chat = require('./routes/chat');
 var api_file = require('./routes/file');
 var api_developer = require('./routes/developer');
 var api_problem = require('./routes/problem');
+var api_content = require('./routes/content');
 var api_backend = require('./routes/backend');
 
 var app = express();
@@ -57,6 +58,7 @@ app.use('/api/user', api_user);
 app.use('/api/class', api_class);
 app.use('/api/chat', api_chat);
 app.use('/api/file', api_file);
+app.use('/api/content', api_content);
 app.use('/api/problem', api_problem);
 app.use('/api', api);
 app.use('/backend', api_backend);
