@@ -39,7 +39,7 @@
 							<el-button
 								size="mini"
 								type="danger"
-								@click="handleDelete(scope.$index, scope.row)">删除</el-button>
+								@click="handleDelete(scope.row)">删除</el-button>
 						</template>
 					</el-table-column>
 				</el-table>
@@ -51,6 +51,7 @@
 		<ChoiceProblemDialog ref='dialog_choice' @completed='handleDialogCompleted'> </ChoiceProblemDialog>
 		<ContentEditor ref='content_editor'> </ContentEditor>
 		<Preview ref='prob_preview'> </Preview>
+		<Analyze ref='prob_analyze'> </Analyze>
 	</div>
 </template>
 
@@ -58,6 +59,7 @@
 import ContentEditor from '@/components/components/ContentEditor.vue';
 import ChoiceProblemDialog from '@/components/resources/dialogs/ChoiceProblem.vue';
 import Preview from '@/components/resources/dialogs/Preview.vue';
+import Analyze from '@/components/resources/dialogs/Analyze.vue';
 
 export default {
 	data: function () {
@@ -86,7 +88,16 @@ export default {
 		tableRowClassName: function({row, rowIndex}) {
 			return '';
 		},
+		handleDelete: function(row)  {
+			this.$http.post('/api/problem/delete', {code: row.code}).
+				then((res) => {
+					window.location.href = window.location.href;
+				}).
+				catch((err) => {
+				});
+		},
 		handleAnalyze: function(idx, row) {
+			this.$refs.prob_analyze.handleOpen(row);
 		},
 		handleDialogCompleted: function(obj) {
 			this.problemData[obj.index].title = obj.title;
@@ -142,7 +153,8 @@ export default {
 	components : {
 		ChoiceProblemDialog: ChoiceProblemDialog,
 		ContentEditor: ContentEditor,
-		Preview: Preview
+		Preview: Preview,
+		Analyze: Analyze,
 	},
 }
 </script>

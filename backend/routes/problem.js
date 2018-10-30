@@ -12,6 +12,22 @@ var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file')
 
+router.post('/delete', function(req, res, next) {
+	getConnection().
+		then(function(conn) {
+			let sql = 'DELETE FROM `problems` WHERE `code`=' + mysql.escape(req.body.code);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			res.send(JSON.stringify(sql_res));
+		}).
+		catch(function(sql_res) {
+			res.send(JSON.stringify(sql_res));
+		});
+});
+
 router.post('/create', function(req, res, next) {
 	if (req.session.user_id === undefined) {
 		res.status(403).send("NOT_LOGIN.");
@@ -190,6 +206,22 @@ router.post('/t/:ptype/save', function(req, res, next) {
 			res.send(sql_res);
 		});
 });
+
+router.post('/choice_problem/gather', function(req, res, next) {
+	getConnection().
+		then(function(conn) {
+			let sql = 'SELECT * FROM `choice_problem_answers` WHERE `code` = ' + mysql.escape(req.body.code);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			res.send(JSON.stringify(sql_res));
+		}).
+		catch(function(sql_res) {
+			res.send(JSON.stringify(sql_res));
+		});
+});
 router.post('/choice_problem/fetch', function(req, res, next) {
 	if (req.session.user_id === undefined) {
 		res.status(403).send("NOT_LOGIN.");
@@ -225,7 +257,7 @@ router.post('/choice_problem/submit', function(req, res, next) {
 				let sql = 'INSERT INTO `choice_problem_answers` (`code`,`user_id`,`answer`) VALUES ('+mysql.escape(req.body.code)+','+mysql.escape(+req.session.user_id)+','+mysql.escape(req.body.answer)+')';
 				return doSqlQuery(conn, sql);
 			} else {
-				let sql = 'UPDATE SET `answer`='+mysql.escape(req.body.answer)+' WHERE `code`='+mysql.escape(req.body.code)+' AND `user_id`='+mysql.escape(req.session.user_id);
+				let sql = 'UPDATE `choice_problem_answers` SET `answer`='+mysql.escape(req.body.answer)+' WHERE `code`='+mysql.escape(req.body.code)+' AND `user_id`='+mysql.escape(req.session.user_id);
 				return doSqlQuery(conn, sql);
 			}
 		}).
