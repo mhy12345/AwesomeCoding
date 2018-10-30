@@ -1,13 +1,13 @@
 <template>
     <el-container>
-        <el-header>
-            <h2>班级成员管理</h2>
-        </el-header>
+        <!--<el-header>-->
+            <!--<h3>班级成员管理</h3>-->
+        <!--</el-header>-->
         <div id="DataVisualizer" v-loading="loadingQ">
             <div v-if="loadedQ">
                 <el-table id="display-table"
                           :data="fancy_data"
-                          style="width: 100%; margin: auto; padding: 5px;"
+                          :style="display_config"
                           highlight-current-row stripe>
                     <el-table-column v-for="obj in heads"
                                      :key="obj.idx"
@@ -52,9 +52,14 @@
                 },
                 loadingQ: false, // 是否处于加载中的状态
                 loadedQ: false, // 是否已经加载完成
+                display_config: {
+                    width: '1000px',
+                    margin: 'auto',
+                    padding: '5px'
+                }
             };
         },
-        props: ['course_status'],
+        props: ['course_status', 'table_width'],
         computed: {
             fancy_data: function () {
                 let data = [];
@@ -73,6 +78,9 @@
             }
         },
         mounted: function () {
+            if (this.table_width) { // 若父页面传来了表的参数，就修改配置
+                this.display_config.width = this.table_width;
+            }
             this.class_id = this.$route.params.class_id;
             this.loadingQ = true;//...
 

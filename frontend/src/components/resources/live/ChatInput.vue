@@ -1,0 +1,49 @@
+<template>
+    <div>
+        <div>
+            聊天输入
+        </div>
+        <el-row>
+            <el-col style="width: 90%">
+                <el-input type="textarea"
+                          v-model="input_message"
+                          placeholder="输入文本..."
+                          :autosize="{minRows: 3.2}"
+                          resize="none"
+                          @keydown.enter="handleSendMessage">
+                </el-input>
+            </el-col>
+            <el-col style="position:relative; left: 2%; width: 8%">
+                <div>
+                    <el-button type="warning" icon="el-icon-message" @click="handleSendMessage">发送</el-button>
+                </div>
+                <div>
+                    <el-button type="success" icon="el-icon-phone" @click="handleSendVoice">语音</el-button>
+                </div>
+            </el-col>
+        </el-row>
+    </div>
+</template>
+
+<script>
+	export default {
+        name: "Chat",
+        data() {
+            return {
+                input_message: ''
+            }
+        },
+        methods: {
+            handleSendMessage() {   // 发送消息
+
+            },
+            handleSendVoice() {     // 发送语音
+
+            }
+        }
+	}
+</script>
+
+<style scoped>
+
+</style>
