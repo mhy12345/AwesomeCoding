@@ -32,7 +32,7 @@
 <script>
 
     export default {
-        data() {
+        data () {
             return {
                 table_name: '',
                 heads: [
@@ -59,9 +59,13 @@
             fancy_data: function () {
                 let data = [];
                 for (let item of this.table_data) {
-                    if (item.role == 0) item.role_title = '教师';
-                    if (item.role == 1) item.role_title = '助教';
-                    if (item.role == 2) item.role_title = '学生';
+                    if (item.role === 0) {
+                        item.role_title = '教师';
+                    } else if (item.role === 1) {
+                        item.role_title = '助教';
+                    } else if (item.role === 2) {
+                        item.role_title = '学生';
+                    }
                     data.push(item);
                     console.log(item);
                 }
@@ -84,32 +88,33 @@
                  catch((resp) => {
                      this.loadingQ = false;
                      this.loadedQ = false;
-                     if (resp.body == 'NOT_LOGIN.') {
+                     if (resp.body === 'NOT_LOGIN.') {
                          _this.$message("请登录...");
                      } else if (resp.body === "NOT_IN_CLASS.") {
                          _this.$message("请先加入班级");
-                     } else
+                     } else {
                          _this.$message("未知错误");
+                     }
                  });
         },
         methods: {
-            handleAdd: function () {	  // 向后端数据库发出添加数据的请求
+            handleAdd: function () { // 向后端数据库发出添加数据的请求
                 this.loadingQ = true;
                 //TODO
             },
-            handleDelete: function (id) {  // 向后端数据库发出删除数据的请求
+            handleDelete: function (id) { // 向后端数据库发出删除数据的请求
                 this.loadingQ = true;
                 this.$http.post('/api/class/participants/delete', {class_id: this.class_id, user_id: id}, null).
-                     then(function () {
-                         this.$messgae("成功");
+                     then(() => {
+                         this.$message("成功");
                          this.loadingQ = false;
                      }).
-                     catch(function () {
+                     catch(() => {
                          this.$message("失败");
                          this.loadingQ = false;
                      });
             },
-            handleChange: function () {   // 向后端数据库发出修改数据的请求
+            handleChange: function () { // 向后端数据库发出修改数据的请求
                 this.loadingQ = true;
                 this.edit_dialog.visual = false;
                 //TODO
