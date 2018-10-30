@@ -26,6 +26,8 @@
 </template>
 
 <script>
+    import root_url from '../../../../config/http_root_url';
+
 	export default {
         name: "Chat",
         data() {
@@ -35,9 +37,18 @@
         },
         methods: {
             handleSendMessage() {   // 发送消息
-
+                if (this.input_message.length <= 0) {
+                    this.$message.warning('输入不能为空。');
+                    return;
+                }
+                console.log('[post] send message:', this.input_message);
+                this.$http.
+                     post(root_url + '/api/live/send_message', {message: this.input_message}).
+                     then((res) => {
+                         console.log(res);
+                     });
             },
-            handleSendVoice() {     // 发送语音
+            handleSendVoice() {     // todo 发送语音
 
             }
         }

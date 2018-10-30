@@ -10,7 +10,7 @@
             </el-col>
 
             <!--todo 右侧列表，尺寸逻辑还需要修改-->
-            <el-col style="position: relative; left: 30px; min-width: 5%; max-width: 40%">
+            <el-col style="position: relative; left: 30px; min-width: 5%; max-width: 30%">
                 <sidebar :course_status="course_status"></sidebar>
             </el-col>
         </el-row>

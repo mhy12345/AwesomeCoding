@@ -163,6 +163,11 @@ export default {
 		this.user = copy(this.default_user);
 		this.checkLogin();
 	},
+    sockets: {
+        connect: function(){
+            console.log('socket connected')
+        },
+    },
 	methods: {
 		showUnknownError(err) {
 			console.log(err);

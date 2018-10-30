@@ -8,11 +8,12 @@ var session = require('express-session');
 var api = require('./routes/api');
 var api_user = require('./routes/user');
 var api_class = require('./routes/class');
-var api_chat = require('./routes/chat');
+var api_chat = require('./routes/discussion_board');
 var api_file = require('./routes/file');
 var api_developer = require('./routes/developer');
 var api_problem = require('./routes/problem');
 var api_backend = require('./routes/backend');
+var api_live = require('./routes/live');
 
 var app = express();
 
@@ -52,6 +53,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './public')));
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
+app.get('/api/test', function (req, res, next) {
+	res.sendFile(__dirname + '/test_socket.html');
+});
+app.get('/api/hello', function (req, res) {
+	res.send("HelloWorld!");
+});
 app.use('/api/developer', api_developer);
 app.use('/api/user', api_user);
 app.use('/api/class', api_class);
@@ -60,6 +67,7 @@ app.use('/api/file', api_file);
 app.use('/api/problem', api_problem);
 app.use('/api', api);
 app.use('/backend', api_backend);
+app.use('/api/live', api_live);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

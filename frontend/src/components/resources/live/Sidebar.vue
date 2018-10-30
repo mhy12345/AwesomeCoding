@@ -1,5 +1,5 @@
 <template>
-	<div>
+    <div>
         <el-collapse v-model="active_name">
             <el-collapse-item title="课程章节" name="chapters">
                 ...章节列表...
@@ -17,13 +17,19 @@
 
 <script>
     import Members from '../Participants';
-	export default {
+
+    export default {
         name: "sidebar",
         props: ['course_status'],
+        data() {
+            return {
+                active_name: 'members'
+            }
+        },
         components: {
             Members
         }
-	}
+    }
 </script>
 
 <style scoped>
