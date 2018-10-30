@@ -16,10 +16,10 @@
                     <h3>邀请码</h3>
                     <el-form>
                         <el-form-item>
-                            <el-input type='text' placeholder='请输入邀请码' v-model='invitation_code'/>
+                            <el-input  placeholder='请输入邀请码' v-model='invitation_code'/>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type='primary' style='width:100%' @onclick='handleEnterByInvitation'> 进入课程
+                            <el-button type='primary' style='width:100%' @click='handleEnterByInvitation'> 进入课程
                             </el-button>
                         </el-form-item>
                     </el-form>
@@ -37,11 +37,14 @@
 
     export default {
         data() {
-            return {invitation_code: undefined,};
+            return {
+				invitation_code: null,
+			};
         },
         methods: {
             handleEnterByInvitation: function () {
-                window.location.href = "/class/invite/" + self.invitation_code;
+				console.log(this);
+                window.location.href = "/class/invite/" + this.invitation_code;
             }
         },
         components: {
