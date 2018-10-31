@@ -171,7 +171,7 @@ export default {
             console.log('[message]', msg);
             this.$notify({
                 title: '收到消息',
-                message: msg.from + ' says: ' + msg.content,
+                message: msg.from + ' says: ' + msg.message,
                 duration: 0
             });
             this.$socket.emit('received');

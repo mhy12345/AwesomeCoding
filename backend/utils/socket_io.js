@@ -11,7 +11,7 @@ function createSocketIO(server) {
 	var io = require('socket.io')(server);
 	io.on('connection', function (socket) {
 		logger.info('>>a user connected');
-		socket.emit('message', { from: 'Host', content: 'Welcome!' });	// todo delete this
+		socket.emit('message', { from: 'Host', message: 'Welcome!' });	// todo delete this
 
 		socket.on('disconnect', function () {
 			logger.warn('>>a user disconnected');
@@ -21,7 +21,7 @@ function createSocketIO(server) {
 			logger.info('>>message: \n', msg);
 			logger.info('handshake.session\n', socket.handshake.session);
 			if (socket.handshake.session.user_id === undefined) {	// offline, reject
-				io.emit('rejected', {
+				socket.emit('rejected', {
 					details: '您尚未登录，不能发送消息。'
 				});
 				return;
@@ -41,13 +41,16 @@ function createSocketIO(server) {
 				then((packed) => {			// 成功添加到聊天记录
 					let { conn, sql_res } = packed;
 					logger.info('\nsql_res = ', sql_res);
-					io.emit('accepted');
-					conn.end()
-					// todo broadcast to other users
+					socket.emit('accepted');
+					conn.end();
+					socket.broadcast.emit('message', {		// 向其他用户广播消息
+						from: socket.handshake.session.realname,
+						message: msg.message
+					});
 				}).
 				catch((err) => {			// 数据库操作错误
 					logger.error('\n', err);
-					io.emit('rejected', {
+					socket.emit('rejected', {
 						details: '数据库操作失败。',
 						error: err,
 					});
