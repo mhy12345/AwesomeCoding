@@ -256,14 +256,9 @@ export default {
 			}
 		},
 		handleLogined(user_info) { // logined event emitted by children router-view
-			var hash;
-			console.log('>>>in app logined! info:', user_info);
-			this.loginQ = true;
-			hash = crypto.createHash('md5');
-			hash.update(user_info.email);
-			this.user = user_info;
-			this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
-			console.log("GRAVATAR URL = ", this.user.gravatar_url);
+            setTimeout(() => {
+                this.$router.go(0); // 过一段时间后刷新页面，以解决socket session不能更新的问题
+            }, 100);
 		},
 		handleLogout() { // logout event emitted by children router-view
 			console.log('>>>in app logout!');
