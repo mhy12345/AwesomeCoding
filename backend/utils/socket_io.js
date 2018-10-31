@@ -41,12 +41,15 @@ function createSocketIO(server) {
 				then((packed) => {			// 成功添加到聊天记录
 					let { conn, sql_res } = packed;
 					logger.info('\nsql_res = ', sql_res);
-					socket.emit('accepted');
+					socket.emit('accepted', );
 					conn.end();
-					socket.broadcast.emit('message', {		// 向其他用户广播消息 todo 不要向课程以外的用户发送
+					let flow = {
 						from: socket.handshake.session.realname,
-						message: msg.message
-					});
+						message: msg.message,
+						time: new Date()
+					};
+					socket.broadcast.emit('message', flow);		// 广播通知消息 todo 不要向课程以外的用户发送
+					io.emit('pullFlow', flow)	// 广播拉流消息
 				}).
 				catch((err) => {			// 数据库操作错误
 					logger.error('\n', err);

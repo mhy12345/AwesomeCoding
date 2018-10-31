@@ -151,12 +151,23 @@ export default {
 			active_index : '/',
 			loginQ: undefined,		 // 是否登录，初始为 undefined 这样右上角既不显示'登录'也不显示头像
 			default_user: {
-				nickname: 'somebody',
-				realname: 'SOMENAME',
-				gravatar_url: '',
-				role: 3,
+                user_id: '',
+                nickname: 'UnknownUser',
+                realname: 'UnknownUser',
+                role: 3,
+                email: '',
+                gravatar_url: '',
+                cookie: null
 			},
-			user: {},
+            user: {
+                user_id: '',
+                nickname: '',
+                realname: '',
+                role: '',
+                email: '',
+                gravatar_url: '',
+                cookie: null
+            },
 		}
 	},
 	beforeMount() {
@@ -167,8 +178,9 @@ export default {
         connect: function () {
             console.log('socket connected')
         },
-        message: function (msg) {       // 收到服务器发来的消息
+        message: function (msg) {       // 收到服务器发来的消息, todo 后期可以考虑把消息缓存在用户个人页里，并以红圈在右上角头像上显示
             console.log('[message]', msg);
+            if (!this.loginQ) return;       // todo 这个隐藏消息的逻辑将来要移到后端
             this.$notify({
                 title: '收到消息',
                 message: msg.from + ' says: ' + msg.message,

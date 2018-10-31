@@ -56,9 +56,6 @@
                         livePlayer(this.player_config);
                 });
         },
-        methods: {
-
-        },
         components: {
             Sidebar,
             ChatInput

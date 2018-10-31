@@ -38,8 +38,11 @@
                 active_name: 'members'
             }
         },
-        socket: {
-
+        sockets: {
+            pullFlow: function (msg) {       // 收到服务器发来的消息，更新聊天记录显示
+                console.log('[updating chat record]');
+                this.$refs.chat_records.pushRecord(msg);
+            },
         },
         components: {
             Members,

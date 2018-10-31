@@ -36,8 +36,13 @@
                  });
         },
         methods: {
-            pushRecord() {  // 有拉流消息，需要动态添加聊天记录
-
+            pushRecord(msg) {  // 有拉流消息，需要动态添加聊天记录
+                console.log('>>pushing record');
+                this.chat_records.push({
+                    date_time: msg.time,
+                    realname: msg.from,
+                    message: msg.message
+                })
             }
         }
 	}
