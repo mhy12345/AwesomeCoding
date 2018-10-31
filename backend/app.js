@@ -62,12 +62,12 @@ app.get('/api/hello', function (req, res) {
 app.use('/api/developer', api_developer);
 app.use('/api/user', api_user);
 app.use('/api/class', api_class);
+app.use('/api/live', api_live);
 app.use('/api/chat', api_chat);
 app.use('/api/file', api_file);
 app.use('/api/problem', api_problem);
 app.use('/api', api);
 app.use('/backend', api_backend);
-app.use('/api/live', api_live);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

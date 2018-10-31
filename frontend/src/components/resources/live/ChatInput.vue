@@ -27,8 +27,6 @@
 </template>
 
 <script>
-    import root_url from '../../../../config/http_root_url';
-
     export default {
         name: "Chat",
         data() {

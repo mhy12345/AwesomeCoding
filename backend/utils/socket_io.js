@@ -43,7 +43,7 @@ function createSocketIO(server) {
 					logger.info('\nsql_res = ', sql_res);
 					socket.emit('accepted');
 					conn.end();
-					socket.broadcast.emit('message', {		// 向其他用户广播消息
+					socket.broadcast.emit('message', {		// 向其他用户广播消息 todo 不要向课程以外的用户发送
 						from: socket.handshake.session.realname,
 						message: msg.message
 					});
