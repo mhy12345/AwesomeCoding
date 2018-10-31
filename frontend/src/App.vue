@@ -164,8 +164,30 @@ export default {
 		this.checkLogin();
 	},
     sockets: {      // usages of socket.io
-        connect: function(){
+        connect: function () {
             console.log('socket connected')
+        },
+        message: function (msg) {       // 收到服务器发来的消息
+            console.log('[message]', msg);
+            this.$notify({
+                title: '收到消息',
+                message: msg.from + ' says: ' + msg.content,
+                duration: 0
+            });
+            this.$socket.emit('received');
+        },
+        accepted: function () {         // 服务器接受客户发出的消息
+            console.log('[accepted]');
+            this.$notify.success({
+                title: '发出成功',
+            });
+        },
+        rejected: function (msg) {       // 服务器拒绝客户发出的消息
+            console.log('[rejected]', msg);
+            this.$notify.error({
+                title: '发出失败',
+                message: msg.details,
+            })
         }
     },
 	methods: {

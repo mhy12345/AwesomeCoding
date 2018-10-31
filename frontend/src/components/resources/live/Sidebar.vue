@@ -5,11 +5,10 @@
                 ...章节列表...
             </el-collapse-item>
             <el-collapse-item title="班级成员" name="members">
-                <members :course_status="course_status" :table_width="'600px'">
-                </members>
+                <members :course_status="course_status" :table_width="'600px'"></members>
             </el-collapse-item>
             <el-collapse-item title="聊天室" name="chatting-room">
-                ...消息列表...
+                <chat-records :course_id="$route.params.class_id"></chat-records>
             </el-collapse-item>
         </el-collapse>
     </div>
@@ -17,6 +16,7 @@
 
 <script>
     import Members from '../Participants';
+    import ChatRecords from './ChatRecords';
 
     export default {
         name: "sidebar",
@@ -27,7 +27,8 @@
             }
         },
         components: {
-            Members
+            Members,
+            ChatRecords
         }
     }
 </script>
