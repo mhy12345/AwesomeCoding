@@ -1,10 +1,13 @@
 <template>
 	<div>
-		<el-tabs @tab-click="onTabClick" type="border-card" v-loading='loading' v-model='activeName'>
+		<el-tabs type="border-card"
+                 @tab-click="onTabClick"
+                 v-loading='loading'
+                 v-model='activeName'>
 			<el-tab-pane v-for="option in options" :label="option.name" :name="options.route" :key='option.index'>
 			</el-tab-pane>
-		<router-view :course_status='course_status' class='lecture-panel' :index='activeTitle' >
-		</router-view>
+            <router-view :course_status='course_status' class='lecture-panel' :index='activeTitle' >
+            </router-view>
 		</el-tabs>
 	</div>
 </template>
@@ -97,6 +100,6 @@ export default {
 
 <style scoped>
 .lecture-panel {
-	min-height:500px;
+    height: 100%;
 }
 </style>

@@ -46,7 +46,7 @@
                         this.loadingQ = false;
                         this.$message.success("登录成功！" + resp.results.realname);
                         this.$emit('logined', resp.results); // 通知父级已登录 todo 刷新之后可否去掉此逻辑？
-                        this.$router.go(0);
+                        // this.$router.go(0);
                         this.$router.push('/user/profile');
                     }).
                     catch((resp) => {

@@ -34,6 +34,11 @@
                  catch((err) => {
                      console.log(err);
                  });
+        },
+        methods: {
+            pushRecord() {  // 有拉流消息，需要动态添加聊天记录
+
+            }
         }
 	}
 </script>
