@@ -97,6 +97,7 @@ var sqls = {
 		"`motto` VARCHAR(200), " +
 		"`registration_date` TIMESTAMP, " +
 		"`password` CHAR(40) NOT NULL, " +
+		"`phone` CHAR(11) NOT NULL, " +
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
 
