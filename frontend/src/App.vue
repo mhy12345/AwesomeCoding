@@ -163,10 +163,10 @@ export default {
 		this.user = copy(this.default_user);
 		this.checkLogin();
 	},
-    sockets: {
+    sockets: {      // usages of socket.io
         connect: function(){
             console.log('socket connected')
-        },
+        }
     },
 	methods: {
 		showUnknownError(err) {
