@@ -52,3 +52,12 @@
      originalMaxAge: 3599999,
      httpOnly: true },
   status: 'SUCCESS.' }
+[2018-11-01T12:17:27.620] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:17:27.622] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:17:27.296Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }

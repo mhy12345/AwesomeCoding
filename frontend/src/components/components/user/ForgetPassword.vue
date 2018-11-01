@@ -35,8 +35,7 @@
         methods: {
             handleForgetPassword: function () {
                 // TODO 实现忘记密码
-                this.loadingQ = true;
-                
+                this.loadingQ = true;     
             }
         }
     };
