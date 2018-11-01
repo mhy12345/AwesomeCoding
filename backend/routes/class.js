@@ -419,6 +419,9 @@ router.post('/create', function (req, res, next) { //创建新班级
 						let {conn, sql_res} = packed;
 						let sql = 'INSERT INTO `lives` (`class`,`liveplayer_uid`,`liveplayer_vid`) VALUES (' + mysql.escape(+result.id) + ',' + mysql.escape(uid) + ',' + mysql.escape(vid) + ')';
 
+						return doSqlQuery(conn, sql)
+					}).then(function (packed) {
+						let {conn, sql_res} = packed;
 						conn.end();
 						res.send(JSON.stringify(result, null, 3));
 					}).catch((err) => {
