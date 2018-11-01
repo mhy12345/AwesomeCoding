@@ -91,7 +91,8 @@
 
     import {registerSQL} from "../../../utils/DoSQL";
     import axios from 'axios'
-    var root_url = require('../../../../config/http_root_url');
+    //var root_url = require('../../../../config/http_root_url');
+	var root_url = '';
 
     export default {
         name: "SignUp",

@@ -20,9 +20,10 @@
 
 <script>
     import axios from 'axios';
-    import root_url from '../../../../config/http_root_url.js';
+    //import root_url from '../../../../config/http_root_url.js';
     import Sidebar from './Sidebar';
     import ChatInput from './ChatInput';
+	var root_url = '';
 
     export default {
         name: 'Live',

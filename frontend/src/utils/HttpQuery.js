@@ -1,6 +1,7 @@
 /* eslint-disable camelcase,no-undef */
-var root_url = require('../../config/http_root_url');
+//var root_url = require('../../config/http_root_url');
 import axios from 'axios';
+var root_url = '';
 
 function postQuery(parent, query) { // 使用ajax，向后端数据库发出 query 请求，然后回调 handleResponse 处理响应
     var query_url = root_url + '/api' + query;
