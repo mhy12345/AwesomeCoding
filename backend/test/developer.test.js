@@ -12,11 +12,11 @@ var logger = log4js.getLogger('test_info');
 
 describe('# Testing Developer Tool', function () {
 
-	let test_tables = ['users', 'classes', 'files'];
+	let test_tables = ['users', 'classes', 'files', 'chat_record', 'posts'];
 
 	describe('## Testing `/show_table`', function () {
 		test_tables.forEach(function (table) {
-			it('should respond to showing table `' + table + '`', function (done) {				// 三个表格的显示测试
+			it('should respond to showing table ' + table, function (done) {				// 表格的显示测试
 				request.
 					get('/api/developer/show_table?table_name=' + table).
 					expect(200).
@@ -78,7 +78,8 @@ describe('# Testing Developer Tool', function () {
 		it('should succeed when inserting a user to `users`', function (done) {				// 测试添加用户
 			request.
 				get("/api/developer/do_query?sql=INSERT INTO users " +
-					"(email, nickname, realname, role, password) VALUES ('1@mail.com', '" + test_name + "', 'TESTER', '1', '111111')").
+					"(email, nickname, realname, role, password, phone) VALUES " +
+					"('1@mail.com', '" + test_name + "', 'TESTER', '1', '111111', '11122223333');").
 				expect(200).
 				end(function (err, res) {
 					if (err) done(err);

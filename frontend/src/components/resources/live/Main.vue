@@ -10,8 +10,8 @@
             </el-col>
 
             <!--todo 右侧列表，尺寸逻辑还需要修改-->
-            <el-col class="right-sidebar">
-                <sidebar :course_status="course_status" style="max-height: 100%"></sidebar>
+            <el-col style="float: right; width: 35%; overflow: auto;">
+                <sidebar :course_status="course_status"></sidebar>
             </el-col>
         </el-row>
     </div>
@@ -65,11 +65,12 @@
 
 <style scoped>
     .right-sidebar{
-        position: relative;
-        left: 30px;
-        min-width: 5%;
-        max-width: 30%;
-        overflow: auto
+        float: right;
+        /*position: relative;*/
+        /*left: 30px;*/
+        /*min-width: 5%;*/
+        width: 35%;
+        overflow: auto;
     }
 </style>
 
