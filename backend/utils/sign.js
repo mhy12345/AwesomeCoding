@@ -6,6 +6,7 @@ function getSign(Params) {
 		arr.push(i);
 	}
 	arr.sort();
+
 	let str = appSecret;
 	for(let i = 0; i < arr.length; i ++) {
 		str = str + arr[i] + Params[arr[i]];

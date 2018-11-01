@@ -10,7 +10,18 @@ var randomString = require('../utils/funcs').randomString;
 var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
-var logger = log4js.getLogger('log_file')
+var logger = log4js.getLogger('log_file');
+
+var createSign = require('../utils/sign').getSign;
+const axios = require('axios');
+const querystring = require('querystring');
+var NewChannelTemplate = {
+	appId: 'f5gs13hkpw',
+	timestamp: '',
+	userId: '047a911d83',
+	name: '',
+	channelPasswd: '111111'
+};
 
 function checkPermission(conn, class_id, user_id) {
 	return new Promise((resolve,reject) => {
@@ -361,6 +372,69 @@ router.post('/create', function (req, res, next) { //创建新班级
 				let sql = 'INSERT INTO `classusers` (`class_id`,`role`,`user_id`,`registration_date`) VALUES (' + mysql.escape(+result.id) + ',' + mysql.escape(0) + ',' + mysql.escape(+req.session.user_id) + ',' + mysql.escape(new Date()) + ')';
 				return doSqlQuery(conn, sql);
 			}).
+			// Add new live
+			then(function (packed) {
+				console.log(resources);
+				if (resources.indexOf('live') > -1) {
+					console.log('fuck you 1234!!!!');
+					console.log(NewChannelTemplate);
+					let NewChannelJSON = {};
+					for(let i in NewChannelTemplate) {
+						NewChannelJSON[i] = NewChannelTemplate[i];
+					}
+
+					let timeStamp = Date.now().toString();
+					NewChannelJSON.name = timeStamp;
+					NewChannelJSON.timestamp = timeStamp;
+					NewChannelJSON.sign = createSign(NewChannelJSON);
+
+					console.log('fuck you you you!!!!');
+					console.log(NewChannelJSON);
+					let url = 'http://api.polyv.net/live/v2/channels';
+					axios.post(url, querystring.stringify(NewChannelJSON)).then((resp) => {
+						console.log(resp);
+						let vid = resp.data.data.channelId.toString();
+						let uid = '047a911d83';
+						let url = "https://open.ucpaas.com/ol/sms/sendsms";
+
+						let params = vid + ',' + NewChannelJSON.channelPasswd;
+						axios.post(url, {
+							"sid": "55d17519129b8973ea369b5ba8f14f4d", // const
+							"token": "43eee5a8cff8d6fd6f54ad612819b466", // const
+							"appid": "de5779c82e844993b4f28470cf545d77", // const
+							"templateid": "392980", // const
+							"param": params,
+							"mobile": "18610807406"
+						}).then((resp) => {
+							console.log(resp);
+						}).catch((err) => {
+							console.log(err);
+						});
+
+						console.log('fuck you!!!!');
+						console.log(NewChannelJSON);
+						console.log(uid);
+						console.log(vid);
+
+						let {conn, sql_res} = packed;
+						let sql = 'INSERT INTO `lives` (`class`,`liveplayer_uid`,`liveplayer_vid`) VALUES (' + mysql.escape(+result.id) + ',' + mysql.escape(uid) + ',' + mysql.escape(vid) + ')';
+
+						conn.end();
+						res.send(JSON.stringify(result, null, 3));
+					}).catch((err) => {
+						console.log(err);
+					});
+				}
+				else {
+					let {conn, sql_res} = packed;
+					conn.end();
+					res.send(JSON.stringify(result, null, 3));
+				}
+			}).
+			catch(function (sql_res) {
+				res.send(JSON.stringify(sql_res, null, 3));
+			});
+			/*
 			then(function (packed) {
 				let {conn, sql_res} = packed;
 				conn.end();
@@ -369,6 +443,7 @@ router.post('/create', function (req, res, next) { //创建新班级
 			catch(function (sql_res) {
 				res.send(JSON.stringify(sql_res, null, 3));
 			});
+			*/
 	}
 });
 
