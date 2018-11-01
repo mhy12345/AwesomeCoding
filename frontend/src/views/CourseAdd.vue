@@ -17,11 +17,13 @@
                                  :titles="['可用资源','已选资源']"></el-transfer>
                 </el-form-item>
                 <el-form-item label="课程简介：">
-                    <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="CourseData.description"></el-input>
+					<div @click='onEdit(CourseData.description)'>[编辑]</div>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">立即创建</el-button>
                 </el-form-item>
+				<ContentEditor ref=editor>
+				</ContentEditor>
             </el-form>
         </el-main>
     </el-container>
@@ -29,9 +31,9 @@
 
 <script>
     /* eslint-disable camelcase */
-
-
     import {avaliable_resources, default_resources} from '../utils/Resources';
+	import ContentEditor from '../components/components/ContentEditor.vue';
+	var randomString = require('../utils/funcs').randomString;
 
     export default {
         data() {
@@ -40,6 +42,8 @@
                     title: "",
                     type: "1",
                     resources: default_resources,
+					notice: randomString(16),
+					description: randomString(16),
                 },
                 avaliable_resources: avaliable_resources
             };
@@ -51,13 +55,20 @@
                     console.log(res.bodyText);
                     this.$message(res.bodyText);
                 });
-            }
-        }
-    };
+			},
+			onEdit(content_id) {
+				console.log("ON EDIT CALL ",content_id);
+				this.$refs.editor.handleOpen(content_id);
+			},
+		},
+		components: {
+			'ContentEditor': ContentEditor
+		}
+	};
 </script>
 
 <style scoped>
-    h2 {
-        text-align: center;
-    }
+h2 {
+	text-align: center;
+}
 </style>

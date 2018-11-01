@@ -17,71 +17,96 @@
                                  :titles="['可用资源','已选资源']"></el-transfer>
                 </el-form-item>
                 <el-form-item label="课程简介：">
-                    <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="CourseData.description"></el-input>
+					<ContentDisplay @click.native='onEdit(CourseData.description)' :border='true' ref='description_display'>
+					</ContentDisplay>
                 </el-form-item>
                 <el-form-item label="课程公告：">
-                    <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="CourseData.notice"></el-input>
+					<ContentDisplay @click.native='onEdit(CourseData.notice)' :border='true' ref='notice_display'>
+					</ContentDisplay>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">更新</el-button>
                 </el-form-item>
+				<ContentEditor ref=editor
+					@updated='handleUpdate'
+				>
+				</ContentEditor>
             </el-form>
         </el-main>
     </el-container>
 </template>
 
 <script>
-    /* eslint-disable camelcase */
+/* eslint-disable camelcase */
 
-    import {avaliable_resources} from '../../utils/Resources';
+import {avaliable_resources} from '../../utils/Resources';
+import ContentEditor from '../components/ContentEditor.vue';
+import ContentDisplay from '../components/ContentDisplay.vue';
+var randomString = require('../../utils/funcs').randomString;
 
-    export default {
-        data() {
-            return {
-                class_id: undefined,
-                CourseData: {
-                    title: undefined,
-                    name: undefined,
-                    type: undefined,
-                },
-                resources: undefined,
-                loading: true,
-                avaliable_resources: avaliable_resources
-            };
-        },
-        mounted: function () {
-            this.class_id = this.$route.params.class_id;
-            this.$http.post('/api/class/info/query', {class_id: this.class_id}).
-                 then(function (res) {
-                     if (res.body.status === 'NOT FOUND.') {
-                         this.$message("Room " + this.class_id + " not found!");
-                     } else {
-                         this.CourseData = res.body.info;
-                         this.resources = res.body.resources;
-                         this.loading = false;
-                     }
-                 });
-        },
-        methods: {
-            onSubmit() {
-                console.log(this.CourseData);
-                this.$http.post('/api/class/info/update', {
-                    resources: this.resources,
-                    info: this.CourseData,
-                    class_id: this.class_id
-                }).
-                     then(function (res) {
-                         console.log(res.bodyText);
-                         this.$message("课程信息已更新");
-                         location.reload();
-                     });
-            }
-        }
-    };
+export default {
+	data() {
+		return {
+			class_id: undefined,
+			CourseData: {
+				title: undefined,
+				name: undefined,
+				type: undefined,
+			},
+			resources: undefined,
+			loading: true,
+			avaliable_resources: avaliable_resources,
+
+		};
+	},
+	mounted: function () {
+		this.class_id = this.$route.params.class_id;
+		this.$http.post('/api/class/info/query', {class_id: this.class_id}).
+			then(function (res) {
+				if (res.body.status === 'NOT FOUND.') {
+					this.$message("Room " + this.class_id + " not found!");
+				} else {
+					this.CourseData = res.body.info;
+					this.resources = res.body.resources;
+					this.loading = false;
+					console.log(this.CourseData);
+					this.handleUpdate();
+				}
+			});
+	},
+	methods: {
+		handleUpdate: function() {
+			console.log("Setting updated...");
+			this.$refs.description_display.handleUpdate(this.CourseData.description);
+			this.$refs.notice_display.handleUpdate(this.CourseData.notice);
+		},
+		onSubmit() {
+			console.log(this.CourseData);
+			this.$http.post('/api/class/info/update', {
+				resources: this.resources,
+				info: this.CourseData,
+				class_id: this.class_id
+			}).
+				then(function (res) {
+					console.log(res.bodyText);
+					this.$message("课程信息已更新");
+					location.reload();
+				});
+		},
+		onEdit(content_id) {
+			console.log("ON EDIT CALL ",content_id);
+			this.$refs.editor.handleOpen(content_id);
+		},
+	},
+	components: {
+		'ContentEditor': ContentEditor,
+		'ContentDisplay': ContentDisplay
+	}
+};
 </script>
 
 <style scoped>
-    h2 {
-        text-align: center;
-    }
+h2 {
+	text-align: center;
+}
 </style>

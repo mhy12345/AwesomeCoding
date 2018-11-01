@@ -8,28 +8,43 @@ log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file')
 
 var sqls = {
-	'create_paper_table' : "CREATE TABLE IF NOT EXISTS `papers` (" +
-		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT," +
+	'create_choice_problem_answer_table' : "CREATE TABLE IF NOT EXISTS `choice_problem_answers` (" +
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
+		"`user_id` INT UNSIGNED NOT NULL, " +
+		"`code` CHAR(20), " +
+		"`answer` CHAR(2), " +
+		"`time` TIMESTAMP, " +
+		"PRIMARY KEY (`id`) " +
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+	'create_choice_problem_table' : "CREATE TABLE IF NOT EXISTS `choice_problems` (" + 
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`code` CHAR(20) NOT NULL, " +
-		"`user_id` INT UNSIGNED, " +
-		"`text` VARCHAR(800) , " +
+		"`description` char(25) NOT NULL, " +
+		"`choice_count` INT NOT NULL DEFAULT 4, " +
+		"`choice_A` VARCHAR(400), " +
+		"`choice_B` VARCHAR(400), " +
+		"`choice_C` VARCHAR(400), " +
+		"`choice_D` VARCHAR(400), " +
+		"`choice_E` VARCHAR(400), " +
+		"`answer` CHAR(2), " +
+		"`solution` CHAR(25) NOT NULL, " +
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
 	'create_problem_table' : "CREATE TABLE IF NOT EXISTS `problems` (" +
 		"`code` CHAR(20) NOT NULL, " +
-		"`alias` VARCHAR(100) , " +
-		"`answer` VARCHAR(800) , " +
+		"`title` VARCHAR(100) NOT NULL, " +
+		"`class_id` INT UNSIGNED NOT NULL, " +
+		"`type` INT UNSIGNED NOT NULL, "+
+		"`creater` INT UNSIGNED NOT NULL, " +
 		"`state` INT UNSIGNED NOT NULL, " +
 		"PRIMARY KEY (`code`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
-	'create_content_table' : "CREATE TABLE IF NOT EXISTS `contents` (" +
-		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
-		"`path` VARCHAR(150) NOT NULL, " +
+	'create_content_table' : "CREATE TABLE IF NOT EXISTS `contents` (" + //渲染富文本页面
+		"`code` CHAR(25) NOT NULL, " +
 		"`content` VARCHAR(10000) NOT NULL, " +
 		"`deltas` VARCHAR(10000) NOT NULL, " +
-		"PRIMARY KEY (`id`) " +
+		"PRIMARY KEY (`code`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
-
 	'create_class_file_table' : "CREATE TABLE IF NOT EXISTS `coursefiles`(" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`class_id` INT UNSIGNED NOT NULL, " +
@@ -82,6 +97,7 @@ var sqls = {
 		"`motto` VARCHAR(200), " +
 		"`registration_date` TIMESTAMP, " +
 		"`password` CHAR(40) NOT NULL, " +
+		"`phone` CHAR(11) NOT NULL, " +
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
 
@@ -141,13 +157,26 @@ function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新�
 				});
 				return;
 			}
-			var tasks = ['use_database', 'create_user_table', 'create_class_table', 'create_class_user_table',
-						"create_class_resources", 'create_forums', 'create_file_table','create_banned_list',
-						'create_content_table', 'create_problem_table','create_paper_table', 'create_class_file_table', 'create_posts', 'create_lives'];
+			var tasks = [
+				'use_database', 
+				'create_user_table', 
+				'create_class_table', 
+				'create_class_user_table',
+				'create_class_resources', 
+				'create_forums', 
+				'create_file_table',
+				'create_banned_list',
+				'create_content_table', 
+				'create_problem_table',
+				'create_choice_problem_table', 
+				'create_choice_problem_answer_table', 
+				'create_class_file_table', 
+				'create_posts', 
+				'create_lives',
+			];
 			if (db_cfg.no_create !== true) {
 				tasks = ['create_database'].concat(tasks);
 			}
-			//var tasks = ['create_database', 'use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list','create_posts',];
 			async.eachSeries(tasks, function (item, next) {
 				console.log(sqls[item]);
 				logger.info(item + " ==> " + sqls[item]);

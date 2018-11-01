@@ -9,9 +9,10 @@ log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file')
 
 function getConnection() { //获取连接connection，并调用回调函数
-	// return mysql_initializer({
-	// 	no_create:true
-	// });
+	/*
+	return mysql_initializer({
+	 	no_create:true
+	});*/
 	return new Promise(function (resolve, reject) {
 		let config = {
 			host: mysql_config.host,
@@ -38,10 +39,10 @@ function getConnection() { //获取连接connection，并调用回调函数
 }
 
 function doSqlQuery(conn, sql) {           // 执行数据库命令
-	if (typeof(sql) === 'undefined') {
+	if (typeof(sql) === 'undefined' || typeof(conn) === 'undefined') {
 		return Promise.reject({
 			status: 'FAILED.',
-			details: 'The doSqlQuery() function called with one parameter.'
+			details: 'The doSqlQuery() function called with zero/one parameter.'
 		});
 	}
 	return new Promise(function (resolve, reject) {
