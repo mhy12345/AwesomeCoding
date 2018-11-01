@@ -1,3 +1,4 @@
+// 讨论区的api
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
@@ -8,7 +9,7 @@ var doSqlQuerySequential = require('../utils/funcs').doSqlQuerySequential;
 var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
-var logger = log4js.getLogger('log_file')
+var logger = log4js.getLogger('log_file');
 
 router.post('/ban', function (req, res, next) { //添加禁言名单 @调整部分逻辑 TODO 确认正确性
 	let userid = req.body.userid;

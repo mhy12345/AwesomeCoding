@@ -1,10 +1,13 @@
 <template>
 	<div>
-		<el-tabs @tab-click="onTabClick" type="border-card" v-loading='loading' v-model='activeName'>
+		<el-tabs type="border-card"
+                 @tab-click="onTabClick"
+                 v-loading='loading'
+                 v-model='activeName'>
 			<el-tab-pane v-for="option in options" :label="option.name" :name="options.route" :key='option.index'>
 			</el-tab-pane>
-			<router-view :course_status='course_status' class='lecture-panel' :index='activeTitle' >
-			</router-view>
+            <router-view :course_status='course_status' class='lecture-panel' :index='activeTitle' >
+            </router-view>
 		</el-tabs>
 	</div>
 </template>
@@ -42,7 +45,6 @@ export default {
 		},
 	},
 	mounted: function () {
-		let _this = this;
 		this.activeName = this.getActiveName();
 		this.title = this.$route.params.class_id;
 		this.$http.post('/api/class/resources/query', {class_id: this.title}, null).
@@ -58,11 +60,11 @@ export default {
 					return ;
 				}
 				this.course_status = res.body.results;
-				if (this.course_status.role == 0) {
+				if (this.course_status.role === 0) {
 					this.course_status.role_title = '教师';
-				} else if (this.course_status.role == 1) {
+				} else if (this.course_status.role === 1) {
 					this.course_status.role_title = '助教';
-				} else if (this.course_status.role == 2) {
+				} else if (this.course_status.role === 2) {
 					this.course_status.role_title = '学生';
 				} else {
 					this.course_status.role_title = '未知';
@@ -83,7 +85,7 @@ export default {
 			var current_options = this.class_resources ? this.class_resources : default_options;
 			var idx = 0;
 			let activeTitle = this.$route.path.split("/")[3];
-			for (var k of current_options) {
+			for (let k of current_options) {
 				if (k === activeTitle) {
 					return ''+idx;
 				}
@@ -98,6 +100,6 @@ export default {
 
 <style scoped>
 .lecture-panel {
-	min-height:500px;
+    height: 100%;
 }
 </style>

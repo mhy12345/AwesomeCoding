@@ -28,7 +28,7 @@ var supported_resources = {
 	live: {
 		name: 'live',
 		title: '在线授课',
-		component: () => import('../components/resources/Live.vue'),
+		component: () => import('../components/resources/live/Main.vue'),
 		disabled: false,
 		defaultChosen: false,
 		access: {
