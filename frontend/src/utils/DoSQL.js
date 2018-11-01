@@ -109,5 +109,6 @@ export {
     registerSQL,
     changeSQL,
     sessionSQL,
-    logoutSQL
+    logoutSQL,
+    forgetPasswordSQL
 };

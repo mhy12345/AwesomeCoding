@@ -35,7 +35,16 @@
         methods: {
             handleForgetPassword: function () {
                 // TODO 实现忘记密码
-                this.loadingQ = true;     
+                this.loadingQ = true;
+                forgetPasswordSQL(this, this.inputs).
+                    then((resp) => {
+                        console.log(resp);
+                        this.loadingQ = false;
+                        this.$router.push('/user/sign_in');
+                    }).
+                    catch((resp) => {
+                        
+                    });     
             }
         }
     };
