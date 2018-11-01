@@ -22,6 +22,7 @@ describe('# Testing /api/user', function () {
 			role: 0,
 			motto: 'just for test',
 			password: '111111',
+			phone: '13212312312',
 		};
 		request.
 			get('/api/user/logout').
@@ -40,6 +41,7 @@ describe('# Testing /api/user', function () {
 				email: '123456@mail.com',
 				motto: 'just for test',
 				password: '111111',
+				phone: '13212312312',
 			};
 			users[1] = {	// without email
 				nickname: 'test_name2' + randomString(8),
@@ -47,6 +49,7 @@ describe('# Testing /api/user', function () {
 				role: 0,
 				motto: 'just for test',
 				password: '111111',
+				phone: '13212312312',
 			};
 			users[2] = {	// without password
 				nickname: 'test_name' + randomString(8),
@@ -54,6 +57,7 @@ describe('# Testing /api/user', function () {
 				email: '123456@mail.com',
 				role: 0,
 				motto: 'just for test',
+				phone: '13212312312',
 			};
 			users.forEach((user, index) => {
 				it('test #' + index, function (done) {
@@ -97,6 +101,7 @@ describe('# Testing /api/user', function () {
 						role: 0,
 						motto: 'just for test',
 						password: '111111',
+						phone: '13312341234',
 					};
 					request.
 						post('/api/user/register').
