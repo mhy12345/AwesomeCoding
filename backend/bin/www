@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('myapp:server');
 var http = require('http');
 var host_config = require('../configures/server.config');
+var session = require('../configures/session.config');
 
 /**
  * Get port from environment and store in Express.
@@ -21,6 +22,15 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+// create socket.io
+var io = require('../utils/socket_io')(server);
+
+// shared-session with io
+var shared_session = require("express-socket.io-session");
+io.use(shared_session(session, {
+	autoSave: true
+}));
 
 /**
  * Listen on provided port, on all network interfaces.

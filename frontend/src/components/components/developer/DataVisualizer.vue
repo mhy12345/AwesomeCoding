@@ -127,27 +127,28 @@
                 this.heads = [];
                 this.input.items = {};
 
-                getSQLColumns(this, this.table_name).// 异步执行请求，先获取表头
-                                                     then((resp) => { // 成功，被 getSQLColumns 的 resolve 调用
-                    var item;
-                    console.log(resp);
-                    for (item of resp.results) {
-                        this.heads.push(item['COLUMN_NAME']);
-                        this.input.items[item['COLUMN_NAME']] = '';
-                    }
-                    return showSQL(this, this.table_name); // 然后获取表中数据
-                }).
-                                                     then((resp) => { // 成功，被 showSQL 的 resolve 调用
-                                                         console.log(resp);
-                                                         this.table_data = resp.results;
-                                                         this.loadingQ = false;
-                                                         this.loadedQ = true;
-                                                     }).
-                                                     catch((err) => { // 某个步骤失败，交给 showUnknownError 统一处理
-                                                         this.loadingQ = false;
-                                                         this.loadedQ = false;
-                                                         this.showUnknownError(err);
-                                                     });
+                getSQLColumns(this, this.table_name).
+                    // 异步执行请求，先获取表头
+                    then((resp) => { // 成功，被 getSQLColumns 的 resolve 调用
+                        var item;
+                        console.log(resp);
+                        for (item of resp.results) {
+                            this.heads.push(item['COLUMN_NAME']);
+                            this.input.items[item['COLUMN_NAME']] = '';
+                        }
+                        return showSQL(this, this.table_name); // 然后获取表中数据
+                    }).
+                    then((resp) => { // 成功，被 showSQL 的 resolve 调用
+                        console.log(resp);
+                        this.table_data = resp.results;
+                        this.loadingQ = false;
+                        this.loadedQ = true;
+                    }).
+                    catch((err) => { // 某个步骤失败，交给 showUnknownError 统一处理
+                        this.loadingQ = false;
+                        this.loadedQ = false;
+                        this.showUnknownError(err);
+                    });
             },
             handleAdd: function () { // 向后端数据库发出添加数据的请求
                 this.loadingQ = true;
@@ -190,17 +191,20 @@
             handleChange: function () { // 向后端数据库发出修改数据的请求
                 this.loadingQ = true;
                 this.edit_dialog.visual = false;
-                updateSQL(this, this.table_name, this.edit_dialog.row).then((resp) => {
-                    console.log(resp);
-                    return showSQL(this, this.table_name);
-                }).then((resp) => {
-                    console.log(resp);
-                    this.table_data = resp.results;
-                    this.loadingQ = false;
-                }).catch((err) => {
-                    this.loadingQ = false;
-                    this.showUnknownError(err);
-                });
+                updateSQL(this, this.table_name, this.edit_dialog.row).
+                    then((resp) => {
+                        console.log(resp);
+                        return showSQL(this, this.table_name);
+                    }).
+                    then((resp) => {
+                        console.log(resp);
+                        this.table_data = resp.results;
+                        this.loadingQ = false;
+                    }).
+                    catch((err) => {
+                        this.loadingQ = false;
+                        this.showUnknownError(err);
+                    });
             }
         },
     };

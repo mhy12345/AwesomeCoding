@@ -1,13 +1,13 @@
 <template>
     <el-container>
-        <el-header>
-            <h2>班级成员管理</h2>
-        </el-header>
+        <!--<el-header>-->
+            <!--<h3>班级成员管理</h3>-->
+        <!--</el-header>-->
         <div id="DataVisualizer" v-loading="loadingQ">
             <div v-if="loadedQ">
                 <el-table id="display-table"
                           :data="fancy_data"
-                          style="width: 100%; margin: auto; padding: 5px;"
+                          :style="display_config"
                           highlight-current-row stripe>
                     <el-table-column v-for="obj in heads"
                                      :key="obj.idx"
@@ -32,7 +32,7 @@
 <script>
 
     export default {
-        data() {
+        data () {
             return {
                 table_name: '',
                 heads: [
@@ -52,16 +52,25 @@
                 },
                 loadingQ: false, // 是否处于加载中的状态
                 loadedQ: false, // 是否已经加载完成
+                display_config: {
+                    width: '1000px',
+                    margin: 'auto',
+                    padding: '5px'
+                }
             };
         },
-        props: ['course_status'],
+        props: ['course_status', 'table_width'],
         computed: {
             fancy_data: function () {
                 let data = [];
                 for (let item of this.table_data) {
-                    if (item.role == 0) item.role_title = '教师';
-                    if (item.role == 1) item.role_title = '助教';
-                    if (item.role == 2) item.role_title = '学生';
+                    if (item.role === 0) {
+                        item.role_title = '教师';
+                    } else if (item.role === 1) {
+                        item.role_title = '助教';
+                    } else if (item.role === 2) {
+                        item.role_title = '学生';
+                    }
                     data.push(item);
                     console.log(item);
                 }
@@ -69,6 +78,9 @@
             }
         },
         mounted: function () {
+            if (this.table_width) { // 若父页面传来了表的参数，就修改配置
+                this.display_config.width = this.table_width;
+            }
             this.class_id = this.$route.params.class_id;
             this.loadingQ = true;//...
 
@@ -84,32 +96,33 @@
                  catch((resp) => {
                      this.loadingQ = false;
                      this.loadedQ = false;
-                     if (resp.body == 'NOT_LOGIN.') {
+                     if (resp.body === 'NOT_LOGIN.') {
                          _this.$message("请登录...");
                      } else if (resp.body === "NOT_IN_CLASS.") {
                          _this.$message("请先加入班级");
-                     } else
+                     } else {
                          _this.$message("未知错误");
+                     }
                  });
         },
         methods: {
-            handleAdd: function () {	  // 向后端数据库发出添加数据的请求
+            handleAdd: function () { // 向后端数据库发出添加数据的请求
                 this.loadingQ = true;
                 //TODO
             },
-            handleDelete: function (id) {  // 向后端数据库发出删除数据的请求
+            handleDelete: function (id) { // 向后端数据库发出删除数据的请求
                 this.loadingQ = true;
                 this.$http.post('/api/class/participants/delete', {class_id: this.class_id, user_id: id}, null).
-                     then(function () {
-                         this.$messgae("成功");
+                     then(() => {
+                         this.$message("成功");
                          this.loadingQ = false;
                      }).
-                     catch(function () {
+                     catch(() => {
                          this.$message("失败");
                          this.loadingQ = false;
                      });
             },
-            handleChange: function () {   // 向后端数据库发出修改数据的请求
+            handleChange: function () { // 向后端数据库发出修改数据的请求
                 this.loadingQ = true;
                 this.edit_dialog.visual = false;
                 //TODO

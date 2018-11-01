@@ -1,9 +1,9 @@
 /* eslint-disable no-undef,camelcase */
 import Vue from 'vue';
 import Router from 'vue-router';
-import {router_childs} from '@/utils/Resources';
-import Home from '@/views/Home';
-import PageNotFound from '@/views/404';
+import {router_childs} from '../utils/Resources';
+import Home from '../views/Home';
+import PageNotFound from '../views/404';
 
 Vue.use(Router);
 console.log(router_childs);

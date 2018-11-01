@@ -25,6 +25,7 @@
         "vue-pdf": "^3.3.1",
         "vue-resource": "^1.5.1",
         "vue-router": "^3.0.1",
+        "vue-socket.io": "^2.1.1-b",
         "vue2-editor": "^2.6.6"
     },
     "devDependencies": {
