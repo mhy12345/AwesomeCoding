@@ -83,6 +83,10 @@ function registerSQL(parent, user) {
     return postSQL(parent, "/user/register", user);
 }
 
+function forgetPasswordSQL(parent, user) {
+    return postSQL(parent, "/user/forgetPassword", user);
+}
+
 function changeSQL(parent, user) {
     return postSQL(parent, "/user/change", user);
 }

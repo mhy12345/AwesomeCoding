@@ -1,0 +1,54 @@
+[2018-11-01T12:03:28.079] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:03:28.082] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:03:26.088Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:08:05.048] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:08:05.049] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:08:04.671Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:09:52.277] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:09:52.277] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:09:51.465Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:12:09.935] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:12:09.936] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:12:09.927Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:12:15.776] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:12:15.777] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:12:15.474Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:13:33.050] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:13:33.051] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:13:32.796Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.' }
