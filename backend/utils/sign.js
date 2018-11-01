@@ -1,12 +1,4 @@
-var async = require('async');
-var mysql = require('mysql');
-var mysql_initializer = require('./mysql_initializer');
-var mysql_config = require('../configures/database.config.js');
-
-var log4js = require("log4js");
-var log4js_config = require("../configures/log.config.js").runtime_configure;
-log4js.configure(log4js_config);
-var logger = log4js.getLogger('log_file')
+var appSecret = '42169b1723444a51bb8282a42b44bec2';
 
 function getSign(Params) {
 	let arr = [];
@@ -14,7 +6,16 @@ function getSign(Params) {
 		arr.push(i);
 	}
 	arr.sort();
-	let str = '';
+	let str = appSecret;
+	for(let i = 0; i < arr.length; i ++) {
+		str = str + arr[i] + Params[arr[i]];
+	}
+	str = str + appSecret;
+
+	var md5 = require('md5-node');
+	let md5string = md5(str);
+	let ret = md5string.toUpperCase();
+	return ret;
 }
 
 module.exports = {
