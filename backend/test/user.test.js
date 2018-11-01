@@ -126,6 +126,7 @@ describe('# Testing /api/user', function () {
 						role: 0,
 						motto: 'just for test',
 						password: '111111',
+						phone: '13312341234',
 					};
 					request.
 						post('/api/user/register').

@@ -12,11 +12,12 @@ var logger = log4js.getLogger('test_info');
 
 describe('# Testing Developer Tool', function () {
 
-	let test_tables = ['users', 'classes', 'files', 'chat_record', 'posts'];
+	let test_tables = ['users', 'classes', 'files'];
 
 	describe('## Testing `/show_table`', function () {
 		test_tables.forEach(function (table) {
 			it('should respond to showing table ' + table, function (done) {				// 表格的显示测试
+				this.timeout(4000);
 				request.
 					get('/api/developer/show_table?table_name=' + table).
 					expect(200).
@@ -147,7 +148,7 @@ describe('# Testing Developer Tool', function () {
 		it('should catch error when doing a bad query', function (done) {	// 请求出错，拒绝操作
 			request.
 				get("/api/developer/do_query?sql=INSERT INTO users " +
-					"(nickname, realname, password) VALUES ('" + test_name + "', 'TESTER', '1')").
+					"(nickname, realname, password,phone) VALUES ('" + test_name + "', 'TESTER', '1','13312341234')").
 				expect(200).
 				end(function (err, res) {
 					if (err) done(err);
