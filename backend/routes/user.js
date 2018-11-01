@@ -1,4 +1,4 @@
-const axios = require('axios')
+const axios = require('axios');
 
 var express = require('express');
 var router = express.Router();
@@ -78,7 +78,7 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 			// 不重复
 			var values = [];
 			var keys = [];
-			var items = ['id', 'nickname', 'realname', 'role', 'email', 'motto', 'registration_date', 'password'];
+			var items = ['id', 'nickname', 'realname', 'role', 'email', 'motto', 'registration_date', 'password', 'phone'];
 			for (var item of items) {
 				keys.push(item);
 				if (req.body[item] === undefined || req.body[item] === null || req.body[item] === '')

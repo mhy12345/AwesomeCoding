@@ -14,12 +14,19 @@ router.get('/problem/render', function(req, res, next) {
 		then(function(packed) {
 			let {conn, sql_res} = packed;
 			conn.end();
-			console.log(" ========== CODE ========");
-			console.log(sql_res.results[0].content);
-			console.log(" ========= FINISH =======");
-			res.render('problem',{
-				content:sql_res.results[0].content
-			});
+			if (sql_res.results.length === 0) {
+				res.render('problem',{
+					content:"<h3>练习区</h3><p>还没有任何习题哦，看看别的地方吧！</p>"
+				});
+			} 
+			else {
+				console.log(" ========== CODE ========");
+				console.log(sql_res.results[0].content);
+				console.log(" ========= FINISH =======");
+				res.render('problem',{
+					content:sql_res.results[0].content
+				});
+			}
 		}).
 		catch(function(sql_res) {
 			next(sql_res);

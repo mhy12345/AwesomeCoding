@@ -5,16 +5,16 @@
 </template>
 
 <script>
-    import polyvObject from '@/../static/liveplayer.js';
-    //var polyvObject = Object();
+    import polyvObject from 'polyvObject'
 
     export default {
         props: {
-            'size': [Number, Number],
+            'size': Array,
             'vid': String,
             'uid': String
         },
         mounted: function () {
+            console.log(this.size);
             // eslint-disable-next-line
             var player = polyvObject('#player').livePlayer({
                 width: this.size[0],

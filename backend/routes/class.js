@@ -321,12 +321,13 @@ router.post('/info/update', function (req, res, next) {
 
 router.post('/create', function (req, res, next) { //创建新班级
 	console.log(req.session);
-	if (req.session.role != 1) {
+	if (req.session.role != 1 && req.session.role != 0) {
 		res.status(403).send('Only teacher can create a course.');
 		return;
 	}
 	var title = req.body.title;
 	var description = req.body.description;
+	var notice = req.body.notice;
 	var invitation_code = randomString(20);
 	var resources = req.body.resources;
 	if (title === undefined || title.length < 3) {
@@ -338,8 +339,8 @@ router.post('/create', function (req, res, next) { //创建新班级
 		let result = {};
 		getConnection().
 			then(function (conn) {
-				let sql = 'INSERT INTO classes (`title`, `description`, `invitation_code`, `registration_date`, `type`) VALUES (' +
-					mysql.escape(title) + ',' + mysql.escape(description) + ',' + mysql.escape(invitation_code) + ',' + mysql.escape(new Date()) + ',' + mysql.escape(+req.body.type) + ')';
+				let sql = 'INSERT INTO classes (`title`, `description`, `invitation_code`, `registration_date`, `type`, `notice`) VALUES (' +
+					mysql.escape(title) + ',' + mysql.escape(description) + ',' + mysql.escape(invitation_code) + ',' + mysql.escape(new Date()) + ',' + mysql.escape(+req.body.type) + ',' + mysql.escape(notice) + ')';
 				return doSqlQuery(conn, sql);
 			}).
 			then(function (packed) {
@@ -425,6 +426,31 @@ router.post('/my_course/fetch', function (req, res, next) {
 		}).
 		catch(function (sql_res) {
 			res.status(403).send(JSON.stringify(sql_res));
+		});
+});
+
+router.post('/liveid/query', function (req, res, next) {
+	let result = {
+		status: undefined
+	};
+	getConnection().
+		then(function (conn) {
+			let sql = 'SELECT * FROM lives WHERE class = ' + mysql.escape(req.body.class_id);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let {conn, sql_res} = packed;
+			result.liveplayer_uid = sql_res.results[0].liveplayer_uid;
+			result.liveplayer_vid = sql_res.results[0].liveplayer_vid;
+			result.status = "SUCCESS.";
+			console.log('fuckfuck');
+			console.log(result);
+			conn.end();
+			res.send(JSON.stringify(result, null, 3));
+		}).
+		catch(function (result) {
+			if (result.status === 'FAILED.')
+				res.send(JSON.stringify(result, null, 3));
 		});
 });
 

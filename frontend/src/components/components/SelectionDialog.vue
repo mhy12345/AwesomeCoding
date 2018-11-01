@@ -39,10 +39,10 @@ export default {
 	},
 	methods: {
 		handleOpen: function(problem_id) {
+			console.log("INIT",this.info);
 			this.info.problem_id = problem_id;
 			this.visible = true;
 			this.loading = false;
-			console.log("INIT",this.info);
 		},
 		handleCancel: function() {
 			this.visible = false;

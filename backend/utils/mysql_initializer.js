@@ -8,25 +8,48 @@ log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file')
 
 var sqls = {
-	'create_paper_table' : "CREATE TABLE IF NOT EXISTS `papers` (" +
-		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT," +
+	'create_choice_problem_answer_table' : "CREATE TABLE IF NOT EXISTS `choice_problem_answers` (" +
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
+		"`user_id` INT UNSIGNED NOT NULL, " +
+		"`code` CHAR(20), " +
+		"`answer` CHAR(2), " +
+		"`time` TIMESTAMP, " +
+		"PRIMARY KEY (`id`) " +
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+	'create_choice_problem_table' : "CREATE TABLE IF NOT EXISTS `choice_problems` (" + 
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`code` CHAR(20) NOT NULL, " +
-		"`user_id` INT UNSIGNED, " +
-		"`text` VARCHAR(800) , " +
+		"`description` char(25) NOT NULL, " +
+		"`choice_count` INT NOT NULL DEFAULT 4, " +
+		"`choice_A` VARCHAR(400), " +
+		"`choice_B` VARCHAR(400), " +
+		"`choice_C` VARCHAR(400), " +
+		"`choice_D` VARCHAR(400), " +
+		"`choice_E` VARCHAR(400), " +
+		"`answer` CHAR(2), " +
+		"`solution` CHAR(25) NOT NULL, " +
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
 	'create_problem_table' : "CREATE TABLE IF NOT EXISTS `problems` (" +
 		"`code` CHAR(20) NOT NULL, " +
-		"`alias` VARCHAR(100) , " +
-		"`answer` VARCHAR(800) , " +
+		"`title` VARCHAR(100) NOT NULL, " +
+		"`class_id` INT UNSIGNED NOT NULL, " +
+		"`type` INT UNSIGNED NOT NULL, "+
+		"`creater` INT UNSIGNED NOT NULL, " +
 		"`state` INT UNSIGNED NOT NULL, " +
 		"PRIMARY KEY (`code`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
-	'create_content_table' : "CREATE TABLE IF NOT EXISTS `contents` (" +
-		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
-		"`path` VARCHAR(150) NOT NULL, " +
+	'create_content_table' : "CREATE TABLE IF NOT EXISTS `contents` (" + //渲染富文本页面
+		"`code` CHAR(25) NOT NULL, " +
 		"`content` VARCHAR(10000) NOT NULL, " +
 		"`deltas` VARCHAR(10000) NOT NULL, " +
+		"PRIMARY KEY (`code`) " +
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
+	'create_class_file_table' : "CREATE TABLE IF NOT EXISTS `coursefiles`(" +
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
+		"`class_id` INT UNSIGNED NOT NULL, " +
+		"`file_id` INT UNSIGNED NOT NULL, " +
+		"`filename` VARCHAR(100) NOT NULL, " +
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 
@@ -74,6 +97,7 @@ var sqls = {
 		"`motto` VARCHAR(200), " +
 		"`registration_date` TIMESTAMP, " +
 		"`password` CHAR(40) NOT NULL, " +
+		"`phone` CHAR(11) NOT NULL, " +
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
 
@@ -85,16 +109,33 @@ var sqls = {
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
 
-	'create_forums': "CREATE TABLE IF NOT EXISTS `forums`(" +
-		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " + //消息id
-		"`userid` INT UNSIGNED NOT NULL, " + //发言者id
-		"`classid` INT UNSIGNED NOT NULL, " + //讨论区位置id
-		"`message` VARCHAR(200), " + //发言内容
-		"`registration_date` TIMESTAMP, " +
-		"PRIMARY KEY (`id`) " +
-		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
-	'create_database': 'CREATE DATABASE ' + mysql_config.database,
-	'use_database': 'USE ' + mysql_config.database,
+    'create_forums' : "CREATE TABLE IF NOT EXISTS `forums`(" +
+        "`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, "+ //消息id
+        "`userid` INT UNSIGNED NOT NULL, "+ //发言者id
+        "`classid` INT UNSIGNED NOT NULL, "+ //讨论区位置id
+        "`message` VARCHAR(200), " + //发言内容
+        "`registration_date` TIMESTAMP, "+
+        "PRIMARY KEY (`id`) "+
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
+		
+	'create_posts' : "CREATE TABLE IF NOT EXISTS `posts`(" +
+        "`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, "+ //消息id
+        "`userid` INT UNSIGNED NOT NULL, "+ //发言者id
+        "`forumid` INT UNSIGNED NOT NULL, "+ //属于哪个主题贴
+        "`message` VARCHAR(200), " + //发言内容
+        "`registration_date` TIMESTAMP, "+
+        "PRIMARY KEY (`id`) "+
+        ")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
+
+	'create_lives' : "CREATE TABLE IF NOT EXISTS `lives`(" +
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, "+ //直播条目id
+		"`class` INT UNSIGNED NOT NULL, "+ // 课程编号
+		"`liveplayer_uid` VARCHAR(50), "+ // 其对应的直播uid
+		"`liveplayer_vid` VARCHAR(50), "+ // 其对应的直播vid
+		"PRIMARY KEY (`id`) "+
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
+	'create_database' : 'CREATE DATABASE ' + mysql_config.database,
+	'use_database' : 'USE ' + mysql_config.database,
 }
 
 function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新建数据库
@@ -116,12 +157,28 @@ function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新�
 				});
 				return;
 			}
-			var tasks = ['use_database', 'create_user_table', 'create_class_table', 'create_class_user_table', 'create_class_resources', 'create_forums', 'create_file_table','create_banned_list', 'create_content_table', 'create_problem_table','create_paper_table'];
+			var tasks = [
+				'use_database', 
+				'create_user_table', 
+				'create_class_table', 
+				'create_class_user_table',
+				'create_class_resources', 
+				'create_forums', 
+				'create_file_table',
+				'create_banned_list',
+				'create_content_table', 
+				'create_problem_table',
+				'create_choice_problem_table', 
+				'create_choice_problem_answer_table', 
+				'create_class_file_table', 
+				'create_posts', 
+				'create_lives',
+			];
 			if (db_cfg.no_create !== true) {
 				tasks = ['create_database'].concat(tasks);
 			}
-			console.log(tasks);
 			async.eachSeries(tasks, function (item, next) {
+				console.log(sqls[item]);
 				logger.info(item + " ==> " + sqls[item]);
 				conn.query(sqls[item], function (err, res) {
 					if (err) {

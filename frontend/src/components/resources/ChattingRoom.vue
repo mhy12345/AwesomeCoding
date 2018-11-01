@@ -2,16 +2,17 @@
     <el-container>
         <el-main>
             <el-row v-for="record in chatrecords">
-                <el-col :span='2'> {{record.userid}}</el-col>
-                <el-col :span='20'>{{record.message}}</el-col>
-                <el-col :span='5'> {{record.registration_date}}</el-col>
+                <router-link
+                    :to="{path:'posts',query:{forumid : record.forumid, theme : record.message, userid : record.userid}}">
+                    {{record.message}}
+                </router-link>
             </el-row>
             <el-form>
                 <el-form-item label="Input ">
                     <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="inputData.message"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">submit</el-button>
+                    <el-button type="primary" @click="onSubmit">发贴</el-button>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onClear">clear</el-button>
@@ -22,8 +23,6 @@
 </template>
 
 <script>
-    /* eslint-disable camelcase */
-
     export default {
         data() {
             return {
@@ -34,22 +33,24 @@
                     classId: undefined,
                     message: undefined,
                 }
-            };
+            }
         },
         mounted: function () {
             this.class_id = this.$route.params.class_id;
             this.inputData.classId = this.class_id;
-            this.$http.get('/api/user/session', {}).then(function (res) {
-                this.inputData.userId = res.body.user_id;
-                this.$http.post('/api/chat/info/query', {class_id: this.class_id}).then(function (res) {
-                    if (res.body.status === 'NOT FOUND.') {
-                        this.$message("Room " + this.title + " not found!");
-                    } else {
-                        this.chatrecords = res.body.chatrecords;
-                        console.log(111);
-                    }
-                });
-            });
+            this.$http.get('/api/user/session', {}).
+                 then(function (res) {
+                     this.inputData.userId = res.body.user_id;
+                     this.$http.post('/api/chat/info/query', {class_id: this.class_id}).
+                          then(function (res) {
+                              if (res.body.status === 'NOT FOUND.') {
+                                  this.$message("Room " + this.title + " not found!");
+                              } else {
+                                  this.chatrecords = res.body.chatrecords;
+                                  console.log(111);
+                              }
+                          });
+                 });
         },
         methods: {
             onSubmit() {
@@ -57,22 +58,25 @@
                     userid: this.inputData.userId,
                     classid: this.inputData.classId,
                     message: this.inputData.message,
-                }).then(function (res) {
-                    console.log(res);
-                    if (res.body.status === 'SUCCESS.') {
-                        console.log(res.body.results);
-                        this.chatrecords.push(res.body.results);
-                    }
-                });
+                }).
+                     then(function (res) {
+                         console.log(res);
+                         if (res.body.status === 'SUCCESS.') {
+                             this.$router.go(0);
+                         }
+                     });
             },
             onClear() {
-                this.$http.post('/api/chat/clear_comments', {classid: this.inputData.classId,}).then(function (res) {
-                    console.log(res);
-                    if (res.body.status === 'SUCCESS.') {
-                        this.chatrecords = [];
-                    }
-                });
+                this.$http.post('/api/chat/clear_comments', {
+                    classid: this.inputData.classId,
+                }).
+                     then(function (res) {
+                         console.log(res);
+                         if (res.body.status === 'SUCCESS.') {
+                             this.chatrecords = [];
+                         }
+                     });
             },
         },
-    };
+    }
 </script>

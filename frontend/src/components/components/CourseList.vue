@@ -11,7 +11,7 @@
 <script>
     /* eslint-disable camelcase */
 
-    import {supported_resources} from '@/utils/CourseLists';
+    import {supported_resources} from '../../utils/CourseLists';
 
     export default {
         data() {

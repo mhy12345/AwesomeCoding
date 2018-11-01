@@ -38,8 +38,10 @@ export default {
 	},
 	methods: {
 		handleOpen: function(problem_id) {
+			console.log("Open dialog with ",problem_id);
 			this.problem_id = problem_id;
 			this.visible = true;
+			/*
 			this.loading = true;
 			this.$http.post('/api/problem/get',{problem_id:problem_id}).
 				then(function(res) {
@@ -51,7 +53,7 @@ export default {
 				catch(function(res) {
 					this.loading = false;
 					this.$message("无法获取题目信息!");
-				});
+				});*/
 		},
 		handleCancel: function() {
 			this.visible = false;

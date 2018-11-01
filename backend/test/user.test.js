@@ -22,6 +22,7 @@ describe('# Testing /api/user', function () {
 			role: 0,
 			motto: 'just for test',
 			password: '111111',
+			phone: '13688880000'
 		};
 		request.
 			get('/api/user/logout').
@@ -40,6 +41,7 @@ describe('# Testing /api/user', function () {
 				email: '123456@mail.com',
 				motto: 'just for test',
 				password: '111111',
+				phone: '12344445555'
 			};
 			users[1] = {	// without email
 				nickname: 'test_name2' + randomString(8),
@@ -47,6 +49,7 @@ describe('# Testing /api/user', function () {
 				role: 0,
 				motto: 'just for test',
 				password: '111111',
+				phone: '12344445555'
 			};
 			users[2] = {	// without password
 				nickname: 'test_name' + randomString(8),
@@ -54,6 +57,15 @@ describe('# Testing /api/user', function () {
 				email: '123456@mail.com',
 				role: 0,
 				motto: 'just for test',
+				phone: '12344445555'
+			};
+			users[3] = {	// without phone
+				nickname: 'test_name' + randomString(8),
+				realname: 'TESTER',
+				email: '123456@mail.com',
+				role: 0,
+				motto: 'just for test',
+				password: '111111'
 			};
 			users.forEach((user, index) => {
 				it('test #' + index, function (done) {
@@ -65,8 +77,15 @@ describe('# Testing /api/user', function () {
 							if (err) done(err);
 							let body = eval('(' + res.text + ')');
 							// logger.info(body.details);
-							body.should.have.key('status').which.is.exactly('FAILED.');
-							body.should.have.key('details').which.have.key('sqlMessage').containEql('cannot be null');
+							body.should.have.key('status').
+								 which.
+								 is.
+								 exactly('FAILED.');
+							body.should.have.key('details').
+								 which.
+								 have.
+								 key('sqlMessage').
+								 containEql('cannot be null');
 							done();
 						});
 				});
@@ -81,14 +100,24 @@ describe('# Testing /api/user', function () {
 					if (err) return done(err);
 					let body = eval('(' + res.text + ')');
 					logger.info('registration succeed\n', body);
-					body.should.have.key('status').which.is.exactly('SUCCESS.');
-					body.should.have.key('results').which.have.key('nickname').which.is.exactly(test_user.nickname);
+					body.should.have.key('status').
+						 which.
+						 is.
+						 exactly('SUCCESS.');
+					body.should.have.key('results').
+						 which.
+						 have.
+						 key('nickname').
+						 which.
+						 is.
+						 exactly(test_user.nickname);
 					done();
 				});
 		});
 		it('should not register when already login', function (done) {
 			request.
-				post('/api/user/login').send(test_user).
+				post('/api/user/login').
+				send(test_user).
 				end(function () {
 					let test_user2 = {
 						nickname: 'test_second_name' + randomString(8),
@@ -97,6 +126,7 @@ describe('# Testing /api/user', function () {
 						role: 0,
 						motto: 'just for test',
 						password: '111111',
+						phone: '13312341234',
 					};
 					request.
 						post('/api/user/register').
@@ -105,9 +135,16 @@ describe('# Testing /api/user', function () {
 						end(function (err, res) {
 							if (err) return done(err);
 							let body = eval('(' + res.text + ')');
-							body.should.have.key('status').which.is.exactly('FAILED.');
+							body.should.have.key('status').
+								 which.
+								 is.
+								 exactly('FAILED.');
 							body.should.have.key('details');
-							body.details.toLowerCase().should.containEql('already').and.containEql('login');
+							body.details.toLowerCase().
+								 should.
+								 containEql('already').
+								 and.
+								 containEql('login');
 							done();
 						});
 				})
@@ -120,14 +157,20 @@ describe('# Testing /api/user', function () {
 				end(function (err, res) {
 					if (err) return done(err);
 					let body = eval('(' + res.text + ')');
-					body.should.have.key('status').which.is.exactly('FAILED.');
+					body.should.have.key('status').
+						 which.
+						 is.
+						 exactly('FAILED.');
 					body.should.have.key('details');
-					body.details.toLowerCase().should.containEql('duplication');
+					body.details.toLowerCase().
+						 should.
+						 containEql('duplication');
 					done();
 				});
 		});
 		afterEach(function (done) {
-			request.get('/api/user/logout').end(done);
+			request.get('/api/user/logout').
+					end(done);
 		});
 	});
 
@@ -140,7 +183,10 @@ describe('# Testing /api/user', function () {
 					if (err) return done(err);
 					let body = eval('(' + res.text + ')');
 					logger.info(body);
-					body.should.have.key('status').which.is.exactly('SUCCESS.');
+					body.should.have.key('status').
+						 which.
+						 is.
+						 exactly('SUCCESS.');
 					body.should.not.have.keys('nickname', 'user_id', 'realname');
 					done();
 				});
@@ -148,20 +194,33 @@ describe('# Testing /api/user', function () {
 		it("should respond with 'SUCCESS.' when online", function (done) {	// 登录状态下应该有反馈
 			logger.info('try logging in', test_user.nickname);
 			request.
-				post('/api/user/login').// 先登录
-			send({
-				nickname: test_user.nickname,
-				password: '111111',
-			}).
+				post('/api/user/login').
+				// 先登录
+				send({
+					nickname: test_user.nickname,
+					password: '111111',
+				}).
 				expect(200).
 				end(function (err, res) {
 					if (err) return done(err);
 					let body = eval('(' + res.text + ')');
-					body.should.have.key('status').which.is.exactly('SUCCESS.');
-					body.should.have.key('results').which.is.an.Object().and.is.not.empty();
+					body.should.have.key('status').
+						 which.
+						 is.
+						 exactly('SUCCESS.');
+					body.should.have.key('results').
+						 which.
+						 is.
+						 an.
+						 Object().
+						 and.
+						 is.
+						 not.
+						 empty();
 					request.
-						get('/api/user/session').// 后检查session
-					expect(200).
+						get('/api/user/session').
+						// 后检查session
+						expect(200).
 						end(function (err, res) {
 							if (err) return done(err);
 							let body = eval('(' + res.text + ')');
@@ -174,7 +233,8 @@ describe('# Testing /api/user', function () {
 				});
 		});
 		afterEach(function (done) {
-			request.get('/api/user/logout').end(done);
+			request.get('/api/user/logout').
+					end(done);
 		});
 	});
 
@@ -202,9 +262,16 @@ describe('# Testing /api/user', function () {
 				end(function (err, res) {
 					if (err) return done(err);
 					let body = eval('(' + res.text + ')');
-					body.should.have.key('status').which.is.exactly('FAILED.');
+					body.should.have.key('status').
+						 which.
+						 is.
+						 exactly('FAILED.');
 					body.should.have.key('details');
-					body.details.toLowerCase().should.containEql('not').and.containEql('found');	// 要有用户未找到的提示词
+					body.details.toLowerCase().
+						 should.
+						 containEql('not').
+						 and.
+						 containEql('found');	// 要有用户未找到的提示词
 					logger.warn(body.details);
 					done();
 				});
@@ -221,9 +288,14 @@ describe('# Testing /api/user', function () {
 				end(function (err, res) {
 					if (err) return done(err);
 					let body = eval('(' + res.text + ')');
-					body.should.have.key('status').which.is.exactly('FAILED.');
+					body.should.have.key('status').
+						 which.
+						 is.
+						 exactly('FAILED.');
 					body.should.have.key('details');
-					body.details.toLowerCase().should.containEql('password');	// 要有密码错误的提示词
+					body.details.toLowerCase().
+						 should.
+						 containEql('password');	// 要有密码错误的提示词
 					logger.info('login failed!\n', body);
 					done();
 				});
@@ -237,14 +309,26 @@ describe('# Testing /api/user', function () {
 				end(function (err, res) {
 					if (err) return done(err);
 					let body = eval('(' + res.text + ')');
-					body.should.have.key('status').which.is.exactly('SUCCESS.');
-					body.should.have.key('results').which.is.an.Object().and.is.not.empty();
+					body.should.have.key('status').
+						 which.
+						 is.
+						 exactly('SUCCESS.');
+					body.should.have.key('results').
+						 which.
+						 is.
+						 an.
+						 Object().
+						 and.
+						 is.
+						 not.
+						 empty();
 					logger.info('login successfully!\n', body.results);
 					done();
 				});
 		});
 		afterEach(function (done) {
-			request.get('/api/user/logout').end(done);
+			request.get('/api/user/logout').
+					end(done);
 		});
 	});
 
@@ -267,7 +351,10 @@ describe('# Testing /api/user', function () {
 					if (err) return done(err);
 					let body = eval('(' + res.text + ')');
 					logger.warn('request rejected.\n', body);
-					body.should.have.key('status').which.is.exactly('FAILED.');
+					body.should.have.key('status').
+						 which.
+						 is.
+						 exactly('FAILED.');
 					done();
 				});
 		});
@@ -282,24 +369,33 @@ describe('# Testing /api/user', function () {
 				end(function (err, res) {
 					if (err) return done(err);
 					let body = eval('(' + res.text + ')');
-					body.should.have.key('status').which.is.exactly('SUCCESS.');
+					body.should.have.key('status').
+						 which.
+						 is.
+						 exactly('SUCCESS.');
 					body.should.have.key('results');
 					body.results.realname.should.eql('xxx');
 					test_user.realname = 'xxx';
 					test_user.password = '123123';
 					request.
-						post('/api/user/login').send(test_user).// 登录测试密码是否被修改
-					expect(200).
+						post('/api/user/login').
+						send(test_user).
+						// 登录测试密码是否被修改
+						expect(200).
 						end(function (err2, res2) {
 							if (err2) done(err2);
 							let body2 = eval('(' + res2.text + ')');
-							body2.should.have.key('status').which.is.exactly('SUCCESS.');
+							body2.should.have.key('status').
+								  which.
+								  is.
+								  exactly('SUCCESS.');
 							done();
 						});
 				});
 		});
 		after(function (done) {
-			request.get('/api/user/logout').end(done);
+			request.get('/api/user/logout').
+					end(done);
 		});
 	});
 

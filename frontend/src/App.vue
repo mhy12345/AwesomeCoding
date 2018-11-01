@@ -147,22 +147,61 @@ export default {
 			title: "AwesomeCoding",
 			logo_url: require('./assets/images/icons/logo.png'),
 
-			collapseQ: false,
+			collapseQ: true,
 			active_index : '/',
 			loginQ: undefined,		 // 是否登录，初始为 undefined 这样右上角既不显示'登录'也不显示头像
 			default_user: {
-				nickname: 'somebody',
-				realname: 'SOMENAME',
-				gravatar_url: '',
-				role: 3,
+                user_id: '',
+                nickname: 'UnknownUser',
+                realname: 'UnknownUser',
+                role: 3,
+                email: '',
+                gravatar_url: '',
+                cookie: null
 			},
-			user: {},
+            user: {
+                user_id: '',
+                nickname: '',
+                realname: '',
+                role: '',
+                email: '',
+                gravatar_url: '',
+                cookie: null
+            },
 		}
 	},
 	beforeMount() {
 		this.user = copy(this.default_user);
 		this.checkLogin();
 	},
+    sockets: {      // usages of socket.io
+        connect: function () {
+            console.log('socket connected')
+        },
+        message: function (msg) {       // 收到服务器发来的消息, todo 后期可以考虑把消息缓存在用户个人页里，并以红圈在右上角头像上显示
+            console.log('[message]', msg);
+            if (!this.loginQ) return;       // todo 这个隐藏消息的逻辑将来要移到后端
+            this.$notify({
+                title: '收到消息',
+                message: msg.from + ' says: ' + msg.message,
+                duration: 0
+            });
+            this.$socket.emit('received');
+        },
+        accepted: function () {         // 服务器接受客户发出的消息
+            console.log('[accepted]');
+            this.$notify.success({
+                title: '发出成功',
+            });
+        },
+        rejected: function (msg) {       // 服务器拒绝客户发出的消息
+            console.log('[rejected]', msg);
+            this.$notify.error({
+                title: '发出失败',
+                message: msg.details,
+            })
+        }
+    },
 	methods: {
 		showUnknownError(err) {
 			console.log(err);
@@ -217,14 +256,9 @@ export default {
 			}
 		},
 		handleLogined(user_info) { // logined event emitted by children router-view
-			var hash;
-			console.log('>>>in app logined! info:', user_info);
-			this.loginQ = true;
-			hash = crypto.createHash('md5');
-			hash.update(user_info.email);
-			this.user = user_info;
-			this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
-			console.log("GRAVATAR URL = ", this.user.gravatar_url);
+            setTimeout(() => {
+                this.$router.go(0); // 过一段时间后刷新页面，以解决socket session不能更新的问题
+            }, 100);
 		},
 		handleLogout() { // logout event emitted by children router-view
 			console.log('>>>in app logout!');

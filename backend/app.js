@@ -3,16 +3,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var history = require('connect-history-api-fallback');
-var session = require('express-session');
+var session = require('./configures/session.config');
 
 var api = require('./routes/api');
 var api_user = require('./routes/user');
 var api_class = require('./routes/class');
-var api_chat = require('./routes/chat');
+var api_chat = require('./routes/discussion_board');
 var api_file = require('./routes/file');
 var api_developer = require('./routes/developer');
 var api_problem = require('./routes/problem');
+var api_content = require('./routes/content');
 var api_backend = require('./routes/backend');
+var api_live = require('./routes/live');
 
 var app = express();
 
@@ -38,10 +40,8 @@ app.use(history({
 	htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
 }));
 
-app.use(session({
-	secret: 'F67AC_app',  //todo secret的值建议使用随机字符串
-	cookie: {maxAge: 1 * 60 * 60 * 1000} // 过期时间（毫秒）//todo 延长过期时间
-}));
+// session for app
+app.use(session);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -52,11 +52,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './public')));
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
+// todo delete test below
+app.get('/api/test', function (req, res, next) {
+	res.sendFile(__dirname + '/test_socket.html');
+});
+app.get('/api/hello', function (req, res) {
+	res.send("HelloWorld!");
+});
+
 app.use('/api/developer', api_developer);
 app.use('/api/user', api_user);
 app.use('/api/class', api_class);
+app.use('/api/live', api_live);
 app.use('/api/chat', api_chat);
 app.use('/api/file', api_file);
+app.use('/api/content', api_content);
 app.use('/api/problem', api_problem);
 app.use('/api', api);
 app.use('/backend', api_backend);

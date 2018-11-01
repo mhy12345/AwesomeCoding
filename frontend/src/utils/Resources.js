@@ -1,5 +1,5 @@
 /* eslint-disable camelcase,vars-on-top,no-redeclare */
-//所有可用的教学资源
+// 课程面板里所有可用的教学资源
 var supported_resources = {
 	details: {
 		name: 'details',
@@ -28,7 +28,7 @@ var supported_resources = {
 	live: {
 		name: 'live',
 		title: '在线授课',
-		component: () => import('../components/resources/Live.vue'),
+		component: () => import('../components/resources/live/Main.vue'),
 		disabled: false,
 		defaultChosen: false,
 		access: {
@@ -49,6 +49,18 @@ var supported_resources = {
 			2: true,
 		}
 	},
+    file_settings : {
+        name: "file_settings",
+        title: '资料设置',
+        component : ()=>import('../components/resources/FileSettings.vue'),
+        disabled: false,
+        defaultChosen: false,
+        access: {
+            0: true,
+            1: true,
+            2: true,
+        }
+    },
 	settings: {
 		name: 'settings',
 		title: '课程设置',
@@ -88,14 +100,14 @@ var supported_resources = {
 	train_area_teacher : {
 		name:'train_area_teacher',
 		title:'练习区(教师)',
-		component: ()=>import('../components/resources/PracticeAreaTeacher.vue'),
+		component: ()=>import('../components/resources/PracticeAreaTeacher.vue')
+	},
+	posts : {
+		name:'posts',
+		title:'主题贴',
+		component: ()=>import('../components/resources/posts.vue'),
 		disabled : false,
 		defaultChosen : false,
-		access: {
-			0: true,
-			1: true,
-			2: true,
-		}
 	},
 };
 var router_childs = [{path: '', redirect: 'details'}];

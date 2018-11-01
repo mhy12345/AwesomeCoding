@@ -1,9 +1,9 @@
 /* eslint-disable no-undef,camelcase */
 import Vue from 'vue';
 import Router from 'vue-router';
-import {router_childs} from '@/utils/Resources';
-import Home from '@/views/Home';
-import PageNotFound from '@/views/404';
+import {router_childs} from '../utils/Resources';
+import Home from '../views/Home';
+import PageNotFound from '../views/404';
 
 Vue.use(Router);
 console.log(router_childs);
@@ -23,10 +23,11 @@ export default new Router({
 		},
 		{
 			path: '/class/:class_id',
+			redirect: '/class/:class_id/details',
 			name: 'class',
-			component: () => import('@/views/Lecture.vue'),
-			children: router_childs//子路由已经在utils/Resources中生成出来了
-		},
+            component: () => import('@/views/CourseDashboard.vue'),
+			children: router_childs // 课程面板的各个tab的功能页面
+        },
 		{
 			path: '/course/add',
 			name: 'add-courses',

@@ -1,32 +1,32 @@
-'use strict'
+'use strict';
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path');
-//const host_port = require('../../backend/configures/server.config').port;
-var host_port = 80;
+// const host_port = require('../../backend/configures/server.config').port;
+const host_port = 80; // todo use 80
 
 module.exports = {
     dev: {
-		// Paths
-		assetsSubDirectory: 'static',
-		assetsPublicPath: '/',
-		proxyTable: {
-			'/api': {
-				target:'http://localhost:'+host_port+'/api',//接口的域名
-				changeOrigin: true,
-				pathRewrite: {
-					'^/api': '/'
-				}
-			},
-			'/backend': {
-				target:'http://localhost:'+host_port+'/backend',//接口的域名
-				changeOrigin: true,
-				pathRewrite: {
-					'^/backend': '/'
-				}
-			}
-		},
+        // Paths
+        assetsSubDirectory: 'static',
+        assetsPublicPath: '/',
+        proxyTable: {
+            '/api': {
+                target: 'http://localhost:' + host_port + '/api',//接口的域名
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/api': '/'
+                }
+            },
+            '/backend': {
+                target: 'http://localhost:' + host_port + '/backend',//接口的域名
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/backend': '/'
+                }
+            }
+        },
 
         // Various Dev Server settings
         host: 'localhost', // can be overwritten by process.env.HOST
