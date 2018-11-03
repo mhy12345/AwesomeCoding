@@ -52,14 +52,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './public')));
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-// todo delete test below
-app.get('/api/test', function (req, res, next) {
-	res.sendFile(__dirname + '/test_socket.html');
-});
-app.get('/api/hello', function (req, res) {
-	res.send("HelloWorld!");
-});
-
 app.use('/api/developer', api_developer);
 app.use('/api/user', api_user);
 app.use('/api/class', api_class);

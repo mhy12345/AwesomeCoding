@@ -6,7 +6,7 @@ var mysql_config = require('../configures/database.config.js');
 var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
-var logger = log4js.getLogger('log_file')
+var logger = log4js.getLogger('log_file');
 
 function getConnection() { //获取连接connection，并调用回调函数
 	/*
