@@ -1,5 +1,6 @@
 node_modules/
 *.swp
+*.swo
 *.orig
 *.old
 .DS_Store
