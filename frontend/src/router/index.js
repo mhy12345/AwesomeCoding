@@ -125,6 +125,11 @@ export default new Router({
 					component: () => import('@/components/components/user/ForgetPassword.vue')
 				},
 				{
+					path: 'changepassword/:userid',
+					name: 'ChangePassword',
+					component: () => import('@/components/components/user/ChangePassword.vue')
+				},
+				{
 					path: 'settings',
 					name: 'Settings',
 					component: () => import('@/components/components/user/Settings.vue')

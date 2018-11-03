@@ -1,16 +1,38 @@
 <template>
-    <el-card class="box-card" v-loading="loadingQ">
+   <el-card class="box-card" v-loading="loadingQ">
         <div slot="header" class="clear-fix">
-            <span>{{title}}</span>
+            <h1>{{ title }}</h1>
         </div>
-        <el-row>
-            <el-col :span="8" class="register-prompt">手机号</el-col>
-            <el-col :span="15">
-                <el-input class="input-box" v-model="inputs.phone">
-                </el-input>
-            </el-col>
-        </el-row>    
-        <el-row>
+        <div @keydown.enter="handleChangePassword">
+            <!--Registration Info-->
+            <el-row v-for="(value, key, index) in heads" :key="index">
+                <el-col :span="8" class="register-prompt">
+                    <label :for="key">
+                        <i class="el-icon-caret-right" slot="prepend"></i>
+                        {{ heads[key] }}：
+                    </label>
+                </el-col>
+                <el-col :span="15">
+                    <el-input v-if="key === 'password' || key === 're_password'"
+                              :id="key"
+                              type="password"
+                              clearable
+                              class="input-box"
+                              v-model="inputs[key]"
+                              :placeholder="heads[key]">
+                    </el-input>
+                    <el-input v-else
+                              :id="key"
+                              type="text"
+                              clearable
+                              class="input-box"
+                              v-model="inputs[key]"
+                              :placeholder="heads[key]">
+                    </el-input>
+                </el-col>
+            </el-row>
+            <!--Verification Code-->
+            <el-row>
                 <el-col :span="8" class="register-prompt">
                     <label for="verify_code">
                         <i class="el-icon-caret-right" slot="prepend"></i>
@@ -28,7 +50,7 @@
                         @focus="handleFocusingOnVerify">
                     </el-input-number>
                 </el-col>
-                <el-col :span="5" class="verification-button">
+                <el-col :span="7" class="verification-button">
                     <el-button
                         type="primary"
                         :disabled="verify.disableQ"
@@ -36,10 +58,12 @@
                         {{ verify.prompt }}
                     </el-button>
                 </el-col>
-        </el-row>
+            </el-row>
+
+        </div>
         <div align="center">
             <el-row>
-                <el-button type="success" class="register-button" @click="handleForgetPassword">找回密码</el-button>
+                <el-button type="success" class="register-button" @click="handleChangePassword">修改密码</el-button>
             </el-row>
         </div>
     </el-card>
@@ -49,16 +73,26 @@
 <script>
     /* eslint-disable camelcase */
 
-    import {forgetPasswordSQL, queryPhoneSQL} from '../../../utils/DoSQL';
-    import axios from 'axios'
+    import {forgetPasswordSQL, queryPhoneSQL, changePasswordSQL} from '../../../utils/DoSQL';
+    import axios from 'axios';
+    var root_url = require('../../../../config/http_root_url');
+
     export default {
         name: "ForgetPassword",
         data() {
             return {
+                heads: { // 输入框提示词
+                    phone: '手机号',
+                    password: '密码',
+                    re_password: '重复密码',
+                },
                 title: '找回密码',
                 inputs: {
                     phone: '',
                     verify_code: undefined,
+                    password: undefined,
+                    re_password: undefined,
+                    userid: undefined,
                 },
                 verify: {
                     code_generated: '',
@@ -71,18 +105,23 @@
             };
         },
         methods: {
-            handleForgetPassword: function () {
-                // 判断该手机是否已注册以及验证码是否合法
-                this.loadingQ = true;
-                forgetPasswordSQL(this, this.inputs).
+            handleChangePassword: function () {
+                // 修改密码
+                if(this.inputs.password !== this.inputs.re_password) {
+                    this.$message.warning("密码不一致");
+                    return;
+                }
+                if(this.verify.code_generated !== this.inputs.verify_code) {
+                    this.$message.warning("验证码错误");
+                    return;
+                }
+                changePasswordSQL(this, this.inputs).
                     then((resp) => {
-                        console.log(resp);
-                        this.loadingQ = false;
-                        this.$router.push('/user/sign_in');
+                        window.location.href = "/user/sign_in";
                     }).
                     catch((resp) => {
-                        
-                    });  
+
+                    });
             },
             handleVerification: function () {
                 var clock;
@@ -96,7 +135,9 @@
                             this.$message("该手机号还未被注册");
                             return; 
                         }
+                        //若已注册，则发送验证码
                         else {
+                            this.inputs.userid = resp.user.id;
                             clock = window.setInterval(() => {
                             this.verify.disableQ = true;
                             this.verify.countdown--;
@@ -137,6 +178,9 @@
                     });
                 
             },
+            handleFocusingOnVerify() {
+                this.inputs.verify_code = undefined;
+            }
         }
     };
 </script>
@@ -165,13 +209,33 @@
     }
 
     .input-box {
-        margin-top: 30px;
-        margin-bottom: 30px;
+        width: 100%;
+        margin-bottom: 20px;
     }
 
-    .login-button {
+    .register-button {
         margin-top: 30px;
         margin-bottom: 30px;
         width: 200px;
+    }
+
+    .verification-button {
+        position: relative;
+        margin-left: 20px;
+    }
+
+    .input-error {
+        background-color: #ffa392;
+        margin-bottom: 20px;
+    }
+
+    .register-prompt {
+        position: relative;
+        margin-top: 5px;
+    }
+
+    .option-icon {
+        float: right;
+        height: 80%;
     }
 </style>

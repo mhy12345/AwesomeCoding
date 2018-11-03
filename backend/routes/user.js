@@ -311,7 +311,32 @@ router.post('/queryPhone', function (req, res, next) {//判断手机号是否注
 		catch(function (sql_res) {
 			res.send(JSON.stringify(sql_res, null, 3));
 		});
-})
+});
+
+router.post('/changePassword', function (req, res, next) {//修改密码
+	var res_body = {
+		status: '',
+		details: '',
+	};
+	let userid = req.body.userid;
+	let newpassword = req.body.password;
+	console.log(">>>>>>changepassword");
+	console.log(userid);
+	console.log(newpassword);
+	getConnection().
+		then(function (conn) {
+			let sql = 'UPDATE users SET password = \'' + newpassword + '\' WHERE id = ' + userid;
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let {conn, sql_res} = packed;
+			res_body.status = 'SUCCESS.';
+			res.send(JSON.stringify(res_body));
+		}).
+		catch(function (sql_res) {
+			res.send(JSON.stringify(sql_res, null, 3));
+		});
+});
 
 function randomString(len) {//随机生成字符串
 	var $chars = 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890';
