@@ -5,14 +5,12 @@
         </div>
         <el-row>
             <el-col style="width: 90%">
-                <div @keydown.enter="handleSendMessage">
-                    <el-input type="textarea"
-                              v-model="input_message"
-                              placeholder="输入文本..."
-                              :autosize="{minRows: 3.2}"
-                              resize="none">
-                    </el-input>
-                </div>
+                <el-input type="textarea"
+                          v-model="input_message"
+                          placeholder="输入文本..."
+                          :autosize="{minRows: 3.2}"
+                          resize="none">
+                </el-input>
             </el-col>
             <el-col style="position:relative; left: 2%; width: 8%">
                 <div>
