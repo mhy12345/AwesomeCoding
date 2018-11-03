@@ -117,7 +117,7 @@
     export default {
         name: "Profile",
         props: ['user'],
-        data() {
+        data () {
             return {
                 title: '个人页面',
                 cur_tab: '',
@@ -138,7 +138,7 @@
                 password_inputQ: false, // if password input box was focused
             };
         },
-        beforeMount() {
+        beforeMount () {
             console.log('role =', this.user.role);
             if (this.user.role === 0) {
                 this.role.text = '管理员';
@@ -154,7 +154,7 @@
             }
         },
         methods: {
-            handleEdit() {
+            handleEdit () {
                 // this.$router.push('/user/settings');
                 this.inputs.realname = this.user.realname;
                 this.inputs.motto = this.user.motto;
@@ -163,7 +163,7 @@
                 this.editingQ = true;
                 this.password_inputQ = false;
             },
-            handleSave() { // submit changes
+            handleSave () { // submit changes
                 if (this.inputs.realname === '') {
                     this.$message("真实姓名不能为空。");
                     return;
@@ -203,18 +203,18 @@
                         this.password_inputQ = false;
                     });
             },
-            handlePasswordInput() {
+            handlePasswordInput () {
                 if (this.password_inputQ) {
                     return;
                 }
                 this.password_inputQ = true;
                 this.inputs.re_password = this.inputs.password = '';
             },
-            handleLogout() {
+            handleLogout () {
                 this.$emit('logout');
                 this.$router.push('/home');
             },
-            handleCancel() {
+            handleCancel () {
                 this.editingQ = false;
             }
         }

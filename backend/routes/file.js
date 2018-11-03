@@ -14,6 +14,7 @@ var logger = log4js.getLogger('log_file');
 
 router.post('/upload', upload.any(), function (req, res, next) {
 	var user_id = req.session.user_id;
+	console.log(req.session);
 	if (user_id === undefined) {
 		var response = {
 			message: 'You must login first.',
