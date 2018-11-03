@@ -99,8 +99,13 @@
 
                 <el-tab-pane label="我的动态">
 
+
                 </el-tab-pane>
-                <el-tab-pane label="我的资源"></el-tab-pane>
+                <el-tab-pane label="我的资源">
+                    <el-table :data="tableData" stripe style="width: 100%; margin: auto; padding: 5px;" align="center" @current-change="handleDownload">
+                        <el-table-column prop="filename" width="500"></el-table-column>
+                    </el-table>
+                </el-tab-pane>
                 <el-tab-pane label="我的课堂"></el-tab-pane>
             </el-tabs>
 
@@ -134,6 +139,7 @@
                     password: '',
                     re_password: '',
                 },
+                tableData: [],
                 loadingQ: false,
                 password_inputQ: false, // if password input box was focused
             };
@@ -152,6 +158,13 @@
             } else {
                 this.role.text = '未知身份';
             }
+        },
+        mounted: function () {
+            this.$http.post('/api/file/fetch', {}).
+                 then(function (res) {
+                     console.log(res.body.results);
+                     this.tableData = res.body.results;
+                 });
         },
         methods: {
             handleEdit () {
@@ -216,7 +229,26 @@
             },
             handleCancel () {
                 this.editingQ = false;
+            },
+
+            handleDownload: function (row) {
+                this.$http.post('/api/file/download', {filename: row.filename,}).
+                     then(function (res) {
+                         const blob = new Blob([res.data]);
+                         if (window.navigator.msSaveOrOpenBlob) {
+                             // 兼容IE10
+                             navigator.msSaveBlob(blob, this.filename);
+                         } else {
+                             //  chrome/firefox
+                             let aTag = document.createElement('a');
+                             aTag.download = row.filename;
+                             aTag.href = URL.createObjectURL(blob);
+                             aTag.click();
+                             URL.revokeObjectURL(aTag.href);
+                         }
+                     });
             }
+
         }
     };
 </script>

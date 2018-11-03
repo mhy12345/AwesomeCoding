@@ -8,7 +8,7 @@
     /* eslint-disable camelcase */
 
     export default {
-        data() {
+        data () {
             return {tableData: []};
         },
         mounted: function () {
