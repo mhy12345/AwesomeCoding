@@ -155,7 +155,9 @@ export default {
                 nickname: 'UnknownUser',
                 realname: 'UnknownUser',
                 role: 3,
-                email: '',
+                email: 'x@mail.com',
+                phone: '12344445555',
+                motto: 'UnknownMotto',
                 gravatar_url: '',
                 cookie: null
 			},
@@ -165,6 +167,8 @@ export default {
                 realname: '',
                 role: '',
                 email: '',
+                phone: '',
+                motto: '',
                 gravatar_url: '',
                 cookie: null
             },
@@ -255,7 +259,7 @@ export default {
 				console.log(key);
 			}
 		},
-		handleLogined(user_info) { // logined event emitted by children router-view
+		handleLogined() { // logined event emitted by children router-view
             setTimeout(() => {
                 this.$router.go(0); // 过一段时间后刷新页面，以解决socket session不能更新的问题
             }, 100);
