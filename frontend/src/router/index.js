@@ -110,6 +110,11 @@ export default new Router({
 					component: () => import('@/components/components/user/SignIn.vue')
 				},
 				{
+					path: 'sign_inbyphone',
+					name: 'SignInbyPhone',
+					component: () => import('@/components/components/user/SignInbyPhone.vue')
+				},
+				{
 					path: 'sign_up',
 					name: 'SignUp',
 					component: () => import('@/components/components/user/SignUp.vue')
