@@ -483,7 +483,7 @@ router.post('/public/fetch', function (req, res, next) {//公开课程目录获�
 });
 
 router.post('/my_course/fetch', function (req, res, next) {
-	if (typeof(req.body.page_number) == 'undefined') {
+	if (typeof(req.body.page_number) === 'undefined') {
 		res.status(403).send('Pagenum not defined.');
 		return;
 	}
@@ -499,6 +499,41 @@ router.post('/my_course/fetch', function (req, res, next) {
 	let m = (+req.body.page_number - 1) * req.body.page_size;
 	let n = (+req.body.page_number) * req.body.page_size;
 	let sql = 'SELECT classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role=' + mysql.escape(req.session.role) + ' WHERE classusers.user_id = ' + mysql.escape(+req.session.user_id) + ' ORDER BY classusers.registration_date DESC';
+	getConnection().
+		then(function (conn) {
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			res.send(JSON.stringify(sql_res, null, 3));
+		}).
+		catch(function (sql_res) {
+			res.status(403).send(JSON.stringify(sql_res));
+		});
+});
+
+router.post('/my_course/fetchvid', function (req, res, next) {
+	if (typeof(req.body.page_number) === 'undefined') {
+		res.status(403).send('Pagenum not defined.');
+		return;
+	}
+	if (typeof(req.body.page_size) === 'undefined') {
+		req.body.page_size = 20;
+		logger.warn('Page size not defined...');
+		return;
+	}
+	if (typeof(req.session.user_id) === 'undefined') {
+		res.status(403).send('User not login...');
+		return;
+	}
+
+	let sql =
+		'select title, description, liveplayer_vid\n' +
+		'from lives l, classusers cu, classes cl\n' +
+		'where cu.user_id = 5 and cu.role = 0 and l.class = cu.class_id and cl.id = cu.class_id';
+
+	//let sql = 'SELECT liveplayer_vid from classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role=' + mysql.escape(req.session.role) + ' WHERE classusers.user_id = ' + mysql.escape(+req.session.user_id) + ' ORDER BY classusers.registration_date DESC';
 	getConnection().
 		then(function (conn) {
 			return doSqlQuery(conn, sql);
