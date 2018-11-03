@@ -16,7 +16,6 @@
 </template>
 
 <script>
-
 import {randomString} from '@/utils/funcs.js';
 
 export default {

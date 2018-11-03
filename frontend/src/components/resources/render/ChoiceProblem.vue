@@ -29,6 +29,20 @@ export default {
 				catch((res) => {
 				});
 		},
+		handleUpdate: function(code) {
+			this.code = code;
+			this.$http.post('/api/problem/table/choice_problems/get',{code: this.code}).
+				then((res) => {
+					this.info = res.body.results[0];
+					this.$refs.ctx_display.handleUpdate(this.info.description);
+					return this.$http.post('/api/problem/choice_problem/fetch',{code: this.code});
+				}).
+				then((res) => {
+					this.answer = res.body.results[0].answer;
+				}).
+				catch((err) => {
+				});
+		}
 	},
 	computed: {
 		options: function() {
@@ -39,19 +53,10 @@ export default {
 			return res;
 		}
 	},
-	props: ['code'],
+	props: ['default_code'],
 	mounted: function() {
-		this.$http.post('/api/problem/t/choice_problems/get',{code: this.code}).
-			then((res) => {
-				this.info = res.body.results[0];
-				this.$refs.ctx_display.handleUpdate(this.info.description);
-				return this.$http.post('/api/problem/choice_problem/fetch',{code: this.code});
-			}).
-			then((res) => {
-				this.answer = res.body.results[0].answer;
-			}).
-			catch((err) => {
-			});
+		if (this.default_code !== undefined)
+			this.handleUpdate(this.default_code);
 	},
 	components: {
 		ContentDisplay: ContentDisplay

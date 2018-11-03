@@ -1,11 +1,13 @@
 <template>
 	<el-dialog title="预览" :visible.sync="visible">
-		<ChoiceProblem v-if='info.type == 0' :code='info.code'/>
+		<ChoiceProblem v-if='info.type == 0' :default_code='info.code'/>
+		<ProgramProblem v-if='info.type == 1' :default_code='info.code'/>
 	</el-dialog>
 </template>
 
 <script>
 import ChoiceProblem from '../render/ChoiceProblem.vue';
+import ProgramProblem from '../render/ProgramProblem.vue';
 
 export default {
 	data: function() {
@@ -23,7 +25,8 @@ export default {
 		},
 	},
 	components: {
-		ChoiceProblem: ChoiceProblem
+		ChoiceProblem: ChoiceProblem,
+		ProgramProblem: ProgramProblem
 	},
 };
 </script>

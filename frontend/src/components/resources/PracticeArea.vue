@@ -1,13 +1,15 @@
 <template>
 	<div>
-		<div v-for='info in problemData'>
-			<ChoiceProblem v-if='info && info.type == 0' :code='info.code'/>
-		</div>
+		<el-card v-for='info in problemData'>
+			<ChoiceProblem v-if='info && info.type == 0' :default_code='info.code'/>
+			<ProgramProblem v-if='info && info.type == 1' :default_code='info.code'/>
+		</el-card>
 	</div>
 </template>
 
 <script>
 import ChoiceProblem from '@/components/resources/render/ChoiceProblem.vue';
+import ProgramProblem from '@/components/resources/render/ProgramProblem.vue';
 export default {
 	data: function() {
 		return {
@@ -23,6 +25,7 @@ export default {
 				this.problemData.forEach(function (item, index) {
 					item.index = index+1; 
 					if (item.type == 0) item.type_title = '选择题';
+					if (item.type == 1) item.type_title = '编程题';
 				});
 			}).
 			catch(function(err) {
@@ -30,7 +33,8 @@ export default {
 			});
 	},
 	components: {
-		ChoiceProblem: ChoiceProblem
+		ChoiceProblem: ChoiceProblem,
+		ProgramProblem: ProgramProblem
 	},
 };
 </script>
