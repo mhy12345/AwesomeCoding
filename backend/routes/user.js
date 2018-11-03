@@ -257,4 +257,38 @@ router.post('/change', function (req, res, next) {  // 响应设置个人信息�
 		});
 });
 
+router.post('/forgetPassword', function (req, res, next) {
+	var res_body = {
+		status: '',
+		details: '',
+	};
+	//给邮箱发送新的密码
+	let nickname = req.body.nickname;
+	let newpassword = randomString(10);
+	console.log(newpassword);
+	getConnection().
+		then(function (conn) {
+			let sql = 'UPDATE users SET password = \'' + newpassword + '\' WHERE nickname = \'' + nickname + '\'';
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let {conn, sql_res} = packed;
+			res_body.status = 'SUCCESS.';
+			res.send(JSON.stringify(res_body));
+		}).
+		catch(function (sql_res) {
+			res.send(JSON.stringify(sql_res, null, 3));
+		});
+});
+
+function randomString(len) {//随机生成字符串
+	var $chars = 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890';
+	var maxPos = $chars.length;
+	var pwd = '';
+	for (i = 0; i < len; i++) {
+		pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+	}
+	return pwd;
+}
+
 module.exports = router;

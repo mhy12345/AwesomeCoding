@@ -62,6 +62,7 @@
             },
             handleForgetPassword: function () {
                 // TODO 实现忘记密码
+                this.$router.push('/user/forgetpassword');
                 this.loadingQ = true;
             }
         }

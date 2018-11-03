@@ -120,6 +120,11 @@ export default new Router({
 					component: () => import('@/components/components/user/Profile.vue')
 				},
 				{
+					path: 'forgetpassword',
+					name: 'ForgetPassword',
+					component: () => import('@/components/components/user/ForgetPassword.vue')
+				},
+				{
 					path: 'settings',
 					name: 'Settings',
 					component: () => import('@/components/components/user/Settings.vue')

@@ -1,0 +1,340 @@
+[2018-11-01T12:03:28.079] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:03:28.082] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:03:26.088Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:08:05.048] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:08:05.049] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:08:04.671Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:09:52.277] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:09:52.277] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:09:51.465Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:12:09.935] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:12:09.936] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:12:09.927Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:12:15.776] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:12:15.777] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:12:15.474Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:13:33.050] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:13:33.051] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:13:32.796Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:17:27.620] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:17:27.622] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:17:27.296Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:03:49.007] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:03:49.010] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:03:48.778Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:06:55.890] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:06:55.893] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:06:55.498Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:09:40.367] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:09:40.371] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:09:39.803Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:13:42.195] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:13:42.197] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:13:41.405Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:13:54.858] [INFO] log_file - UPDATE users SET passwordYUHEKZRMRR WHERE nickname = undefined[FAILED.]
+[2018-11-01T14:18:10.638] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:18:10.640] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:18:09.997Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:18:18.659] [INFO] log_file - UPDATE users SET password = 2NKFE91EE2 WHERE nickname = undefined[FAILED.]
+[2018-11-01T14:21:04.878] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:21:04.881] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:21:04.123Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:21:15.489] [INFO] log_file - UPDATE users SET password = 94JH5MOVMI WHERE nickname = lzq[FAILED.]
+[2018-11-01T14:21:26.049] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-11-01T14:21:26.229] [INFO] log_file - SELECT * FROM users WHERE nickname = 'lzq'[FILLED.]
+[2018-11-01T14:21:26.230] [INFO] log_file - [ RowDataPacket {
+    id: 3,
+    email: '584324893@qq.com',
+    nickname: 'lzq',
+    realname: 'lzq',
+    role: 1,
+    motto: null,
+    registration_date: 2018-11-01T02:41:25.000Z,
+    password: '123456',
+    phone: '11122223333' } ]
+[2018-11-01T14:21:26.232] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-11-01T02:41:25.000Z,
+  password: '123456',
+  phone: '11122223333' }
+[2018-11-01T14:22:28.782] [INFO] log_file - [get] logout
+ {}
+[2018-11-01T14:22:28.784] [INFO] log_file - [res] { status: 'SUCCESS.', details: 'SUCCESS.' }
+[2018-11-01T14:22:28.792] [INFO] log_file - Session Destroyed
+[2018-11-01T14:23:39.082] [INFO] log_file - [post] register
+ { nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  email: '584324893@qq.com',
+  phone: '18280851691',
+  motto: 'hahaha',
+  password: '123456',
+  re_password: '123456',
+  verify_code: 217539 }
+[2018-11-01T14:23:39.237] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-01T14:23:39.241] [INFO] log_file - []
+[2018-11-01T14:23:39.286] [INFO] log_file - insert into users (id,nickname,realname,role,email,motto,registration_date,password,phone) values (null,'liuzhiqiang','liuzhiqiang','1','584324893@qq.com','hahaha',null,'123456','18280851691')[FILLED.]
+[2018-11-01T14:23:39.289] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 27,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-11-01T14:23:39.321] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-01T14:23:39.322] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahaha',
+    registration_date: 2018-11-01T06:15:50.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-01T14:23:39.324] [INFO] log_file - <<< { sql: 'SELECT * FROM users WHERE nickname = \'liuzhiqiang\'',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 27,
+       email: '584324893@qq.com',
+       nickname: 'liuzhiqiang',
+       realname: 'liuzhiqiang',
+       role: 1,
+       motto: 'hahaha',
+       registration_date: 2018-11-01T06:15:50.000Z,
+       password: '123456',
+       phone: '18280851691' } ],
+  details: undefined }
+[2018-11-01T14:23:39.326] [INFO] log_file - [res] { status: 'SUCCESS.',
+  results: 
+   Session {
+     cookie: 
+      { path: '/',
+        _expires: 2018-11-01T07:23:25.476Z,
+        originalMaxAge: 3600000,
+        httpOnly: true },
+     status: 'SUCCESS.',
+     code_generated: '217539',
+     nickname: 'liuzhiqiang',
+     realname: 'liuzhiqiang',
+     role: 1,
+     email: '584324893@qq.com',
+     user_id: 27 } }
+[2018-11-01T14:23:45.574] [INFO] log_file - [get] logout
+ {}
+[2018-11-01T14:23:45.580] [INFO] log_file - [res] { status: 'SUCCESS.', details: 'SUCCESS.' }
+[2018-11-01T14:23:45.583] [INFO] log_file - Session Destroyed
+[2018-11-01T14:23:56.567] [INFO] log_file - UPDATE users SET password = BBLDNZSNDK WHERE nickname = liuzhiqiang[FAILED.]
+[2018-11-01T14:30:24.247] [INFO] log_file - UPDATE users SET password = V3N5WPWKR2 WHERE nickname = liuzhiqiang[FAILED.]
+[2018-11-01T14:44:37.279] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '123456' }
+[2018-11-01T14:44:37.447] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-01T14:44:37.448] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahaha',
+    registration_date: 2018-11-01T06:15:50.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-01T14:44:37.449] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahaha',
+  registration_date: 2018-11-01T06:15:50.000Z,
+  password: '123456',
+  phone: '18280851691' }
+[2018-11-01T14:44:47.870] [INFO] log_file - [post] change
+ { realname: 'liuzhiqiang',
+  motto: 'hahahaha',
+  email: '584324893@qq.com',
+  password: '' }
+[2018-11-01T14:44:48.045] [INFO] log_file - UPDATE users SET realname = 'liuzhiqiang',motto = 'hahahaha',email = '584324893@qq.com' WHERE id = 27[FILLED.]
+[2018-11-01T14:44:48.048] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1 }
+[2018-11-01T14:44:48.086] [INFO] log_file - SELECT * FROM users WHERE id = 27[FILLED.]
+[2018-11-01T14:44:48.096] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:36:59.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-01T14:44:48.097] [INFO] log_file - { status: 'SUCCESS.',
+  details: '',
+  results: 
+   RowDataPacket {
+     id: 27,
+     email: '584324893@qq.com',
+     nickname: 'liuzhiqiang',
+     realname: 'liuzhiqiang',
+     role: 1,
+     motto: 'hahahaha',
+     registration_date: 2018-11-01T06:36:59.000Z,
+     phone: '18280851691' } }
+[2018-11-01T14:44:48.100] [INFO] log_file - [res] { status: 'SUCCESS.',
+  details: '',
+  results: 
+   RowDataPacket {
+     id: 27,
+     email: '584324893@qq.com',
+     nickname: 'liuzhiqiang',
+     realname: 'liuzhiqiang',
+     role: 1,
+     motto: 'hahahaha',
+     registration_date: 2018-11-01T06:36:59.000Z,
+     phone: '18280851691' } }
+[2018-11-01T14:46:53.373] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:46:53.380] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:46:52.745Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:47:02.942] [INFO] log_file - UPDATE users SET password = EO84L45RO2 WHERE nickname = ' liuzhiqiang'[FAILED.]
+[2018-11-01T14:47:56.067] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:47:56.070] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:47:55.507Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:48:06.414] [INFO] log_file - UPDATE users SET password = '19LGQT4IUJ' WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-01T14:48:06.414] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 34,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1 }
+[2018-11-01T14:48:38.137] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '19LGQT4IUJ' }
+[2018-11-01T14:48:38.289] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-01T14:48:38.290] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:40:17.000Z,
+    password: '19LGQT4IUJ',
+    phone: '18280851691' } ]
+[2018-11-01T14:48:38.291] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-01T06:40:17.000Z,
+  password: '19LGQT4IUJ',
+  phone: '18280851691' }
