@@ -13,6 +13,9 @@
                 <el-button type="primary" class="login-button" @click="handleSignIn">登录</el-button>
             </el-row>
             <el-row>
+                <el-button type="text" @click="handleSignInbyPhone">手机号登录</el-button>
+            </el-row>
+            <el-row>
                 <el-button type="text" @click="handleForgetPassword">忘记密码</el-button>
             </el-row>
         </div>
@@ -26,7 +29,7 @@
 
     export default {
         name: "SignIn",
-        data() {
+        data () {
             return {
                 title: '欢迎登录',
                 inputs: {
@@ -61,9 +64,13 @@
                     });
             },
             handleForgetPassword: function () {
-                // TODO 实现忘记密码
+                this.$router.push('/user/forgetpassword');
                 this.loadingQ = true;
-            }
+            },
+            handleSignInbyPhone: function () {
+                this.$router.push('/user/sign_inbyphone');
+                this.loadingQ = true;
+            },
         }
     };
 </script>

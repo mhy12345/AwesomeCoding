@@ -1,9 +1,9 @@
 <template>
-    <el-card class="box-card" v-loading="loadingQ">
+   <el-card class="box-card" v-loading="loadingQ">
         <div slot="header" class="clear-fix">
             <h1>{{ title }}</h1>
         </div>
-        <div @keydown.enter="handleSignUp">
+        <div @keydown.enter="handleChangePassword">
             <!--Registration Info-->
             <el-row v-for="(value, key, index) in heads" :key="index">
                 <el-col :span="8" class="register-prompt">
@@ -21,23 +21,6 @@
                               v-model="inputs[key]"
                               :placeholder="heads[key]">
                     </el-input>
-                    <el-select v-else-if="key === 'role'"
-                               v-model="inputs[key]"
-                               placeholder="请选择..."
-                               class="input-box">
-                        <el-option :value="0" label="管理员">
-                            <span style="float: left">管理员</span>
-                            <img :src="icon_urls.administrator" class="option-icon">
-                        </el-option>
-                        <el-option :value="1" label="教师">
-                            <span style="float: left">教师</span>
-                            <img :src="icon_urls.teacher" class="option-icon">
-                        </el-option>
-                        <el-option :value="2" label="学生">
-                            <span style="float: left">学生</span>
-                            <img :src="icon_urls.student" class="option-icon">
-                        </el-option>
-                    </el-select>
                     <el-input v-else
                               :id="key"
                               type="text"
@@ -80,44 +63,36 @@
         </div>
         <div align="center">
             <el-row>
-                <el-button type="success" class="register-button" @click="handleSignUp">注册</el-button>
+                <el-button type="success" class="register-button" @click="handleChangePassword">修改密码</el-button>
             </el-row>
         </div>
     </el-card>
 </template>
 
-<script>
-    /* eslint-disable camelcase,no-undef,no-unused-vars */
 
-    import {registerSQL, queryPhoneSQL} from "../../../utils/DoSQL";
-    import axios from 'axios'
+<script>
+    /* eslint-disable camelcase */
+
+    import {forgetPasswordSQL, queryPhoneSQL, changePasswordSQL} from '../../../utils/DoSQL';
+    import axios from 'axios';
     var root_url = require('../../../../config/http_root_url');
 
     export default {
-        name: "SignUp",
+        name: "ForgetPassword",
         data() {
             return {
-                title: '欢迎注册',
                 heads: { // 输入框提示词
-                    nickname: '用户名',
-                    realname: '真实姓名',
-                    role: '身份',
-                    email: '邮箱',
                     phone: '手机号',
-                    motto: '签名',
                     password: '密码',
                     re_password: '重复密码',
                 },
-                inputs: { // 输入框的信息
-                    nickname: '',
-                    realname: '',
-                    role: '',
-                    email: '',
+                title: '找回密码',
+                inputs: {
                     phone: '',
-                    motto: '',
-                    password: '',
-                    re_password: '',
                     verify_code: undefined,
+                    password: undefined,
+                    re_password: undefined,
+                    userid: undefined,
                 },
                 verify: {
                     code_generated: '',
@@ -126,14 +101,28 @@
                     disableQ: false,
                 },
                 loadingQ: false,
-                icon_urls: {
-                    administrator: require('../../../assets/images/icons/administrator.png'),
-                    student: require('../../../assets/images/icons/student.png'),
-                    teacher: require('../../../assets/images/icons/teacher.png'),
-                }
+                expire_secs: 360, // cookie 的有效期
             };
         },
         methods: {
+            handleChangePassword: function () {
+                // 修改密码
+                if(this.inputs.password !== this.inputs.re_password) {
+                    this.$message.warning("密码不一致");
+                    return;
+                }
+                if(this.verify.code_generated !== this.inputs.verify_code) {
+                    this.$message.warning("验证码错误");
+                    return;
+                }
+                changePasswordSQL(this, this.inputs).
+                    then((resp) => {
+                        window.location.href = "/user/sign_in";
+                    }).
+                    catch((resp) => {
+
+                    });
+            },
             handleVerification: function () {
                 var clock;
                 if (this.inputs.phone <= 10000000000 || this.inputs.phone >= 19999999999) {
@@ -142,12 +131,13 @@
                 }
                 queryPhoneSQL(this, this.inputs).
                     then((resp) => {
-                        if(resp.status === 'SUCCESS.') {
-                            this.$message("该手机号已被注册");
+                        if(resp.status === 'FAILED.') {
+                            this.$message("该手机号还未被注册");
                             return; 
                         }
                         //若已注册，则发送验证码
                         else {
+                            this.inputs.userid = resp.user.id;
                             clock = window.setInterval(() => {
                             this.verify.disableQ = true;
                             this.verify.countdown--;
@@ -181,64 +171,12 @@
                         }    
                     }).
                     catch((resp) => {
-                        if(resp.status === 'SUCCESS.') {
-                            this.$message("该手机号已被注册");
+                        if(resp.status === 'FAILED.') {
+                            this.$message("该手机号还未被注册");
                             return; 
                         }   
                     });
                 
-            },
-            handleSignUp: function () {
-                console.log(this.inputs.verify_code);
-                console.log(this.verify.code_generated);
-                if (this.inputs.nickname === '') {
-                    this.$message("用户名不能为空。");
-                    return;
-                }
-                if (this.inputs.realname === '') {
-                    this.$message("真实姓名不能为空。");
-                    return;
-                }
-                if (this.inputs.role === '') {
-                    this.$message("角色不能为空。");
-                    return;
-                }
-                if (this.inputs.email === '') { // todo 用正则表达式校验邮箱的合法性
-                    this.$message("邮箱不合法。");
-                    return;
-                }
-                if (this.inputs.password.length < 6) {
-                    this.$message("密码不能少于6位。");
-                    return;
-                }
-                if (this.inputs.password !== this.inputs.re_password) {
-                    this.$message("两次输入的密码不同。");
-                    return;
-                }
-                if (this.inputs.verify_code !== this.verify.code_generated) { // todo 移到后端
-                    this.$message("验证码不正确，请重试。");
-                    return;
-                }
-                this.loadingQ = true; // 加载等待圈
-                registerSQL(this, this.inputs).
-                then((resp) => {
-                    console.log(resp);
-                    this.loadingQ = false;
-                    this.$message.success("注册成功！");
-                    this.$emit('logined', this.inputs); // 通知父级路由已注册
-                    this.$router.push('/user/profile');
-                }).
-                catch((resp) => {
-                    console.log(resp);
-                    this.loadingQ = false;
-                    if (resp.details === 'DUPLICATION_OF_REGISTRATION.') {
-                        this.$message.error("注册失败，用户名已存在！");
-                    } else if (resp.details === 'ALREADY_LOGIN.') {
-                        this.$message.error("注册失败，用户已登录！");
-                    } else {
-                        this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
-                    }
-                });
             },
             handleFocusingOnVerify() {
                 this.inputs.verify_code = undefined;
