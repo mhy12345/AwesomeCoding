@@ -144,50 +144,49 @@
                     then((resp) => {
                         if(resp.status === 'FAILED.') {
                             this.$message("该手机号已被注册");
-                            return; 
+                            return;
                         }
                         //若未注册，则发送验证码
                         else {
                             console.log("SMS frontend SignUP");
                             clock = window.setInterval(() => {
-                            this.verify.disableQ = true;
-                            this.verify.countdown--;
-                            this.verify.prompt = this.verify.countdown + 's后重新发送';
-                            if (this.verify.countdown <= 0) {
-                                window.clearInterval(clock);
-                                this.verify.disableQ = false;
-                                this.verify.prompt = '重新发送验证码';
-                                this.verify.countdown = 60;
-                            }
-                        }, 1000);
+                                this.verify.disableQ = true;
+                                this.verify.countdown--;
+                                this.verify.prompt = this.verify.countdown + 's后重新发送';
+                                if (this.verify.countdown <= 0) {
+                                    window.clearInterval(clock);
+                                    this.verify.disableQ = false;
+                                    this.verify.prompt = '重新发送验证码';
+                                    this.verify.countdown = 60;
+                                }
+                            }, 1000);
 
-                        this.$message.warning("验证码已发送！请注意查收");
-                        /*
-                        下一语句将自动获取验证码输入框的焦点，这种$ref的用法在Vue里面很常用
-                        建议参考：https://github.com/ElemeFE/element/issues/3871
-                        */
-                        this.$refs.verify_input.focus();
+                            this.$message.warning("验证码已发送！请注意查收");
+                            /*
+							下一语句将自动获取验证码输入框的焦点，这种$ref的用法在Vue里面很常用
+							建议参考：https://github.com/ElemeFE/element/issues/3871
+							*/
+                            this.$refs.verify_input.focus();
 
-                        let nowpath = '/api/user/verification';
-                        console.log(nowpath);
-                        axios.post(nowpath, {
-                            number: this.inputs.phone
-                        })
-                        .then((resp) => {
-                            console.log(resp);
-                            this.verify.code_generated = parseInt(resp.data.code_generated);
-                            console.log(this.verify.code_generated);
-                        });
+                            let nowpath = '/api/user/verification';
+                            console.log(nowpath);
+                            axios.post(nowpath, {
+                                number: this.inputs.phone
+                            }).then((resp) => {
+                                //console.log(resp);
+                                //this.verify.code_generated = parseInt(resp.data.code_generated);
+                                //console.log(this.verify.code_generated);
+                            });
 
-                        }    
+                        }
                     }).
                     catch((resp) => {
                         if(resp.status === 'FAILED.') {
                             this.$message("该手机号已被注册");
-                            return; 
-                        }   
+                            return;
+                        }
                     });
-                
+
             },
             handleSignUp: function () {
                 console.log(this.inputs.verify_code);
@@ -216,30 +215,34 @@
                     this.$message("两次输入的密码不同。");
                     return;
                 }
+                /* （已移到后端）
                 if (this.inputs.verify_code !== this.verify.code_generated) { // todo 移到后端
                     this.$message("验证码不正确，请重试。");
                     return;
                 }
+                */
                 this.loadingQ = true; // 加载等待圈
                 registerSQL(this, this.inputs).
-                then((resp) => {
-                    console.log(resp);
-                    this.loadingQ = false;
-                    this.$message.success("注册成功！");
-                    this.$emit('logined', this.inputs); // 通知父级路由已注册
-                    this.$router.push('/user/profile');
-                }).
-                catch((resp) => {
-                    console.log(resp);
-                    this.loadingQ = false;
-                    if (resp.details === 'DUPLICATION_OF_REGISTRATION.') {
-                        this.$message.error("注册失败，用户名已存在！");
-                    } else if (resp.details === 'ALREADY_LOGIN.') {
-                        this.$message.error("注册失败，用户已登录！");
-                    } else {
-                        this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
-                    }
-                });
+                    then((resp) => {
+                        console.log(resp);
+                        this.loadingQ = false;
+                        this.$message.success("注册成功！");
+                        this.$emit('logined', this.inputs); // 通知父级路由已注册
+                        this.$router.push('/user/profile');
+                    }).
+                    catch((resp) => {
+                        console.log(resp);
+                        this.loadingQ = false;
+                        if (resp.details === 'DUPLICATION_OF_REGISTRATION.') {
+                            this.$message.error("注册失败，用户名已存在！");
+                        } else if (resp.details === 'ALREADY_LOGIN.') {
+                            this.$message.error("注册失败，用户已登录！");
+                        } else if (resp.details === 'WRONG_VERIFICATION_CODE.') {
+                            this.$message.error("注册失败，注册码不正确！");
+                        } else {
+                            this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
+                        }
+                    });
             },
             handleFocusingOnVerify() {
                 this.inputs.verify_code = undefined;
