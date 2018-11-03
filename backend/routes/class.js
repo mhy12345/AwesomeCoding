@@ -513,7 +513,7 @@ router.post('/my_course/fetch', function (req, res, next) {
 		});
 });
 
-router.post('/my_course/fetchvid', function (req, res, next) {
+router.post('/my_course_vid/fetch', function (req, res, next) {
 	if (typeof(req.body.page_number) === 'undefined') {
 		res.status(403).send('Pagenum not defined.');
 		return;
