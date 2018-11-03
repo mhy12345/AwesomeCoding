@@ -165,9 +165,9 @@
                     number: this.inputs.phone
                 })
                     .then((resp) => {
-                        console.log(resp);
-                        this.verify.code_generated = parseInt(resp.data.code_generated);
-                        console.log(this.verify.code_generated);
+                        //console.log(resp);
+                        //this.verify.code_generated = parseInt(resp.data.code_generated);
+                        //console.log(this.verify.code_generated);
                     });
             },
             handleSignUp: function () {
@@ -197,10 +197,12 @@
                     this.$message("两次输入的密码不同。");
                     return;
                 }
+                /* （已移到后端）
                 if (this.inputs.verify_code !== this.verify.code_generated) { // todo 移到后端
                     this.$message("验证码不正确，请重试。");
                     return;
                 }
+                */
                 this.loadingQ = true; // 加载等待圈
                 registerSQL(this, this.inputs).
                 then((resp) => {
@@ -217,6 +219,8 @@
                         this.$message.error("注册失败，用户名已存在！");
                     } else if (resp.details === 'ALREADY_LOGIN.') {
                         this.$message.error("注册失败，用户已登录！");
+                    } else if (resp.details === 'WRONG_VERIFICATION_CODE.') {
+                        this.$message.error("注册失败，注册码不正确！");
                     } else {
                         this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
                     }

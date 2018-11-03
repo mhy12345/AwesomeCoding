@@ -1,3 +1,4 @@
+var user_verification_codes = {};
 const axios = require('axios');
 
 var express = require('express');
@@ -42,9 +43,10 @@ router.post('/verification', function (req, res, next) {	// 让后端程序发�
         "param": code_generated,
         "mobile": req.body.number
 	}).then(() => {
+		user_verification_codes[req.body.number] = +code_generated;
         let res_body = req.session;
         res_body.status = 'SUCCESS.';
-        res_body.code_generated = code_generated;
+        // res_body.code_generated = code_generated;
         res.send(JSON.stringify(res_body));
     });
 });
@@ -61,6 +63,19 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 		res.send(JSON.stringify(res_body));
 		return;
 	}
+
+	if (req.body.verify_code !== user_verification_codes[req.body.phone]) { // 验证码不正确
+		console.log(req.body.phone);
+		console.log(user_verification_codes[req.body.phone]);
+		res_body = {
+			status: 'FAILED.',
+			details: 'WRONG_VERIFICATION_CODE.'
+		};
+		logger.info('[res]', res_body);
+		res.send(JSON.stringify(res_body));
+		return;
+	}
+
 	getConnection().
 		then(function (conn) {
 			let sql = 'SELECT * FROM users WHERE nickname = ' + mysql.escape(req.body.nickname);
