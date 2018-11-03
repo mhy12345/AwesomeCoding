@@ -3,7 +3,7 @@
 // var root_url = 'http://' + host.ip + ':' + host.port;
 
 // todo   for 最终发布版本/npm run build 测试
-var root_url = 'http://127.0.0.1:80';
+var root_url = 'http://localhost';
 
 
 module.exports = root_url;
