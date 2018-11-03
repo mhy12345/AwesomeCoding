@@ -47,8 +47,10 @@
 		</el-row>
 		<el-row>
 			<el-button @click='handleCreate(0)'> 选择题 </el-button>
+			<el-button @click='handleCreate(1)'> 程序题 </el-button>
 		</el-row>
-		<ChoiceProblemDialog ref='dialog_choice' @completed='handleDialogCompleted'> </ChoiceProblemDialog>
+		<ChoiceProblemDialog ref='dialog_choice' @completed='handleChoiceDialogCompleted'> </ChoiceProblemDialog>
+		<ProgramProblemDialog ref='dialog_program' @completed='handleProgramDialogCompleted'> </ProgramProblemDialog>
 		<ContentEditor ref='content_editor'> </ContentEditor>
 		<Preview ref='prob_preview'> </Preview>
 		<Analyze ref='prob_analyze'> </Analyze>
@@ -58,6 +60,7 @@
 <script>
 import ContentEditor from '@/components/components/ContentEditor.vue';
 import ChoiceProblemDialog from '@/components/resources/dialogs/ChoiceProblem.vue';
+import ProgramProblemDialog from '@/components/resources/dialogs/ProgramProblem.vue';
 import Preview from '@/components/resources/dialogs/Preview.vue';
 import Analyze from '@/components/resources/dialogs/Analyze.vue';
 
@@ -77,6 +80,7 @@ export default {
 				this.problemData.forEach(function (item, index) {
 					item.index = index+1; 
 					if (item.type == 0) item.type_title = '选择题';
+					if (item.type == 1) item.type_title = '程序题';
 				});
 			}).
 			catch(function(err) {
@@ -99,7 +103,7 @@ export default {
 		handleAnalyze: function(idx, row) {
 			this.$refs.prob_analyze.handleOpen(row);
 		},
-		handleDialogCompleted: function(obj) {
+		handleChoiceDialogCompleted: function(obj) {
 			this.problemData[obj.index].title = obj.title;
 			this.$http.post('/api/problem/save',{
 				code: obj.info.code,
@@ -109,11 +113,22 @@ export default {
 				then((res) => {}).
 				catch((err) => {});
 		},
+		handleProgramDialogCompleted: function(obj) {
+			this.problemData[obj.index].title = obj.title;
+			this.$http.post('/api/problem/save',{
+				code: obj.code,
+				state: obj.state,
+				title: obj.title
+			}).
+				then((res) => {}).
+				catch((err) => {});
+		},
 		handleContentEditByPID: function(info,field) {
 			let ptype = undefined;
 			if (info.type == 0) ptype = 'choice_problems';
+			else if (info.type == 1) ptype = 'program_problems';
 			else console.log("未知类别",info);
-			this.$http.post('/api/problem/t/'+ptype+'/get',{code: info.code}).
+			this.$http.post('/api/problem/t/'+ptype+'/get',{code: info.code }).
 				then((res) => {
 					let content_id = res.body.results[0][field];
 					this.$refs.content_editor.handleOpen(content_id);
@@ -134,6 +149,7 @@ export default {
 					this.problemData.forEach(function (item, index) {
 						item.index = index+1; 
 						if (item.type == 0) item.type_title = '选择题';
+						if (item.type == 1) item.type_title = '程序题';
 					});
 					this.loading = false;
 				}).
@@ -144,6 +160,7 @@ export default {
 		handleEdit: function(idx, row) {
 			let dialog_id = null;
 			if (row.type == 0) dialog_id = 'dialog_choice';
+			if (row.type == 1) dialog_id = 'dialog_program';
 			this.$refs[dialog_id].handleOpen(idx,row);
 		},
 		handlePreview: function(idx, row) {
@@ -152,6 +169,7 @@ export default {
 	},
 	components : {
 		ChoiceProblemDialog: ChoiceProblemDialog,
+		ProgramProblemDialog: ProgramProblemDialog,
 		ContentEditor: ContentEditor,
 		Preview: Preview,
 		Analyze: Analyze,
