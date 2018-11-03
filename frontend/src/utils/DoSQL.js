@@ -87,6 +87,10 @@ function forgetPasswordSQL(parent, user) {
     return postSQL(parent, "/user/forgetPassword", user);
 }
 
+function queryPhoneSQL(parent, user) {
+    return postSQL(parent, "/user/queryPhone", user);
+}
+
 function changeSQL(parent, user) {
     return postSQL(parent, "/user/change", user);
 }
@@ -110,5 +114,6 @@ export {
     changeSQL,
     sessionSQL,
     logoutSQL,
-    forgetPasswordSQL
+    forgetPasswordSQL,
+    queryPhoneSQL
 };

@@ -281,6 +281,38 @@ router.post('/forgetPassword', function (req, res, next) {
 		});
 });
 
+router.post('/queryPhone', function (req, res, next) {//判断手机号是否注册，若注册则返回用户
+	var res_body = {
+		status: '',
+		details: '',
+	};
+	let phoneNumber = req.body.phone;
+	console.log(phoneNumber);
+	getConnection().
+		then(function (conn) {
+			let sql = "SELECT * from users WHERE phone = " + phoneNumber;
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let {conn, sql_res} = packed;
+			if(sql_res.results.length === 0) {
+				res_body.status = 'FAILED.';
+				res_body.details = 'Phone Not Registered';
+			}
+			else {
+				res_body.status = 'SUCCESS.';
+				res_body.details = 'Phone Registered';
+				let user = sql_res.results[0];
+				res_body.user = user;
+			}
+			console.log(res_body);
+			res.send(JSON.stringify(res_body));
+		}).
+		catch(function (sql_res) {
+			res.send(JSON.stringify(sql_res, null, 3));
+		});
+})
+
 function randomString(len) {//随机生成字符串
 	var $chars = 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890';
 	var maxPos = $chars.length;
