@@ -79,6 +79,7 @@ router.get('/delete', function (req, res, next) { //根据id删除班级
 });
 
 router.post('/status', function(req, res, next) {
+	console.log(req.session);
 	if (typeof(req.session.user_id) === 'undefined') {
 		res.send(JSON.stringify({
 			status: 'FAILED.',

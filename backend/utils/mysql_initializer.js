@@ -8,6 +8,21 @@ log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file')
 
 var sqls = {
+	'create_program_problem_answer_table' : "CREATE TABLE IF NOT EXISTS `program_problem_answers` (" + 
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
+		"`code` CHAR(20) NOT NULL, " +
+		"`user_id` INT UNSIGNED NOT NULL, " +
+		"`program_id` INT UNSIGNED NOT NULL, " +
+		"PRIMARY KEY (`id`) " +
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+	'create_program_problem_table' : "CREATE TABLE IF NOT EXISTS `program_problems` (" +
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
+		"`code` CHAR(20) NOT NULL, " +
+		"`description` CHAR(20) NOT NULL, " +
+		"`answer_program_id` INT UNSIGNED NOT NULL, " +
+		"`solution` CHAR(20) NOT NULL, " +
+		"PRIMARY KEY (`id`) " +
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
 	'create_choice_problem_answer_table' : "CREATE TABLE IF NOT EXISTS `choice_problem_answers` (" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`user_id` INT UNSIGNED NOT NULL, " +
@@ -170,6 +185,8 @@ function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新�
 				'create_problem_table',
 				'create_choice_problem_table', 
 				'create_choice_problem_answer_table', 
+				'create_program_problem_table', 
+				'create_program_problem_answer_table', 
 				'create_class_file_table', 
 				'create_posts', 
 				'create_lives',

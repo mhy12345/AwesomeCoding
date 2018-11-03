@@ -12,7 +12,7 @@ module.exports = {
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
         proxyTable: {
-            '/api': {
+            '/api/*': {
                 target: 'http://localhost:' + host_port + '/api',//接口的域名
                 changeOrigin: true,
                 pathRewrite: {

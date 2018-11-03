@@ -12,7 +12,8 @@ function getConnection() { //获取连接connection，并调用回调函数
 	/*
 	return mysql_initializer({
 	 	no_create:true
-	});*/
+	});
+	*/
 	return new Promise(function (resolve, reject) {
 		let config = {
 			host: mysql_config.host,

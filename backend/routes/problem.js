@@ -51,6 +51,8 @@ router.post('/create', function(req, res, next) {
 			let sql = '';
 			if (req.body.type == 0) { //选择题
 				sql = 'INSERT INTO `choice_problems` (`code`,`description`,`choice_count`,`solution`) VALUES ('+mysql.escape(problem_id)+','+mysql.escape(randomString(16))+','+mysql.escape(4)+','+mysql.escape(randomString(16)) +')';
+			} else if (req.body.type == 1) {
+				sql = 'INSERT INTO `program_problems` (`code`,`description`,`solution`) VALUES ('+mysql.escape(problem_id)+','+mysql.escape(randomString(16))+','+mysql.escape(randomString(16)) +')';
 			} else {
 				logger.warn("UNKNOWN TYPE!");
 			}
