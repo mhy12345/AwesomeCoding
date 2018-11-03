@@ -497,9 +497,26 @@ router.post('/my_course/fetch', function (req, res, next) {
 		res.status(403).send('User not login...');
 		return;
 	}
+
 	let m = (+req.body.page_number - 1) * req.body.page_size;
 	let n = (+req.body.page_number) * req.body.page_size;
-	let sql = 'SELECT classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role=' + mysql.escape(req.session.role) + ' WHERE classusers.user_id = ' + mysql.escape(+req.session.user_id) + ' ORDER BY classusers.registration_date DESC';
+	console.log('fuck fuck fuck your mother');
+	let sql = '';
+	if(req.session.role >= 2) {
+		sql = 'SELECT classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role=' + mysql.escape(req.session.role) + ' WHERE classusers.user_id = ' + mysql.escape(+req.session.user_id) + ' ORDER BY classusers.registration_date DESC';
+	}
+	else {
+		sql =
+			'select cl.id, cl.title, liveplayer_vid as lvid ' +
+			'from lives l, classusers cu, classes cl ' +
+			'where cu.user_id = ' + mysql.escape(+req.session.user_id) + ' ' +
+			'and cu.role = ' + mysql.escape(req.session.role) + ' ' +
+			'and l.class = cu.class_id and cl.id = cu.class_id';
+
+		console.log('fuck your mother');
+		console.log(req.session.role);
+		console.log(sql);
+	}
 	getConnection().
 		then(function (conn) {
 			return doSqlQuery(conn, sql);
@@ -514,6 +531,7 @@ router.post('/my_course/fetch', function (req, res, next) {
 		});
 });
 
+/*
 router.post('/my_course_vid/fetch', function (req, res, next) {
 	if (typeof(req.body.page_number) === 'undefined') {
 		res.status(403).send('Pagenum not defined.');
@@ -548,6 +566,8 @@ router.post('/my_course_vid/fetch', function (req, res, next) {
 			res.status(403).send(JSON.stringify(sql_res));
 		});
 });
+*/
+
 
 router.post('/liveid/query', function (req, res, next) {
 	let result = {
