@@ -102,9 +102,35 @@
 
                 </el-tab-pane>
                 <el-tab-pane label="我的资源">
-                    <el-table :data="tableData" stripe style="width: 100%; margin: auto; padding: 5px;" align="center" @current-change="handleDownload">
-                        <el-table-column prop="filename" width="500"></el-table-column>
+
+                    <el-table
+                        :data="tableData"
+                        height="250"
+                        border
+                        style="width: 100%">
+                        <el-table-column
+                            prop="filename"
+                            label="文件名"
+                            width="420">
+                        </el-table-column>
+
+                        <el-table-column align="center" label="下载">
+                            <template slot-scope="scope">
+                                <el-button icon="el-icon-download" circle
+                                           @click="handleDownload(scope.row)">
+                                </el-button>
+                            </template>
+                        </el-table-column>
+
+                        <el-table-column align="center" label="删除">
+                            <template slot-scope="scope">
+                                <el-button icon="el-icon-delete" circle
+                                           @click="handleDelete(scope.row)">
+                                </el-button>
+                            </template>
+                        </el-table-column>
                     </el-table>
+
                 </el-tab-pane>
                 <el-tab-pane label="我的课堂"></el-tab-pane>
             </el-tabs>
@@ -232,6 +258,23 @@
             },
 
             handleDownload: function (row) {
+                this.$http.post('/api/file/download', {filename: row.filename,}).
+                     then(function (res) {
+                         const blob = new Blob([res.data]);
+                         if (window.navigator.msSaveOrOpenBlob) {
+                             // 兼容IE10
+                             navigator.msSaveBlob(blob, this.filename);
+                         } else {
+                             //  chrome/firefox
+                             let aTag = document.createElement('a');
+                             aTag.download = row.filename;
+                             aTag.href = URL.createObjectURL(blob);
+                             aTag.click();
+                             URL.revokeObjectURL(aTag.href);
+                         }
+                     });
+            },
+            handleDelete: function (row) {
                 this.$http.post('/api/file/download', {filename: row.filename,}).
                      then(function (res) {
                          const blob = new Blob([res.data]);

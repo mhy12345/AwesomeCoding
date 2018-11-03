@@ -24,7 +24,7 @@
 
 <script>
     export default {
-        data() {
+        data () {
             return {
                 chatrecords: [],
                 class_id: "undefined",
@@ -33,7 +33,7 @@
                     classId: undefined,
                     message: undefined,
                 }
-            }
+            };
         },
         mounted: function () {
             this.class_id = this.$route.params.class_id;
@@ -53,7 +53,7 @@
                  });
         },
         methods: {
-            onSubmit() {
+            onSubmit () {
                 this.$http.post('/api/chat/add_comments', {
                     userid: this.inputData.userId,
                     classid: this.inputData.classId,
@@ -66,10 +66,8 @@
                          }
                      });
             },
-            onClear() {
-                this.$http.post('/api/chat/clear_comments', {
-                    classid: this.inputData.classId,
-                }).
+            onClear () {
+                this.$http.post('/api/chat/clear_comments', {classid: this.inputData.classId,}).
                      then(function (res) {
                          console.log(res);
                          if (res.body.status === 'SUCCESS.') {
@@ -78,5 +76,5 @@
                      });
             },
         },
-    }
+    };
 </script>

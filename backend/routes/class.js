@@ -25,7 +25,7 @@ var NewChannelTemplate = {
 
 function checkPermission(conn, class_id, user_id) {
 	return new Promise((resolve,reject) => {
-		if (typeof(class_id) == 'undefined') {
+		if (typeof(class_id) === 'undefined') {
 			conn.end();
 			reject({
 				status: 'FAILED.',
@@ -33,7 +33,7 @@ function checkPermission(conn, class_id, user_id) {
 			});
 			return ;
 		}
-		if (typeof(user_id) == 'undefined') {
+		if (typeof(user_id) === 'undefined') {
 			conn.end();
 			reject({
 				status: 'FAILED.',
