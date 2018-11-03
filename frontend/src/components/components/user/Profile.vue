@@ -20,6 +20,7 @@
                     <p>用户名： {{ user.nickname }}</p>
                     <span>身份： {{ role.text }} <img :src="role.icon_url" style="height: 40px;"/></span>
                     <p>邮箱： {{ user.email }}</p>
+                    <p>手机号：{{ user.phone }}</p>
                     <p>签名： {{ user.motto }}</p>
                 </el-col>
                 <el-col v-else
@@ -190,7 +191,7 @@
                     then((res) => {
                         this.loadingQ = false;
                         this.user = res.results;
-                        this.$emit('logined', this.user);
+                        console.log('[Changed Profile]', this.user);
                         this.$message('修改成功。');
                         this.editingQ = false;
                         this.inputs.password = '●●●●●●●●●●●●';
