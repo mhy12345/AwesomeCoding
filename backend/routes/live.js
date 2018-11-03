@@ -4,6 +4,7 @@ const router = express.Router();
 const getConnection = require('../utils/funcs').getConnection;
 const doSqlQuery = require('../utils/funcs').doSqlQuery;
 const getPermission = require('../utils/funcs').getPermission;
+const sockets = require('../utils/global').user_sockets;
 
 const log4js = require("log4js");
 const log4js_config = require("../configures/log.config.js").runtime_configure;
@@ -66,17 +67,13 @@ router.get('/get_chat_record', function (req, res) {		// 获取聊天记录
 		});
 });
 
-// router.use(function (req, res, next) {		// 判断是否教师身份
-//
-// });
-
 
 router.get('/clear_chat_record', function (req, res) {		// 清空聊天记录
 	logger.info('[clear_chat_record]\n', req.query);
 	getPermission(req.session.user_id, req.query.course_id).
 		then((role) => {
 			logger.info('[role]', role);
-			if (role > 0) {		// 权限不够
+			if (role !== 0) {		// 权限不够
 				res.send({
 					status: 'FAILED.',
 					details: 'NO_PERMISSION',
@@ -110,7 +107,91 @@ router.get('/clear_chat_record', function (req, res) {		// 清空聊天记录
 });
 
 router.get('/block_chatting', function (req, res) {		// 禁言模式
+	logger.info('[block_chatting]\n', req.query);
+	getPermission(req.session.user_id, req.query.course_id).
+		then((role) => {
+			logger.info('[role]', role);
+			if (role !== 0) {		// 权限不够
+				res.send({
+					status: 'FAILED.',
+					details: 'NO_PERMISSION',
+				});
+			}
+			else {			// 是教师，可以禁言
+				res.send({ status: 'SUCCESS.' });
+				// broadcast to all users in the class
+				getConnection().
+					then((conn) => {
+						let sql = "SELECT user_id FROM ac_database.classusers " +
+							"WHERE class_id = " + req.query.course_id + " AND role > 0;";	// 可以改为 role > 1 这样可以允许助教发言
+						logger.info('\nsql =', sql);
+						return doSqlQuery(conn, sql);
+					}).
+					then((packed) => {
+						let { conn, sql_res } = packed;
+						// logger.info('sql_res\n', sql_res.results);
+						// logger.info('sockets\n', Object.keys(sockets));
+						for (let result of sql_res.results) {
+							let user_id = String(result.user_id);	//***
+							if (user_id in sockets) {
+								logger.info('[to block]', user_id);
+								sockets[user_id].emit('block');
+							}
+						}
+						res.send({ status: 'SUCCESS.' });
+						conn.end();
+					});
+			}
+		}).
+		catch((err) => {
+			res.send({
+				status: 'FAILED.',
+				details: JSON.stringify(err, null, 3)
+			});
+		});
+});
 
+router.get('/allow_chatting', function (req, res) {		// 允许发言
+	logger.info('[block_chatting]\n', req.query);
+	getPermission(req.session.user_id, req.query.course_id).
+		then((role) => {
+			logger.info('[role]', role);
+			if (role !== 0) {		// 权限不够
+				res.send({
+					status: 'FAILED.',
+					details: 'NO_PERMISSION',
+				});
+			}
+			else {			// 是教师
+				res.send({ status: 'SUCCESS.' });
+				// broadcast to all users in the class
+				getConnection().
+					then((conn) => {
+						let sql = "SELECT user_id FROM ac_database.classusers " +
+							"WHERE class_id = " + req.query.course_id + " AND role > 0;";
+						logger.info('\nsql =', sql);
+						return doSqlQuery(conn, sql);
+					}).
+					then((packed) => {
+						let { conn, sql_res } = packed;
+						for (let result of sql_res.results) {
+							let user_id = String(result.user_id);	//***
+							if (user_id in sockets) {
+								logger.info('[to allow]', user_id);
+								sockets[user_id].emit('allow');
+							}
+						}
+						res.send({ status: 'SUCCESS.' });
+						conn.end();
+					});
+			}
+		}).
+		catch((err) => {
+			res.send({
+				status: 'FAILED.',
+				details: JSON.stringify(err, null, 3)
+			});
+		});
 });
 
 module.exports = router;

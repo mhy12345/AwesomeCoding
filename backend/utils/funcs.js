@@ -131,7 +131,7 @@ function getPermission(user_id, course_id) {		// 获取 user_id 在 course_id �
 				let { conn, sql_res } = packed;
 				let resp = undefined;
 				if (sql_res.results.length === 0) {
-					resp = -1;
+					resp = -1;							// 用户不在课程里，返回-1
 				}
 				else {
 					resp = sql_res.results[0].role;

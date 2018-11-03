@@ -5,7 +5,7 @@ var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('socket_log');
-var user_sockets = {};		// restore all user sockets, key: user_id, value: a socket object
+var user_sockets = require('../utils/global').user_sockets;		// restore all user sockets, key: user_id, value: a socket object
 
 function inClass(user_id, course_id, callback) {		// 判断用户是否在课程中
 	getConnection().
@@ -19,7 +19,7 @@ function inClass(user_id, course_id, callback) {		// 判断用户是否在课程
 			let { conn, sql_res } = packed;
 			conn.end();
 			logger.info('\n[found in class user]: \n', sql_res.results);
-			if (sql_res.results.length > 0) callback();
+			if (sql_res.results.length > 0) callback(user_id);
 		}).
 		catch((err) => {
 			logger.error(err);
@@ -41,18 +41,18 @@ function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的�
 		then((packed) => {			// 成功添加到聊天记录
 			let { conn, sql_res } = packed;
 			logger.info('\nsql_res = ', sql_res);
-			socket.emit('accepted', );
+			socket.emit('accepted',);
 			conn.end();
 			let flow = {
 				from: socket.handshake.session.realname,
 				message: msg.message,
 				time: new Date()
 			};
-			for (user_id in user_sockets) {
-				inClass(user_id, msg.course_id, function () {	// 判断广播通知在课程中且在线的用户，异步函数
-					logger.info('[notified] ', user_id);
-					user_sockets[user_id].emit('message', flow);
-					user_sockets[user_id].emit('pullFlow', flow);
+			for (user_id in user_sockets) {	// todo 性能较低，建议先从数据库得到这门课程的人，再用sockets去通知他们
+				inClass(user_id, msg.course_id, function (id) {	// 判断广播通知在课程中且在线的用户，异步函数
+					logger.info('[notified] ', id);
+					user_sockets[id].emit('message', flow);
+					user_sockets[id].emit('pullFlow', flow);
 				});
 			}
 		}).
@@ -72,7 +72,8 @@ function createSocketIO(server) {
 		logger.info('>>a user connected');
 		if (socket.handshake.session.user_id) {		// 若为登录状态，就保存连接到的用户
 			user_sockets[socket.handshake.session.user_id] = socket;
-			logger.info('>>saved! user_socket counts: ', Object.keys(user_sockets).length);
+			logger.info('>>saved! user_socket counts: ', Object.keys(user_sockets).length,
+				'\ncurrent users:\n', Object.keys(user_sockets));
 		}
 
 		socket.emit('message', { from: 'Host', message: 'Welcome!' });
@@ -81,7 +82,8 @@ function createSocketIO(server) {
 			logger.warn('>>a user disconnected');
 			if (socket.handshake.session.user_id) {	// 若为登录状态，就删除断开连接的用户
 				delete user_sockets[socket.handshake.session.user_id];
-				logger.warn('>>deleted! user_socket counts: ', Object.keys(user_sockets).length);
+				logger.warn('>>deleted! user_socket counts: ', Object.keys(user_sockets).length,
+					'\ncurrent users:\n', Object.keys(user_sockets));
 			}
 		});
 
