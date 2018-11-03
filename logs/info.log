@@ -1563,3 +1563,23 @@
   registration_date: 2018-11-03T07:13:14.000Z,
   password: '111111',
   phone: '18280851691' }
+[2018-11-03T15:35:07.684] [INFO] log_file - [get] session
+ {}
+[2018-11-03T15:35:07.701] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T08:35:07.309Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T15:35:50.024] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T15:35:50.024] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T07:13:14.000Z,
+    password: '111111',
+    phone: '18280851691' } ]

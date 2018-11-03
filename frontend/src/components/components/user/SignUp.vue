@@ -89,7 +89,7 @@
 <script>
     /* eslint-disable camelcase,no-undef,no-unused-vars */
 
-    import {registerSQL} from "../../../utils/DoSQL";
+    import {registerSQL, queryPhoneSQL} from "../../../utils/DoSQL";
     import axios from 'axios'
     var root_url = require('../../../../config/http_root_url');
 
@@ -140,35 +140,53 @@
                     this.$message("请输入中国大陆11位手机号");
                     return;
                 }
-                clock = window.setInterval(() => {
-                    this.verify.disableQ = true;
-                    this.verify.countdown--;
-                    this.verify.prompt = this.verify.countdown + 's后重新发送';
-                    if (this.verify.countdown <= 0) {
-                        window.clearInterval(clock);
-                        this.verify.disableQ = false;
-                        this.verify.prompt = '重新发送验证码';
-                        this.verify.countdown = 60;
-                    }
-                }, 1000);
+                queryPhoneSQL(this, this.inputs).
+                    then((resp) => {
+                        if(resp.status === 'SUCCESS.') {
+                            this.$message("该手机号已被注册");
+                            return; 
+                        }
+                        //若已注册，则发送验证码
+                        else {
+                            clock = window.setInterval(() => {
+                            this.verify.disableQ = true;
+                            this.verify.countdown--;
+                            this.verify.prompt = this.verify.countdown + 's后重新发送';
+                            if (this.verify.countdown <= 0) {
+                                window.clearInterval(clock);
+                                this.verify.disableQ = false;
+                                this.verify.prompt = '重新发送验证码';
+                                this.verify.countdown = 60;
+                            }
+                        }, 1000);
 
-                this.$message.warning("验证码已发送！请注意查收");
-                /*
-                   下一语句将自动获取验证码输入框的焦点，这种$ref的用法在Vue里面很常用
-                   建议参考：https://github.com/ElemeFE/element/issues/3871
-                 */
-                this.$refs.verify_input.focus();
+                        this.$message.warning("验证码已发送！请注意查收");
+                        /*
+                        下一语句将自动获取验证码输入框的焦点，这种$ref的用法在Vue里面很常用
+                        建议参考：https://github.com/ElemeFE/element/issues/3871
+                        */
+                        this.$refs.verify_input.focus();
 
-                let nowpath = root_url + '/api/user/verification';
-                console.log(nowpath);
-                axios.post(nowpath, {
-                    number: this.inputs.phone
-                })
-                    .then((resp) => {
-                        console.log(resp);
-                        this.verify.code_generated = parseInt(resp.data.code_generated);
-                        console.log(this.verify.code_generated);
+                        let nowpath = root_url + '/api/user/verification';
+                        console.log(nowpath);
+                        axios.post(nowpath, {
+                            number: this.inputs.phone
+                        })
+                        .then((resp) => {
+                            console.log(resp);
+                            this.verify.code_generated = parseInt(resp.data.code_generated);
+                            console.log(this.verify.code_generated);
+                        });
+
+                        }    
+                    }).
+                    catch((resp) => {
+                        if(resp.status === 'FAILED.') {
+                            this.$message("该手机号还未被注册");
+                            return; 
+                        }   
                     });
+                
             },
             handleSignUp: function () {
                 console.log(this.inputs.verify_code);
