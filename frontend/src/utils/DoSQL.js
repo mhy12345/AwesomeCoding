@@ -90,6 +90,10 @@ function queryPhoneSQL(parent, user) {
     return postSQL(parent, "/user/queryPhone", user);
 }
 
+function queryPhoneExistSQL(parent, user) {
+    return postSQL(parent, "/user/queryPhoneExist", user);
+}
+
 function changePasswordSQL(parent, user) {
     return postSQL(parent, "/user/changePassword", user);
 }
@@ -119,5 +123,6 @@ export {
     logoutSQL,
     forgetPasswordSQL,
     queryPhoneSQL,
-    changePasswordSQL
+    changePasswordSQL,
+    queryPhoneExistSQL
 };

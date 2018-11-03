@@ -89,7 +89,7 @@
 <script>
     /* eslint-disable camelcase,no-undef,no-unused-vars */
 
-    import {registerSQL, queryPhoneSQL} from "../../../utils/DoSQL";
+    import {registerSQL, queryPhoneExistSQL} from "../../../utils/DoSQL";
     import axios from 'axios'
     var root_url = require('../../../../config/http_root_url');
 
@@ -140,14 +140,15 @@
                     this.$message("请输入中国大陆11位手机号");
                     return;
                 }
-                queryPhoneSQL(this, this.inputs).
+                queryPhoneExistSQL(this, this.inputs).
                     then((resp) => {
-                        if(resp.status === 'SUCCESS.') {
+                        if(resp.status === 'FAILED.') {
                             this.$message("该手机号已被注册");
                             return; 
                         }
-                        //若已注册，则发送验证码
+                        //若未注册，则发送验证码
                         else {
+                            console.log("SMS frontend SignUP");
                             clock = window.setInterval(() => {
                             this.verify.disableQ = true;
                             this.verify.countdown--;
@@ -181,7 +182,7 @@
                         }    
                     }).
                     catch((resp) => {
-                        if(resp.status === 'SUCCESS.') {
+                        if(resp.status === 'FAILED.') {
                             this.$message("该手机号已被注册");
                             return; 
                         }   
