@@ -101,7 +101,11 @@
 
                 </el-tab-pane>
                 <el-tab-pane label="我的资源"></el-tab-pane>
-                <el-tab-pane label="我的课堂"></el-tab-pane>
+                <el-tab-pane label="我的课堂">
+                    <el-card>
+                        <myCourses idx='myCourses'/>
+                    </el-card>
+                </el-tab-pane>
             </el-tabs>
 
 
@@ -113,6 +117,7 @@
     /* eslint-disable no-undef,camelcase */
 
     import {changeSQL} from "../../../utils/DoSQL";
+    import CourseList from '@/components/components/CourseList.vue';
 
     export default {
         name: "Profile",
@@ -217,6 +222,9 @@
             handleCancel() {
                 this.editingQ = false;
             }
+        },
+        components: {
+            'myCourses': CourseList
         }
     };
 </script>
