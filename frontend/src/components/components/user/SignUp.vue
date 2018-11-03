@@ -163,12 +163,9 @@
                 console.log(nowpath);
                 axios.post(nowpath, {
                     number: this.inputs.phone
-                })
-                    .then((resp) => {
-                        //console.log(resp);
-                        //this.verify.code_generated = parseInt(resp.data.code_generated);
-                        //console.log(this.verify.code_generated);
-                    });
+                }).then((resp) => {
+
+                });
             },
             handleSignUp: function () {
                 console.log(this.inputs.verify_code);
@@ -205,26 +202,26 @@
                 */
                 this.loadingQ = true; // 加载等待圈
                 registerSQL(this, this.inputs).
-                then((resp) => {
-                    console.log(resp);
-                    this.loadingQ = false;
-                    this.$message.success("注册成功！");
-                    this.$emit('logined', this.inputs); // 通知父级路由已注册
-                    this.$router.push('/user/profile');
-                }).
-                catch((resp) => {
-                    console.log(resp);
-                    this.loadingQ = false;
-                    if (resp.details === 'DUPLICATION_OF_REGISTRATION.') {
-                        this.$message.error("注册失败，用户名已存在！");
-                    } else if (resp.details === 'ALREADY_LOGIN.') {
-                        this.$message.error("注册失败，用户已登录！");
-                    } else if (resp.details === 'WRONG_VERIFICATION_CODE.') {
-                        this.$message.error("注册失败，注册码不正确！");
-                    } else {
-                        this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
-                    }
-                });
+                    then((resp) => {
+                        console.log(resp);
+                        this.loadingQ = false;
+                        this.$message.success("注册成功！");
+                        this.$emit('logined', this.inputs); // 通知父级路由已注册
+                        this.$router.push('/user/profile');
+                    }).
+                    catch((resp) => {
+                        console.log(resp);
+                        this.loadingQ = false;
+                        if (resp.details === 'DUPLICATION_OF_REGISTRATION.') {
+                            this.$message.error("注册失败，用户名已存在！");
+                        } else if (resp.details === 'ALREADY_LOGIN.') {
+                            this.$message.error("注册失败，用户已登录！");
+                        } else if (resp.details === 'WRONG_VERIFICATION_CODE.') {
+                            this.$message.error("注册失败，注册码不正确！");
+                        } else {
+                            this.$message.error("注册失败，未知错误！" + JSON.stringify(resp.details));
+                        }
+                    });
             },
             handleFocusingOnVerify() {
                 this.inputs.verify_code = undefined;
