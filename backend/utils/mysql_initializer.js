@@ -132,6 +132,7 @@ var sqls = {
 		"`class` INT UNSIGNED NOT NULL, "+ // 课程编号
 		"`liveplayer_uid` VARCHAR(50), "+ // 其对应的直播uid
 		"`liveplayer_vid` VARCHAR(50), "+ // 其对应的直播vid
+		"`password` VARCHAR(50), "		+ // 其对应的密码
 		"PRIMARY KEY (`id`) "+
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 	'create_database' : 'CREATE DATABASE ' + mysql_config.database,
