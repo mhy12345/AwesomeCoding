@@ -128,7 +128,7 @@ export default {
 			if (info.type == 0) ptype = 'choice_problems';
 			else if (info.type == 1) ptype = 'program_problems';
 			else console.log("未知类别",info);
-			this.$http.post('/api/problem/t/'+ptype+'/get',{code: info.code }).
+			this.$http.post('/api/problem/table/'+ptype+'/get',{code: info.code }).
 				then((res) => {
 					let content_id = res.body.results[0][field];
 					this.$refs.content_editor.handleOpen(content_id);

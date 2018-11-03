@@ -12,6 +12,8 @@ var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file')
 
+var fs = require('fs');
+
 router.post('/delete', function(req, res, next) {
 	getConnection().
 		then(function(conn) {
@@ -50,9 +52,9 @@ router.post('/create', function(req, res, next) {
 			let {conn, sql_res} = packed;
 			let sql = '';
 			if (req.body.type == 0) { //选择题
-				sql = 'INSERT INTO `choice_problems` (`code`,`description`,`choice_count`,`solution`) VALUES ('+mysql.escape(problem_id)+','+mysql.escape(randomString(16))+','+mysql.escape(4)+','+mysql.escape(randomString(16)) +')';
-			} else if (req.body.type == 1) {
-				sql = 'INSERT INTO `program_problems` (`code`,`description`,`solution`) VALUES ('+mysql.escape(problem_id)+','+mysql.escape(randomString(16))+','+mysql.escape(randomString(16)) +')';
+				sql = 'INSERT INTO `choice_problems` (`code`,`description`,`choice_count`,`solution`) VALUES ('+mysql.escape(problem_id)+','+mysql.escape('c_'+randomString(16))+','+mysql.escape(4)+','+mysql.escape('c_'+randomString(16)) +')';
+			} else if (req.body.type == 1) { //编程题
+				sql = 'INSERT INTO `program_problems` (`code`,`description`,`solution`,`answer_program_id`) VALUES ('+mysql.escape(problem_id)+','+mysql.escape('c_'+randomString(16))+','+mysql.escape('c_'+randomString(16))+','+mysql.escape('p_'+randomString(16))+')';
 			} else {
 				logger.warn("UNKNOWN TYPE!");
 			}
@@ -139,7 +141,7 @@ router.post('/save', function(req, res, next) {
 });
 
 
-router.post('/t/:ptype/get', function(req, res, next) {
+router.post('/table/:ptype/get', function(req, res, next) {
 	getConnection().
 		then(function(conn) {
 			let sql = 'SELECT * FROM '+mysql.escapeId(req.params.ptype)+' WHERE `code` = ' + mysql.escape(req.body.code);
@@ -156,38 +158,7 @@ router.post('/t/:ptype/get', function(req, res, next) {
 		});
 });
 
-/*
-router.post('/t/:ptype/create', function(req, res, next) {
-	getConnection().
-		then(function(conn) {
-			let sql = 'SELECT * FROM '+mysql.escapeId(req.params.ptype)+' WHERE `code` = ' + mysql.escape(req.body.code);
-			return doSqlQuery(conn, sql);
-		}).
-		then(function(packed) {
-			let {conn, sql_res} = packed;
-			let cols_text = '';
-			let vals_text = '';
-			for (let item in req.body.info) {
-				cols_text += mysql.escapeId(item)+',';
-				vals_text += mysql.escape(req.body.info[item])+',';
-			}
-			cols_text = cols_text.substr(0,cols_text.length-1);
-			vals_text = vals_text.substr(0,vals_text.length-1);
-			let sql = 'INSERT INTO '+mysql.escapeId(req.params.ptype)+' ('+cols_text+') VALUES ('+vals_text+')';
-			return doSqlQuery(conn, sql);
-		}).
-		then(function(packed) {
-			let {conn, sql_res} = packed;
-			conn.end();
-			res.send(JSON.stringify(sql_res));
-		}).
-		catch(function(sql_res) {
-			console.log(sql_res);
-			res.send(sql_res);
-		});
-});*/
-
-router.post('/t/:ptype/save', function(req, res, next) {
+router.post('/table/:ptype/save', function(req, res, next) {
 	getConnection().
 		then(function(conn) {
 			let body_text = '';
@@ -270,6 +241,137 @@ router.post('/choice_problem/submit', function(req, res, next) {
 		}).
 		catch(function(sql_res) {
 			res.send(JSON.stringify(sql_res));
+		});
+});
+router.post('/program_problem/gather', function(req, res, next) {
+	if (req.session.user_id === undefined) {
+		res.status(403).send("NOT_LOGIN.");
+		return;
+	}
+	getConnection().
+		then(function(conn) {
+			let sql = 'SELECT program_problem_answers.code,users.id,users.realname FROM users LEFT JOIN program_problem_answers ON users.id=program_problem_answers.user_id WHERE program_problem_answers.problem_code=' + mysql.escape(req.body.code) + ' ORDER BY users.id DESC';
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			res.send(JSON.stringify(sql_res));
+		}).
+		catch(function(sql_res) {
+			res.send(JSON.stringify(sql_res));
+		});
+});
+router.post('/program_problem/submit', function(req, res, next) {
+	if (req.session.user_id === undefined) {
+		res.status(403).send("NOT_LOGIN.");
+		return;
+	}
+	getConnection().
+		then(function(conn) {
+			let sql = 'SELECT * FROM `program_problem_answers` WHERE `problem_code` = ' + mysql.escape(req.body.code) + ' AND `user_id` = ' + mysql.escape(req.session.user_id);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			if (sql_res.results.length === 0) {
+				res.status(403).send("NOT_FOUND_IN_TABLE.");
+			} else {
+				console.log(sql_res);
+				conn.end();
+				let program_code = sql_res.results[0].code;
+				fs.writeFile('./code/'+program_code, req.body.text, function(err) {
+					if (err) {
+						res.status(403).send("CANNOT_WRITE_FILE.");
+					} else {
+						res.send("SUCCESS.");
+					}
+				});
+			}
+			console.log('???');
+		}).
+		catch(function(sql_res) {
+			console.log(sql_res);
+			res.send(JSON.stringify(sql_res));
+		});
+});
+router.post('/program_problem/pick', function(req, res, next) {
+	let program_code = req.body.code;
+	fs.readFile('./code/'+program_code, 'utf-8', function(err, data) {
+		if (err) {
+			res.send(JSON.stringify({
+				status: 'FAILED.',
+				details: 'NOT_EXISTS.',
+				code: program_code,
+				text: '',
+			}));
+		} else {
+			res.send(JSON.stringify({
+				status: 'SUCCESS.',
+				details: 'ALREADY EXISTS.',
+				code: program_code,
+				text: data
+			}));
+		}
+	});
+});
+router.post('/program_problem/fetch', function(req, res, next) {
+	if (req.session.user_id === undefined) {
+		res.status(403).send("NOT_LOGIN.");
+		return;
+	}
+	let program_code = 'p_' + randomString(16);
+	getConnection().
+		then(function(conn) {
+			let sql = 'SELECT * FROM `program_problem_answers` WHERE `problem_code` = ' + mysql.escape(req.body.code) + ' AND `user_id` = ' + mysql.escape(req.session.user_id);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			if (sql_res.results.length === 0) {
+				let sql = 'INSERT INTO `program_problem_answers` (`code`,`user_id`,`problem_code`) VALUES ('+mysql.escape(program_code)+','+mysql.escape(req.session.user_id)+','+mysql.escape(req.body.code)+')';
+				return doSqlQuery(conn, sql);
+			}else {
+				conn.end();
+				let program_code = sql_res.results[0].code;
+				fs.readFile('./code/'+program_code, 'utf-8', function(err, data) {
+					if (err) {
+						res.send(JSON.stringify({
+							status: 'SUCCESS.',
+							details: 'NOT EXISTS.',
+							code: program_code,
+							text: '',
+						}));
+					} else {
+						res.send(JSON.stringify({
+							status: 'SUCCESS.',
+							details: 'ALREADY EXISTS.',
+							code: program_code,
+							results: sql_res.results[0],
+							text: data
+						}));
+					}
+				});
+				return Promise.reject({
+					status: 'SKIPPED.',
+				});
+			}
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			res.send(JSON.stringify({
+				status: 'SUCCESS.',
+				details: 'NOT EXISTS',
+				code: problem_code,
+				text: '',
+				user_id: req.session.user_id
+			}));
+			conn.end();
+		}).
+		catch(function(sql_res) {
+			console.log(sql_res);
+			if (sql_res.status !== 'SKIPPED.')
+				res.send(JSON.stringify(sql_res));
 		});
 });
 module.exports = router;

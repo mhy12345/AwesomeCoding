@@ -11,15 +11,15 @@ var sqls = {
 	'create_program_problem_answer_table' : "CREATE TABLE IF NOT EXISTS `program_problem_answers` (" + 
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`code` CHAR(20) NOT NULL, " +
+		"`problem_code` CHAR(20) NOT NULL, " +
 		"`user_id` INT UNSIGNED NOT NULL, " +
-		"`program_id` INT UNSIGNED NOT NULL, " +
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
 	'create_program_problem_table' : "CREATE TABLE IF NOT EXISTS `program_problems` (" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`code` CHAR(20) NOT NULL, " +
 		"`description` CHAR(20) NOT NULL, " +
-		"`answer_program_id` INT UNSIGNED NOT NULL, " +
+		"`answer_program_id` CHAR(20) NOT NULL, " +
 		"`solution` CHAR(20) NOT NULL, " +
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
