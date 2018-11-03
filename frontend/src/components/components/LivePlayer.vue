@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import polyvObject from 'polyvObject'
+    import polyvObject from 'polyvObject';
 
     export default {
         props: {

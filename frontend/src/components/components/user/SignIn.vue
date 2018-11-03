@@ -26,7 +26,7 @@
 
     export default {
         name: "SignIn",
-        data() {
+        data () {
             return {
                 title: '欢迎登录',
                 inputs: {

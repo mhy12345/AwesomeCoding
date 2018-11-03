@@ -14,7 +14,7 @@
     import {supported_resources} from '@/utils/CourseLists';
 
     export default {
-        data() {
+        data () {
             return {
                 tableData: [],
                 title: ' '
