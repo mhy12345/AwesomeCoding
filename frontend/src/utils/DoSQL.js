@@ -1,8 +1,7 @@
 /* eslint-disable camelcase,no-undef */
-var root_url = require('../../config/http_root_url');
 
 function getSQL(parent, query) { // 使用ajax，向后端数据库发出 query 请求，然后回调 handleResponse 处理响应
-    var query_url = root_url + '/api' + query;
+    var query_url = '/api' + query;
     console.log('[get] request sent!', query_url);
     return parent.$http.get(query_url).then((res) => {
         console.log(res);
@@ -61,7 +60,7 @@ function updateSQL(parent, table_name, row) {
 }
 
 function postSQL(parent, query, params) { // 向服务器发出post请求
-    var query_url = root_url + '/api' + query;
+    var query_url = '/api' + query;
     console.log('[post] request sent!', query_url, params);
     return parent.$http.post(query_url, params).then((resp) => {
         console.log(resp);
