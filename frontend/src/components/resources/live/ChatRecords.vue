@@ -43,6 +43,10 @@
                     realname: msg.from,
                     message: msg.message
                 })
+            },
+            clear() {   // 清空记录
+                console.log('>>clear record');
+                this.chat_records = [];
             }
         }
 	}

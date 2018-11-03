@@ -116,6 +116,36 @@ function randomString(len) {//随机生成字符串
 	return pwd;
 }
 
+function getPermission(user_id, course_id) {		// 获取 user_id 在 course_id 里的权限 0：教师 1：助教 2：学生
+	return new Promise((resolve, reject) => {
+		getConnection().
+			then((conn) => {
+				let sql = "SELECT * " +
+					"FROM ac_database.classusers WHERE " +
+					"user_id = " + user_id + " AND " +
+					"class_id = " + course_id + ";";
+				logger.info('\nsql =', sql);
+				return doSqlQuery(conn, sql);
+			}).
+			then((packed) => {
+				let { conn, sql_res } = packed;
+				let resp = undefined;
+				if (sql_res.results.length === 0) {
+					resp = -1;
+				}
+				else {
+					resp = sql_res.results[0].role;
+				}
+				conn.end();
+				resolve(resp);
+			}).
+			catch((err) => {
+				logger.error('Error in `getPermission`\n', err);
+				reject(err);
+			});
+	});
+}
+
 module.exports = {
-	randomString, doSqlQuery, doSqlQuerySequential, getConnection
+	randomString, doSqlQuery, doSqlQuerySequential, getConnection, getPermission
 };

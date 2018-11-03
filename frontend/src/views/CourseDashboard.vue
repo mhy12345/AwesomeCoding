@@ -47,34 +47,34 @@ export default {
 	mounted: function () {
 		this.activeName = this.getActiveName();
 		this.title = this.$route.params.class_id;
-		this.$http.post('/api/class/resources/query', {class_id: this.title}, null).
-			then(function (res) {
-				this.class_resources = res.body.resources;
-				this.loading = false;
-				this.activeName = this.getActiveName();
-				return this.$http.post('/api/class/status', {class_id: this.title}, null);
-			}).
-			then(function (res) {
-				if (res.body.status !== 'SUCCESS.') {
-					console.log("/api/class/status : "+res.body.details);
-					return ;
-				}
-				this.course_status = res.body.results;
-				if (this.course_status.role === 0) {
-					this.course_status.role_title = '教师';
-				} else if (this.course_status.role === 1) {
-					this.course_status.role_title = '助教';
-				} else if (this.course_status.role === 2) {
-					this.course_status.role_title = '学生';
-				} else {
-					this.course_status.role_title = '未知';
-				}
-				this.loading = false;
-			}).
-			catch(function (res) {
-				this.loading = false;
-				this.$message(res);
-			});
+        this.$http.post('/api/class/resources/query', { class_id: this.title }, null).
+             then((res) => {
+                 this.class_resources = res.body.resources;
+                 this.loading = false;
+                 this.activeName = this.getActiveName();
+                 return this.$http.post('/api/class/status', { class_id: this.title }, null);
+             }).
+             then((res) => {
+                 if (res.body.status !== 'SUCCESS.') {
+                     console.log("/api/class/status : " + res.body.details);
+                     return;
+                 }
+                 this.course_status = res.body.results;
+                 if (this.course_status.role === 0) {
+                     this.course_status.role_title = '教师';
+                 } else if (this.course_status.role === 1) {
+                     this.course_status.role_title = '助教';
+                 } else if (this.course_status.role === 2) {
+                     this.course_status.role_title = '学生';
+                 } else {
+                     this.course_status.role_title = '未知';
+                 }
+                 this.loading = false;
+             }).
+             catch((res) => {
+                 this.loading = false;
+                 this.$message(res);
+             });
 	},
 
 	methods: {

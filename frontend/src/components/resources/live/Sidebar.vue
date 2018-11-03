@@ -22,10 +22,26 @@
             </el-collapse-item>
 
             <el-collapse-item title="聊天室" name="chatting-room">
-                <el-button size="small" class="clear-record" v-if="course_status.role === 0">
-                    清空聊天记录
-                    <i class="el-icon-delete"></i>
-                </el-button>
+                <el-row>
+                    <el-col :span="8">
+                        <el-button size="small" class="chatting-room-tool"
+                                   :disabled="course_status.role !== 0"
+                                   @click="handleClearRecord">
+                            清空记录
+                            <i class="el-icon-delete"></i>
+                        </el-button>
+                    </el-col>
+                    <el-col :span="8" class="chatting-room-tool">
+                        禁言模式
+                        <el-switch v-model="block_chattingQ"
+                                   active-color="#ff4949"
+                                   inactive-color="#13ce66"
+                                   :disabled="course_status.role !== 0"
+                                   @click="handleBlockChatting">
+                        </el-switch>
+                    </el-col>
+                </el-row>
+
 
                 <chat-records ref="chat_records" :course_id="$route.params.class_id">
                 </chat-records>
@@ -44,7 +60,8 @@
         props: ['course_status'],
         data() {
             return {
-                active_name: 'members'
+                active_name: 'members',
+                block_chattingQ: false, // 是否禁言
             }
         },
         sockets: {
@@ -52,6 +69,43 @@
                 console.log('[updating chat record]');
                 this.$refs.chat_records.pushRecord(msg);
             },
+        },
+        methods: {
+            handleClearRecord() {       // 清空记录
+                this.$http.
+                     get('/api/live/clear_chat_record', {
+                         params: { course_id: this.$route.params.class_id }
+                     }).
+                     then((res) => {
+                         console.log('[res to clear]', res.body);
+                         if (res.body.status === 'SUCCESS.') {
+                             this.$message.success('清空成功');
+                             this.$refs.chat_records.clear();
+                         }
+                         else {
+                             throw res.body;
+                         }
+                     }).
+                     catch((err) => {
+                         this.$message.error('清空失败', err);
+                     });
+            },
+            handleBlockChatting() {     // 禁言模式
+                this.$http.
+                     get('/api/live/block_chatting', {
+                         params: {
+                             course_id: this.$route.params.class_id,
+                             blockQ: this.blockQ
+                         }
+                     }).
+                     then((res) => {
+                         console.log('[res to block]', res.body);
+                         this.$message.warn('已禁言');
+                     }).
+                     catch((err) => {
+                         this.$message.error('禁言失败', err);
+                     });
+            }
         },
         components: {
             Members,
@@ -61,7 +115,7 @@
 </script>
 
 <style scoped>
-    .clear-record {
+    .chatting-room-tool {
         margin-top: 10px;
         margin-bottom: 10px;
     }
