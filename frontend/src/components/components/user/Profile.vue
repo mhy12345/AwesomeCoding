@@ -132,7 +132,6 @@
                     </el-table>
 
                 </el-tab-pane>
-                <el-tab-pane label="我的资源"></el-tab-pane>
                 <el-tab-pane label="我的课堂">
                     <el-card>
                         <myCourses idx='myCourses'/>
