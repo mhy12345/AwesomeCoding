@@ -1,3 +1,4 @@
+//require('events').EventEmitter.defaultMaxListeners = 15;
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -16,7 +17,15 @@ var api_content = require('./routes/content');
 var api_backend = require('./routes/backend');
 var api_live = require('./routes/live');
 
+var log4js = require("log4js");
+var log4js_config = require("./configures/log.config.js").runtime_configure;
+log4js.configure(log4js_config);
+//var logger = log4js.getLogger('backend-http');
+
 var app = express();
+
+
+//app.use(log4js.connectLogger(logger));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

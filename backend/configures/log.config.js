@@ -8,6 +8,16 @@ var runtime_configure = {
 	}
 };
 
+var database_configure = {
+	appenders: {
+		out: {type: 'stdout'},//设置是否在控制台打印日志
+		info: {type: 'file', filename: './logs/info.log'},
+	},
+	categories: {
+		default: {appenders: ['out', 'info'], level: 'info'},
+	}
+};
+
 var unittest_configure = {
 	appenders: {
 		out: {type: 'stdout'},//设置是否在控制台打印日志
@@ -21,5 +31,6 @@ var unittest_configure = {
 };
 module.exports = {
 	runtime_configure,
-	unittest_configure
+	unittest_configure,
+	database_configure
 };

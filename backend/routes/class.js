@@ -79,7 +79,7 @@ router.get('/delete', function (req, res, next) { //根据id删除班级
 });
 
 router.post('/status', function(req, res, next) {
-	console.log(req.session);
+	logger.debug(req.session);
 	if (typeof(req.session.user_id) === 'undefined') {
 		res.send(JSON.stringify({
 			status: 'FAILED.',
@@ -332,7 +332,6 @@ router.post('/info/update', function (req, res, next) {
 });
 
 router.post('/create', function (req, res, next) { //创建新班级
-	console.log(req.session);
 	if (req.session.role != 1 && req.session.role != 0) {
 		res.status(403).send('Only teacher can create a course.');
 		return;
@@ -388,7 +387,6 @@ router.post('/create', function (req, res, next) { //创建新班级
 
 					let url = 'http://api.polyv.net/live/v2/channels';
 					axios.post(url, querystring.stringify(NewChannelJSON)).then((resp) => {
-						//console.log(resp);
 						let vid = resp.data.data.channelId.toString();
 						let uid = '047a911d83';
 						let url = "https://open.ucpaas.com/ol/sms/sendsms";
@@ -402,7 +400,6 @@ router.post('/create', function (req, res, next) { //创建新班级
 							}).
 							then(function (_packed) {
 								let phone_number = _packed.sql_res.results[0].phone;
-								console.log(phone_number);
 
 								axios.post(url, {
 									"sid": "55d17519129b8973ea369b5ba8f14f4d", // const
@@ -412,9 +409,7 @@ router.post('/create', function (req, res, next) { //创建新班级
 									"param": params,
 									"mobile": phone_number
 								}).then((resp) => {
-									//console.log(resp);
 								}).catch((err) => {
-									//console.log(err);
 								});
 
 								_packed.conn.end();
@@ -432,7 +427,6 @@ router.post('/create', function (req, res, next) { //创建新班级
 						conn.end();
 						res.send(JSON.stringify(result, null, 3));
 					}).catch((err) => {
-						//console.log(err);
 					});
 				}
 				else {
@@ -500,7 +494,6 @@ router.post('/my_course/fetch', function (req, res, next) {
 
 	let m = (+req.body.page_number - 1) * req.body.page_size;
 	let n = (+req.body.page_number) * req.body.page_size;
-	console.log('fuck fuck fuck your mother');
 	let sql = '';
 	if(req.session.role >= 2) {
 		sql = 'SELECT classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role=' + mysql.escape(req.session.role) + ' WHERE classusers.user_id = ' + mysql.escape(+req.session.user_id) + ' ORDER BY classusers.registration_date DESC';
@@ -513,9 +506,6 @@ router.post('/my_course/fetch', function (req, res, next) {
 			'and cu.role = ' + mysql.escape(req.session.role) + ' ' +
 			'and l.class = cu.class_id and cl.id = cu.class_id';
 
-		console.log('fuck your mother');
-		console.log(req.session.role);
-		console.log(sql);
 	}
 	getConnection().
 		then(function (conn) {

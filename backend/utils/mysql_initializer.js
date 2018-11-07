@@ -3,9 +3,9 @@ var mysql_config = require('../configures/database.config.js');
 var async = require('async');
 
 var log4js = require("log4js");
-var log4js_config = require("../configures/log.config.js").runtime_configure;
+var log4js_config = require("../configures/log.config.js").database_configure;
 log4js.configure(log4js_config);
-var logger = log4js.getLogger('log_file')
+var logger = log4js.getLogger('database')
 
 var sqls = {
 	'create_program_problem_answer_table' : "CREATE TABLE IF NOT EXISTS `program_problem_answers` (" + 
@@ -163,7 +163,7 @@ function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新�
 		};
 		sqls['create_database'] = 'CREATE DATABASE ' + mysql_config.database;
 		sqls['use_database'] = 'USE ' + mysql_config.database;
-		logger.info(cfg);
+		logger.debug(cfg);
 		let conn = mysql.createConnection(cfg);
 		conn.connect(function (err) {
 			if (err) {
@@ -196,8 +196,7 @@ function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新�
 				tasks = ['create_database'].concat(tasks);
 			}
 			async.eachSeries(tasks, function (item, next) {
-				console.log(sqls[item]);
-				logger.info(item + " ==> " + sqls[item]);
+				logger.debug(item + " ==> " + sqls[item]);
 				conn.query(sqls[item], function (err, res) {
 					if (err) {
 						next({

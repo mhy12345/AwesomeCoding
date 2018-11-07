@@ -4,9 +4,9 @@ var mysql_initializer = require('./mysql_initializer');
 var mysql_config = require('../configures/database.config.js');
 
 var log4js = require("log4js");
-var log4js_config = require("../configures/log.config.js").runtime_configure;
+var log4js_config = require("../configures/log.config.js").database_configure;
 log4js.configure(log4js_config);
-var logger = log4js.getLogger('log_file')
+var logger = log4js.getLogger('database')
 
 function getConnection() { //获取连接connection，并调用回调函数
 	/*
@@ -48,7 +48,7 @@ function doSqlQuery(conn, sql) {           // 执行数据库命令
 	return new Promise(function (resolve, reject) {
 		conn.query(sql, function (error, results, fields) {
 			if (error) {
-				logger.info(sql + '[FAILED.]');
+				logger.debug(sql + '[FAILED.]');
 				conn.end();
 				reject(
 					{
@@ -58,8 +58,8 @@ function doSqlQuery(conn, sql) {           // 执行数据库命令
 						details: error,
 					});
 			} else {
-				logger.info(sql + '[FILLED.]');
-				logger.info(results);
+				logger.debug(sql + '[FILLED.]');
+				logger.debug(results);
 				resolve({
 					conn: conn,
 					sql_res: {sql: sql, status: 'SUCCESS.', results: results, details: undefined}
@@ -71,14 +71,14 @@ function doSqlQuery(conn, sql) {           // 执行数据库命令
 
 function doSqlQuerySequential(conn, sqls) {
 	return new Promise(function (resolve, reject) {
-		logger.info("START TO DO ", sqls);
+		logger.debug("START TO DO ", sqls);
 		async.eachSeries(sqls, function (item, callback) {
 			conn.query(item, function (err, res) {
 				if (err)
-					logger.info(item + '[FAILED.]');
+					logger.debug(item + '[FAILED.]');
 				else
-					logger.info(item + '[FILLED.]');
-				logger.info(res);
+					logger.debug(item + '[FILLED.]');
+				logger.debug(res);
 				callback(err, res);
 			});
 		}, function (err, res) {
