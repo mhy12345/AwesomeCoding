@@ -186,13 +186,17 @@
             }
         },
         mounted: function () {
-            this.$http.post('/api/file/fetch', {}).
-                 then(function (res) {
-                     console.log(res.body.results);
-                     this.tableData = res.body.results;
-                 });
+            this.loadTableData();
         },
         methods: {
+
+            loadTableData () {
+                this.$http.post('/api/file/fetch', {}).
+                     then(function (res) {
+                         console.log(res.body.results);
+                         this.tableData = res.body.results;
+                     });
+            },
             handleEdit () {
                 // this.$router.push('/user/settings');
                 this.inputs.realname = this.user.realname;
@@ -257,42 +261,47 @@
                 this.editingQ = false;
             },
 
+
             handleDownload: function (row) {
-                this.$http.post('/api/file/download', {filename: row.filename,}).
-                     then(function (res) {
-                         const blob = new Blob([res.data]);
-                         if (window.navigator.msSaveOrOpenBlob) {
-                             // 兼容IE10
-                             navigator.msSaveBlob(blob, this.filename);
-                         } else {
-                             //  chrome/firefox
-                             let aTag = document.createElement('a');
-                             aTag.download = row.filename;
-                             aTag.href = URL.createObjectURL(blob);
-                             aTag.click();
-                             URL.revokeObjectURL(aTag.href);
-                         }
-                     });
+                let a = document.createElement('a');
+                a.href = '/api/file/download?filename=' + row.filename;
+                a.click();
+
+                //虽然更加安全，但对于很多格式不支持
+                // this.$http.post('/api/file/test', {filename: row.filename,}).
+                //      then(function (res) {
+                //          //console.log(res.data);
+                //          console.log(res.data);
+                //          const blob = new Blob([res.data]);
+                //          if (window.navigator.msSaveOrOpenBlob) {
+                //              // 兼容IE10
+                //              navigator.msSaveBlob(blob, this.filename);
+                //          } else {
+                //              //  chrome/firefox
+                //
+                //              let aTag = document.createElement('a');
+                //              aTag.download = row.filename;
+                //              aTag.href = URL.createObjectURL(blob);
+                //              aTag.click();
+                //              URL.revokeObjectURL(aTag.href);
+                //              console.log(res.data.url);
+                //          }
+                //      });
             },
             handleDelete: function (row) {
-                this.$http.post('/api/file/download', {filename: row.filename,}).
+                this.$http.post('/api/file/delete', {
+                    fileId: row.id,
+                    filename: row.filename,
+                }).
                      then(function (res) {
-                         const blob = new Blob([res.data]);
-                         if (window.navigator.msSaveOrOpenBlob) {
-                             // 兼容IE10
-                             navigator.msSaveBlob(blob, this.filename);
-                         } else {
-                             //  chrome/firefox
-                             let aTag = document.createElement('a');
-                             aTag.download = row.filename;
-                             aTag.href = URL.createObjectURL(blob);
-                             aTag.click();
-                             URL.revokeObjectURL(aTag.href);
-                         }
+                         console.log(res);
+                         this.loadTableData();
                      });
             }
 
-        }
+
+
+    }
     };
 </script>
 
