@@ -49,7 +49,6 @@
                          this.$http.post('/api/file/fetch', {}).
                               then(function (lres) {
                                   this.tableData = lres.body.results;
-                                  console.log("妙蛙");
                               });
                      });
             }

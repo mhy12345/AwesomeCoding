@@ -25,7 +25,7 @@ var NewChannelTemplate = {
 
 function checkPermission(conn, class_id, user_id) {
 	return new Promise((resolve,reject) => {
-		if (typeof(class_id) == 'undefined') {
+		if (typeof(class_id) === 'undefined') {
 			conn.end();
 			reject({
 				status: 'FAILED.',
@@ -33,7 +33,7 @@ function checkPermission(conn, class_id, user_id) {
 			});
 			return ;
 		}
-		if (typeof(user_id) == 'undefined') {
+		if (typeof(user_id) === 'undefined') {
 			conn.end();
 			reject({
 				status: 'FAILED.',
@@ -500,7 +500,6 @@ router.post('/my_course/fetch', function (req, res, next) {
 
 	let m = (+req.body.page_number - 1) * req.body.page_size;
 	let n = (+req.body.page_number) * req.body.page_size;
-	console.log('fuck fuck fuck your mother');
 	let sql = '';
 	if(req.session.role >= 2) {
 		sql = 'SELECT classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role=' + mysql.escape(req.session.role) + ' WHERE classusers.user_id = ' + mysql.escape(+req.session.user_id) + ' ORDER BY classusers.registration_date DESC';
@@ -513,9 +512,6 @@ router.post('/my_course/fetch', function (req, res, next) {
 			'and cu.role = ' + mysql.escape(req.session.role) + ' ' +
 			'and l.class = cu.class_id and cl.id = cu.class_id';
 
-		console.log('fuck your mother');
-		console.log(req.session.role);
-		console.log(sql);
 	}
 	getConnection().
 		then(function (conn) {

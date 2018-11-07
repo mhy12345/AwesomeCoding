@@ -99,6 +99,38 @@
 
                 <el-tab-pane label="我的动态">
 
+
+                </el-tab-pane>
+                <el-tab-pane label="我的资源">
+
+                    <el-table
+                        :data="tableData"
+                        height="250"
+                        border
+                        style="width: 100%">
+                        <el-table-column
+                            prop="filename"
+                            label="文件名"
+                            width="420">
+                        </el-table-column>
+
+                        <el-table-column align="center" label="下载">
+                            <template slot-scope="scope">
+                                <el-button icon="el-icon-download" circle
+                                           @click="handleDownload(scope.row)">
+                                </el-button>
+                            </template>
+                        </el-table-column>
+
+                        <el-table-column align="center" label="删除">
+                            <template slot-scope="scope">
+                                <el-button icon="el-icon-delete" circle
+                                           @click="handleDelete(scope.row)">
+                                </el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+
                 </el-tab-pane>
                 <el-tab-pane label="我的资源"></el-tab-pane>
                 <el-tab-pane label="我的课堂">
@@ -122,7 +154,7 @@
     export default {
         name: "Profile",
         props: ['user'],
-        data() {
+        data () {
             return {
                 title: '个人页面',
                 cur_tab: '',
@@ -139,11 +171,12 @@
                     password: '',
                     re_password: '',
                 },
+                tableData: [],
                 loadingQ: false,
                 password_inputQ: false, // if password input box was focused
             };
         },
-        beforeMount() {
+        beforeMount () {
             console.log('role =', this.user.role);
             if (this.user.role === 0) {
                 this.role.text = '管理员';
@@ -158,8 +191,19 @@
                 this.role.text = '未知身份';
             }
         },
+        mounted: function () {
+            this.loadTableData();
+        },
         methods: {
-            handleEdit() {
+
+            loadTableData () {
+                this.$http.post('/api/file/fetch', {}).
+                     then(function (res) {
+                         console.log(res.body.results);
+                         this.tableData = res.body.results;
+                     });
+            },
+            handleEdit () {
                 // this.$router.push('/user/settings');
                 this.inputs.realname = this.user.realname;
                 this.inputs.motto = this.user.motto;
@@ -168,7 +212,7 @@
                 this.editingQ = true;
                 this.password_inputQ = false;
             },
-            handleSave() { // submit changes
+            handleSave () { // submit changes
                 if (this.inputs.realname === '') {
                     this.$message("真实姓名不能为空。");
                     return;
@@ -208,24 +252,60 @@
                         this.password_inputQ = false;
                     });
             },
-            handlePasswordInput() {
+            handlePasswordInput () {
                 if (this.password_inputQ) {
                     return;
                 }
                 this.password_inputQ = true;
                 this.inputs.re_password = this.inputs.password = '';
             },
-            handleLogout() {
+            handleLogout () {
                 this.$emit('logout');
                 this.$router.push('/home');
             },
-            handleCancel() {
+            handleCancel () {
                 this.editingQ = false;
+            },
+
+
+            handleDownload: function (row) {
+                let a = document.createElement('a');
+                a.href = '/api/file/download?filename=' + row.filename;
+                a.click();
+
+                //虽然更加安全，但对于很多格式不支持
+                // this.$http.post('/api/file/test', {filename: row.filename,}).
+                //      then(function (res) {
+                //          //console.log(res.data);
+                //          console.log(res.data);
+                //          const blob = new Blob([res.data]);
+                //          if (window.navigator.msSaveOrOpenBlob) {
+                //              // 兼容IE10
+                //              navigator.msSaveBlob(blob, this.filename);
+                //          } else {
+                //              //  chrome/firefox
+                //
+                //              let aTag = document.createElement('a');
+                //              aTag.download = row.filename;
+                //              aTag.href = URL.createObjectURL(blob);
+                //              aTag.click();
+                //              URL.revokeObjectURL(aTag.href);
+                //              console.log(res.data.url);
+                //          }
+                //      });
+            },
+            handleDelete: function (row) {
+                this.$http.post('/api/file/delete', {
+                    fileId: row.id,
+                    filename: row.filename,
+                }).
+                     then(function (res) {
+                         console.log(res);
+                         this.loadTableData();
+                     });
             }
         },
-        components: {
-            'myCourses': CourseList
-        }
+        components: {'myCourses': CourseList}
     };
 </script>
 

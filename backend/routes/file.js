@@ -6,11 +6,12 @@ var getConnection = require('../utils/funcs').getConnection;
 var multer = require('multer');
 var upload = multer({dest: 'uploads/'});
 var fs = require('fs');
-
+var path = require('path');
 var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file');
+
 
 router.post('/upload', upload.any(), function (req, res, next) {
 	var user_id = req.session.user_id;
@@ -37,9 +38,10 @@ router.post('/upload', upload.any(), function (req, res, next) {
 						then(function (packed) {
 							let {conn, sql_res} = packed;
 							var response = {};
-							if (result.status === 'SUCCESS.') {
+							if (sql_res.status === 'SUCCESS.') {
 								response.message = 'File uploaded successfully';
 								response.filename = req.files[0].originalname;
+								console.log("成功");
 								res.end(JSON.stringify(response));
 							}
 							else {
@@ -58,26 +60,32 @@ router.post('/upload', upload.any(), function (req, res, next) {
 });
 
 
-//https://blog.csdn.net/qq_36228442/article/details/81709272
-router.post('/test', function (req, res, next) {
-	var filename = req.body.filename;
-	var file = './uploads/' + filename;
-	res.writeHead(200, {
-		'Content-Type': 'application/octet-stream',
-		'Content-Disposition': 'attachment; filename=' + encodeURI(filename),
-	});
-	var readStream = fs.createReadStream(file);
-	readStream.on('data', function (chunk) {
-		res.write(chunk, 'binary');
-	});
-	readStream.on('end', function () {
-		res.end();
-	})
+
+
+router.get('/download', function (req, res, next) {
+	var filename = req.query.filename;
+	var filepath = path.join(__dirname, '../uploads/' + filename);
+	var stats = fs.statSync(filepath);
+	if (stats.isFile()) {
+		res.set({
+			'Content-Type': 'application/octet-stream',
+			'Content-Disposition': 'attachment; filename=' + filename,
+			"Content-Length": stats.size
+		});
+		fs.createReadStream(filepath).pipe(res);
+	} else {
+		res.end(404);
+	}
 });
+
 
 router.post('/download', function (req, res, next) {
 	var path = './uploads/' + req.body.filename;
+	res.writeHead(200,{
+		'Content-Type':'image/jpg;charset=UTF8'
+	});
 	res.download(path);
+	// res.send({"url": './uploads/' + req.body.filename});
 });
 
 
@@ -129,7 +137,6 @@ router.post('/fetch_coursefiles', function (req, res, next) {
 				let {conn, sql_res} = packed;
 				conn.end();
 				logger.info(sql_res);
-				logger.info("到底发生了啥？");
 				res.send(JSON.stringify(sql_res, null, 3));
 			}).
 			catch(function(sql_res) {
@@ -174,7 +181,24 @@ router.post('/add', function(req, res, next) {
 
 
 router.post('/delete', function(req, res, next) {
-	//just to be added;
+	let id = req.body.fileId;
+	let filename = req.body.filename;
+	getConnection().
+		then(function(conn) {
+			let sql = 'delete from files where id = ' + id;
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			logger.info(sql_res);
+			var desFile= "./uploads/" + filename;
+			fs.unlinkSync(desFile);
+			res.send(JSON.stringify(sql_res, null, 3));
+		}).
+		catch(function(sql_res) {
+			res.send(JSON.stringify(sql_res, null, 3));
+		})
 });
 
 module.exports = router;
