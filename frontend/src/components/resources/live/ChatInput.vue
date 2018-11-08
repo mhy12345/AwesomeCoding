@@ -5,21 +5,25 @@
         </div>
         <el-row>
             <el-col style="width: 90%">
-                <div @keydown.enter="handleSendMessage">
-                    <el-input type="textarea"
-                              v-model="input_message"
-                              placeholder="输入文本..."
-                              :autosize="{minRows: 3.2}"
-                              resize="none">
-                    </el-input>
-                </div>
+                <el-input type="textarea"
+                          v-model="input_message"
+                          placeholder="输入文本..."
+                          :autosize="{minRows: 3.2}"
+                          resize="none">
+                </el-input>
             </el-col>
             <el-col style="position:relative; left: 2%; width: 8%">
                 <div>
-                    <el-button type="warning" icon="el-icon-message" @click="handleSendMessage">发送</el-button>
+                    <el-button type="warning" icon="el-icon-message"
+                               @click="handleSendMessage" :disabled="blockQ">
+                        发送
+                    </el-button>
                 </div>
                 <div>
-                    <el-button type="success" icon="el-icon-phone" @click="handleSendVoice">语音</el-button>
+                    <el-button type="success" icon="el-icon-phone"
+                               @click="handleSendVoice" :disabled="blockQ">
+                        语音
+                    </el-button>
                 </div>
             </el-col>
         </el-row>
@@ -31,7 +35,18 @@
         name: "Chat",
         data() {
             return {
-                input_message: ''
+                input_message: '',
+                blockQ: false,      // 是否被禁言
+            }
+        },
+        sockets: {
+            block() {   // 服务端发来禁言的消息 todo 这个逻辑将来要在后端通过bannedlist来实现
+                this.blockQ = true;
+                this.$message.warning('老师已开启禁言。');
+            },
+            allow() {
+                this.blockQ = false;
+                this.$message.success('老师已允许发言。');
             }
         },
         methods: {

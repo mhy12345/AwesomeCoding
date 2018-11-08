@@ -4,11 +4,12 @@ import App from './App.vue';
 import './plugins/element.js';
 import router from './router/index.js';
 import VueSocketio from 'vue-socket.io';
-import root_url from '../config/http_root_url';
+
+const server_url = window.location.protocol + '//' + window.location.hostname;
 
 Vue.config.productionTip = false;
 Vue.use(VueResource);
-Vue.use(VueSocketio, root_url);
+Vue.use(VueSocketio, server_url);
 
 new Vue({
     router,

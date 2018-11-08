@@ -3,10 +3,18 @@
         <div slot="header" class="clear-fix">
             <span>{{title}}</span>
         </div>
+        <el-input placeholder="用户名..."
+                  v-model="inputs.nickname"
+                  class="input-box"
+                  clearable>
+        </el-input>
         <div @keydown.enter="handleSignIn">
-            <el-input placeholder="用户名..." v-model="inputs.nickname" class="input-box" clearable></el-input>
-            <el-input placeholder="密码..." v-model="inputs.password" class="input-box" type="password"
-                      clearable></el-input>
+            <el-input placeholder="密码..."
+                      v-model="inputs.password"
+                      class="input-box"
+                      type="password"
+                      clearable>
+            </el-input>
         </div>
         <div align="center">
             <el-row>
