@@ -9,8 +9,7 @@ log4js.configure(log4js_config);
 var logger = log4js.getLogger('database');
 
 function getConnection() { //获取连接connection，并调用回调函数
-	/*
-	return mysql_initializer({
+	/*return mysql_initializer({
 	 	no_create:true
 	});*/
 	return new Promise(function (resolve, reject) {

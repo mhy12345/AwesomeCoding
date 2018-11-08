@@ -21,10 +21,20 @@ var log4js_config = require("./configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('backend-http');
 
+var mysql_initializer = require('./utils/mysql_initializer');
+mysql_initializer({ no_create: true }).
+	then((conn) => {	// reinstall database
+		logger.info('Database Reinstalled!');
+		conn.end();
+	}).
+	catch((err) => {
+		logger.error('Database Installation Error', err);
+	});
+
 var app = express();
 
 
-app.use(log4js.connectLogger(logger,{level:'debug'}));
+app.use(log4js.connectLogger(logger, { level: 'debug' }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,7 +50,7 @@ app.use(history({
 		},
 		{
 			from: /^\/backend\/.*$/,
-			to: function(context) {
+			to: function (context) {
 				return context.parsedUrl.path
 			}
 		}
@@ -53,7 +63,7 @@ app.use(session);
 
 //app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // 设置需要使用的 router 函数
