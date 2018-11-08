@@ -18,7 +18,7 @@ export default {
 	methods: {
 		handleUpdate: function (code) {
 			this.code = code;
-			this.$http.post('/api/content/fetcxh/html', {code: this.code}).
+			this.$http.post('/api/content/fetch/html', {code: this.code}).
 				then(function (res) {
 					this.content = res.body.content;
 					if (this.content.substr(0,3) === '<p>' && this.content.substr(this.content.length-4,4) === '</p>') {
