@@ -234,16 +234,6 @@ router.post('/change', function (req, res, next) {  // 响应设置个人信息�
 		status: '',
 		details: '',
 	};
-<<<<<<< HEAD
-=======
-	// if (typeof(req.session) === 'undefined') {      // user offline
-	//     res_body.status = 'FAILED.';
-	//     res_body.details = 'USER_NOT_ONLINE.';
-	//     logger.debug('[res]', res_body);
-	//     res.send(JSON.stringify(res_body));
-	//     return;
-	// }
->>>>>>> release-version-3.0
 	getConnection().
 		then(function (conn) {
 			let sql = "UPDATE users SET ";
