@@ -7,7 +7,19 @@ var log4js_config = require("../configures/log.config.js").database_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('database')
 
+
+
 var sqls = {
+	'create_chat_record_table': "CREATE TABLE `chat_record` (" +
+		"`id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Chat record’s id', " +
+		"`date_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, " +
+		"`course_id` int(10) NOT NULL, " +
+		"`user_id` int(10) NOT NULL, " +
+		"`realname` varchar(40) CHARACTER SET utf8 DEFAULT NULL, "+
+		"`message` varchar(200) CHARACTER SET utf8 NOT NULL, "+
+		"PRIMARY KEY (`id`), " +
+		"UNIQUE KEY `id_UNIQUE` (`id`) " +
+		") ENGINE=InnoDB AUTO_INCREMENT=195 DEFAULT CHARSET=utf8;",
 	'create_program_problem_answer_table' : "CREATE TABLE IF NOT EXISTS `program_problem_answers` (" + 
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`code` CHAR(20) NOT NULL, " +
@@ -197,6 +209,7 @@ function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新�
 				'create_class_file_table', 
 				'create_posts', 
 				'create_lives',
+				'create_chat_record_table',
 			];
 			if (db_cfg.no_create !== true) {
 				tasks = ['create_database'].concat(tasks);
