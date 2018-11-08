@@ -16,10 +16,10 @@ var logger = log4js.getLogger('log_file');
 var fixed_items = ['id', 'nickname', 'role', 'registration_date'];	// 不允许用户修改的表项，后期加入email?
 
 router.get('/session', function (req, res, next) {	// 判断用户是否登录
-	logger.info('[get] session\n', req.body);
+	logger.debug('[get] session\n', req.body);
 	let res_body = req.session;
 	res_body.status = 'SUCCESS.';
-	logger.info('[res]', res_body);
+	logger.debug('[res]', res_body);
 	res.send(JSON.stringify(res_body));
 });
 
@@ -54,14 +54,14 @@ router.post('/verification', function (req, res, next) {	// 让后端程序发�
 });
 
 router.post('/register', function (req, res, next) {	// 响应注册，并进行合法判断
-	logger.info("[post] register\n", req.body);
+	logger.debug("[post] register\n", req.body);
 	var res_body = {};
 	if (typeof(req.session.user_id) !== 'undefined') {  // 已登录
 		res_body = {
 			status: 'FAILED.',
 			details: 'ALREADY_LOGIN.'
 		};
-		logger.info('[res]', res_body);
+		logger.debug('[res]', res_body);
 		res.send(JSON.stringify(res_body));
 		return;
 	}
@@ -73,7 +73,7 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 			status: 'FAILED.',
 			details: 'WRONG_VERIFICATION_CODE.'
 		};
-		logger.info('[res]', res_body);
+		logger.debug('[res]', res_body);
 		res.send(JSON.stringify(res_body));
 		return;
 	}
@@ -131,14 +131,14 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 				});
 			}
 			let user = sql_res.results[0];
-			logger.info('<<<', sql_res);
+			logger.debug('<<<', sql_res);
 			req.session.nickname = user.nickname;
 			req.session.realname = user.realname;
 			req.session.role = user.role;
 			req.session.email = user.email;
 			req.session.user_id = user.id;
 			res_body.results = req.session;
-			logger.info('[res]', res_body);
+			logger.debug('[res]', res_body);
 			conn.end();
 			res.send(JSON.stringify(res_body));
 		}).
@@ -148,7 +148,7 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 });
 
 router.post('/login', function (req, res, next) {  // 响应登录，并进行合法判断 返回 JSON
-	logger.info("[post] login\n", req.body);
+	logger.debug("[post] login\n", req.body);
 	let nickname = req.body.nickname;
 	let password = req.body.password;
 	if (typeof(nickname) === 'undefined' || typeof(password) === 'undefined') {
@@ -171,7 +171,7 @@ router.post('/login', function (req, res, next) {  // 响应登录，并进行�
 			}
 			else {
 				let user = sql_res.results[0];
-				logger.info('Found:', user);
+				logger.debug('Found:', user);
 				if (password !== user.password) {
 					conn.end();
 					return Promise.reject({
@@ -201,7 +201,7 @@ router.post('/login', function (req, res, next) {  // 响应登录，并进行�
 });
 
 router.get('/logout', function (req, res, next) {
-	logger.info('[get] logout\n', req.body);
+	logger.debug('[get] logout\n', req.body);
 	var res_body = {
 		status: '',
 		details: '',
@@ -212,18 +212,18 @@ router.get('/logout', function (req, res, next) {
 	}
 	else {
 		req.session.destroy((err) => {
-			logger.info('Session Destroyed');
-			if (err) logger.info(err);
+			logger.debug('Session Destroyed');
+			if (err) logger.debug(err);
 		});
 		res_body.status = 'SUCCESS.';
 		res_body.details = 'SUCCESS.';
 	}
-	logger.info('[res]', res_body);
+	logger.debug('[res]', res_body);
 	res.send(JSON.stringify(res_body));
 });
 
 router.post('/change', function (req, res, next) {  // 响应设置个人信息修改
-	logger.info('[post] change\n', req.body);
+	logger.debug('[post] change\n', req.body);
 	var res_body = {
 		status: '',
 		details: '',
@@ -231,7 +231,7 @@ router.post('/change', function (req, res, next) {  // 响应设置个人信息�
 	// if (typeof(req.session) === 'undefined') {      // user offline
 	//     res_body.status = 'FAILED.';
 	//     res_body.details = 'USER_NOT_ONLINE.';
-	//     logger.info('[res]', res_body);
+	//     logger.debug('[res]', res_body);
 	//     res.send(JSON.stringify(res_body));
 	//     return;
 	// }
@@ -245,7 +245,7 @@ router.post('/change', function (req, res, next) {  // 响应设置个人信息�
 					res_body.details = 'property ' + item + ' cannot be changed.';
 					res.send(JSON.stringify(res_body));
 					conn.end();
-					return;
+					return Promise.reject({status:'SKIPPED.'});
 				}
 				if (req.body[item])
 					arr.push(item + ' = \'' + req.body[item] + '\'');
@@ -264,13 +264,14 @@ router.post('/change', function (req, res, next) {  // 响应设置个人信息�
 			res_body.results = sql_res.results[0];
 			delete res_body.results.password;
 			res_body.status = 'SUCCESS.';
-			logger.info(res_body);
+			logger.debug(res_body);
 			res.send(JSON.stringify(res_body));
 			conn.end();
-			logger.info('[res]', res_body);
+			logger.debug('[res]', res_body);
 		}).
 		catch(function (sql_res) {
-			res.send(JSON.stringify(sql_res, null, 3));
+			if (sql_res.status !== 'SKIPPED.')
+				res.send(JSON.stringify(sql_res, null, 3));
 		});
 });
 

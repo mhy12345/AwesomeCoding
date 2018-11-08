@@ -79,7 +79,7 @@ router.get('/delete', function (req, res, next) { //根据id删除班级
 });
 
 router.post('/status', function(req, res, next) {
-	console.log(req.session);
+	logger.debug(req.session);
 	if (typeof(req.session.user_id) === 'undefined') {
 		res.send(JSON.stringify({
 			status: 'FAILED.',
@@ -292,7 +292,7 @@ router.post('/info/query', function (req, res, next) {
 });
 
 router.post('/info/update', function (req, res, next) {
-	logger.info('>>>UPDATE CLASS INFO', req.body);
+	logger.debug('>>>UPDATE CLASS INFO', req.body);
 	let info = {
 		description: req.body.info.description,
 		notice: req.body.info.notice,
@@ -332,7 +332,6 @@ router.post('/info/update', function (req, res, next) {
 });
 
 router.post('/create', function (req, res, next) { //创建新班级
-	console.log(req.session);
 	if (req.session.role != 1 && req.session.role != 0) {
 		res.status(403).send('Only teacher can create a course.');
 		return;
@@ -359,7 +358,7 @@ router.post('/create', function (req, res, next) { //创建新班级
 				let {conn, sql_res} = packed;
 				result.id = sql_res.results.insertId;
 				result.status = 'SUCCESS.';
-				logger.info(sql_res.results);
+				logger.debug(sql_res.results);
 				result.invitation_code = invitation_code;
 				let sql = 'INSERT INTO `resources` (`class_id`, `resource`) VALUES ';
 				for (let w in resources) {
@@ -388,7 +387,6 @@ router.post('/create', function (req, res, next) { //创建新班级
 
 					let url = 'http://api.polyv.net/live/v2/channels';
 					axios.post(url, querystring.stringify(NewChannelJSON)).then((resp) => {
-						//console.log(resp);
 						let vid = resp.data.data.channelId.toString();
 						let uid = '047a911d83';
 						let url = "https://open.ucpaas.com/ol/sms/sendsms";
@@ -402,7 +400,6 @@ router.post('/create', function (req, res, next) { //创建新班级
 							}).
 							then(function (_packed) {
 								let phone_number = _packed.sql_res.results[0].phone;
-								console.log(phone_number);
 
 								axios.post(url, {
 									"sid": "55d17519129b8973ea369b5ba8f14f4d", // const
@@ -412,17 +409,13 @@ router.post('/create', function (req, res, next) { //创建新班级
 									"param": params,
 									"mobile": phone_number
 								}).then((resp) => {
-									//console.log(resp);
 								}).catch((err) => {
-									//console.log(err);
 								});
 
 								_packed.conn.end();
 							}).
 							catch(function (sql_res) {
 							});
-
-
 						let {conn, sql_res} = packed;
 						let sql = 'INSERT INTO `lives` (`class`,`liveplayer_uid`,`liveplayer_vid`) VALUES (' + mysql.escape(+result.id) + ',' + mysql.escape(uid) + ',' + mysql.escape(vid) + ')';
 
@@ -432,13 +425,13 @@ router.post('/create', function (req, res, next) { //创建新班级
 						conn.end();
 						res.send(JSON.stringify(result, null, 3));
 					}).catch((err) => {
-						//console.log(err);
+						res.send(JSON.stringify(result, null, 3));
 					});
 				}
 				else {
 					let {conn, sql_res} = packed;
 					conn.end();
-					res.send(JSON.stringify(result, null, 3));
+					//res.send(JSON.stringify(result, null, 3));
 				}
 			}).
 			catch(function (sql_res) {
