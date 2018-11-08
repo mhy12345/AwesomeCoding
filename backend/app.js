@@ -2,7 +2,6 @@
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
 var history = require('connect-history-api-fallback');
 var session = require('./configures/session.config');
 
@@ -60,14 +59,6 @@ app.use(cookieParser());
 // 设置需要使用的 router 函数
 app.use(express.static(path.join(__dirname, './public')));
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
-
-// todo delete test below
-app.get('/api/test', function (req, res, next) {
-	res.sendFile(__dirname + '/test_socket.html');
-});
-app.get('/api/hello', function (req, res) {
-	res.send("HelloWorld!");
-});
 
 app.use('/api/developer', api_developer);
 app.use('/api/user', api_user);

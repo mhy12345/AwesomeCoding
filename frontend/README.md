@@ -1,5 +1,11 @@
 # frontend
 
+在 `npm run dev` 模式下，需要终端运行
+```
+ open -a Google\ Chrome --args --disable-web-security --user-data-dir 
+```
+打开Chrome非安全模式，来避免跨域访问等问题。
+
 > A Vue.js project
 
 ## Build Setup

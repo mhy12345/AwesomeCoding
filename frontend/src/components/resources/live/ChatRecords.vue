@@ -18,7 +18,7 @@
         props: ['course_id'],
         data() {
             return {
-                chat_records: ['Loading...'],
+                chat_records: [],
                 loadingQ: true
             }
         },
@@ -28,7 +28,12 @@
                  get('/api/live/get_chat_record', { params: { course_id: this.course_id } }).
                  then((res) => {
                      console.log('[res] chat record', res);
-                     this.chat_records = res.body.results;   // array of records
+                     if (res.body.status === 'FAILED.')
+                         this.pushRecord({
+                             message: res.body.details
+                         });
+                     else
+                         this.chat_records = res.body.results;   // array of records
                      this.loadingQ = false;
                  }).
                  catch((err) => {
@@ -43,6 +48,10 @@
                     realname: msg.from,
                     message: msg.message
                 })
+            },
+            clear() {   // 清空记录
+                console.log('>>clear record');
+                this.chat_records = [];
             }
         }
 	}
