@@ -5,16 +5,24 @@
                  v-loading='loading'
                  v-model='activeName'>
 			<el-tab-pane v-for="option in options" :label="option.name" :name="options.route" :key='option.index'>
+				<keep-alive>
+					<components v-bind:is="option.component" :course_status='course_status' class='lecture-panel' :index='activeTitle'> 
+					</components>
+				</keep-alive>
 			</el-tab-pane>
-            <router-view :course_status='course_status' class='lecture-panel' :index='activeTitle' >
-            </router-view>
 		</el-tabs>
 	</div>
 </template>
 
 <script>
+import Vue from 'vue';
 var default_options = ['details'];
 import {supported_resources} from '../utils/Resources';
+
+for (let item in supported_resources) {
+	console.log('Register : sub-'+supported_resources[item].name);
+	Vue.component('sub-'+supported_resources[item].name, supported_resources[item].component);
+}
 
 export default {
 	data: function () {
@@ -39,6 +47,7 @@ export default {
 				result.push({
 					index: k,
 					name: supported_resources[k].title,
+					component: supported_resources[k].component
 				});
 			}
 			return result;
