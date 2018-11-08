@@ -15,6 +15,7 @@ var sqls = {
 		"`user_id` INT UNSIGNED NOT NULL, " +
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+
 	'create_program_problem_table' : "CREATE TABLE IF NOT EXISTS `program_problems` (" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`code` CHAR(20) NOT NULL, " +
@@ -23,6 +24,7 @@ var sqls = {
 		"`solution` CHAR(20) NOT NULL, " +
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+
 	'create_choice_problem_answer_table' : "CREATE TABLE IF NOT EXISTS `choice_problem_answers` (" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`user_id` INT UNSIGNED NOT NULL, " +
@@ -31,6 +33,7 @@ var sqls = {
 		"`time` TIMESTAMP, " +
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+
 	'create_choice_problem_table' : "CREATE TABLE IF NOT EXISTS `choice_problems` (" + 
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`code` CHAR(20) NOT NULL, " +
@@ -45,6 +48,7 @@ var sqls = {
 		"`solution` CHAR(25) NOT NULL, " +
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+
 	'create_problem_table' : "CREATE TABLE IF NOT EXISTS `problems` (" +
 		"`code` CHAR(20) NOT NULL, " +
 		"`title` VARCHAR(100) NOT NULL, " +
@@ -54,12 +58,14 @@ var sqls = {
 		"`state` INT UNSIGNED NOT NULL, " +
 		"PRIMARY KEY (`code`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+
 	'create_content_table' : "CREATE TABLE IF NOT EXISTS `contents` (" + //渲染富文本页面
 		"`code` CHAR(25) NOT NULL, " +
 		"`content` VARCHAR(10000) NOT NULL, " +
 		"`deltas` VARCHAR(10000) NOT NULL, " +
 		"PRIMARY KEY (`code`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
+
 	'create_class_file_table' : "CREATE TABLE IF NOT EXISTS `coursefiles`(" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`class_id` INT UNSIGNED NOT NULL, " +
@@ -152,7 +158,7 @@ var sqls = {
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 	'create_database' : 'CREATE DATABASE ' + mysql_config.database,
 	'use_database' : 'USE ' + mysql_config.database,
-}
+};
 
 function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新建数据库
 	return new Promise(function(resolve,reject) {

@@ -41,7 +41,6 @@ router.post('/upload', upload.any(), function (req, res, next) {
 							if (sql_res.status === 'SUCCESS.') {
 								response.message = 'File uploaded successfully';
 								response.filename = req.files[0].originalname;
-								console.log("成功");
 								res.end(JSON.stringify(response));
 							}
 							else {
