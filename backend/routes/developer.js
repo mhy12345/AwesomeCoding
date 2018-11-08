@@ -62,7 +62,8 @@ router.get('/show_columns', function (req, res, next) {
 					status: 'FAILED.',
 					details: 'TABLE_NOT_FOUND.',
 				}));
-			res.send(JSON.stringify(sql_res, null, 3));
+			else
+				res.send(JSON.stringify(sql_res, null, 3));
 		}).
 		catch(function (sql_res) {
 			res.send(JSON.stringify(sql_res, null, 3));

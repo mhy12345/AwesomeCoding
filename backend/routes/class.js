@@ -25,7 +25,7 @@ var NewChannelTemplate = {
 
 function checkPermission(conn, class_id, user_id) {
 	return new Promise((resolve,reject) => {
-		if (typeof(class_id) == 'undefined') {
+		if (typeof(class_id) === 'undefined') {
 			conn.end();
 			reject({
 				status: 'FAILED.',
@@ -33,7 +33,7 @@ function checkPermission(conn, class_id, user_id) {
 			});
 			return ;
 		}
-		if (typeof(user_id) == 'undefined') {
+		if (typeof(user_id) === 'undefined') {
 			conn.end();
 			reject({
 				status: 'FAILED.',
@@ -79,6 +79,7 @@ router.get('/delete', function (req, res, next) { //根据id删除班级
 });
 
 router.post('/status', function(req, res, next) {
+	logger.debug(req.session);
 	if (typeof(req.session.user_id) === 'undefined') {
 		res.send(JSON.stringify({
 			status: 'FAILED.',
@@ -291,7 +292,7 @@ router.post('/info/query', function (req, res, next) {
 });
 
 router.post('/info/update', function (req, res, next) {
-	logger.info('>>>UPDATE CLASS INFO', req.body);
+	logger.debug('>>>UPDATE CLASS INFO', req.body);
 	let info = {
 		description: req.body.info.description,
 		notice: req.body.info.notice,
@@ -331,7 +332,6 @@ router.post('/info/update', function (req, res, next) {
 });
 
 router.post('/create', function (req, res, next) { //创建新班级
-	console.log(req.session);
 	if (req.session.role != 1 && req.session.role != 0) {
 		res.status(403).send('Only teacher can create a course.');
 		return;
@@ -358,7 +358,7 @@ router.post('/create', function (req, res, next) { //创建新班级
 				let {conn, sql_res} = packed;
 				result.id = sql_res.results.insertId;
 				result.status = 'SUCCESS.';
-				logger.info(sql_res.results);
+				logger.debug(sql_res.results);
 				result.invitation_code = invitation_code;
 				let sql = 'INSERT INTO `resources` (`class_id`, `resource`) VALUES ';
 				for (let w in resources) {
@@ -387,7 +387,6 @@ router.post('/create', function (req, res, next) { //创建新班级
 
 					let url = 'http://api.polyv.net/live/v2/channels';
 					axios.post(url, querystring.stringify(NewChannelJSON)).then((resp) => {
-						//console.log(resp);
 						let vid = resp.data.data.channelId.toString();
 						let uid = '047a911d83';
 						let url = "https://open.ucpaas.com/ol/sms/sendsms";
@@ -401,7 +400,6 @@ router.post('/create', function (req, res, next) { //创建新班级
 							}).
 							then(function (_packed) {
 								let phone_number = _packed.sql_res.results[0].phone;
-								console.log(phone_number);
 
 								axios.post(url, {
 									"sid": "55d17519129b8973ea369b5ba8f14f4d", // const
@@ -411,17 +409,13 @@ router.post('/create', function (req, res, next) { //创建新班级
 									"param": params,
 									"mobile": phone_number
 								}).then((resp) => {
-									//console.log(resp);
 								}).catch((err) => {
-									//console.log(err);
 								});
 
 								_packed.conn.end();
 							}).
 							catch(function (sql_res) {
 							});
-
-
 						let {conn, sql_res} = packed;
 						let sql = 'INSERT INTO `lives` (`class`,`liveplayer_uid`,`liveplayer_vid`) VALUES (' + mysql.escape(+result.id) + ',' + mysql.escape(uid) + ',' + mysql.escape(vid) + ')';
 
@@ -431,13 +425,13 @@ router.post('/create', function (req, res, next) { //创建新班级
 						conn.end();
 						res.send(JSON.stringify(result, null, 3));
 					}).catch((err) => {
-						//console.log(err);
+						res.send(JSON.stringify(result, null, 3));
 					});
 				}
 				else {
 					let {conn, sql_res} = packed;
 					conn.end();
-					res.send(JSON.stringify(result, null, 3));
+					//res.send(JSON.stringify(result, null, 3));
 				}
 			}).
 			catch(function (sql_res) {
@@ -483,7 +477,7 @@ router.post('/public/fetch', function (req, res, next) {//公开课程目录获�
 });
 
 router.post('/my_course/fetch', function (req, res, next) {
-	if (typeof(req.body.page_number) == 'undefined') {
+	if (typeof(req.body.page_number) === 'undefined') {
 		res.status(403).send('Pagenum not defined.');
 		return;
 	}
@@ -496,9 +490,22 @@ router.post('/my_course/fetch', function (req, res, next) {
 		res.status(403).send('User not login...');
 		return;
 	}
+
 	let m = (+req.body.page_number - 1) * req.body.page_size;
 	let n = (+req.body.page_number) * req.body.page_size;
-	let sql = 'SELECT classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role=' + mysql.escape(req.session.role) + ' WHERE classusers.user_id = ' + mysql.escape(+req.session.user_id) + ' ORDER BY classusers.registration_date DESC';
+	let sql = '';
+	if(req.session.role >= 2) {
+		sql = 'SELECT classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role=' + mysql.escape(req.session.role) + ' WHERE classusers.user_id = ' + mysql.escape(+req.session.user_id) + ' ORDER BY classusers.registration_date DESC';
+	}
+	else {
+		sql =
+			'select cl.id, cl.title, liveplayer_vid as lvid ' +
+			'from lives l, classusers cu, classes cl ' +
+			'where cu.user_id = ' + mysql.escape(+req.session.user_id) + ' ' +
+			'and cu.role = ' + mysql.escape(req.session.role) + ' ' +
+			'and l.class = cu.class_id and cl.id = cu.class_id';
+
+	}
 	getConnection().
 		then(function (conn) {
 			return doSqlQuery(conn, sql);
@@ -512,6 +519,44 @@ router.post('/my_course/fetch', function (req, res, next) {
 			res.status(403).send(JSON.stringify(sql_res));
 		});
 });
+
+/*
+router.post('/my_course_vid/fetch', function (req, res, next) {
+	if (typeof(req.body.page_number) === 'undefined') {
+		res.status(403).send('Pagenum not defined.');
+		return;
+	}
+	if (typeof(req.body.page_size) === 'undefined') {
+		req.body.page_size = 20;
+		logger.warn('Page size not defined...');
+		return;
+	}
+	if (typeof(req.session.user_id) === 'undefined') {
+		res.status(403).send('User not login...');
+		return;
+	}
+
+	let sql =
+		'select title, description, liveplayer_vid\n' +
+		'from lives l, classusers cu, classes cl\n' +
+		'where cu.user_id = 5 and cu.role = 0 and l.class = cu.class_id and cl.id = cu.class_id';
+
+	//let sql = 'SELECT liveplayer_vid from classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role=' + mysql.escape(req.session.role) + ' WHERE classusers.user_id = ' + mysql.escape(+req.session.user_id) + ' ORDER BY classusers.registration_date DESC';
+	getConnection().
+		then(function (conn) {
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			res.send(JSON.stringify(sql_res, null, 3));
+		}).
+		catch(function (sql_res) {
+			res.status(403).send(JSON.stringify(sql_res));
+		});
+});
+*/
+
 
 router.post('/liveid/query', function (req, res, next) {
 	let result = {

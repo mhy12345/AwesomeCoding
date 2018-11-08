@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2018-11-01T10:32:39.460] [INFO] log_file - [get] logout
  {}
 [2018-11-01T10:32:39.462] [INFO] log_file - [res] { status: 'FAILED.', details: 'USER_NOT_ONLINE.' }
@@ -511,11 +512,178 @@
   fieldCount: 0,
   affectedRows: 1,
   insertId: 16,
+=======
+[2018-11-01T12:03:28.079] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:03:28.082] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:03:26.088Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:08:05.048] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:08:05.049] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:08:04.671Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:09:52.277] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:09:52.277] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:09:51.465Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:12:09.935] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:12:09.936] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:12:09.927Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:12:15.776] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:12:15.777] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:12:15.474Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:13:33.050] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:13:33.051] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:13:32.796Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T12:17:27.620] [INFO] log_file - [get] session
+ {}
+[2018-11-01T12:17:27.622] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T05:17:27.296Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:03:49.007] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:03:49.010] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:03:48.778Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:06:55.890] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:06:55.893] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:06:55.498Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:09:40.367] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:09:40.371] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:09:39.803Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:13:42.195] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:13:42.197] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:13:41.405Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:13:54.858] [INFO] log_file - UPDATE users SET passwordYUHEKZRMRR WHERE nickname = undefined[FAILED.]
+[2018-11-01T14:18:10.638] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:18:10.640] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:18:09.997Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:18:18.659] [INFO] log_file - UPDATE users SET password = 2NKFE91EE2 WHERE nickname = undefined[FAILED.]
+[2018-11-01T14:21:04.878] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:21:04.881] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:21:04.123Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:21:15.489] [INFO] log_file - UPDATE users SET password = 94JH5MOVMI WHERE nickname = lzq[FAILED.]
+[2018-11-01T14:21:26.049] [INFO] log_file - [post] login
+ { nickname: 'lzq', password: '123456' }
+[2018-11-01T14:21:26.229] [INFO] log_file - SELECT * FROM users WHERE nickname = 'lzq'[FILLED.]
+[2018-11-01T14:21:26.230] [INFO] log_file - [ RowDataPacket {
+    id: 3,
+    email: '584324893@qq.com',
+    nickname: 'lzq',
+    realname: 'lzq',
+    role: 1,
+    motto: null,
+    registration_date: 2018-11-01T02:41:25.000Z,
+    password: '123456',
+    phone: '11122223333' } ]
+[2018-11-01T14:21:26.232] [INFO] log_file - Found: RowDataPacket {
+  id: 3,
+  email: '584324893@qq.com',
+  nickname: 'lzq',
+  realname: 'lzq',
+  role: 1,
+  motto: null,
+  registration_date: 2018-11-01T02:41:25.000Z,
+  password: '123456',
+  phone: '11122223333' }
+[2018-11-01T14:22:28.782] [INFO] log_file - [get] logout
+ {}
+[2018-11-01T14:22:28.784] [INFO] log_file - [res] { status: 'SUCCESS.', details: 'SUCCESS.' }
+[2018-11-01T14:22:28.792] [INFO] log_file - Session Destroyed
+[2018-11-01T14:23:39.082] [INFO] log_file - [post] register
+ { nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  email: '584324893@qq.com',
+  phone: '18280851691',
+  motto: 'hahaha',
+  password: '123456',
+  re_password: '123456',
+  verify_code: 217539 }
+[2018-11-01T14:23:39.237] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-01T14:23:39.241] [INFO] log_file - []
+[2018-11-01T14:23:39.286] [INFO] log_file - insert into users (id,nickname,realname,role,email,motto,registration_date,password,phone) values (null,'liuzhiqiang','liuzhiqiang','1','584324893@qq.com','hahaha',null,'123456','18280851691')[FILLED.]
+[2018-11-01T14:23:39.289] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 27,
+>>>>>>> feature-PhoneAndEmail
   serverStatus: 2,
   warningCount: 0,
   message: '',
   protocol41: true,
   changedRows: 0 }
+<<<<<<< HEAD
 [2018-11-01T10:33:39.222] [INFO] log_file - SELECT * FROM users WHERE nickname = 'test_nameS5YR8R62'[FILLED.]
 [2018-11-01T10:33:39.222] [INFO] log_file - [ RowDataPacket {
     id: 16,
@@ -542,10 +710,39 @@
        phone: null } ],
   details: undefined }
 [2018-11-01T10:33:39.223] [INFO] log_file - [res] { status: 'SUCCESS.',
+=======
+[2018-11-01T14:23:39.321] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-01T14:23:39.322] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahaha',
+    registration_date: 2018-11-01T06:15:50.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-01T14:23:39.324] [INFO] log_file - <<< { sql: 'SELECT * FROM users WHERE nickname = \'liuzhiqiang\'',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 27,
+       email: '584324893@qq.com',
+       nickname: 'liuzhiqiang',
+       realname: 'liuzhiqiang',
+       role: 1,
+       motto: 'hahaha',
+       registration_date: 2018-11-01T06:15:50.000Z,
+       password: '123456',
+       phone: '18280851691' } ],
+  details: undefined }
+[2018-11-01T14:23:39.326] [INFO] log_file - [res] { status: 'SUCCESS.',
+>>>>>>> feature-PhoneAndEmail
   results: 
    Session {
      cookie: 
       { path: '/',
+<<<<<<< HEAD
         _expires: 2018-11-01T03:33:38.929Z,
         originalMaxAge: 3600000,
         httpOnly: true },
@@ -863,6 +1060,54 @@
  { realname: 'xxx', password: '123123' }
 [2018-11-01T10:33:41.097] [INFO] log_file - UPDATE users SET realname = 'xxx',password = '123123' WHERE id = 16[FILLED.]
 [2018-11-01T10:33:41.097] [INFO] log_file - OkPacket {
+=======
+        _expires: 2018-11-01T07:23:25.476Z,
+        originalMaxAge: 3600000,
+        httpOnly: true },
+     status: 'SUCCESS.',
+     code_generated: '217539',
+     nickname: 'liuzhiqiang',
+     realname: 'liuzhiqiang',
+     role: 1,
+     email: '584324893@qq.com',
+     user_id: 27 } }
+[2018-11-01T14:23:45.574] [INFO] log_file - [get] logout
+ {}
+[2018-11-01T14:23:45.580] [INFO] log_file - [res] { status: 'SUCCESS.', details: 'SUCCESS.' }
+[2018-11-01T14:23:45.583] [INFO] log_file - Session Destroyed
+[2018-11-01T14:23:56.567] [INFO] log_file - UPDATE users SET password = BBLDNZSNDK WHERE nickname = liuzhiqiang[FAILED.]
+[2018-11-01T14:30:24.247] [INFO] log_file - UPDATE users SET password = V3N5WPWKR2 WHERE nickname = liuzhiqiang[FAILED.]
+[2018-11-01T14:44:37.279] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '123456' }
+[2018-11-01T14:44:37.447] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-01T14:44:37.448] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahaha',
+    registration_date: 2018-11-01T06:15:50.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-01T14:44:37.449] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahaha',
+  registration_date: 2018-11-01T06:15:50.000Z,
+  password: '123456',
+  phone: '18280851691' }
+[2018-11-01T14:44:47.870] [INFO] log_file - [post] change
+ { realname: 'liuzhiqiang',
+  motto: 'hahahaha',
+  email: '584324893@qq.com',
+  password: '' }
+[2018-11-01T14:44:48.045] [INFO] log_file - UPDATE users SET realname = 'liuzhiqiang',motto = 'hahahaha',email = '584324893@qq.com' WHERE id = 27[FILLED.]
+[2018-11-01T14:44:48.048] [INFO] log_file - OkPacket {
+>>>>>>> feature-PhoneAndEmail
   fieldCount: 0,
   affectedRows: 1,
   insertId: 0,
@@ -871,6 +1116,7 @@
   message: '(Rows matched: 1  Changed: 1  Warnings: 0',
   protocol41: true,
   changedRows: 1 }
+<<<<<<< HEAD
 [2018-11-01T10:33:41.138] [INFO] log_file - SELECT * FROM users WHERE id = 16[FILLED.]
 [2018-11-01T10:33:41.138] [INFO] log_file - [ RowDataPacket {
     id: 16,
@@ -977,11 +1223,70 @@
 [2018-11-01T10:33:41.419] [INFO] test_info - { status: 'FAILED.', details: 'USER_NOT_ONLINE.' }
 [2018-11-01T10:33:41.587] [INFO] log_file - DELETE FROM users WHERE nickname = 'test_nameS5YR8R62'[FILLED.]
 [2018-11-01T10:33:41.588] [INFO] log_file - OkPacket {
+=======
+[2018-11-01T14:44:48.086] [INFO] log_file - SELECT * FROM users WHERE id = 27[FILLED.]
+[2018-11-01T14:44:48.096] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:36:59.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-01T14:44:48.097] [INFO] log_file - { status: 'SUCCESS.',
+  details: '',
+  results: 
+   RowDataPacket {
+     id: 27,
+     email: '584324893@qq.com',
+     nickname: 'liuzhiqiang',
+     realname: 'liuzhiqiang',
+     role: 1,
+     motto: 'hahahaha',
+     registration_date: 2018-11-01T06:36:59.000Z,
+     phone: '18280851691' } }
+[2018-11-01T14:44:48.100] [INFO] log_file - [res] { status: 'SUCCESS.',
+  details: '',
+  results: 
+   RowDataPacket {
+     id: 27,
+     email: '584324893@qq.com',
+     nickname: 'liuzhiqiang',
+     realname: 'liuzhiqiang',
+     role: 1,
+     motto: 'hahahaha',
+     registration_date: 2018-11-01T06:36:59.000Z,
+     phone: '18280851691' } }
+[2018-11-01T14:46:53.373] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:46:53.380] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:46:52.745Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:47:02.942] [INFO] log_file - UPDATE users SET password = EO84L45RO2 WHERE nickname = ' liuzhiqiang'[FAILED.]
+[2018-11-01T14:47:56.067] [INFO] log_file - [get] session
+ {}
+[2018-11-01T14:47:56.070] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-01T07:47:55.507Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-01T14:48:06.414] [INFO] log_file - UPDATE users SET password = '19LGQT4IUJ' WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-01T14:48:06.414] [INFO] log_file - OkPacket {
+>>>>>>> feature-PhoneAndEmail
   fieldCount: 0,
   affectedRows: 1,
   insertId: 0,
   serverStatus: 34,
   warningCount: 0,
+<<<<<<< HEAD
   message: '',
   protocol41: true,
   changedRows: 0 }
@@ -1507,11 +1812,240 @@
   fieldCount: 0,
   affectedRows: 1,
   insertId: 18,
+=======
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1 }
+[2018-11-01T14:48:38.137] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '19LGQT4IUJ' }
+[2018-11-01T14:48:38.289] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-01T14:48:38.290] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:40:17.000Z,
+    password: '19LGQT4IUJ',
+    phone: '18280851691' } ]
+[2018-11-01T14:48:38.291] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-01T06:40:17.000Z,
+  password: '19LGQT4IUJ',
+  phone: '18280851691' }
+[2018-11-03T10:28:43.679] [INFO] log_file - [get] session
+ {}
+[2018-11-03T10:28:43.682] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T03:28:43.357Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T10:43:19.126] [INFO] log_file - [get] session
+ {}
+[2018-11-03T10:43:19.129] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T03:43:18.824Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T10:46:44.438] [INFO] log_file - [get] session
+ {}
+[2018-11-03T10:46:44.441] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T03:46:44.042Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T10:47:03.321] [INFO] log_file - [get] session
+ {}
+[2018-11-03T10:47:03.322] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T03:47:02.901Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T10:52:51.824] [INFO] log_file - [get] session
+ {}
+[2018-11-03T10:52:51.826] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T03:52:51.326Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T10:53:03.590] [INFO] log_file - SELECT * from users WHERE phone = '13550798569'[FILLED.]
+[2018-11-03T10:53:03.593] [INFO] log_file - []
+[2018-11-03T10:57:05.023] [INFO] log_file - [get] session
+ {}
+[2018-11-03T10:57:05.025] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T03:57:04.686Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T10:57:21.054] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T10:57:21.055] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:40:17.000Z,
+    password: '19LGQT4IUJ',
+    phone: '18280851691' } ]
+[2018-11-03T10:57:43.448] [INFO] log_file - [get] session
+ {}
+[2018-11-03T10:57:43.448] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T03:57:43.441Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T10:57:54.529] [INFO] log_file - SELECT * from users WHERE phone = 13550798569[FILLED.]
+[2018-11-03T10:57:54.529] [INFO] log_file - []
+[2018-11-03T11:05:56.548] [INFO] log_file - [get] session
+ {}
+[2018-11-03T11:05:56.554] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T04:05:56.221Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T11:06:05.994] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T11:06:05.994] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:40:17.000Z,
+    password: '19LGQT4IUJ',
+    phone: '18280851691' } ]
+[2018-11-03T11:06:12.330] [INFO] log_file - [get] session
+ {}
+[2018-11-03T11:06:12.330] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T04:06:12.026Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T11:06:23.657] [INFO] log_file - SELECT * from users WHERE phone = 13550798569[FILLED.]
+[2018-11-03T11:06:23.658] [INFO] log_file - []
+[2018-11-03T11:08:57.286] [INFO] log_file - [get] session
+ {}
+[2018-11-03T11:08:57.288] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T04:08:56.965Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T11:09:10.891] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T11:09:10.893] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:40:17.000Z,
+    password: '19LGQT4IUJ',
+    phone: '18280851691' } ]
+[2018-11-03T11:14:56.371] [INFO] log_file - [get] session
+ {}
+[2018-11-03T11:14:56.376] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T04:14:56.101Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T11:15:08.976] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T11:15:08.977] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:40:17.000Z,
+    password: '19LGQT4IUJ',
+    phone: '18280851691' } ]
+[2018-11-03T11:29:39.770] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '123456' }
+[2018-11-03T11:29:40.041] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-03T11:29:40.042] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:40:17.000Z,
+    password: '19LGQT4IUJ',
+    phone: '18280851691' } ]
+[2018-11-03T11:29:40.043] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-01T06:40:17.000Z,
+  password: '19LGQT4IUJ',
+  phone: '18280851691' }
+[2018-11-03T11:29:59.822] [INFO] log_file - [post] login
+ { nickname: 'teacher', password: '123456' }
+[2018-11-03T11:29:59.977] [INFO] log_file - SELECT * FROM users WHERE nickname = 'teacher'[FILLED.]
+[2018-11-03T11:29:59.978] [INFO] log_file - [ RowDataPacket {
+    id: 1,
+    email: '123@123',
+    nickname: 'teacher',
+    realname: '123',
+    role: 1,
+    motto: '123',
+    registration_date: 2018-11-01T02:41:24.000Z,
+    password: '123456',
+    phone: '11122223333' } ]
+[2018-11-03T11:29:59.978] [INFO] log_file - Found: RowDataPacket {
+  id: 1,
+  email: '123@123',
+  nickname: 'teacher',
+  realname: '123',
+  role: 1,
+  motto: '123',
+  registration_date: 2018-11-01T02:41:24.000Z,
+  password: '123456',
+  phone: '11122223333' }
+[2018-11-03T11:30:13.554] [INFO] log_file - insert into files (`user_id`,`filename`) VALUES ("1","Proofofclaim6.log")[FILLED.]
+[2018-11-03T11:30:13.555] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 19,
+>>>>>>> feature-PhoneAndEmail
   serverStatus: 2,
   warningCount: 0,
   message: '',
   protocol41: true,
   changedRows: 0 }
+<<<<<<< HEAD
 [2018-11-01T10:35:52.338] [INFO] log_file - SELECT * FROM users WHERE nickname = 'test_name0QSWPVUO'[FILLED.]
 [2018-11-01T10:35:52.338] [INFO] log_file - [ RowDataPacket {
     id: 18,
@@ -1863,6 +2397,260 @@
  { realname: 'xxx', password: '123123' }
 [2018-11-01T10:35:54.349] [INFO] log_file - UPDATE users SET realname = 'xxx',password = '123123' WHERE id = 18[FILLED.]
 [2018-11-01T10:35:54.349] [INFO] log_file - OkPacket {
+=======
+[2018-11-03T11:30:17.250] [INFO] log_file - select * from files where user_id = 1[FILLED.]
+[2018-11-03T11:30:17.251] [INFO] log_file - [ RowDataPacket { id: 13, user_id: 1, filename: 'lecture11.txt', type: null },
+  RowDataPacket { id: 14, user_id: 1, filename: 'lecture11.txt', type: null },
+  RowDataPacket { id: 15, user_id: 1, filename: 'lecture11.txt', type: null },
+  RowDataPacket { id: 16, user_id: 1, filename: 'Python.pdf', type: null },
+  RowDataPacket { id: 17, user_id: 1, filename: 'pic_a.png', type: null },
+  RowDataPacket { id: 19, user_id: 1, filename: 'Proofofclaim6.log', type: null } ]
+[2018-11-03T11:30:17.253] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 13, user_id: 1, filename: 'lecture11.txt', type: null },
+     RowDataPacket { id: 14, user_id: 1, filename: 'lecture11.txt', type: null },
+     RowDataPacket { id: 15, user_id: 1, filename: 'lecture11.txt', type: null },
+     RowDataPacket { id: 16, user_id: 1, filename: 'Python.pdf', type: null },
+     RowDataPacket { id: 17, user_id: 1, filename: 'pic_a.png', type: null },
+     RowDataPacket { id: 19, user_id: 1, filename: 'Proofofclaim6.log', type: null } ],
+  details: undefined }
+[2018-11-03T11:30:32.429] [INFO] log_file - select * from files where user_id = 1[FILLED.]
+[2018-11-03T11:30:32.430] [INFO] log_file - [ RowDataPacket { id: 13, user_id: 1, filename: 'lecture11.txt', type: null },
+  RowDataPacket { id: 14, user_id: 1, filename: 'lecture11.txt', type: null },
+  RowDataPacket { id: 15, user_id: 1, filename: 'lecture11.txt', type: null },
+  RowDataPacket { id: 16, user_id: 1, filename: 'Python.pdf', type: null },
+  RowDataPacket { id: 17, user_id: 1, filename: 'pic_a.png', type: null },
+  RowDataPacket { id: 19, user_id: 1, filename: 'Proofofclaim6.log', type: null } ]
+[2018-11-03T11:30:32.432] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 13, user_id: 1, filename: 'lecture11.txt', type: null },
+     RowDataPacket { id: 14, user_id: 1, filename: 'lecture11.txt', type: null },
+     RowDataPacket { id: 15, user_id: 1, filename: 'lecture11.txt', type: null },
+     RowDataPacket { id: 16, user_id: 1, filename: 'Python.pdf', type: null },
+     RowDataPacket { id: 17, user_id: 1, filename: 'pic_a.png', type: null },
+     RowDataPacket { id: 19, user_id: 1, filename: 'Proofofclaim6.log', type: null } ],
+  details: undefined }
+[2018-11-03T11:30:35.167] [INFO] log_file - [get] logout
+ {}
+[2018-11-03T11:30:35.168] [INFO] log_file - [res] { status: 'SUCCESS.', details: 'SUCCESS.' }
+[2018-11-03T11:30:35.175] [INFO] log_file - Session Destroyed
+[2018-11-03T12:22:13.687] [INFO] log_file - [get] session
+ {}
+[2018-11-03T12:22:13.690] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T05:22:13.022Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T12:22:25.015] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T12:22:25.016] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:40:17.000Z,
+    password: '19LGQT4IUJ',
+    phone: '18280851691' } ]
+[2018-11-03T12:22:39.095] [INFO] log_file - [get] session
+ {}
+[2018-11-03T12:22:39.095] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T05:22:39.090Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '139883' }
+[2018-11-03T12:55:40.645] [INFO] log_file - [get] session
+ {}
+[2018-11-03T12:55:40.649] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T05:55:40.283Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T12:55:52.134] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T12:55:52.135] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:40:17.000Z,
+    password: '19LGQT4IUJ',
+    phone: '18280851691' } ]
+[2018-11-03T12:56:03.535] [INFO] log_file - [get] session
+ {}
+[2018-11-03T12:56:03.535] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T05:56:03.527Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '454543' }
+[2018-11-03T12:57:52.802] [INFO] log_file - [get] session
+ {}
+[2018-11-03T12:57:52.805] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T05:57:52.424Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T12:58:34.158] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T12:58:34.158] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:40:17.000Z,
+    password: '19LGQT4IUJ',
+    phone: '18280851691' } ]
+[2018-11-03T12:58:45.202] [INFO] log_file - [get] session
+ {}
+[2018-11-03T12:58:45.202] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T05:58:45.194Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '452755' }
+[2018-11-03T13:01:13.692] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:01:13.695] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:01:13.309Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T13:01:37.358] [INFO] log_file - SELECT * from users WHERE phone = 13550798569[FILLED.]
+[2018-11-03T13:01:37.358] [INFO] log_file - []
+[2018-11-03T13:01:48.390] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T13:01:48.391] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:40:17.000Z,
+    password: '19LGQT4IUJ',
+    phone: '18280851691' } ]
+[2018-11-03T13:02:01.086] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:02:01.087] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:02:01.077Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '114542' }
+[2018-11-03T13:06:00.392] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:06:00.394] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:05:59.837Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T13:06:25.893] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T13:06:25.894] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:40:17.000Z,
+    password: '19LGQT4IUJ',
+    phone: '18280851691' } ]
+[2018-11-03T13:06:36.625] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:06:36.625] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:06:36.618Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '464738' }
+[2018-11-03T13:13:48.271] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:13:48.273] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:13:47.686Z,
+     originalMaxAge: 3599999,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T13:14:00.142] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T13:14:00.143] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:40:17.000Z,
+    password: '19LGQT4IUJ',
+    phone: '18280851691' } ]
+[2018-11-03T13:14:12.645] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:14:12.647] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:14:12.633Z,
+     originalMaxAge: 3599998,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '576745' }
+[2018-11-03T13:17:14.652] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:17:14.655] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:17:14.194Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T13:17:26.837] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T13:17:26.837] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-01T06:40:17.000Z,
+    password: '19LGQT4IUJ',
+    phone: '18280851691' } ]
+[2018-11-03T13:17:35.386] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:17:35.388] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:17:35.368Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '958471' }
+[2018-11-03T13:17:46.909] [INFO] log_file - UPDATE users SET password = '111111' WHERE id = 27[FILLED.]
+[2018-11-03T13:17:46.909] [INFO] log_file - OkPacket {
+>>>>>>> feature-PhoneAndEmail
   fieldCount: 0,
   affectedRows: 1,
   insertId: 0,
@@ -1871,6 +2659,7 @@
   message: '(Rows matched: 1  Changed: 1  Warnings: 0',
   protocol41: true,
   changedRows: 1 }
+<<<<<<< HEAD
 [2018-11-01T10:35:54.383] [INFO] log_file - SELECT * FROM users WHERE id = 18[FILLED.]
 [2018-11-01T10:35:54.383] [INFO] log_file - [ RowDataPacket {
     id: 18,
@@ -2364,6 +3153,72 @@
  { realname: 'xxx', password: '123123' }
 [2018-11-01T10:36:00.636] [INFO] log_file - UPDATE users SET realname = 'xxx',password = '123123' WHERE id = 19[FILLED.]
 [2018-11-01T10:36:00.637] [INFO] log_file - OkPacket {
+=======
+[2018-11-03T13:17:47.532] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:17:47.532] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:17:47.526Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '958471' }
+[2018-11-03T13:18:03.576] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '111111' }
+[2018-11-03T13:18:03.726] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-03T13:18:03.727] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T05:09:57.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+[2018-11-03T13:18:03.728] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-03T05:09:57.000Z,
+  password: '111111',
+  phone: '18280851691' }
+[2018-11-03T13:21:43.951] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:21:43.954] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:21:43.583Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T13:22:05.355] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T13:22:05.357] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T05:09:57.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+[2018-11-03T13:22:16.453] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:22:16.454] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:22:16.448Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '679911' }
+[2018-11-03T13:22:31.971] [INFO] log_file - UPDATE users SET password = 'lzq123' WHERE id = 27[FILLED.]
+[2018-11-03T13:22:31.972] [INFO] log_file - OkPacket {
   fieldCount: 0,
   affectedRows: 1,
   insertId: 0,
@@ -2372,6 +3227,166 @@
   message: '(Rows matched: 1  Changed: 1  Warnings: 0',
   protocol41: true,
   changedRows: 1 }
+[2018-11-03T13:22:32.405] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:22:32.406] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:22:32.398Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '679911' }
+[2018-11-03T13:22:42.143] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: 'lzq123' }
+[2018-11-03T13:22:42.269] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-03T13:22:42.270] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T05:14:42.000Z,
+    password: 'lzq123',
+    phone: '18280851691' } ]
+[2018-11-03T13:22:42.273] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-03T05:14:42.000Z,
+  password: 'lzq123',
+  phone: '18280851691' }
+[2018-11-03T13:23:00.928] [INFO] log_file - [get] logout
+ {}
+[2018-11-03T13:23:00.963] [INFO] log_file - [res] { status: 'SUCCESS.', details: 'SUCCESS.' }
+[2018-11-03T13:23:00.970] [INFO] log_file - Session Destroyed
+[2018-11-03T13:23:16.281] [INFO] log_file - SELECT * from users WHERE phone = 13550798569[FILLED.]
+[2018-11-03T13:23:16.283] [INFO] log_file - []
+[2018-11-03T13:23:23.235] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T13:23:23.236] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T05:14:42.000Z,
+    password: 'lzq123',
+    phone: '18280851691' } ]
+[2018-11-03T13:24:06.823] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T13:24:06.824] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T05:14:42.000Z,
+    password: 'lzq123',
+    phone: '18280851691' } ]
+[2018-11-03T13:25:07.682] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:25:07.686] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:25:07.670Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '528558' }
+[2018-11-03T13:25:34.025] [INFO] log_file - UPDATE users SET password = '111111' WHERE id = 27[FILLED.]
+[2018-11-03T13:25:34.025] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1 }
+[2018-11-03T13:25:34.658] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:25:34.658] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:25:34.649Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '528558' }
+[2018-11-03T13:25:48.207] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '111111' }
+[2018-11-03T13:25:48.362] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-03T13:25:48.364] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T05:17:44.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+[2018-11-03T13:25:48.371] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-03T05:17:44.000Z,
+  password: '111111',
+  phone: '18280851691' }
+[2018-11-03T13:26:02.605] [INFO] log_file - [get] logout
+ {}
+[2018-11-03T13:26:02.606] [INFO] log_file - [res] { status: 'SUCCESS.', details: 'SUCCESS.' }
+[2018-11-03T13:26:02.608] [INFO] log_file - Session Destroyed
+[2018-11-03T13:32:03.720] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:32:03.721] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:32:03.358Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T13:35:38.634] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T13:35:38.636] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T05:17:44.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+[2018-11-03T13:35:53.031] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:35:53.032] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:35:53.013Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '137592' }
+[2018-11-03T13:36:03.769] [INFO] log_file - UPDATE users SET password = '222222' WHERE id = 27[FILLED.]
+[2018-11-03T13:36:03.770] [INFO] log_file - OkPacket {
+>>>>>>> feature-PhoneAndEmail
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1 }
+<<<<<<< HEAD
 [2018-11-01T10:36:00.677] [INFO] log_file - SELECT * FROM users WHERE id = 19[FILLED.]
 [2018-11-01T10:36:00.677] [INFO] log_file - [ RowDataPacket {
     id: 19,
@@ -2927,6 +3942,82 @@
  { realname: 'xxx', password: '123123' }
 [2018-11-01T10:37:14.691] [INFO] log_file - UPDATE users SET realname = 'xxx',password = '123123' WHERE id = 20[FILLED.]
 [2018-11-01T10:37:14.692] [INFO] log_file - OkPacket {
+=======
+[2018-11-03T13:36:04.362] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:36:04.362] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:36:04.349Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '137592' }
+[2018-11-03T13:36:31.878] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:36:31.879] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:36:31.865Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '137592' }
+[2018-11-03T13:36:36.868] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:36:36.871] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:36:36.855Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '137592' }
+[2018-11-03T13:46:53.493] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:46:53.496] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:46:52.856Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T13:47:14.603] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T13:47:14.604] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T05:28:14.000Z,
+    password: '222222',
+    phone: '18280851691' } ]
+[2018-11-03T13:47:46.217] [INFO] log_file - UPDATE users SET password = '111111' WHERE id = undefined[FAILED.]
+[2018-11-03T13:47:56.219] [INFO] log_file - UPDATE users SET password = '111111' WHERE id = undefined[FAILED.]
+[2018-11-03T13:57:19.974] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:57:20.005] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:57:18.735Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T13:57:31.888] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T13:57:31.889] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T05:28:14.000Z,
+    password: '222222',
+    phone: '18280851691' } ]
+[2018-11-03T13:57:45.869] [INFO] log_file - UPDATE users SET password = '333333' WHERE id = 27[FILLED.]
+[2018-11-03T13:57:45.870] [INFO] log_file - OkPacket {
+>>>>>>> feature-PhoneAndEmail
   fieldCount: 0,
   affectedRows: 1,
   insertId: 0,
@@ -2935,6 +4026,7 @@
   message: '(Rows matched: 1  Changed: 1  Warnings: 0',
   protocol41: true,
   changedRows: 1 }
+<<<<<<< HEAD
 [2018-11-01T10:37:14.725] [INFO] log_file - SELECT * FROM users WHERE id = 20[FILLED.]
 [2018-11-01T10:37:14.726] [INFO] log_file - [ RowDataPacket {
     id: 20,
@@ -3442,6 +4534,62 @@
  { realname: 'xxx', password: '123123' }
 [2018-11-01T10:43:56.435] [INFO] log_file - UPDATE users SET realname = 'xxx',password = '123123' WHERE id = 22[FILLED.]
 [2018-11-01T10:43:56.436] [INFO] log_file - OkPacket {
+=======
+[2018-11-03T13:57:46.818] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:57:46.852] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:57:46.731Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '495363' }
+[2018-11-03T13:57:57.630] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '333333' }
+[2018-11-03T13:57:57.757] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-03T13:57:57.761] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T05:49:56.000Z,
+    password: '333333',
+    phone: '18280851691' } ]
+[2018-11-03T13:57:57.762] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-03T05:49:56.000Z,
+  password: '333333',
+  phone: '18280851691' }
+[2018-11-03T13:58:41.960] [INFO] log_file - [get] session
+ {}
+[2018-11-03T13:58:41.967] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T06:58:41.333Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T14:02:59.819] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T14:02:59.819] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T05:49:56.000Z,
+    password: '333333',
+    phone: '18280851691' } ]
+[2018-11-03T14:03:21.324] [INFO] log_file - UPDATE users SET password = '222222' WHERE id = 27[FILLED.]
+[2018-11-03T14:03:21.325] [INFO] log_file - OkPacket {
   fieldCount: 0,
   affectedRows: 1,
   insertId: 0,
@@ -3450,6 +4598,48 @@
   message: '(Rows matched: 1  Changed: 1  Warnings: 0',
   protocol41: true,
   changedRows: 1 }
+[2018-11-03T14:03:22.478] [INFO] log_file - [get] session
+ {}
+[2018-11-03T14:03:22.481] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T07:03:22.449Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '562775' }
+[2018-11-03T14:21:00.684] [INFO] log_file - [get] session
+ {}
+[2018-11-03T14:21:00.692] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T07:21:00.118Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T14:21:29.378] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T14:21:29.379] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T05:55:32.000Z,
+    password: '222222',
+    phone: '18280851691' } ]
+[2018-11-03T14:21:41.112] [INFO] log_file - UPDATE users SET password = '111' WHERE id = 27[FILLED.]
+[2018-11-03T14:21:41.113] [INFO] log_file - OkPacket {
+>>>>>>> feature-PhoneAndEmail
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1 }
+<<<<<<< HEAD
 [2018-11-01T10:43:56.472] [INFO] log_file - SELECT * FROM users WHERE id = 22[FILLED.]
 [2018-11-01T10:43:56.472] [INFO] log_file - [ RowDataPacket {
     id: 22,
@@ -3981,6 +5171,40 @@
  { realname: 'xxx', password: '123123' }
 [2018-11-01T10:44:13.241] [INFO] log_file - UPDATE users SET realname = 'xxx',password = '123123' WHERE id = 23[FILLED.]
 [2018-11-01T10:44:13.241] [INFO] log_file - OkPacket {
+=======
+[2018-11-03T14:21:42.071] [INFO] log_file - [get] session
+ {}
+[2018-11-03T14:21:42.136] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T07:21:42.027Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '474821' }
+[2018-11-03T14:28:35.080] [INFO] log_file - [get] session
+ {}
+[2018-11-03T14:28:35.083] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T07:28:34.666Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T14:29:32.641] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T14:29:32.642] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T06:13:51.000Z,
+    password: '111',
+    phone: '18280851691' } ]
+[2018-11-03T14:29:41.540] [INFO] log_file - UPDATE users SET password = '123456' WHERE id = 27[FILLED.]
+[2018-11-03T14:29:41.542] [INFO] log_file - OkPacket {
+>>>>>>> feature-PhoneAndEmail
   fieldCount: 0,
   affectedRows: 1,
   insertId: 0,
@@ -3989,6 +5213,7 @@
   message: '(Rows matched: 1  Changed: 1  Warnings: 0',
   protocol41: true,
   changedRows: 1 }
+<<<<<<< HEAD
 [2018-11-01T10:44:13.278] [INFO] log_file - SELECT * FROM users WHERE id = 23[FILLED.]
 [2018-11-01T10:44:13.278] [INFO] log_file - [ RowDataPacket {
     id: 23,
@@ -4498,6 +5723,248 @@
  { realname: 'xxx', password: '123123' }
 [2018-11-01T10:46:32.612] [INFO] log_file - UPDATE users SET realname = 'xxx',password = '123123' WHERE id = 24[FILLED.]
 [2018-11-01T10:46:32.613] [INFO] log_file - OkPacket {
+=======
+[2018-11-03T14:29:43.251] [INFO] log_file - [get] session
+ {}
+[2018-11-03T14:29:43.252] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T07:29:43.243Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '525112' }
+[2018-11-03T14:29:54.207] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '123456' }
+[2018-11-03T14:29:54.433] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-03T14:29:54.433] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T06:21:52.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T14:29:54.436] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-03T06:21:52.000Z,
+  password: '123456',
+  phone: '18280851691' }
+[2018-11-03T14:52:40.274] [INFO] log_file - [get] session
+ {}
+[2018-11-03T14:52:40.276] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T07:52:39.853Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T14:53:06.892] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T14:53:06.893] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T06:21:52.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T14:53:23.942] [INFO] log_file - UPDATE users SET password = '123456' WHERE id = 27[FILLED.]
+[2018-11-03T14:53:23.942] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0 }
+[2018-11-03T14:53:24.635] [INFO] log_file - [get] session
+ {}
+[2018-11-03T14:53:24.635] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T07:53:24.627Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '746258' }
+[2018-11-03T15:09:32.059] [INFO] log_file - [get] session
+ {}
+[2018-11-03T15:09:32.061] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T08:09:30.657Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T15:14:43.243] [INFO] log_file - [get] session
+ {}
+[2018-11-03T15:14:43.253] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T08:14:43.047Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T15:14:59.129] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T15:14:59.129] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T06:21:52.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T15:18:34.879] [INFO] log_file - [get] session
+ {}
+[2018-11-03T15:18:34.889] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T08:18:34.473Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T15:18:48.809] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T15:18:48.809] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T06:21:52.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T15:19:14.729] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '123456' }
+[2018-11-03T15:19:14.869] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-03T15:19:14.869] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T06:21:52.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T15:19:14.879] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-03T06:21:52.000Z,
+  password: '123456',
+  phone: '18280851691' }
+[2018-11-03T15:19:27.679] [INFO] log_file - [get] logout
+ {}
+[2018-11-03T15:19:27.679] [INFO] log_file - [res] { status: 'SUCCESS.', details: 'SUCCESS.' }
+[2018-11-03T15:19:27.689] [INFO] log_file - Session Destroyed
+[2018-11-03T15:19:42.891] [INFO] log_file - SELECT * from users WHERE phone = 13550798569[FILLED.]
+[2018-11-03T15:19:42.891] [INFO] log_file - []
+[2018-11-03T15:19:52.236] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T15:19:52.236] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T06:21:52.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T15:20:03.842] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '123456' }
+[2018-11-03T15:20:04.045] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-03T15:20:04.045] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T06:21:52.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T15:20:04.045] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-03T06:21:52.000Z,
+  password: '123456',
+  phone: '18280851691' }
+[2018-11-03T15:20:10.878] [INFO] log_file - [get] logout
+ {}
+[2018-11-03T15:20:10.893] [INFO] log_file - [res] { status: 'SUCCESS.', details: 'SUCCESS.' }
+[2018-11-03T15:20:10.893] [INFO] log_file - Session Destroyed
+[2018-11-03T15:20:27.554] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T15:20:27.554] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T06:21:52.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T15:20:34.137] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '123456' }
+[2018-11-03T15:20:34.278] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-03T15:20:34.278] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T06:21:52.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T15:20:34.278] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-03T06:21:52.000Z,
+  password: '123456',
+  phone: '18280851691' }
+[2018-11-03T15:20:41.859] [INFO] log_file - [get] logout
+ {}
+[2018-11-03T15:20:41.859] [INFO] log_file - [res] { status: 'SUCCESS.', details: 'SUCCESS.' }
+[2018-11-03T15:20:41.875] [INFO] log_file - Session Destroyed
+[2018-11-03T15:20:56.834] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T15:20:56.834] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T06:21:52.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T15:21:04.104] [INFO] log_file - UPDATE users SET password = '111111' WHERE id = 27[FILLED.]
+[2018-11-03T15:21:04.104] [INFO] log_file - OkPacket {
+>>>>>>> feature-PhoneAndEmail
   fieldCount: 0,
   affectedRows: 1,
   insertId: 0,
@@ -4506,6 +5973,7 @@
   message: '(Rows matched: 1  Changed: 1  Warnings: 0',
   protocol41: true,
   changedRows: 1 }
+<<<<<<< HEAD
 [2018-11-01T10:46:32.650] [INFO] log_file - SELECT * FROM users WHERE id = 24[FILLED.]
 [2018-11-01T10:46:32.651] [INFO] log_file - [ RowDataPacket {
     id: 24,
@@ -9460,3 +10928,1290 @@
     message: '形势下',
     registration_date: 2018-10-31T14:44:06.000Z } ]
 [2018-11-01T10:56:22.198] [INFO] log_file - SELECT * FROM `wrong`[FAILED.]
+=======
+[2018-11-03T15:21:04.806] [INFO] log_file - [get] session
+ {}
+[2018-11-03T15:21:04.806] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T08:21:04.790Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '243748' }
+[2018-11-03T15:21:14.494] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '123456' }
+[2018-11-03T15:21:14.696] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-03T15:21:14.696] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T07:13:14.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+[2018-11-03T15:21:14.712] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-03T07:13:14.000Z,
+  password: '111111',
+  phone: '18280851691' }
+[2018-11-03T15:21:18.706] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '111111' }
+[2018-11-03T15:21:18.893] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-03T15:21:18.893] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T07:13:14.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+[2018-11-03T15:21:18.893] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-03T07:13:14.000Z,
+  password: '111111',
+  phone: '18280851691' }
+[2018-11-03T15:35:07.684] [INFO] log_file - [get] session
+ {}
+[2018-11-03T15:35:07.701] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T08:35:07.309Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T15:35:50.024] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T15:35:50.024] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T07:13:14.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+>>>>>>> feature-PhoneAndEmail
+[2018-11-03T15:54:16.614] [INFO] socket_log - >>a user connected
+[2018-11-03T15:54:16.630] [INFO] log_file - [get] session
+ {}
+[2018-11-03T15:54:16.630] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T08:54:16.302Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T15:54:34.072] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T15:54:34.072] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T07:13:14.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+[2018-11-03T15:59:37.963] [INFO] socket_log - >>a user connected
+[2018-11-03T15:59:40.818] [WARN] socket_log - >>a user disconnected
+[2018-11-03T15:59:41.301] [INFO] socket_log - >>a user connected
+[2018-11-03T15:59:41.317] [INFO] log_file - [get] session
+ {}
+[2018-11-03T15:59:41.317] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T08:59:40.943Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T16:00:10.126] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T16:00:10.126] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T07:13:14.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+[2018-11-03T16:01:54.093] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T16:01:54.093] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T07:13:14.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+[2018-11-03T16:06:30.255] [INFO] socket_log - >>a user connected
+[2018-11-03T16:06:37.487] [WARN] socket_log - >>a user disconnected
+[2018-11-03T16:06:38.033] [INFO] socket_log - >>a user connected
+[2018-11-03T16:06:38.049] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:06:38.049] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:06:37.674Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T16:06:50.444] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T16:06:50.444] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T07:13:14.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+[2018-11-03T16:08:00.603] [INFO] log_file - SELECT * from users WHERE phone = 17761159319[FILLED.]
+[2018-11-03T16:08:00.603] [INFO] log_file - []
+[2018-11-03T16:08:59.165] [INFO] log_file - SELECT * from users WHERE phone = 17761159319[FILLED.]
+[2018-11-03T16:08:59.181] [INFO] log_file - []
+[2018-11-03T16:11:12.038] [INFO] log_file - SELECT * from users WHERE phone = 17761159319[FILLED.]
+[2018-11-03T16:11:12.038] [INFO] log_file - []
+[2018-11-03T16:13:29.920] [INFO] socket_log - >>a user connected
+[2018-11-03T16:13:32.104] [WARN] socket_log - >>a user disconnected
+[2018-11-03T16:13:32.650] [INFO] socket_log - >>a user connected
+[2018-11-03T16:13:32.728] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:13:32.728] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:13:32.541Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T16:14:10.886] [INFO] log_file - SELECT * from users WHERE phone = 17761159319[FILLED.]
+[2018-11-03T16:14:10.886] [INFO] log_file - []
+[2018-11-03T16:14:33.018] [INFO] log_file - SELECT * from users WHERE phone = 17761159319[FILLED.]
+[2018-11-03T16:14:33.018] [INFO] log_file - []
+[2018-11-03T16:17:40.256] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T16:17:40.272] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T07:13:14.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+[2018-11-03T16:19:30.743] [INFO] socket_log - >>a user connected
+[2018-11-03T16:19:36.827] [WARN] socket_log - >>a user disconnected
+[2018-11-03T16:19:37.560] [INFO] socket_log - >>a user connected
+[2018-11-03T16:19:37.560] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:19:37.576] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:19:37.326Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T16:19:47.700] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T16:19:47.700] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T07:13:14.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+[2018-11-03T16:23:52.637] [INFO] socket_log - >>a user connected
+[2018-11-03T16:23:58.929] [WARN] socket_log - >>a user disconnected
+[2018-11-03T16:23:59.537] [INFO] socket_log - >>a user connected
+[2018-11-03T16:23:59.600] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:23:59.600] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:23:59.522Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T16:24:18.187] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T16:24:18.187] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T07:13:14.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+[2018-11-03T16:24:37.874] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '111111' }
+[2018-11-03T16:24:38.374] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-03T16:24:38.389] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T07:13:14.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+[2018-11-03T16:24:38.389] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-03T07:13:14.000Z,
+  password: '111111',
+  phone: '18280851691' }
+[2018-11-03T16:24:38.623] [WARN] socket_log - >>a user disconnected
+[2018-11-03T16:24:39.091] [INFO] log_file - select cl.id, cl.title, liveplayer_vid as lvid from lives l, classusers cu, classes cl where cu.user_id = 27 and cu.role = 1 and l.class = cu.class_id and cl.id = cu.class_id[FILLED.]
+[2018-11-03T16:24:39.091] [INFO] log_file - []
+[2018-11-03T16:24:39.169] [INFO] socket_log - >>a user connected
+[2018-11-03T16:24:39.200] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:24:39.200] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:24:39.185Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '544791',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  user_id: 27,
+  email: '584324893@qq.com' }
+[2018-11-03T16:24:39.700] [INFO] socket_log - >>received.
+[2018-11-03T16:24:40.152] [INFO] log_file - select cl.id, cl.title, liveplayer_vid as lvid from lives l, classusers cu, classes cl where cu.user_id = 27 and cu.role = 1 and l.class = cu.class_id and cl.id = cu.class_id[FILLED.]
+[2018-11-03T16:24:40.152] [INFO] log_file - []
+[2018-11-03T16:28:22.754] [INFO] socket_log - >>a user connected
+[2018-11-03T16:28:22.910] [INFO] socket_log - >>received.
+[2018-11-03T16:28:26.467] [WARN] socket_log - >>a user disconnected
+[2018-11-03T16:28:27.044] [INFO] socket_log - >>a user connected
+[2018-11-03T16:28:27.114] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:28:27.114] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:28:26.904Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T16:28:47.656] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T16:28:47.656] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T07:13:14.000Z,
+    password: '111111',
+    phone: '18280851691' } ]
+[2018-11-03T16:29:21.516] [INFO] log_file - UPDATE users SET password = '123456' WHERE id = 27[FILLED.]
+[2018-11-03T16:29:21.516] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1 }
+[2018-11-03T16:29:21.536] [WARN] socket_log - >>a user disconnected
+[2018-11-03T16:29:22.106] [INFO] socket_log - >>a user connected
+[2018-11-03T16:29:22.166] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:29:22.166] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:29:22.116Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '841213' }
+[2018-11-03T16:37:43.768] [INFO] socket_log - >>a user connected
+[2018-11-03T16:37:50.537] [WARN] socket_log - >>a user disconnected
+[2018-11-03T16:37:51.099] [INFO] socket_log - >>a user connected
+[2018-11-03T16:37:51.130] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:37:51.130] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:37:51.083Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T16:38:26.198] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T16:38:26.214] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T08:21:32.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T16:41:56.923] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '123456' }
+[2018-11-03T16:41:57.453] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-03T16:41:57.453] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T08:21:32.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T16:41:57.453] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-03T08:21:32.000Z,
+  password: '123456',
+  phone: '18280851691' }
+[2018-11-03T16:41:57.687] [WARN] socket_log - >>a user disconnected
+[2018-11-03T16:41:58.139] [INFO] log_file - select cl.id, cl.title, liveplayer_vid as lvid from lives l, classusers cu, classes cl where cu.user_id = 27 and cu.role = 1 and l.class = cu.class_id and cl.id = cu.class_id[FILLED.]
+[2018-11-03T16:41:58.139] [INFO] log_file - []
+[2018-11-03T16:41:58.334] [INFO] socket_log - >>a user connected
+[2018-11-03T16:41:58.354] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:41:58.354] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:41:58.354Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '644517',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  user_id: 27,
+  email: '584324893@qq.com' }
+[2018-11-03T16:41:58.814] [INFO] socket_log - >>received.
+[2018-11-03T16:41:59.264] [INFO] log_file - select cl.id, cl.title, liveplayer_vid as lvid from lives l, classusers cu, classes cl where cu.user_id = 27 and cu.role = 1 and l.class = cu.class_id and cl.id = cu.class_id[FILLED.]
+[2018-11-03T16:41:59.264] [INFO] log_file - []
+[2018-11-03T16:42:07.414] [INFO] log_file - select cl.id, cl.title, liveplayer_vid as lvid from lives l, classusers cu, classes cl where cu.user_id = 27 and cu.role = 1 and l.class = cu.class_id and cl.id = cu.class_id[FILLED.]
+[2018-11-03T16:42:07.414] [INFO] log_file - []
+[2018-11-03T16:42:07.434] [INFO] log_file - SELECT * FROM classes LIMIT 0,20[FILLED.]
+[2018-11-03T16:42:07.444] [INFO] log_file - [ RowDataPacket {
+    id: 7,
+    description: null,
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-25T01:27:03.000Z,
+    invitation_code: '5ZV4C5NBDF2PBNX7B0EK' },
+  RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' },
+  RowDataPacket {
+    id: 9,
+    description: null,
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-24T22:16:27.000Z,
+    invitation_code: 'Q9ZQ38JSEICQU340QLOK' },
+  RowDataPacket {
+    id: 10,
+    description: null,
+    notice: null,
+    title: 'aaaaa',
+    type: 1,
+    registration_date: 2018-10-27T19:17:21.000Z,
+    invitation_code: 'FMU3AKQY2F11G2TA96PV' },
+  RowDataPacket {
+    id: 11,
+    description: 'e3MFZkMiChJWxYWK',
+    notice: null,
+    title: 'new course',
+    type: 1,
+    registration_date: 2018-10-29T16:37:40.000Z,
+    invitation_code: '5VDMICA0HODEPY5I8INT' },
+  RowDataPacket {
+    id: 12,
+    description: 'cPhDMMjMWWFdG4bE',
+    notice: null,
+    title: 'New Course 2',
+    type: 1,
+    registration_date: 2018-10-29T18:00:26.000Z,
+    invitation_code: '8PLXC1M0WCNOX5LU70N3' },
+  RowDataPacket {
+    id: 13,
+    description: 'iHdDXSpbWCPYm5dS',
+    notice: 'kNPH3xpBFDbsw4zP',
+    title: 'asdsaddsa',
+    type: 1,
+    registration_date: 2018-10-29T18:03:38.000Z,
+    invitation_code: 'TPOIEEOV5ENBY06Y2QFI' },
+  RowDataPacket {
+    id: 14,
+    description: 'QyF3C4WaAfDTDAHD',
+    notice: 'cW6ePTMmbC5eZK8Y',
+    title: 'aaaaaa',
+    type: 1,
+    registration_date: 2018-11-01T03:18:36.000Z,
+    invitation_code: '5GSB1BAOZIOLSXI1P5QN' },
+  RowDataPacket {
+    id: 15,
+    description: 'QyF3C4WaAfDTDAHD',
+    notice: 'cW6ePTMmbC5eZK8Y',
+    title: 'aaaaaa',
+    type: 1,
+    registration_date: 2018-11-01T03:18:58.000Z,
+    invitation_code: 'MCIR5D636LN74KZ17FMO' },
+  RowDataPacket {
+    id: 16,
+    description: '6zGDRs46ByDMhpPw',
+    notice: '5sHBxrWTEFcnCFey',
+    title: 'asdfasdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:21:32.000Z,
+    invitation_code: '88SB8W1WQCI0FDD5BHP8' },
+  RowDataPacket {
+    id: 17,
+    description: 'zdK3QPPdZMcZYGzm',
+    notice: '6eWxJci7eK2BEawN',
+    title: 'asdfasdfasd',
+    type: 1,
+    registration_date: 2018-11-01T03:22:18.000Z,
+    invitation_code: 'AU6WS3SS6TYRDWDIIDOU' },
+  RowDataPacket {
+    id: 18,
+    description: 'kXS2ytsni8ipBKsE',
+    notice: 'dsrw3jtPsf2tym5F',
+    title: 'asdfasdfasdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:22:54.000Z,
+    invitation_code: 'ET5EH1BJQYMQDA2UOTSA' },
+  RowDataPacket {
+    id: 19,
+    description: 'GJ7HBERYWE2sEWtx',
+    notice: 'SyDDSjdbjGbhT24x',
+    title: 'ffffffff',
+    type: 1,
+    registration_date: 2018-11-01T03:23:23.000Z,
+    invitation_code: 'XC1AR9483NFSY5KZUA46' },
+  RowDataPacket {
+    id: 20,
+    description: 'JXTKTsfPe4aakFCd',
+    notice: 'Mca84exrHnkA8WC8',
+    title: '环境污染事件与应急响应',
+    type: 1,
+    registration_date: 2018-11-01T05:53:35.000Z,
+    invitation_code: 'H68C3WQPBPYF6RJT2W0L' },
+  RowDataPacket {
+    id: 21,
+    description: 'Z4TcyCMmANZHsas2',
+    notice: '4P5eC2WaBJCcDPnE',
+    title: 'asdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:31:14.000Z,
+    invitation_code: '11AQ9741JUQM611586MD' },
+  RowDataPacket {
+    id: 22,
+    description: 'Z4TcyCMmANZHsas2',
+    notice: '4P5eC2WaBJCcDPnE',
+    title: 'asdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:33:14.000Z,
+    invitation_code: 'PAN09OGMHBNNAUK3BBYL' },
+  RowDataPacket {
+    id: 23,
+    description: 'Pz5XGncrmM3rBN5n',
+    notice: 'KxyEDGrpwxzkaSbD',
+    title: 'asdfasdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:34:46.000Z,
+    invitation_code: 'LDWJ3WP9NZ8X6KDZ0BGB' },
+  RowDataPacket {
+    id: 24,
+    description: 'kDrCtAaHQ6CJEaKx',
+    notice: 'D2Jawwd8eFmipz62',
+    title: 'asdfasdfasdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:35:40.000Z,
+    invitation_code: 'DNG059XEOA90BZRP403R' },
+  RowDataPacket {
+    id: 25,
+    description: 'kDrCtAaHQ6CJEaKx',
+    notice: 'D2Jawwd8eFmipz62',
+    title: 'asdfasdfasdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:35:40.000Z,
+    invitation_code: 'NEQWB1V8QUA3WN72OMIN' },
+  RowDataPacket {
+    id: 26,
+    description: 'kDrCtAaHQ6CJEaKx',
+    notice: 'D2Jawwd8eFmipz62',
+    title: 'asdfasdfasdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:37:40.000Z,
+    invitation_code: 'MHWMFMH71XBUL2SMNZVU' } ]
+[2018-11-03T16:42:15.444] [INFO] log_file - SELECT resource FROM resources WHERE `class_id` = '9'[FILLED.]
+[2018-11-03T16:42:15.444] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'materials' } ]
+[2018-11-03T16:42:15.454] [INFO] log_file - SELECT * FROM classes WHERE id = '9'[FILLED.]
+[2018-11-03T16:42:15.454] [INFO] log_file - [ RowDataPacket {
+    id: 9,
+    description: null,
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-24T22:16:27.000Z,
+    invitation_code: 'Q9ZQ38JSEICQU340QLOK' } ]
+[2018-11-03T16:42:15.584] [INFO] log_file - SELECT resource from resources WHERE class_id = '9'[FILLED.]
+[2018-11-03T16:42:15.584] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'materials' } ]
+[2018-11-03T16:42:15.964] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 27 AND class_id = '9'[FILLED.]
+[2018-11-03T16:42:15.964] [INFO] log_file - []
+[2018-11-03T16:42:16.084] [INFO] log_file - SELECT content FROM `contents` WHERE `code`=NULL[FILLED.]
+[2018-11-03T16:42:16.084] [INFO] log_file - []
+[2018-11-03T16:42:16.084] [INFO] log_file - SELECT content FROM `contents` WHERE `code`=NULL[FILLED.]
+[2018-11-03T16:42:16.094] [INFO] log_file - []
+[2018-11-03T16:42:16.774] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:42:16.774] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:42:16.684Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '644517',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  user_id: 27,
+  email: '584324893@qq.com' }
+[2018-11-03T16:42:17.304] [INFO] log_file - SELECT * FROM forums WHERE classid = 9[FILLED.]
+[2018-11-03T16:42:17.304] [INFO] log_file - [ RowDataPacket {
+    id: 36,
+    userid: 1,
+    classid: 9,
+    message: 'asdasd',
+    registration_date: 2018-10-25T07:51:27.000Z },
+  RowDataPacket {
+    id: 37,
+    userid: 1,
+    classid: 9,
+    message: 'asdasd',
+    registration_date: 2018-10-25T07:51:27.000Z },
+  RowDataPacket {
+    id: 38,
+    userid: 1,
+    classid: 9,
+    message: 'asdasd',
+    registration_date: 2018-10-25T07:51:48.000Z },
+  RowDataPacket {
+    id: 39,
+    userid: 1,
+    classid: 9,
+    message: 'asd',
+    registration_date: 2018-10-25T07:51:53.000Z } ]
+[2018-11-03T16:42:22.684] [INFO] log_file - select * from bannedlist where userid = 27 and classid = 9[FILLED.]
+[2018-11-03T16:42:22.684] [INFO] log_file - []
+[2018-11-03T16:42:22.824] [INFO] log_file - insert into forums (`userid`, `classid`, `message`, `registration_date`) VALUES ("27","9","hahaha",'2018-11-03 16:42:22.154')[FILLED.]
+[2018-11-03T16:42:22.824] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 44,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-11-03T16:42:22.844] [WARN] socket_log - >>a user disconnected
+[2018-11-03T16:42:23.464] [INFO] socket_log - >>a user connected
+[2018-11-03T16:42:23.654] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:42:23.654] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:42:23.394Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '644517',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  user_id: 27,
+  email: '584324893@qq.com' }
+[2018-11-03T16:42:23.884] [INFO] socket_log - >>received.
+[2018-11-03T16:42:23.884] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:42:23.884] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:42:23.744Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '644517',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  user_id: 27,
+  email: '584324893@qq.com' }
+[2018-11-03T16:42:24.414] [INFO] log_file - SELECT resource FROM resources WHERE `class_id` = '9'[FILLED.]
+[2018-11-03T16:42:24.424] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'materials' } ]
+[2018-11-03T16:42:24.594] [INFO] log_file - SELECT * FROM forums WHERE classid = 9[FILLED.]
+[2018-11-03T16:42:24.604] [INFO] log_file - [ RowDataPacket {
+    id: 36,
+    userid: 1,
+    classid: 9,
+    message: 'asdasd',
+    registration_date: 2018-10-25T07:51:27.000Z },
+  RowDataPacket {
+    id: 37,
+    userid: 1,
+    classid: 9,
+    message: 'asdasd',
+    registration_date: 2018-10-25T07:51:27.000Z },
+  RowDataPacket {
+    id: 38,
+    userid: 1,
+    classid: 9,
+    message: 'asdasd',
+    registration_date: 2018-10-25T07:51:48.000Z },
+  RowDataPacket {
+    id: 39,
+    userid: 1,
+    classid: 9,
+    message: 'asd',
+    registration_date: 2018-10-25T07:51:53.000Z },
+  RowDataPacket {
+    id: 44,
+    userid: 27,
+    classid: 9,
+    message: 'hahaha',
+    registration_date: 2018-11-03T08:42:22.000Z } ]
+[2018-11-03T16:42:24.964] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 27 AND class_id = '9'[FILLED.]
+[2018-11-03T16:42:24.964] [INFO] log_file - []
+[2018-11-03T16:42:30.984] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:42:30.984] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:42:30.894Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '644517',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  user_id: 27,
+  email: '584324893@qq.com' }
+[2018-11-03T16:42:31.594] [INFO] log_file - SELECT * FROM posts WHERE forumid = 44[FILLED.]
+[2018-11-03T16:42:31.594] [INFO] log_file - []
+[2018-11-03T16:42:34.624] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:42:34.624] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:42:31.594Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '644517',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  user_id: 27,
+  email: '584324893@qq.com' }
+[2018-11-03T16:42:35.174] [INFO] log_file - SELECT * FROM forums WHERE classid = 9[FILLED.]
+[2018-11-03T16:42:35.174] [INFO] log_file - [ RowDataPacket {
+    id: 36,
+    userid: 1,
+    classid: 9,
+    message: 'asdasd',
+    registration_date: 2018-10-25T07:51:27.000Z },
+  RowDataPacket {
+    id: 37,
+    userid: 1,
+    classid: 9,
+    message: 'asdasd',
+    registration_date: 2018-10-25T07:51:27.000Z },
+  RowDataPacket {
+    id: 38,
+    userid: 1,
+    classid: 9,
+    message: 'asdasd',
+    registration_date: 2018-10-25T07:51:48.000Z },
+  RowDataPacket {
+    id: 39,
+    userid: 1,
+    classid: 9,
+    message: 'asd',
+    registration_date: 2018-10-25T07:51:53.000Z },
+  RowDataPacket {
+    id: 44,
+    userid: 27,
+    classid: 9,
+    message: 'hahaha',
+    registration_date: 2018-11-03T08:42:22.000Z } ]
+[2018-11-03T16:42:40.474] [INFO] log_file - select * from bannedlist where userid = 27 and classid = 9[FILLED.]
+[2018-11-03T16:42:40.474] [INFO] log_file - []
+[2018-11-03T16:42:40.614] [INFO] log_file - insert into forums (`userid`, `classid`, `message`, `registration_date`) VALUES ("27","9","123456",'2018-11-03 16:42:39.964')[FILLED.]
+[2018-11-03T16:42:40.624] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 45,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-11-03T16:42:40.644] [WARN] socket_log - >>a user disconnected
+[2018-11-03T16:42:41.174] [INFO] socket_log - >>a user connected
+[2018-11-03T16:42:41.264] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:42:41.264] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:42:41.194Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '644517',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  user_id: 27,
+  email: '584324893@qq.com' }
+[2018-11-03T16:42:41.616] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:42:41.616] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:42:41.404Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '644517',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  user_id: 27,
+  email: '584324893@qq.com' }
+[2018-11-03T16:42:41.656] [INFO] socket_log - >>received.
+[2018-11-03T16:42:42.206] [INFO] log_file - SELECT resource FROM resources WHERE `class_id` = '9'[FILLED.]
+[2018-11-03T16:42:42.206] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'materials' } ]
+[2018-11-03T16:42:42.506] [INFO] log_file - SELECT * FROM forums WHERE classid = 9[FILLED.]
+[2018-11-03T16:42:42.506] [INFO] log_file - [ RowDataPacket {
+    id: 36,
+    userid: 1,
+    classid: 9,
+    message: 'asdasd',
+    registration_date: 2018-10-25T07:51:27.000Z },
+  RowDataPacket {
+    id: 37,
+    userid: 1,
+    classid: 9,
+    message: 'asdasd',
+    registration_date: 2018-10-25T07:51:27.000Z },
+  RowDataPacket {
+    id: 38,
+    userid: 1,
+    classid: 9,
+    message: 'asdasd',
+    registration_date: 2018-10-25T07:51:48.000Z },
+  RowDataPacket {
+    id: 39,
+    userid: 1,
+    classid: 9,
+    message: 'asd',
+    registration_date: 2018-10-25T07:51:53.000Z },
+  RowDataPacket {
+    id: 44,
+    userid: 27,
+    classid: 9,
+    message: 'hahaha',
+    registration_date: 2018-11-03T08:42:22.000Z },
+  RowDataPacket {
+    id: 45,
+    userid: 27,
+    classid: 9,
+    message: '123456',
+    registration_date: 2018-11-03T08:42:40.000Z } ]
+[2018-11-03T16:42:43.376] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 27 AND class_id = '9'[FILLED.]
+[2018-11-03T16:42:43.376] [INFO] log_file - []
+[2018-11-03T16:42:43.766] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:42:43.766] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:42:43.726Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.',
+  code_generated: '644517',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  user_id: 27,
+  email: '584324893@qq.com' }
+[2018-11-03T16:42:45.226] [INFO] log_file - SELECT * FROM posts WHERE forumid = 45[FILLED.]
+[2018-11-03T16:42:45.226] [INFO] log_file - []
+[2018-11-03T16:42:51.576] [INFO] log_file - insert into posts (`userid`, `forumid`, `message`, `registration_date`) VALUES ("27","45","123",'2018-11-03 16:42:51.076')[FILLED.]
+[2018-11-03T16:42:51.586] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 35,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-11-03T16:43:11.155] [INFO] log_file - insert into posts (`userid`, `forumid`, `message`, `registration_date`) VALUES ("27","45","123",'2018-11-03 16:43:10.656')[FILLED.]
+[2018-11-03T16:43:11.170] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 36,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-11-03T16:55:07.660] [INFO] socket_log - >>a user connected
+[2018-11-03T16:55:07.691] [INFO] socket_log - >>received.
+[2018-11-03T16:55:11.591] [WARN] socket_log - >>a user disconnected
+[2018-11-03T16:55:12.309] [INFO] socket_log - >>a user connected
+[2018-11-03T16:55:12.309] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:55:12.309] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:55:12.075Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T16:55:22.355] [INFO] log_file - [post] login
+ { nickname: 'liuzhiqiang', password: '123456' }
+[2018-11-03T16:55:22.948] [INFO] log_file - SELECT * FROM users WHERE nickname = 'liuzhiqiang'[FILLED.]
+[2018-11-03T16:55:22.948] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T08:21:32.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T16:55:22.948] [INFO] log_file - Found: RowDataPacket {
+  id: 27,
+  email: '584324893@qq.com',
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  motto: 'hahahaha',
+  registration_date: 2018-11-03T08:21:32.000Z,
+  password: '123456',
+  phone: '18280851691' }
+[2018-11-03T16:55:23.198] [WARN] socket_log - >>a user disconnected
+[2018-11-03T16:55:23.666] [INFO] log_file - select cl.id, cl.title, liveplayer_vid as lvid from lives l, classusers cu, classes cl where cu.user_id = 27 and cu.role = 1 and l.class = cu.class_id and cl.id = cu.class_id[FILLED.]
+[2018-11-03T16:55:23.666] [INFO] log_file - []
+[2018-11-03T16:55:23.744] [INFO] socket_log - >>a user connected
+[2018-11-03T16:55:23.775] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:55:23.775] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:55:23.759Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  user_id: 27,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.' }
+[2018-11-03T16:55:24.322] [INFO] socket_log - >>received.
+[2018-11-03T16:55:24.772] [INFO] log_file - select cl.id, cl.title, liveplayer_vid as lvid from lives l, classusers cu, classes cl where cu.user_id = 27 and cu.role = 1 and l.class = cu.class_id and cl.id = cu.class_id[FILLED.]
+[2018-11-03T16:55:24.772] [INFO] log_file - []
+[2018-11-03T16:55:30.994] [INFO] log_file - SELECT * FROM classes LIMIT 0,20[FILLED.]
+[2018-11-03T16:55:30.994] [INFO] log_file - [ RowDataPacket {
+    id: 7,
+    description: null,
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-25T01:27:03.000Z,
+    invitation_code: '5ZV4C5NBDF2PBNX7B0EK' },
+  RowDataPacket {
+    id: 8,
+    description: '测试一下。',
+    notice: null,
+    title: 'james‘ course',
+    type: 1,
+    registration_date: 2018-10-24T19:15:25.000Z,
+    invitation_code: 'RX7JCWZ2LPSPQHPA171J' },
+  RowDataPacket {
+    id: 9,
+    description: null,
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-24T22:16:27.000Z,
+    invitation_code: 'Q9ZQ38JSEICQU340QLOK' },
+  RowDataPacket {
+    id: 10,
+    description: null,
+    notice: null,
+    title: 'aaaaa',
+    type: 1,
+    registration_date: 2018-10-27T19:17:21.000Z,
+    invitation_code: 'FMU3AKQY2F11G2TA96PV' },
+  RowDataPacket {
+    id: 11,
+    description: 'e3MFZkMiChJWxYWK',
+    notice: null,
+    title: 'new course',
+    type: 1,
+    registration_date: 2018-10-29T16:37:40.000Z,
+    invitation_code: '5VDMICA0HODEPY5I8INT' },
+  RowDataPacket {
+    id: 12,
+    description: 'cPhDMMjMWWFdG4bE',
+    notice: null,
+    title: 'New Course 2',
+    type: 1,
+    registration_date: 2018-10-29T18:00:26.000Z,
+    invitation_code: '8PLXC1M0WCNOX5LU70N3' },
+  RowDataPacket {
+    id: 13,
+    description: 'iHdDXSpbWCPYm5dS',
+    notice: 'kNPH3xpBFDbsw4zP',
+    title: 'asdsaddsa',
+    type: 1,
+    registration_date: 2018-10-29T18:03:38.000Z,
+    invitation_code: 'TPOIEEOV5ENBY06Y2QFI' },
+  RowDataPacket {
+    id: 14,
+    description: 'QyF3C4WaAfDTDAHD',
+    notice: 'cW6ePTMmbC5eZK8Y',
+    title: 'aaaaaa',
+    type: 1,
+    registration_date: 2018-11-01T03:18:36.000Z,
+    invitation_code: '5GSB1BAOZIOLSXI1P5QN' },
+  RowDataPacket {
+    id: 15,
+    description: 'QyF3C4WaAfDTDAHD',
+    notice: 'cW6ePTMmbC5eZK8Y',
+    title: 'aaaaaa',
+    type: 1,
+    registration_date: 2018-11-01T03:18:58.000Z,
+    invitation_code: 'MCIR5D636LN74KZ17FMO' },
+  RowDataPacket {
+    id: 16,
+    description: '6zGDRs46ByDMhpPw',
+    notice: '5sHBxrWTEFcnCFey',
+    title: 'asdfasdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:21:32.000Z,
+    invitation_code: '88SB8W1WQCI0FDD5BHP8' },
+  RowDataPacket {
+    id: 17,
+    description: 'zdK3QPPdZMcZYGzm',
+    notice: '6eWxJci7eK2BEawN',
+    title: 'asdfasdfasd',
+    type: 1,
+    registration_date: 2018-11-01T03:22:18.000Z,
+    invitation_code: 'AU6WS3SS6TYRDWDIIDOU' },
+  RowDataPacket {
+    id: 18,
+    description: 'kXS2ytsni8ipBKsE',
+    notice: 'dsrw3jtPsf2tym5F',
+    title: 'asdfasdfasdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:22:54.000Z,
+    invitation_code: 'ET5EH1BJQYMQDA2UOTSA' },
+  RowDataPacket {
+    id: 19,
+    description: 'GJ7HBERYWE2sEWtx',
+    notice: 'SyDDSjdbjGbhT24x',
+    title: 'ffffffff',
+    type: 1,
+    registration_date: 2018-11-01T03:23:23.000Z,
+    invitation_code: 'XC1AR9483NFSY5KZUA46' },
+  RowDataPacket {
+    id: 20,
+    description: 'JXTKTsfPe4aakFCd',
+    notice: 'Mca84exrHnkA8WC8',
+    title: '环境污染事件与应急响应',
+    type: 1,
+    registration_date: 2018-11-01T05:53:35.000Z,
+    invitation_code: 'H68C3WQPBPYF6RJT2W0L' },
+  RowDataPacket {
+    id: 21,
+    description: 'Z4TcyCMmANZHsas2',
+    notice: '4P5eC2WaBJCcDPnE',
+    title: 'asdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:31:14.000Z,
+    invitation_code: '11AQ9741JUQM611586MD' },
+  RowDataPacket {
+    id: 22,
+    description: 'Z4TcyCMmANZHsas2',
+    notice: '4P5eC2WaBJCcDPnE',
+    title: 'asdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:33:14.000Z,
+    invitation_code: 'PAN09OGMHBNNAUK3BBYL' },
+  RowDataPacket {
+    id: 23,
+    description: 'Pz5XGncrmM3rBN5n',
+    notice: 'KxyEDGrpwxzkaSbD',
+    title: 'asdfasdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:34:46.000Z,
+    invitation_code: 'LDWJ3WP9NZ8X6KDZ0BGB' },
+  RowDataPacket {
+    id: 24,
+    description: 'kDrCtAaHQ6CJEaKx',
+    notice: 'D2Jawwd8eFmipz62',
+    title: 'asdfasdfasdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:35:40.000Z,
+    invitation_code: 'DNG059XEOA90BZRP403R' },
+  RowDataPacket {
+    id: 25,
+    description: 'kDrCtAaHQ6CJEaKx',
+    notice: 'D2Jawwd8eFmipz62',
+    title: 'asdfasdfasdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:35:40.000Z,
+    invitation_code: 'NEQWB1V8QUA3WN72OMIN' },
+  RowDataPacket {
+    id: 26,
+    description: 'kDrCtAaHQ6CJEaKx',
+    notice: 'D2Jawwd8eFmipz62',
+    title: 'asdfasdfasdfasdf',
+    type: 1,
+    registration_date: 2018-11-01T03:37:40.000Z,
+    invitation_code: 'MHWMFMH71XBUL2SMNZVU' } ]
+[2018-11-03T16:55:31.025] [INFO] log_file - select cl.id, cl.title, liveplayer_vid as lvid from lives l, classusers cu, classes cl where cu.user_id = 27 and cu.role = 1 and l.class = cu.class_id and cl.id = cu.class_id[FILLED.]
+[2018-11-03T16:55:31.025] [INFO] log_file - []
+[2018-11-03T16:55:33.427] [INFO] log_file - SELECT resource FROM resources WHERE `class_id` = '9'[FILLED.]
+[2018-11-03T16:55:33.427] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'materials' } ]
+[2018-11-03T16:55:33.427] [INFO] log_file - SELECT * FROM classes WHERE id = '9'[FILLED.]
+[2018-11-03T16:55:33.427] [INFO] log_file - [ RowDataPacket {
+    id: 9,
+    description: null,
+    notice: null,
+    title: '123',
+    type: 1,
+    registration_date: 2018-10-24T22:16:27.000Z,
+    invitation_code: 'Q9ZQ38JSEICQU340QLOK' } ]
+[2018-11-03T16:55:33.552] [INFO] log_file - SELECT resource from resources WHERE class_id = '9'[FILLED.]
+[2018-11-03T16:55:33.552] [INFO] log_file - [ RowDataPacket { resource: 'details' },
+  RowDataPacket { resource: 'participants' },
+  RowDataPacket { resource: 'settings' },
+  RowDataPacket { resource: 'chatting_room' },
+  RowDataPacket { resource: 'materials' } ]
+[2018-11-03T16:55:33.942] [INFO] log_file - SELECT * FROM classusers WHERE user_id = 27 AND class_id = '9'[FILLED.]
+[2018-11-03T16:55:33.942] [INFO] log_file - []
+[2018-11-03T16:55:34.098] [INFO] log_file - SELECT content FROM `contents` WHERE `code`=NULL[FILLED.]
+[2018-11-03T16:55:34.098] [INFO] log_file - []
+[2018-11-03T16:55:34.114] [INFO] log_file - SELECT content FROM `contents` WHERE `code`=NULL[FILLED.]
+[2018-11-03T16:55:34.114] [INFO] log_file - []
+[2018-11-03T16:55:34.925] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:55:34.925] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:55:34.894Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  user_id: 27,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.' }
+[2018-11-03T16:55:35.455] [INFO] log_file - SELECT * FROM forums WHERE classid = 9[FILLED.]
+[2018-11-03T16:55:35.471] [INFO] log_file - [ RowDataPacket {
+    id: 36,
+    userid: 1,
+    classid: 9,
+    message: 'asdasd',
+    registration_date: 2018-10-25T07:51:27.000Z },
+  RowDataPacket {
+    id: 37,
+    userid: 1,
+    classid: 9,
+    message: 'asdasd',
+    registration_date: 2018-10-25T07:51:27.000Z },
+  RowDataPacket {
+    id: 38,
+    userid: 1,
+    classid: 9,
+    message: 'asdasd',
+    registration_date: 2018-10-25T07:51:48.000Z },
+  RowDataPacket {
+    id: 39,
+    userid: 1,
+    classid: 9,
+    message: 'asd',
+    registration_date: 2018-10-25T07:51:53.000Z },
+  RowDataPacket {
+    id: 44,
+    userid: 27,
+    classid: 9,
+    message: 'hahaha',
+    registration_date: 2018-11-03T08:42:22.000Z },
+  RowDataPacket {
+    id: 45,
+    userid: 27,
+    classid: 9,
+    message: '123456',
+    registration_date: 2018-11-03T08:42:40.000Z } ]
+[2018-11-03T16:55:39.090] [INFO] log_file - [get] session
+ {}
+[2018-11-03T16:55:39.106] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T09:55:38.996Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  nickname: 'liuzhiqiang',
+  realname: 'liuzhiqiang',
+  role: 1,
+  user_id: 27,
+  email: '584324893@qq.com',
+  status: 'SUCCESS.' }
+[2018-11-03T16:55:39.652] [INFO] log_file - SELECT * FROM posts WHERE forumid = 44[FILLED.]
+[2018-11-03T16:55:39.652] [INFO] log_file - []
+[2018-11-03T16:56:43.341] [INFO] log_file - insert into posts (`userid`, `forumid`, `message`, `registration_date`) VALUES ("27","44","111",'2018-11-03 16:56:42.795')[FILLED.]
+[2018-11-03T16:56:43.341] [INFO] log_file - OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 37,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+[2018-11-03T16:58:09.703] [INFO] log_file - [get] logout
+ {}
+[2018-11-03T16:58:09.703] [INFO] log_file - [res] { status: 'SUCCESS.', details: 'SUCCESS.' }
+[2018-11-03T16:58:09.703] [INFO] log_file - Session Destroyed
+[2018-11-03T16:58:42.947] [INFO] log_file - SELECT * from users WHERE phone = 18811310530[FILLED.]
+[2018-11-03T16:58:42.963] [INFO] log_file - []
+[2018-11-03T16:58:48.797] [INFO] log_file - SELECT * from users WHERE phone = 18811310530[FILLED.]
+[2018-11-03T16:58:48.797] [INFO] log_file - []
+[2018-11-03T16:59:13.200] [INFO] log_file - SELECT * from users WHERE phone = 18811310530[FILLED.]
+[2018-11-03T16:59:13.200] [INFO] log_file - []
+[2018-11-03T16:59:24.229] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T16:59:24.229] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T08:21:32.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T17:01:04.238] [INFO] log_file - SELECT * from users WHERE phone = 18811310530[FILLED.]
+[2018-11-03T17:01:04.238] [INFO] log_file - []
+[2018-11-03T17:01:54.090] [INFO] log_file - SELECT * from users WHERE phone = 18811310530[FILLED.]
+[2018-11-03T17:01:54.090] [INFO] log_file - []
+[2018-11-03T17:02:11.827] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T17:02:11.827] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T08:21:32.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T17:05:16.422] [INFO] socket_log - >>a user connected
+[2018-11-03T17:05:28.184] [INFO] log_file - SELECT * from users WHERE phone = 18280851691[FILLED.]
+[2018-11-03T17:05:28.184] [INFO] log_file - [ RowDataPacket {
+    id: 27,
+    email: '584324893@qq.com',
+    nickname: 'liuzhiqiang',
+    realname: 'liuzhiqiang',
+    role: 1,
+    motto: 'hahahaha',
+    registration_date: 2018-11-03T08:21:32.000Z,
+    password: '123456',
+    phone: '18280851691' } ]
+[2018-11-03T17:05:40.321] [INFO] log_file - SELECT * from users WHERE phone = 13550798569[FILLED.]
+[2018-11-03T17:05:40.321] [INFO] log_file - []
+[2018-11-03T17:15:28.481] [INFO] socket_log - >>a user connected
+[2018-11-03T17:15:34.605] [WARN] socket_log - >>a user disconnected
+[2018-11-03T17:15:35.248] [INFO] socket_log - >>a user connected
+[2018-11-03T17:15:35.448] [INFO] log_file - [get] session
+ {}
+[2018-11-03T17:15:35.448] [INFO] log_file - [res] Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-11-03T10:15:35.218Z,
+     originalMaxAge: 3600000,
+     httpOnly: true },
+  status: 'SUCCESS.' }
+[2018-11-03T17:15:58.658] [INFO] log_file - SELECT * from users WHERE phone = 17761159319[FILLED.]
+[2018-11-03T17:15:58.658] [INFO] log_file - []
+[2018-11-03T17:16:33.559] [WARN] socket_log - >>a user disconnected

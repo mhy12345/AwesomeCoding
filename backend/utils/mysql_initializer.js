@@ -3,11 +3,26 @@ var mysql_config = require('../configures/database.config.js');
 var async = require('async');
 
 var log4js = require("log4js");
-var log4js_config = require("../configures/log.config.js").runtime_configure;
+var log4js_config = require("../configures/log.config.js").database_configure;
 log4js.configure(log4js_config);
-var logger = log4js.getLogger('log_file')
+var logger = log4js.getLogger('database')
 
 var sqls = {
+	'create_program_problem_answer_table' : "CREATE TABLE IF NOT EXISTS `program_problem_answers` (" + 
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
+		"`code` CHAR(20) NOT NULL, " +
+		"`problem_code` CHAR(20) NOT NULL, " +
+		"`user_id` INT UNSIGNED NOT NULL, " +
+		"PRIMARY KEY (`id`) " +
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+	'create_program_problem_table' : "CREATE TABLE IF NOT EXISTS `program_problems` (" +
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
+		"`code` CHAR(20) NOT NULL, " +
+		"`description` CHAR(20) NOT NULL, " +
+		"`answer_program_id` CHAR(20) NOT NULL, " +
+		"`solution` CHAR(20) NOT NULL, " +
+		"PRIMARY KEY (`id`) " +
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
 	'create_choice_problem_answer_table' : "CREATE TABLE IF NOT EXISTS `choice_problem_answers` (" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`user_id` INT UNSIGNED NOT NULL, " +
@@ -132,6 +147,7 @@ var sqls = {
 		"`class` INT UNSIGNED NOT NULL, "+ // 课程编号
 		"`liveplayer_uid` VARCHAR(50), "+ // 其对应的直播uid
 		"`liveplayer_vid` VARCHAR(50), "+ // 其对应的直播vid
+		"`password` VARCHAR(50), "		+ // 其对应的密码
 		"PRIMARY KEY (`id`) "+
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;" ,
 	'create_database' : 'CREATE DATABASE ' + mysql_config.database,
@@ -147,7 +163,7 @@ function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新�
 		};
 		sqls['create_database'] = 'CREATE DATABASE ' + mysql_config.database;
 		sqls['use_database'] = 'USE ' + mysql_config.database;
-		logger.info(cfg);
+		logger.debug(cfg);
 		let conn = mysql.createConnection(cfg);
 		conn.connect(function (err) {
 			if (err) {
@@ -170,6 +186,8 @@ function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新�
 				'create_problem_table',
 				'create_choice_problem_table', 
 				'create_choice_problem_answer_table', 
+				'create_program_problem_table', 
+				'create_program_problem_answer_table', 
 				'create_class_file_table', 
 				'create_posts', 
 				'create_lives',
@@ -178,8 +196,7 @@ function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新�
 				tasks = ['create_database'].concat(tasks);
 			}
 			async.eachSeries(tasks, function (item, next) {
-				console.log(sqls[item]);
-				logger.info(item + " ==> " + sqls[item]);
+				logger.debug(item + " ==> " + sqls[item]);
 				conn.query(sqls[item], function (err, res) {
 					if (err) {
 						next({

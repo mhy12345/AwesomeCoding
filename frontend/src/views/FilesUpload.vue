@@ -44,7 +44,7 @@
                 // 上传成功在表单的某个字段里加一个值
                 if (response.message !== "File uploaded successfully") {
                     fileList.pop();
-                    assert("文件上传失败！");
+                    this.$message("文件上传失败！");
                 }
 
             },

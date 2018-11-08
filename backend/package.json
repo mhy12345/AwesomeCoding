@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
-		"test": "nyc --reporter=lcov --reporter=text mocha",
+		"test": "nyc --reporter=lcov --reporter=text mocha --exit",
 		"lint": "eslint --ext .js ./routes"
 	},
 	"dependencies": {
@@ -16,6 +16,7 @@
 		"express": "~4.16.0",
 		"express-session": "^1.15.6",
 		"express-socket.io-session": "^1.3.5",
+		"fs": "0.0.1-security",
 		"http-errors": "~1.6.2",
 		"jade": "~1.11.0",
 		"log4js": "^3.0.6",

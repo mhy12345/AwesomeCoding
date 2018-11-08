@@ -1,9 +1,12 @@
 /* eslint-disable camelcase,no-undef */
+<<<<<<< HEAD
 //var root_url = require('../../config/http_root_url');
 var root_url = '';
+=======
+>>>>>>> release-version-3.0
 
 function getSQL(parent, query) { // 使用ajax，向后端数据库发出 query 请求，然后回调 handleResponse 处理响应
-    var query_url = root_url + '/api' + query;
+    var query_url = '/api' + query;
     console.log('[get] request sent!', query_url);
     return parent.$http.get(query_url).then((res) => {
         console.log(res);
@@ -17,15 +20,15 @@ function getSQL(parent, query) { // 使用ajax，向后端数据库发出 query 
     });
 }
 
-function getSQLColumns(parent, table_name) { // 加载表头
+function getSQLColumns (parent, table_name) { // 加载表头
     return getSQL(parent, "/developer/show_columns?table_name=" + table_name);
 }
 
-function showSQL(parent, table_name) {
+function showSQL (parent, table_name) {
     return getSQL(parent, "/developer/show_table?table_name=" + table_name);
 }
 
-function insertSQL(parent, table_name, new_row) {
+function insertSQL (parent, table_name, new_row) {
     var query = "/developer/do_query?sql=INSERT INTO " + table_name + " ";
     var values = [];
     var item;
@@ -40,12 +43,12 @@ function insertSQL(parent, table_name, new_row) {
     return getSQL(parent, query);
 }
 
-function deleteSQL(parent, table_name, id) {
+function deleteSQL (parent, table_name, id) {
     var query = "/developer/do_query?sql=DELETE FROM " + table_name + " WHERE id = " + id;
     return getSQL(parent, query);
 }
 
-function updateSQL(parent, table_name, row) {
+function updateSQL (parent, table_name, row) {
     var item;
     var query = "/developer/do_query?sql=UPDATE " + table_name + " SET ";
     var arr = [];
@@ -62,7 +65,7 @@ function updateSQL(parent, table_name, row) {
 }
 
 function postSQL(parent, query, params) { // 向服务器发出post请求
-    var query_url = root_url + '/api' + query;
+    var query_url = '/api' + query;
     console.log('[post] request sent!', query_url, params);
     return parent.$http.post(query_url, params).then((resp) => {
         console.log(resp);
@@ -76,23 +79,39 @@ function postSQL(parent, query, params) { // 向服务器发出post请求
     });
 }
 
-function loginSQL(parent, user) {
+function loginSQL (parent, user) {
     return postSQL(parent, "/user/login", user);
 }
 
-function registerSQL(parent, user) {
+function registerSQL (parent, user) {
     return postSQL(parent, "/user/register", user);
+}
+
+function forgetPasswordSQL (parent, user) {
+    return postSQL(parent, "/user/forgetPassword", user);
+}
+
+function queryPhoneSQL(parent, user) {
+    return postSQL(parent, "/user/queryPhone", user);
+}
+
+function queryPhoneExistSQL(parent, user) {
+    return postSQL(parent, "/user/queryPhoneExist", user);
+}
+
+function changePasswordSQL(parent, user) {
+    return postSQL(parent, "/user/changePassword", user);
 }
 
 function changeSQL(parent, user) {
     return postSQL(parent, "/user/change", user);
 }
 
-function sessionSQL(parent) {
+function sessionSQL (parent) {
     return getSQL(parent, "/user/session");
 }
 
-function logoutSQL(parent) {
+function logoutSQL (parent) {
     return getSQL(parent, "/user/logout");
 }
 
@@ -106,5 +125,9 @@ export {
     registerSQL,
     changeSQL,
     sessionSQL,
-    logoutSQL
+    logoutSQL,
+    forgetPasswordSQL,
+    queryPhoneSQL,
+    changePasswordSQL,
+    queryPhoneExistSQL
 };

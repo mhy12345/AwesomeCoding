@@ -64,7 +64,7 @@ export default {
 			this.index = index;
 			this.visible = true;
 			this.loading = true;
-			this.$http.post('/api/problem/t/choice_problems/get',{code:row.code}). 
+			this.$http.post('/api/problem/table/choice_problems/get',{code:row.code}). 
 				then((res) => {
 					this.info = res.body.results[0];
 					this.loading = false;
@@ -78,7 +78,7 @@ export default {
 			this.visible = false;
 		},
 		handleChecked: function() {
-			this.$http.post('/api/problem/t/choice_problems/save',{code: this.info.code, info: this.info}).
+			this.$http.post('/api/problem/table/choice_problems/save',{code: this.info.code, info: this.info}).
 				then((res) => {
 					this.$emit('completed',{
 						index: this.index,

@@ -10,7 +10,7 @@ const randomString = require('../utils/funcs').randomString;
 var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").unittest_configure;
 log4js.configure(log4js_config);
-var logger = log4js.getLogger('test_info');
+var logger = log4js.getLogger('unit-test');
 
 describe('# Testing /api/user', function () {
 	var test_user;

@@ -28,7 +28,7 @@
 
 <script>
     export default {
-        data() {
+        data () {
             return {
                 chatrecords: [],
                 forumid: "undefined",
@@ -41,7 +41,7 @@
                     message: undefined,
                     classId: undefined,
                 }
-            }
+            };
         },
         mounted: function () {
             this.forumid = this.$route.query.forumid;
@@ -63,7 +63,7 @@
                  });
         },
         methods: {
-            onSubmit() {
+            onSubmit () {
                 this.$http.post('/api/chat/add_comments/posts', {
                     userid: this.inputData.userId,
                     forumid: this.forumid,
@@ -78,10 +78,8 @@
                          }
                      });
             },
-            onClear() {
-                this.$http.post('/api/chat/clear_comments', {
-                    classid: this.inputData.classId,
-                }).
+            onClear () {
+                this.$http.post('/api/chat/clear_comments', {classid: this.inputData.classId,}).
                      then(function (res) {
                          console.log(res);
                          if (res.body.status === 'SUCCESS.') {
@@ -90,5 +88,5 @@
                      });
             },
         },
-    }
+    };
 </script>

@@ -110,6 +110,11 @@ export default new Router({
 					component: () => import('@/components/components/user/SignIn.vue')
 				},
 				{
+					path: 'sign_inbyphone',
+					name: 'SignInbyPhone',
+					component: () => import('@/components/components/user/SignInbyPhone.vue')
+				},
+				{
 					path: 'sign_up',
 					name: 'SignUp',
 					component: () => import('@/components/components/user/SignUp.vue')
@@ -118,6 +123,11 @@ export default new Router({
 					path: 'profile',
 					name: 'Profile',
 					component: () => import('@/components/components/user/Profile.vue')
+				},
+				{
+					path: 'forgetpassword',
+					name: 'ForgetPassword',
+					component: () => import('@/components/components/user/ForgetPassword.vue')
 				},
 				{
 					path: 'settings',
