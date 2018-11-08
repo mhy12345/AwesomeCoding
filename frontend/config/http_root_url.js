@@ -3,7 +3,7 @@
 // var root_url = 'http://' + host.ip + ':' + host.port;
 
 // todo   for 最终发布版本/npm run build 测试
-var root_url = 'http://localhost';
+var root_url = 'http://awesomecoding_fantastic67.app.secoder.net/';
 
 
 module.exports = root_url;
