@@ -15,6 +15,20 @@ var logger = log4js.getLogger('log_file');
 
 var fixed_items = ['id', 'nickname', 'role', 'registration_date'];	// 不允许用户修改的表项，后期加入email?
 
+function updateSession(session, user)
+{
+	/*
+	 * all key-values in session (7)
+	 */
+	session.nickname = user.nickname;
+	session.realname = user.realname;
+	session.role = user.role;
+	session.user_id = user.id;
+	session.email = user.email;
+	session.phone = user.phone;
+	session.motto = user.motto;
+}
+
 router.get('/session', function (req, res, next) {	// 判断用户是否登录
 	logger.debug('[get] session\n', req.body);
 	let res_body = req.session;
@@ -131,12 +145,8 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 				});
 			}
 			let user = sql_res.results[0];
-			logger.debug('<<<', sql_res);
-			req.session.nickname = user.nickname;
-			req.session.realname = user.realname;
-			req.session.role = user.role;
-			req.session.email = user.email;
-			req.session.user_id = user.id;
+			logger.info('<<<', sql_res);
+			updateSession(req.session, user);
 			res_body.results = req.session;
 			logger.debug('[res]', res_body);
 			conn.end();
@@ -181,11 +191,7 @@ router.post('/login', function (req, res, next) {  // 响应登录，并进行�
 				}
 				else {
 					delete user.password;   // ensure safety
-					req.session.nickname = user.nickname;
-					req.session.realname = user.realname;
-					req.session.role = user.role;
-					req.session.user_id = user.id;
-					req.session.email = user.email;
+					updateSession(req.session, user);
 					conn.end();
 					res.send({
 						status: 'SUCCESS.',
@@ -228,13 +234,6 @@ router.post('/change', function (req, res, next) {  // 响应设置个人信息�
 		status: '',
 		details: '',
 	};
-	// if (typeof(req.session) === 'undefined') {      // user offline
-	//     res_body.status = 'FAILED.';
-	//     res_body.details = 'USER_NOT_ONLINE.';
-	//     logger.debug('[res]', res_body);
-	//     res.send(JSON.stringify(res_body));
-	//     return;
-	// }
 	getConnection().
 		then(function (conn) {
 			let sql = "UPDATE users SET ";
@@ -259,10 +258,11 @@ router.post('/change', function (req, res, next) {  // 响应设置个人信息�
 			let sql = 'SELECT * FROM users WHERE id = ' + req.session.user_id;
 			return doSqlQuery(conn, sql);
 		}).
-		then(function (packed) {
+		then(function (packed) {		// 成功修改用户字段
 			let {conn, sql_res} = packed;
 			res_body.results = sql_res.results[0];
 			delete res_body.results.password;
+			updateSession(req.session, res_body.results);
 			res_body.status = 'SUCCESS.';
 			logger.debug(res_body);
 			res.send(JSON.stringify(res_body));
