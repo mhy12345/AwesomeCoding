@@ -65,6 +65,9 @@
             <el-row>
                 <el-button type="success" class="register-button" @click="handleSignIn">登录</el-button>
             </el-row>
+            <el-row>
+                <el-button type="text" @click="handleSignInbyNickname">用户名密码登录</el-button>
+            </el-row>
         </div>
     </el-card>
 </template>
@@ -185,7 +188,11 @@
             },
             handleFocusingOnVerify() {
                 this.inputs.verify_code = undefined;
-            }
+            },
+            handleSignInbyNickname: function () {
+                window.location.href = "/user/sign_in";
+                this.loadingQ = true;
+            },
         }
     };
 </script>
