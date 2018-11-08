@@ -26,7 +26,7 @@ this.content = this.content.substr(3,this.content.length-7);
 }
 				}).
 				catch(function (res) {
-					this.content = 'FAILED TO RENDER';
+					this.content = '';
 				});
 		}
 	},
