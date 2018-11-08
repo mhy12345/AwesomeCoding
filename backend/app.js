@@ -20,12 +20,12 @@ var api_live = require('./routes/live');
 var log4js = require("log4js");
 var log4js_config = require("./configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
-//var logger = log4js.getLogger('backend-http');
+var logger = log4js.getLogger('backend-http');
 
 var app = express();
 
 
-//app.use(log4js.connectLogger(logger));
+app.use(log4js.connectLogger(logger,{level:'debug'}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -52,7 +52,7 @@ app.use(history({
 // session for app
 app.use(session);
 
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());

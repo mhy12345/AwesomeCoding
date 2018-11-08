@@ -245,7 +245,7 @@ router.post('/change', function (req, res, next) {  // 响应设置个人信息�
 					res_body.details = 'property ' + item + ' cannot be changed.';
 					res.send(JSON.stringify(res_body));
 					conn.end();
-					return;
+					return Promise.reject({status:'SKIPPED.'});
 				}
 				if (req.body[item])
 					arr.push(item + ' = \'' + req.body[item] + '\'');
@@ -270,7 +270,8 @@ router.post('/change', function (req, res, next) {  // 响应设置个人信息�
 			logger.debug('[res]', res_body);
 		}).
 		catch(function (sql_res) {
-			res.send(JSON.stringify(sql_res, null, 3));
+			if (sql_res.status !== 'SKIPPED.')
+				res.send(JSON.stringify(sql_res, null, 3));
 		});
 });
 

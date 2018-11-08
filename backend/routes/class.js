@@ -292,7 +292,7 @@ router.post('/info/query', function (req, res, next) {
 });
 
 router.post('/info/update', function (req, res, next) {
-	logger.info('>>>UPDATE CLASS INFO', req.body);
+	logger.debug('>>>UPDATE CLASS INFO', req.body);
 	let info = {
 		description: req.body.info.description,
 		notice: req.body.info.notice,
@@ -358,7 +358,7 @@ router.post('/create', function (req, res, next) { //创建新班级
 				let {conn, sql_res} = packed;
 				result.id = sql_res.results.insertId;
 				result.status = 'SUCCESS.';
-				logger.info(sql_res.results);
+				logger.debug(sql_res.results);
 				result.invitation_code = invitation_code;
 				let sql = 'INSERT INTO `resources` (`class_id`, `resource`) VALUES ';
 				for (let w in resources) {
@@ -416,8 +416,6 @@ router.post('/create', function (req, res, next) { //创建新班级
 							}).
 							catch(function (sql_res) {
 							});
-
-
 						let {conn, sql_res} = packed;
 						let sql = 'INSERT INTO `lives` (`class`,`liveplayer_uid`,`liveplayer_vid`) VALUES (' + mysql.escape(+result.id) + ',' + mysql.escape(uid) + ',' + mysql.escape(vid) + ')';
 
@@ -427,12 +425,13 @@ router.post('/create', function (req, res, next) { //创建新班级
 						conn.end();
 						res.send(JSON.stringify(result, null, 3));
 					}).catch((err) => {
+						res.send(JSON.stringify(result, null, 3));
 					});
 				}
 				else {
 					let {conn, sql_res} = packed;
 					conn.end();
-					res.send(JSON.stringify(result, null, 3));
+					//res.send(JSON.stringify(result, null, 3));
 				}
 			}).
 			catch(function (sql_res) {
