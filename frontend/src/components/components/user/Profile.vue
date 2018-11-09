@@ -110,7 +110,7 @@
                         border
                         style="width: 100%">
                         <el-table-column
-                            prop="filename"
+                            prop="showFilename"
                             label="文件名"
                             width="420">
                         </el-table-column>
@@ -201,6 +201,9 @@
                      then(function (res) {
                          console.log(res.body.results);
                          this.tableData = res.body.results;
+                         for (let i = 0; i < this.tableData.length; i++) {
+                             this.tableData[i].showFilename = this.tableData[i].filename.split(" ")[2];
+                         }
                      });
             },
             handleEdit () {
@@ -272,27 +275,6 @@
                 let a = document.createElement('a');
                 a.href = '/api/file/download?filename=' + row.filename;
                 a.click();
-
-                //虽然更加安全，但对于很多格式不支持
-                // this.$http.post('/api/file/test', {filename: row.filename,}).
-                //      then(function (res) {
-                //          //console.log(res.data);
-                //          console.log(res.data);
-                //          const blob = new Blob([res.data]);
-                //          if (window.navigator.msSaveOrOpenBlob) {
-                //              // 兼容IE10
-                //              navigator.msSaveBlob(blob, this.filename);
-                //          } else {
-                //              //  chrome/firefox
-                //
-                //              let aTag = document.createElement('a');
-                //              aTag.download = row.filename;
-                //              aTag.href = URL.createObjectURL(blob);
-                //              aTag.click();
-                //              URL.revokeObjectURL(aTag.href);
-                //              console.log(res.data.url);
-                //          }
-                //      });
             },
             handleDelete: function (row) {
                 this.$http.post('/api/file/delete', {
@@ -300,7 +282,6 @@
                     filename: row.filename,
                 }).
                      then(function (res) {
-                         console.log(res);
                          this.loadTableData();
                      });
             }
