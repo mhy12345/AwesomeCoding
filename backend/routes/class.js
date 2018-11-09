@@ -386,14 +386,12 @@ router.post('/create', function (req, res, next) { //创建新班级
 					NewChannelJSON.sign = createSign(NewChannelJSON);
 
 					let url = 'http://api.polyv.net/live/v2/channels';
-					console.log('fucking...');
 					axios.post(url, querystring.stringify(NewChannelJSON)).then((resp) => {
 						let vid = resp.data.data.channelId.toString();
 						let uid = '047a911d83';
 						let url = "https://open.ucpaas.com/ol/sms/sendsms";
 
 						let params = vid + ',' + NewChannelJSON.channelPasswd;
-						console.log('fucked1...');
 						console.log(params);
 
 						getConnection().
@@ -422,7 +420,6 @@ router.post('/create', function (req, res, next) { //创建新班级
 						let {conn, sql_res} = packed;
 						let sql = 'INSERT INTO `lives` (`class`,`liveplayer_uid`,`liveplayer_vid`) VALUES (' + mysql.escape(+result.id) + ',' + mysql.escape(uid) + ',' + mysql.escape(vid) + ')';
 
-						console.log('fucked2...');
 
 						return doSqlQuery(conn, sql)
 					}).then(function (packed) {
@@ -512,7 +509,7 @@ router.post('/my_course/fetch', function (req, res, next) {
 			'select cl.id, cl.title, liveplayer_vid as lvid ' +
 			'from lives l, classusers cu, classes cl ' +
 			'where cu.user_id = ' + mysql.escape(+req.session.user_id) + ' ' +
-			'and cu.role = ' + mysql.escape(req.session.role) + ' ' +
+			'and cu.role = ' + mysql.escape(0) + ' ' +
 			'and l.class = cu.class_id and cl.id = cu.class_id';
 
 	}

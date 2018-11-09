@@ -8,6 +8,10 @@ import VueSocketio from 'vue-socket.io';
 const server_url = window.location.protocol + '//' + window.location.hostname;
 
 Vue.config.productionTip = false;
+
+import VueVisible from 'vue-visible';
+Vue.use(VueVisible);
+
 Vue.use(VueResource);
 Vue.use(VueSocketio, server_url);
 
