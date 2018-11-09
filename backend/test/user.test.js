@@ -13,6 +13,7 @@ log4js.configure(log4js_config);
 var logger = log4js.getLogger('unit-test');
 
 describe('# Testing /api/user', function () {
+	this.timeout(5000);
 	var test_user;
 	before(function (done) {			// 测试前
 		test_user = {

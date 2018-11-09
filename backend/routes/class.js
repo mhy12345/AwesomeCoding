@@ -386,14 +386,12 @@ router.post('/create', function (req, res, next) { //创建新班级
 					NewChannelJSON.sign = createSign(NewChannelJSON);
 
 					let url = 'http://api.polyv.net/live/v2/channels';
-					console.log('fucking...');
 					axios.post(url, querystring.stringify(NewChannelJSON)).then((resp) => {
 						let vid = resp.data.data.channelId.toString();
 						let uid = '047a911d83';
 						let url = "https://open.ucpaas.com/ol/sms/sendsms";
 
 						let params = vid + ',' + NewChannelJSON.channelPasswd;
-						console.log('fucked1...');
 						console.log(params);
 
 						getConnection().
@@ -422,7 +420,6 @@ router.post('/create', function (req, res, next) { //创建新班级
 						let {conn, sql_res} = packed;
 						let sql = 'INSERT INTO `lives` (`class`,`liveplayer_uid`,`liveplayer_vid`) VALUES (' + mysql.escape(+result.id) + ',' + mysql.escape(uid) + ',' + mysql.escape(vid) + ')';
 
-						console.log('fucked2...');
 
 						return doSqlQuery(conn, sql)
 					}).then(function (packed) {
