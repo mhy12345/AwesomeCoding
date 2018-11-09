@@ -5,6 +5,10 @@ var moment = require('moment');
 var mysql = require('mysql');
 var {doSqlQuery, getConnection} = require('../utils/funcs');
 
+router.get('/render/live' , function(req, res, next) {
+	res.render('live', {uid: req.query.uid, vid: req.query.vid});
+});
+
 router.get('/problem/render', function(req, res, next) {
 	getConnection().
 		then(function(conn) {

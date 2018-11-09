@@ -1,7 +1,7 @@
 <template>
-
+	<div>
     <div id="player"></div>
-
+	</div>
 </template>
 
 <script>
@@ -13,8 +13,8 @@
             'vid': String,
             'uid': String
         },
-        mounted: function () {
-            console.log(this.size);
+        created: function () {
+			console.log("PYOBJECT CREATED>>>");
             // eslint-disable-next-line
             var player = polyvObject('#player').livePlayer({
                 width: this.size[0],
