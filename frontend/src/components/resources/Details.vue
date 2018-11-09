@@ -16,7 +16,7 @@
 							</el-row>
 							<el-row>
 								<el-col :span='8'>用户角色</el-col>
-								<el-col :span='16'>{{course_status.role_title === undefined ? course_status.role_title : '游客'}}</el-col>
+								<el-col :span='16'>{{course_status.role_title === undefined ? course_status.role_title : '--'}}</el-col>
 							</el-row>
 							<el-row>
 								<el-col :span='8'>邀请链接</el-col>
@@ -81,7 +81,6 @@ export default {
 				} else {
 					this.info = res.body.info;
 					this.invitation_url = '/course/invite/' + this.info.invitation_code;
-					console.log(this.info);
 					this.handleUpdate();
 				}
 				this.loading = false;

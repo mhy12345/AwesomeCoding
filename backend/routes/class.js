@@ -512,7 +512,7 @@ router.post('/my_course/fetch', function (req, res, next) {
 			'select cl.id, cl.title, liveplayer_vid as lvid ' +
 			'from lives l, classusers cu, classes cl ' +
 			'where cu.user_id = ' + mysql.escape(+req.session.user_id) + ' ' +
-			'and cu.role = ' + mysql.escape(req.session.role) + ' ' +
+			'and cu.role = ' + mysql.escape(0) + ' ' +
 			'and l.class = cu.class_id and cl.id = cu.class_id';
 
 	}

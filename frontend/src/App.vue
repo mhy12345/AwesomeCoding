@@ -180,10 +180,10 @@ export default {
 	},
     sockets: {      // usages of socket.io
         connect: function () {
-            console.log('socket connected')
+            console.log('[socket] socket connected')
         },
         message: function (msg) {       // 收到服务器发来的消息, todo 后期可以考虑把消息缓存在用户个人页里，并以红圈在右上角头像上显示
-            console.log('[message]', msg);
+            console.log('[socket] message:', msg);
             if (!this.loginQ) return;
             this.$notify({
                 title: '收到消息',
@@ -193,13 +193,13 @@ export default {
             this.$socket.emit('received');
         },
         accepted: function () {         // 服务器接受客户发出的消息
-            console.log('[accepted]');
+            console.log('[socket] accepted!');
             this.$notify.success({
                 title: '发出成功',
             });
         },
         rejected: function (msg) {       // 服务器拒绝客户发出的消息
-            console.log('[rejected]', msg);
+            console.log('[socket] rejected!', msg);
             this.$notify.error({
                 title: '发出失败',
                 message: msg.details,
@@ -208,14 +208,14 @@ export default {
     },
 	methods: {
 		showUnknownError(err) {
-			console.log(err);
+			console.log('[error] ',err);
 			this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
 		},
 		checkLogin() { // 检验用户是否登录
 			sessionSQL(this).
 				then((resp) => {
 					var hash;
-					console.log(resp);
+					console.log('[session]' + resp);
 					if (typeof(resp.nickname) !== 'undefined') {
 						this.user = resp;
 						this.$message.success("欢迎回来！" + this.user.realname);
@@ -223,7 +223,7 @@ export default {
 						hash = crypto.createHash('md5');
 						hash.update(this.user.email);
 						this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
-						console.log("GRAVATAR URL = ", this.user.gravatar_url);
+						console.log("[gravatar] URL = ", this.user.gravatar_url);
 					} else {
 						this.$message("请登录。");
 						this.loginQ = false;
@@ -234,13 +234,11 @@ export default {
 		logout() { // 退出登录
 			logoutSQL(this).
 				then((resp) => {
-					console.log(resp);
 					this.loginQ = false;
 					this.user = copy(this.default_user);
 					this.$message.warning('已退出登录。');
 				}).
 				catch((err) => {
-					console.log(err);
 					if (err.status === 'FAILED.' && err.details === 'USER_NOT_ONLINE.') {
 						this.$message.error('您已离线。');
 						return;
@@ -256,7 +254,6 @@ export default {
 				this.$router.push('/home');
 			} else {
 				this.$router.push(key);
-				console.log(key);
 			}
 		},
 		handleLogined() { // logined event emitted by children router-view
@@ -265,7 +262,7 @@ export default {
             }, 100);
 		},
 		handleLogout() { // logout event emitted by children router-view
-			console.log('>>>in app logout!');
+			console.log('[app] logout!');
 			this.logout();
 		},
 	}
