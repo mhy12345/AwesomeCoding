@@ -288,6 +288,7 @@
 
             handleDownload: function (row) {
                 let a = document.createElement('a');
+                a.content = "text/html;charset=utf-8";
                 a.href = '/api/file/download?filename=' + row.filename;
                 a.click();
             },
