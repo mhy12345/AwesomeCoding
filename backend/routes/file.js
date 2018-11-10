@@ -78,7 +78,7 @@ router.post('/upload', upload.any(), function (req, res, next) { //区分文件�
 
 
 router.get('/download', function (req, res, next) {
-	var filename = req.query.filename;
+	var filename = decodeURIComponent(req.query.filename);
 	var filepath = path.join(__dirname, '../uploads/' + filename);
 	var stats = fs.statSync(filepath);
 	if (stats.isFile()) {
