@@ -135,8 +135,8 @@
         margin-bottom: 10px;
     }
     .sidebar-tab-pane {
-        height: 400px;
+        height: 450px;
         width: 100%;
-        overflow: auto;
+        /*overflow: auto;*/
     }
 </style>

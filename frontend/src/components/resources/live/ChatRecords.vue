@@ -2,45 +2,47 @@
     <div>
         <el-card v-loading="loadingQ">
             <!--聊天记录-->
-            <div v-for="(record, index) in chat_records" :key="index" class="chat-record">
-                <div v-if="displayTimeQ(record.date_time)" class="bubble-time">
-                    {{ formatDateTime(record.date_time) }}
-                </div>
-                <!--文字消息-->
-                <div v-if="record.type === 'text'">
-                    <div v-if="record.user_id === user.user_id">
-                        <el-row>
-                            <div class="bubble-me">
-                                {{ record.message }}
-                            </div>
-                        </el-row>
+            <div class="chat-record">
+                <div v-for="(record, index) in chat_records" :key="index">
+                    <!--显示时间-->
+                    <div v-if="displayTimeQ(record.date_time)" class="bubble-time">
+                        {{ formatDateTime(record.date_time) }}
                     </div>
+                    <!--文字消息-->
+                    <div v-if="record.type === 'text'">
+                        <div v-if="record.user_id === user.user_id">
+                            <el-row>
+                                <div class="bubble-me">
+                                    {{ record.message }}
+                                </div>
+                            </el-row>
+                        </div>
+                        <div v-else>
+                            {{ record.realname }} :
+                            <el-row>
+                                <div class="bubble-others">
+                                    {{ record.message }}
+                                </div>
+                            </el-row>
+                        </div>
+                    </div>
+                    <!--todo 语音消息-->
+                    <div v-else-if="record.type === 'voice'">
+
+                    </div>
+                    <!--todo 图片消息-->
+                    <div v-else-if="record.type === 'picture'">
+
+                    </div>
+                    <!--默认消息-->
                     <div v-else>
-                        {{ record.realname }} :
-                        <el-row>
-                            <div class="bubble-others">
-                                {{ record.message }}
-                            </div>
-                        </el-row>
+                        {{ record.message }}
                     </div>
-                </div>
-                <!--todo 语音消息-->
-                <div v-else-if="record.type === 'voice'">
-
-                </div>
-                <!--todo 图片消息-->
-                <div v-else-if="record.type === 'picture'">
-
-                </div>
-                <!--默认消息-->
-                <div v-else>
-                    {{ record.message }}
                 </div>
             </div>
 
             <!--分页器-->
-            <div>
-                <span class="demonstration">直接前往</span>
+            <div class="paginator">
                 <el-pagination
                     small
                     @current-change="handleCurrentChange"
@@ -160,7 +162,9 @@
 
 <style scoped>
     .chat-record {
+        max-height: 400px;
         font-size: 0.7em;
+        overflow: auto;
     }
 
     .bubble-me, .bubble-others {
@@ -224,5 +228,14 @@
         padding: 5px 12px 5px 12px;
         box-sizing: border-box;
         border-radius: 15px;
+    }
+
+    .paginator {
+        position: relative;
+        margin: auto;
+        padding: 5px 12px 5px 12px;
+        border-top: black 1px dashed;
+        background-color: #ffffff;
+        bottom: 5px;
     }
 </style>
