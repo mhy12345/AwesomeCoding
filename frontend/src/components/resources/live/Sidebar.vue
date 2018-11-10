@@ -38,7 +38,7 @@
                     </el-col>
                 </el-row>
 
-                <chat-records ref="chat_records" :course_id="$route.params.class_id">
+                <chat-records class="chat-room" ref="chat_records" :course_id="$route.params.class_id">
                 </chat-records>
             </el-collapse-item>
 
@@ -135,5 +135,10 @@
     .chatting-room-tool {
         margin-top: 10px;
         margin-bottom: 10px;
+    }
+    .chat-room {
+        height: 400px;
+        width: 100%;
+        overflow: auto;
     }
 </style>

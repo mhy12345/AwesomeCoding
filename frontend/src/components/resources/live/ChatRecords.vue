@@ -87,7 +87,6 @@
             handleCurrentChange(page_ord) {     // 获取第 page_ord 页的消息
                 this.loadingQ = true;
                 console.log('[get] chat record');
-                this.$message(`正在获取第 ${page_ord} 页`);
                 this.$http.
                      get('/api/live/get_chat_record', {
                          params: {
