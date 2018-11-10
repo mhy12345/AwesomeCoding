@@ -603,7 +603,8 @@ router.post('/addstudents', function (req, res, next) {
 		for(var i in excelObj){
 			studentlist.push(excelObj[i][0]);
 		}
-
+		var idlist = [];
+		var existidlist = [];
 		getConnection().
 			then(function (conn) {
 				let sql = "SELECT * FROM users WHERE `realname` = " + mysql.escape(studentlist[0]);
@@ -614,14 +615,31 @@ router.post('/addstudents', function (req, res, next) {
 			}).
 			then(function (packed) {
 				let {conn, sql_res} = packed;
-				let sql = 'INSERT INTO classusers (`class_id`,`user_id`,`role`) VALUES ';
 				for(var i in sql_res.results) {
-					sql +=	
-					'(' + 
-					mysql.escape(+req.body.class_id) + ',' + 
-					mysql.escape(+sql_res.results[i].id) + ',' + 
-					mysql.escape(2) + 
-					'), ';
+					idlist.push(sql_res.results[i].id);
+				}
+				let sql = "SELECT * FROM classusers WHERE `class_id` = " + req.body.class_id;
+				return doSqlQuery(conn, sql);
+			}).
+			then(function (packed) {
+				let {conn, sql_res} = packed;
+				for(var i in sql_res.results) {
+					existidlist.push(sql_res.results[i].user_id);
+				}
+				console.log(">>>>>>>idlist");
+				console.log(idlist);
+				console.log(">>>>>>>existidlist");
+				console.log(existidlist);
+				let sql = 'INSERT INTO classusers (`class_id`,`user_id`,`role`) VALUES ';
+				for(var i in idlist) {
+					if(existidlist.indexOf(idlist[i]) === -1) {
+						sql +=	
+						'(' + 
+						mysql.escape(+req.body.class_id) + ',' + 
+						mysql.escape(+idlist[i]) + ',' + 
+						mysql.escape(2) + 
+						'), ';
+					}
 				}
 				sql = sql.substr(0, sql.length - 2);
 				console.log(sql);

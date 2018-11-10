@@ -15,12 +15,12 @@
                         <el-col :span='14'> <h1>{{theme}}</h1> </el-col>
                     </el-row>
                 </div>
+                <el-table :data="chatrecords" stripe style="width: 100%">
+                    <el-table-column prop="userid" label="回复人" width="180"></el-table-column>
+                    <el-table-column prop="message" label="回复内容" width="280"></el-table-column>
+                    <el-table-column prop="registration_date" label="回复时间" width="180"></el-table-column>
+                </el-table>
             </el-card>
-            <el-table :data="chatrecords" stripe style="width: 100%">
-                <el-table-column prop="userid" label="回复人" width="180"></el-table-column>
-                <el-table-column prop="message" label="回复内容" width="180"></el-table-column>
-                <el-table-column prop="registration_date" label="回复时间" width="180"></el-table-column>
-            </el-table>
             <el-form>
                 <el-form-item label="Input ">
                     <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="inputData.message"></el-input>
@@ -118,7 +118,7 @@
     }
 
     .box-card {
-        width: 480px;
+        width: 1080px;
     }
 
     .input-box {
