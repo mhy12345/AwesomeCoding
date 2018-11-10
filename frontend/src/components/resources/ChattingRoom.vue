@@ -1,12 +1,11 @@
 <template>
     <el-container>
         <el-main>
-            <el-row v-for="record in chatrecords">
-                <router-link
-                    :to="{path:'posts',query:{forumid : record.forumid, theme : record.message, userid : record.userid}}">
-                    {{record.message}}
-                </router-link>
-            </el-row>
+            <el-table :data="chatrecords" stripe style="width: 100%" @current-change="handleCurrentChange">
+                <el-table-column prop="userid" label="发贴人" width="180"></el-table-column>
+                <el-table-column prop="message" label="主题" width="180"></el-table-column>
+                <el-table-column prop="registration_date" label="发贴时间" width="180"></el-table-column>
+            </el-table>
             <el-form>
                 <el-form-item label="Input ">
                     <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="inputData.message"></el-input>
@@ -74,6 +73,10 @@
                              this.chatrecords = [];
                          }
                      });
+            },
+            handleCurrentChange: function (item) {
+                this.$router.push(
+                    {name: 'posts', params: {forumid: item.forumid}});
             },
         },
     };

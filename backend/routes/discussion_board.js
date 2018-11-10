@@ -204,6 +204,15 @@ router.post('/info/query/posts', function(req, res, next) {
 	console.log(req.body.forumid);
 	getConnection().
 		then(function(conn) {
+			let sql = 'SELECT * FROM forums WHERE id = ' + req.body.forumid;
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			console.log(sql_res);
+			result.classid = sql_res.results[0].classid;
+			result.theme = sql_res.results[0].message;
+			result.userid = sql_res.results[0].userid;
 			let sql = 'SELECT * FROM posts WHERE forumid = ' + req.body.forumid;
 			return doSqlQuery(conn, sql);
 		}).
