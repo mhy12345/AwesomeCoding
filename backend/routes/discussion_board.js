@@ -195,6 +195,48 @@ router.post('/info/query', function(req, res, next) {
 		});
 });
 
+router.post('/info/query/user', function(req, res, next) {
+	let result = {
+		status: undefined
+	};
+	getConnection().
+		then(function (conn) {
+			let sql = 'SELECT * FROM forums WHERE `userid` = ' + mysql.escape(req.session.user_id);
+			console.log(sql);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let {conn, sql_res} = packed;
+			console.log(sql_res.results);
+			if (sql_res.results.length === 0) {
+				res.send(JSON.stringify(result, null, 3));
+				conn.end();
+				return Promise.reject({
+					status: 'NOT FOUND.'
+				});
+			}
+			else {
+				result.status = "SUCCESS.";
+				result.chatrecords = [];
+				for (var i = 0; i < sql_res.results.length; i++) {
+					var chatrecord = {};
+					chatrecord.userid = sql_res.results[i].userid;
+					chatrecord.message = sql_res.results[i].message;
+					chatrecord.registration_date = sql_res.results[i].registration_date;
+					chatrecord.forumid = sql_res.results[i].id;
+					result.chatrecords.push(chatrecord);
+				}
+				console.log(">>>>>>>>>>>/info/query/result");
+				console.log(result);
+				res.send(JSON.stringify(result));
+			}
+		}).
+		catch(function (result) {
+			if (result.status === 'FAILED.')
+				res.send(JSON.stringify(result, null, 3));
+		});
+});
+
 router.post('/info/query/posts', function(req, res, next) {
 	let result = {
 		status : undefined
@@ -202,6 +244,15 @@ router.post('/info/query/posts', function(req, res, next) {
 	console.log(req.body.forumid);
 	getConnection().
 		then(function(conn) {
+			let sql = 'SELECT * FROM forums WHERE id = ' + req.body.forumid;
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			console.log(sql_res);
+			result.classid = sql_res.results[0].classid;
+			result.theme = sql_res.results[0].message;
+			result.userid = sql_res.results[0].userid;
 			let sql = 'SELECT * FROM posts WHERE forumid = ' + req.body.forumid;
 			return doSqlQuery(conn, sql);
 		}).

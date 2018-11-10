@@ -99,6 +99,11 @@ export default new Router({
 			]
 		},
 		{
+			path: '/posts/:forumid',
+			name: 'posts',
+			component: () => import('@/components/resources/posts.vue')
+		},
+		{
 			path: '/user',
 			name: 'User',
 			component: () => import('@/views/User.vue'),

@@ -99,7 +99,10 @@
                 </el-tab-pane>
 
                 <el-tab-pane label="我的动态">
-
+                    <el-table :data="chatrecords" stripe style="width: 100%" @current-change="handleCurrentChange">
+                        <el-table-column prop="message" label="主题" width="280"></el-table-column>
+                        <el-table-column prop="registration_date" label="发贴时间" width="180"></el-table-column>
+                    </el-table>
 
                 </el-tab-pane>
                 <el-tab-pane label="我的资源">
@@ -172,6 +175,7 @@
                     re_password: '',
                 },
                 tableData: [],
+                chatrecords: [],
                 loadingQ: false,
                 password_inputQ: false, // if password input box was focused
             };
@@ -205,6 +209,14 @@
                              this.tableData[i].showFilename = this.tableData[i].filename.split(" ")[2];
                          }
                      });
+                this.$http.post('/api/chat/info/query/user', {}).
+                    then(function (res) {
+                        if (res.body.status === 'NOT FOUND.') {
+                            this.$message("Room " + this.title + " not found!");
+                        } else {
+                            this.chatrecords = res.body.chatrecords;
+                        }
+                    });
             },
             handleEdit () {
                 // this.$router.push('/user/settings');
@@ -269,6 +281,11 @@
             handleCancel () {
                 this.editingQ = false;
             },
+            handleCurrentChange: function (item) {
+                this.$router.push(
+                    {name: 'posts', params: {forumid: item.forumid}});
+            },
+
             handleDownload: function (row) {
                 let a = document.createElement('a');
                 a.href = '/api/file/download?filename=' + row.filename;

@@ -25,14 +25,12 @@
                     </el-table-column>
                 </el-table>
             </div>
-        </div>
-        <div v-loading="loadingQ">
-            <el-form v-if='course_status.role!==2'>
-                <el-form-item>
+            <div class="item" v-if='course_status.role!==2'>
+                <el-tooltip content="请上传一个名为students.xlsx的xlsx文件，文件中应含有需导入学生的真实姓名">
                     <el-button type='primary' style='width:100%' @click='handleImportStudents'> 导入学生
                     </el-button>
-                </el-form-item>
-            </el-form>
+                </el-tooltip>
+            </div>
         </div>
     </el-container>
 </template>
@@ -168,4 +166,9 @@
 </script>
 
 <style scoped>
+    .item {
+      margin: 4px;
+      width: 100px;
+      text-align: center;
+    }
 </style>
