@@ -188,22 +188,17 @@ export default {
             this.$notify({
                 title: '收到消息',
                 message: msg.from + ' says: ' + msg.message,
-                duration: 0
+                // duration: 0
             });
             this.$socket.emit('received');
         },
         accepted: function () {         // 服务器接受客户发出的消息
             console.log('[socket] accepted!');
-            this.$notify.success({
-                title: '发出成功',
-            });
+            this.$message.success('发送成功');
         },
         rejected: function (msg) {       // 服务器拒绝客户发出的消息
             console.log('[socket] rejected!', msg);
-            this.$notify.error({
-                title: '发出失败',
-                message: msg.details,
-            })
+            this.$message.error('发送失败');
         }
     },
 	methods: {
