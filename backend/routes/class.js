@@ -588,4 +588,31 @@ router.post('/liveid/query', function (req, res, next) {
 		});
 });
 
+router.get('/page_update', function(req, res) {
+	logger.info("[publish]");
+	let page = +req.body.page;
+	getPermission(req.session.user_id, req.query.class_id).
+		then((role) => {
+			if (role !== 0) {
+				res.status(403).send('PERMISSION DENIED.');
+			} else { 
+				res.status(200).send('OKAY.');
+				getConnection().
+					then((conn) => {
+						let sql = "SELECT user_id FROM ac_database.classusers " +
+							"WHERE class_id = " + req.query.course_id + " AND role > 0;";
+						return doSqlQuery(conn, sql);
+					}).
+					then((packed) => {
+						let { conn, sql_res } = packed;
+						for (let result of sql_res.results) {
+							let user_id = String(result.user_id);	//***
+							if (user_id in $sockets) {
+								logger.info('[to block]', user_id);
+								$sockets[user_id].emit('page > ' + page);
+							}
+					})
+			}
+		});
+});
 module.exports = router;

@@ -37,6 +37,9 @@
 								size="mini"
 								@click="handleAnalyze(scope.$index, scope.row)">统计</el-button>
 							<el-button
+								size='mini'
+								@click="handlePublish(scope.$index, scope.row)">发布</el-button>
+							<el-button
 								size="mini"
 								type="danger"
 								@click="handleDelete(scope.row)">删除</el-button>
@@ -91,6 +94,9 @@ export default {
 	methods: {
 		tableRowClassName: function({row, rowIndex}) {
 			return '';
+		},
+		handlePublish: function(row) {
+			this.$socket.emit('doProblem',{class_id: this.class_id});
 		},
 		handleDelete: function(row)  {
 			this.$http.post('/api/problem/delete', {code: row.code}).

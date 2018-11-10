@@ -13,8 +13,6 @@
                 ..<br>
                 ..<br>
                 ..<br>
-                ..<br>
-                ..<br>
             </el-collapse-item>
 
             <el-collapse-item title="班级成员" name="members">
