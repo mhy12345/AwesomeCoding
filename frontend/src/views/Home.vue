@@ -1,18 +1,20 @@
 <template>
-    <div class="block">
-        <el-carousel class="carousel_css">
-            <el-carousel-item v-for="(currentitem, idx) in headlines" class = "carousel_item">
-                <div v-if="currentitem.path" @click="jump(currentitem)" style="height: 100%; width: 100%" align="center">
-                    <img v-bind:src="currentitem.path" style="height: 100%;"/>
-                </div>
-                <h3 v-else @click="jump(currentitem)">
-                    {{ currentitem.title }}
-                </h3>
-            </el-carousel-item>
-        </el-carousel>
+    <div>
+        <div>
+            <el-carousel class="carousel_css">
+                <el-carousel-item v-for="(currentitem, idx) in headlines" class = "carousel_item">
+                    <div v-if="currentitem.path" @click="jump(currentitem)" style="height: 100%; width: 100%" align="center">
+                        <img v-bind:src="currentitem.path" style="height: 100%;"/>
+                    </div>
+                    <h3 v-else @click="jump(currentitem)">
+                        {{ currentitem.title }}
+                    </h3>
+                </el-carousel-item>
+            </el-carousel>
+        </div>
 
-        <el-row>
-            <el-col v-for="(currentitem, idx) in tableData" class = "card_css">
+        <div>
+            <div v-for="(currentitem, idx) in tableData" class = "card_css" style="display:inline-block;">
                 <el-card :body-style="{ padding: '0px' }">
                     <div v-if="currentitem.imagepath" @click="jump(currentitem)" style="height:150px; width: 100%" align="center">
                         <img v-bind:src="currentitem.imagepath" style="height: 100%;"/>
@@ -24,8 +26,8 @@
                         <span> {{currentitem.title}} </span>
                     </div>
                 </el-card>
-            </el-col>
-        </el-row>
+            </div>
+        </div>
     </div>
 </template>
 
