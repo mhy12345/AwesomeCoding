@@ -71,6 +71,9 @@ function alertClassMembers(socket, msg) {	// 教师向本门课程的所有在�
 					$user_sockets[id].emit('alert', msg);
 				}
 			}
+		}).
+		catch((sql_res) => {
+			console.log(sql_res);
 		});
 }
 

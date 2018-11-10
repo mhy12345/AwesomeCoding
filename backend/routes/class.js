@@ -590,6 +590,7 @@ router.post('/liveid/query', function (req, res, next) {
 		});
 });
 
+/*
 router.get('/page_update', function(req, res) {
 	logger.info("[publish]");
 	let page = +req.body.page;
@@ -617,6 +618,7 @@ router.get('/page_update', function(req, res) {
 			}
 		});
 });
+*/
 router.post('/addstudents', function (req, res, next) {
 	let result = {
 		status: undefined

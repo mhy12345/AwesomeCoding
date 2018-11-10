@@ -176,7 +176,6 @@
                 this.$notify.warning({
                     title: '收到通知',
                     message: msg.content
-                    // duration: 0
                 });
                 if (msg.operation === 'SHOW_DIALOG.') {
                     this.dialog.visible = true;
