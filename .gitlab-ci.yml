@@ -21,6 +21,7 @@ build:
     - export BUILD_IMAGE_USERNAME=$CI_REGISTRY_USER
     - export BUILD_IMAGE_PASSWORD=$CI_REGISTRY_PASSWORD
     - deployer build
+    - cat /root/.npm/_logs/*
   except:
     - master
 
