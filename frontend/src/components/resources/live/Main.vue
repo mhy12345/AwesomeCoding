@@ -5,7 +5,7 @@
 				<el-col :span='15'>
 					<div style='min-height:500px'>
 						<keep-alive>
-							<components ref='big' v-bind:is='cp_player' />
+							<components ref='big' v-bind:is='cp_player' @swap='handleSwap' @hidden='handleHidden'/>
 						</keep-alive>
 					</div>
 					<chat-input></chat-input>
@@ -17,16 +17,14 @@
 		</div>
 		<div style='width:350px;position:fixed;right:50px;bottom:50px;' v-show='showWidget'>
 			<keep-alive>
-				<components ref='small' v-bind:is='cp_fileviewer' />
+				<components ref='small' v-bind:is='cp_fileviewer' @swap='handleSwap' @hidden='handleHidden'/>
 			</keep-alive>
 		</div>
-		<el-button @click='handleSwap'>SWAP</el-button>
 	</div>
 </template>
 
 
 <script>
-import Vue from 'Vue';
 import Player from './Player';
 import Sidebar from './Sidebar';
 import ChatInput from './ChatInput';
@@ -60,6 +58,9 @@ export default {
 				this.$refs.big.reload();
 			});
 			console.log(this);
+		},
+		handleHidden: function() {
+			this.showWidget = !this.showWidget;
 		}
 	}
 };
