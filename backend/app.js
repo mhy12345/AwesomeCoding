@@ -24,7 +24,7 @@ var logger = log4js.getLogger('backend-http');
 var app = express();
 
 
-app.use(log4js.connectLogger(logger,{level:'debug'}));
+app.use(log4js.connectLogger(logger,{level:'info'}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -57,6 +57,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
 // 设置需要使用的 router 函数
+app.use(express.static(path.join(__dirname, './uploads')));
 app.use(express.static(path.join(__dirname, './public')));
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 

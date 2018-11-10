@@ -4,7 +4,7 @@ var funcs = require('../utils/funcs');
 var doSqlQuery = require('../utils/funcs').doSqlQuery;
 var getConnection = require('../utils/funcs').getConnection;
 var multer = require('multer');
-var upload = multer({dest: 'uploads/'});
+var upload = multer({dest: 'public/uploads/'});
 var fs = require('fs');
 var path = require('path');
 var log4js = require("log4js");
@@ -23,7 +23,7 @@ router.post('/upload', upload.any(), function (req, res, next) {
 		res.end(JSON.stringify(response));
 	}
 	else {
-		var des_file = "./uploads/" + req.files[0].originalname;
+		var des_file = "./public/uploads/" + req.files[0].originalname;
 		fs.readFile(req.files[0].path, function (err, data) {
 			fs.writeFile(des_file, data, function (err) {
 				if (err) {
@@ -64,7 +64,7 @@ router.post('/upload', upload.any(), function (req, res, next) {
 
 router.get('/download', function (req, res, next) {
 	var filename = req.query.filename;
-	var filepath = path.join(__dirname, '../uploads/' + filename);
+	var filepath = path.join(__dirname, './public/uploads/' + filename);
 	var stats = fs.statSync(filepath);
 	if (stats.isFile()) {
 		res.set({
@@ -80,12 +80,12 @@ router.get('/download', function (req, res, next) {
 
 
 router.post('/download', function (req, res, next) {
-	var path = './uploads/' + req.body.filename;
+	var path = './public/uploads/' + req.body.filename;
 	res.writeHead(200,{
 		'Content-Type':'image/jpg;charset=UTF8'
 	});
 	res.download(path);
-	// res.send({"url": './uploads/' + req.body.filename});
+	// res.send({"url": './public/uploads/' + req.body.filename});
 });
 
 
@@ -192,7 +192,7 @@ router.post('/delete', function(req, res, next) {
 			let {conn, sql_res} = packed;
 			conn.end();
 			logger.info(sql_res);
-			var desFile= "./uploads/" + filename;
+			var desFile= "./public/uploads/" + filename;
 			fs.unlinkSync(desFile);
 			res.send(JSON.stringify(sql_res, null, 3));
 		}).
