@@ -28,7 +28,8 @@
                     </el-col>
                 </el-row>
                 <!--聊天记录-->
-                <chat-records class="sidebar-tab-pane" ref="chat_records" :course_id="$route.params.class_id">
+                <chat-records class="sidebar-tab-pane" ref="chat_records"
+                              :course_id="$route.params.class_id" :user="user">
                 </chat-records>
             </el-tab-pane>
 
@@ -43,7 +44,7 @@
 
     export default {
         name: "sidebar",
-        props: ['course_status'],
+        props: ['course_status', 'user'],
         data() {
             return {
                 active_name: undefined,

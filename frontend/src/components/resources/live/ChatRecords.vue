@@ -1,12 +1,26 @@
 <template>
-	<div>
+    <div>
         <el-card v-loading="loadingQ">
             <!--聊天记录-->
-            <div v-for="(record, index) in chat_records" :key="index">
-                {{ record.date_time }} {{ record.realname }} : <br>
-                {{ record.message }}<br>
-                <br>
+            <div v-for="(record, index) in chat_records" :key="index" class="chat-record">
+                <!--{{ record.date_time }}-->
+                <div v-if="record.realname === user.realname">
+                    <el-row>
+                        <div class="bubble-me">
+                            {{ record.message }}
+                        </div>
+                    </el-row>
+                </div>
+                <div v-else>
+                    {{ record.realname }} :
+                    <el-row>
+                        <div class="bubble-others">
+                            {{ record.message }}
+                        </div>
+                    </el-row>
+                </div>
             </div>
+
             <!--分页器-->
             <div>
                 <span class="demonstration">直接前往</span>
@@ -24,9 +38,9 @@
 </template>
 
 <script>
-	export default {
+    export default {
         name: "ChatRecords",
-        props: ['course_id'],
+        props: ['course_id', 'user'],
         data() {
             return {
                 chat_records: [],
@@ -36,6 +50,7 @@
             }
         },
         mounted() {
+            console.log('[ChatRecord] user', this.user);
             this.updateRecordCount().
                  then((count) => {
                      this.handleCurrentChange(1);
@@ -89,7 +104,8 @@
                              course_id: this.course_id,
                              start: (page_ord - 1) * this.num_each,
                              end: page_ord * this.num_each      // 按最新消息到最初消息的顺序，获取 [start, end) 之间的全部消息
-                         } }).
+                         }
+                     }).
                      then((res) => {
                          this.loadingQ = false;
                          if (res.body.status === 'FAILED.')
@@ -105,9 +121,68 @@
                      });
             }
         }
-	}
+    }
 </script>
 
 <style scoped>
+    .chat-record {
+        font-size: 0.7em;
+    }
 
+    .bubble-others {
+        float: left;
+        width: 80%;
+        height: 100%;
+        margin: 10px;
+        position: relative;
+        background-color: #fffdf8;
+        border: 1px solid #d6c489;
+        font-size: 12px;
+        line-height: 18px;
+        padding: 5px 12px 5px 12px;
+        box-sizing: border-box;
+        border-radius: 6px;
+    }
+
+    .bubble-others::before {
+        content: '';
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        top: 10px;
+        left: -5px;
+        transform: rotate(-135deg);
+        background: inherit;
+        border: inherit;
+        border-style: solid solid none none;
+    }
+
+    /*用户自己发出的聊天气泡*/
+    .bubble-me {
+        float: right;
+        width: 80%;
+        height: 100%;
+        margin: 10px;
+        position: relative;
+        background-color: #e5ffea;
+        border: 1px solid #a2c58e;
+        font-size: 12px;
+        line-height: 18px;
+        padding: 5px 12px 5px 12px;
+        box-sizing: border-box;
+        border-radius: 6px;
+    }
+
+    .bubble-me::after {
+        content: '';
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        top: 10px;
+        right: -5px;
+        transform: rotate(45deg);
+        background: inherit;
+        border: inherit;
+        border-style: solid solid none none;
+    }
 </style>
