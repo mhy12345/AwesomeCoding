@@ -93,6 +93,7 @@ var sqls = {
 
 	'create_class_table': "CREATE TABLE IF NOT EXISTS `classes`(" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " + //用于唯一标识一个班级
+		"`imagepath` VARCHAR(500), " +
 		"`description` VARCHAR(500), " +
 		"`notice` VARCHAR(500), " + //班级公告
 		"`title` VARCHAR(80) NOT NULL, " + //班级名
