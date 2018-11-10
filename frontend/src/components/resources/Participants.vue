@@ -26,6 +26,12 @@
                 </el-table>
             </div>
         </div>
+        <el-form>
+            <el-form-item>
+                <el-button type='primary' style='width:100%' @click='handleImportStudents'> 导入学生
+                </el-button>
+            </el-form-item>
+        </el-form>
     </el-container>
 </template>
 
@@ -126,7 +132,19 @@
                 this.loadingQ = true;
                 this.edit_dialog.visual = false;
                 //TODO
-            }
+            },
+            handleImportStudents: function() {
+                this.loadingQ = true;
+                this.$http.post('/api/class/addstudents', {class_id: this.class_id}, null).
+                     then(() => {
+                         this.$message("成功");
+                         this.loadingQ = false;
+                     }).
+                     catch(() => {
+                         this.$message("失败");
+                         this.loadingQ = false;
+                     });
+            },
         },
     };
 </script>

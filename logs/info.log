@@ -13002,3 +13002,574 @@ current users:
 [2018-11-08T16:59:16.988] [INFO] socket_log - >>a user connected
 [2018-11-08T16:59:18.751] [WARN] socket_log - >>a user disconnected
 [2018-11-08T16:59:19.137] [INFO] socket_log - >>a user connected
+[2018-11-10T10:29:27.084] [INFO] socket_log - >>a user connected
+[2018-11-10T10:29:27.120] [INFO] socket_log - >>received.
+[2018-11-10T10:29:28.781] [WARN] socket_log - >>a user disconnected
+[2018-11-10T10:29:29.893] [INFO] socket_log - >>a user connected
+[2018-11-10T10:29:39.316] [WARN] socket_log - >>a user disconnected
+[2018-11-10T10:29:39.980] [INFO] socket_log - >>a user connected
+[2018-11-10T10:29:39.983] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T10:29:40.184] [INFO] socket_log - >>received.
+[2018-11-10T10:30:57.573] [INFO] live - [get] chat record
+ { course_id: '8' }
+[2018-11-10T10:30:57.686] [INFO] live - 
+sql = SELECT * FROM ac_database.classusers WHERE user_id = 1 and class_id = 8;
+[2018-11-10T10:30:57.764] [INFO] live - [res]
+sql_results = 
+ []
+[2018-11-10T10:30:59.721] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-11-10T10:31:01.840] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 1,
+       user_id: 1,
+       filename: '20090106-FINAL-EXAM_B.pdf\'2018-11-08 17:08:30.815\'',
+       type: null },
+     RowDataPacket {
+       id: 2,
+       user_id: 1,
+       filename: '20090106-FINAL-EXAM_B.pdf_\'2018-11-08 17:21:54.564\'\'2018-11-08 17:21:54.564\'',
+       type: null },
+     RowDataPacket {
+       id: 3,
+       user_id: 1,
+       filename: 'a a.png_\'2018-11-08 17:35:11.932\'\'2018-11-08 17:35:11.932\'',
+       type: null },
+     RowDataPacket { id: 4, user_id: 1, filename: 'index-manual.pdf', type: null },
+     RowDataPacket { id: 5, user_id: 1, filename: '递归搜索.pdf', type: null } ],
+  details: undefined }
+[2018-11-10T10:31:14.626] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 1,
+       user_id: 1,
+       filename: '20090106-FINAL-EXAM_B.pdf\'2018-11-08 17:08:30.815\'',
+       type: null },
+     RowDataPacket {
+       id: 2,
+       user_id: 1,
+       filename: '20090106-FINAL-EXAM_B.pdf_\'2018-11-08 17:21:54.564\'\'2018-11-08 17:21:54.564\'',
+       type: null },
+     RowDataPacket {
+       id: 3,
+       user_id: 1,
+       filename: 'a a.png_\'2018-11-08 17:35:11.932\'\'2018-11-08 17:35:11.932\'',
+       type: null },
+     RowDataPacket { id: 4, user_id: 1, filename: 'index-manual.pdf', type: null },
+     RowDataPacket { id: 5, user_id: 1, filename: '递归搜索.pdf', type: null } ],
+  details: undefined }
+[2018-11-10T10:31:15.547] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-11-10T10:31:16.293] [INFO] live - [get] chat record
+ { course_id: '8' }
+[2018-11-10T10:31:16.425] [INFO] live - 
+sql = SELECT * FROM ac_database.classusers WHERE user_id = 1 and class_id = 8;
+[2018-11-10T10:31:16.520] [INFO] live - [res]
+sql_results = 
+ []
+[2018-11-10T10:31:48.941] [WARN] socket_log - >>a user disconnected
+[2018-11-10T10:31:48.944] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T10:31:49.549] [INFO] socket_log - >>a user connected
+[2018-11-10T10:31:49.550] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '3' ]
+[2018-11-10T10:31:49.767] [INFO] socket_log - >>received.
+[2018-11-10T10:31:59.168] [WARN] socket_log - >>a user disconnected
+[2018-11-10T10:31:59.170] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T10:31:59.812] [INFO] socket_log - >>a user connected
+[2018-11-10T10:31:59.813] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '3' ]
+[2018-11-10T10:32:00.053] [INFO] socket_log - >>received.
+[2018-11-10T10:32:18.942] [INFO] live - [get] chat record
+ { course_id: '8' }
+[2018-11-10T10:32:19.060] [INFO] live - 
+sql = SELECT * FROM ac_database.classusers WHERE user_id = 3 and class_id = 8;
+[2018-11-10T10:32:19.099] [WARN] live - [res] not in the class
+[2018-11-10T10:32:19.102] [ERROR] live - 
+ TypeError: Cannot destructure property `conn` of 'undefined' or 'null'.
+    at getConnection.then.then.then (E:\git\Git\AwesomeCoding\backend\routes\live.js:56:28)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:189:7)
+[2018-11-10T10:32:21.311] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-11-10T10:32:22.238] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-11-10T10:32:24.379] [INFO] live - [get] chat record
+ { course_id: '8' }
+[2018-11-10T10:32:24.468] [INFO] live - 
+sql = SELECT * FROM ac_database.classusers WHERE user_id = 3 and class_id = 8;
+[2018-11-10T10:32:24.499] [WARN] live - [res] not in the class
+[2018-11-10T10:32:24.501] [ERROR] live - 
+ TypeError: Cannot destructure property `conn` of 'undefined' or 'null'.
+    at getConnection.then.then.then (E:\git\Git\AwesomeCoding\backend\routes\live.js:56:28)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:189:7)
+[2018-11-10T10:32:51.299] [INFO] live - [get] chat record
+ { course_id: '8' }
+[2018-11-10T10:32:51.410] [INFO] live - 
+sql = SELECT * FROM ac_database.classusers WHERE user_id = 3 and class_id = 8;
+[2018-11-10T10:32:51.448] [WARN] live - [res] not in the class
+[2018-11-10T10:32:51.449] [ERROR] live - 
+ TypeError: Cannot destructure property `conn` of 'undefined' or 'null'.
+    at getConnection.then.then.then (E:\git\Git\AwesomeCoding\backend\routes\live.js:56:28)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:189:7)
+[2018-11-10T10:32:54.315] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-11-10T10:32:55.175] [INFO] log_file - { sql: 'select * from coursefiles where class_id = 8',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-11-10T10:32:56.098] [INFO] live - [get] chat record
+ { course_id: '8' }
+[2018-11-10T10:32:56.191] [INFO] live - 
+sql = SELECT * FROM ac_database.classusers WHERE user_id = 3 and class_id = 8;
+[2018-11-10T10:32:56.225] [WARN] live - [res] not in the class
+[2018-11-10T10:32:56.226] [ERROR] live - 
+ TypeError: Cannot destructure property `conn` of 'undefined' or 'null'.
+    at getConnection.then.then.then (E:\git\Git\AwesomeCoding\backend\routes\live.js:56:28)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:189:7)
+[2018-11-10T10:33:56.834] [WARN] socket_log - >>a user disconnected
+[2018-11-10T10:33:56.835] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T10:33:57.454] [INFO] socket_log - >>a user connected
+[2018-11-10T10:33:57.456] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T10:33:57.625] [INFO] socket_log - >>received.
+[2018-11-10T10:34:34.754] [WARN] socket_log - >>a user disconnected
+[2018-11-10T10:34:34.755] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T10:34:35.139] [INFO] socket_log - >>a user connected
+[2018-11-10T10:34:35.141] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T10:34:35.309] [INFO] socket_log - >>received.
+[2018-11-10T10:34:45.969] [WARN] socket_log - >>a user disconnected
+[2018-11-10T10:34:45.971] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T10:34:46.381] [INFO] socket_log - >>a user connected
+[2018-11-10T10:34:46.382] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T10:34:46.595] [INFO] socket_log - >>received.
+[2018-11-10T10:34:54.660] [WARN] socket_log - >>a user disconnected
+[2018-11-10T10:34:54.661] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T10:34:55.040] [INFO] socket_log - >>a user connected
+[2018-11-10T10:34:55.041] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '3' ]
+[2018-11-10T10:34:55.232] [INFO] socket_log - >>received.
+[2018-11-10T10:37:21.581] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-11-10T10:37:27.547] [WARN] socket_log - >>a user disconnected
+[2018-11-10T10:37:27.549] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T10:37:27.983] [INFO] socket_log - >>a user connected
+[2018-11-10T10:37:27.985] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '3' ]
+[2018-11-10T10:37:28.154] [INFO] socket_log - >>received.
+[2018-11-10T10:40:20.359] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: [],
+  details: undefined }
+[2018-11-10T10:40:36.759] [WARN] socket_log - >>a user disconnected
+[2018-11-10T10:40:36.759] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T10:40:37.744] [INFO] socket_log - >>a user connected
+[2018-11-10T10:40:37.745] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T10:40:37.933] [INFO] socket_log - >>received.
+[2018-11-10T10:40:53.599] [WARN] socket_log - >>a user disconnected
+[2018-11-10T10:40:53.603] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T10:40:54.319] [INFO] socket_log - >>a user connected
+[2018-11-10T10:40:54.320] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T10:40:54.528] [INFO] socket_log - >>received.
+[2018-11-10T10:41:18.195] [WARN] socket_log - >>a user disconnected
+[2018-11-10T10:41:18.196] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T10:41:18.552] [INFO] socket_log - >>a user connected
+[2018-11-10T10:41:18.553] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '3' ]
+[2018-11-10T10:41:18.751] [INFO] socket_log - >>received.
+[2018-11-10T10:44:01.639] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 6, user_id: 3, filename: 'student.xlsx', type: null } ],
+  details: undefined }
+[2018-11-10T10:44:18.404] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 6, user_id: 3, filename: 'student.xlsx', type: null } ],
+  details: undefined }
+[2018-11-10T10:48:18.590] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 6, user_id: 3, filename: 'student.xlsx', type: null } ],
+  details: undefined }
+[2018-11-10T10:48:25.353] [INFO] log_file - { sql: 'select * from files where user_id = 3',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket { id: 6, user_id: 3, filename: 'student.xlsx', type: null } ],
+  details: undefined }
+[2018-11-10T10:48:41.647] [WARN] socket_log - >>a user disconnected
+[2018-11-10T10:48:41.647] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T10:48:42.559] [INFO] socket_log - >>a user connected
+[2018-11-10T10:48:42.560] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T10:48:42.718] [INFO] socket_log - >>received.
+[2018-11-10T10:48:47.262] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 1,
+       user_id: 1,
+       filename: '20090106-FINAL-EXAM_B.pdf\'2018-11-08 17:08:30.815\'',
+       type: null },
+     RowDataPacket {
+       id: 2,
+       user_id: 1,
+       filename: '20090106-FINAL-EXAM_B.pdf_\'2018-11-08 17:21:54.564\'\'2018-11-08 17:21:54.564\'',
+       type: null },
+     RowDataPacket {
+       id: 3,
+       user_id: 1,
+       filename: 'a a.png_\'2018-11-08 17:35:11.932\'\'2018-11-08 17:35:11.932\'',
+       type: null },
+     RowDataPacket { id: 4, user_id: 1, filename: 'index-manual.pdf', type: null },
+     RowDataPacket { id: 5, user_id: 1, filename: '递归搜索.pdf', type: null } ],
+  details: undefined }
+[2018-11-10T10:49:06.654] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 1,
+       user_id: 1,
+       filename: '20090106-FINAL-EXAM_B.pdf\'2018-11-08 17:08:30.815\'',
+       type: null },
+     RowDataPacket {
+       id: 2,
+       user_id: 1,
+       filename: '20090106-FINAL-EXAM_B.pdf_\'2018-11-08 17:21:54.564\'\'2018-11-08 17:21:54.564\'',
+       type: null },
+     RowDataPacket {
+       id: 3,
+       user_id: 1,
+       filename: 'a a.png_\'2018-11-08 17:35:11.932\'\'2018-11-08 17:35:11.932\'',
+       type: null },
+     RowDataPacket { id: 4, user_id: 1, filename: 'index-manual.pdf', type: null },
+     RowDataPacket { id: 5, user_id: 1, filename: '递归搜索.pdf', type: null },
+     RowDataPacket { id: 7, user_id: 1, filename: 'student.xlsx', type: null } ],
+  details: undefined }
+[2018-11-10T11:41:20.339] [INFO] socket_log - >>a user connected
+[2018-11-10T11:41:20.363] [INFO] socket_log - >>received.
+[2018-11-10T11:41:22.376] [WARN] socket_log - >>a user disconnected
+[2018-11-10T11:41:24.175] [INFO] socket_log - >>a user connected
+[2018-11-10T11:41:35.062] [WARN] socket_log - >>a user disconnected
+[2018-11-10T11:41:35.552] [INFO] socket_log - >>a user connected
+[2018-11-10T11:41:35.553] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T11:41:35.788] [INFO] socket_log - >>received.
+[2018-11-10T11:42:58.112] [INFO] socket_log - >>a user connected
+[2018-11-10T11:42:58.130] [INFO] socket_log - >>received.
+[2018-11-10T11:43:06.264] [WARN] socket_log - >>a user disconnected
+[2018-11-10T11:43:06.965] [INFO] socket_log - >>a user connected
+[2018-11-10T11:43:17.521] [WARN] socket_log - >>a user disconnected
+[2018-11-10T11:43:18.039] [INFO] socket_log - >>a user connected
+[2018-11-10T11:43:18.040] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T11:43:18.270] [INFO] socket_log - >>received.
+[2018-11-10T11:43:42.127] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 8,
+       user_id: 1,
+       filename: '\'2018-11-10 10:47:09.531\' Decaf语言规范.pdf',
+       type: null },
+     RowDataPacket {
+       id: 9,
+       user_id: 1,
+       filename: '\'2018-11-10 11:22:12.521\' Slide04_hw.pdf',
+       type: null },
+     RowDataPacket {
+       id: 10,
+       user_id: 1,
+       filename: '\'2018-11-10 11:26:23.498\' 屏幕.png',
+       type: null },
+     RowDataPacket {
+       id: 11,
+       user_id: 1,
+       filename: '\'2018-11-10 11:27:47.718\' 屏幕.s',
+       type: null },
+     RowDataPacket {
+       id: 12,
+       user_id: 1,
+       filename: '\'2018-11-10 11:28:14.134\' 屏幕.不服.s',
+       type: null },
+     RowDataPacket {
+       id: 13,
+       user_id: 1,
+       filename: '\'2018-11-10 11:29:17.197\' 测试',
+       type: null } ],
+  details: undefined }
+[2018-11-10T11:44:09.128] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 8,
+       user_id: 1,
+       filename: '\'2018-11-10 10:47:09.531\' Decaf语言规范.pdf',
+       type: null },
+     RowDataPacket {
+       id: 9,
+       user_id: 1,
+       filename: '\'2018-11-10 11:22:12.521\' Slide04_hw.pdf',
+       type: null },
+     RowDataPacket {
+       id: 10,
+       user_id: 1,
+       filename: '\'2018-11-10 11:26:23.498\' 屏幕.png',
+       type: null },
+     RowDataPacket {
+       id: 11,
+       user_id: 1,
+       filename: '\'2018-11-10 11:27:47.718\' 屏幕.s',
+       type: null },
+     RowDataPacket {
+       id: 12,
+       user_id: 1,
+       filename: '\'2018-11-10 11:28:14.134\' 屏幕.不服.s',
+       type: null },
+     RowDataPacket {
+       id: 13,
+       user_id: 1,
+       filename: '\'2018-11-10 11:29:17.197\' 测试',
+       type: null },
+     RowDataPacket { id: 14, user_id: 1, filename: 'students.xlsx', type: null } ],
+  details: undefined }
+[2018-11-10T11:45:38.101] [INFO] socket_log - >>a user connected
+[2018-11-10T11:45:38.126] [INFO] socket_log - >>received.
+[2018-11-10T11:45:42.380] [WARN] socket_log - >>a user disconnected
+[2018-11-10T11:45:43.293] [INFO] socket_log - >>a user connected
+[2018-11-10T11:45:53.253] [WARN] socket_log - >>a user disconnected
+[2018-11-10T11:45:53.644] [INFO] socket_log - >>a user connected
+[2018-11-10T11:45:53.645] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T11:45:53.832] [INFO] socket_log - >>received.
+[2018-11-10T11:46:01.370] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 8,
+       user_id: 1,
+       filename: '\'2018-11-10 10:47:09.531\' Decaf语言规范.pdf',
+       type: null },
+     RowDataPacket {
+       id: 9,
+       user_id: 1,
+       filename: '\'2018-11-10 11:22:12.521\' Slide04_hw.pdf',
+       type: null },
+     RowDataPacket {
+       id: 10,
+       user_id: 1,
+       filename: '\'2018-11-10 11:26:23.498\' 屏幕.png',
+       type: null },
+     RowDataPacket {
+       id: 11,
+       user_id: 1,
+       filename: '\'2018-11-10 11:27:47.718\' 屏幕.s',
+       type: null },
+     RowDataPacket {
+       id: 12,
+       user_id: 1,
+       filename: '\'2018-11-10 11:28:14.134\' 屏幕.不服.s',
+       type: null },
+     RowDataPacket {
+       id: 13,
+       user_id: 1,
+       filename: '\'2018-11-10 11:29:17.197\' 测试',
+       type: null },
+     RowDataPacket { id: 14, user_id: 1, filename: 'students.xlsx', type: null } ],
+  details: undefined }
+[2018-11-10T11:57:31.331] [INFO] socket_log - >>a user connected
+[2018-11-10T11:57:31.355] [INFO] socket_log - >>received.
+[2018-11-10T11:57:40.268] [WARN] socket_log - >>a user disconnected
+[2018-11-10T11:57:41.243] [INFO] socket_log - >>a user connected
+[2018-11-10T11:57:50.843] [WARN] socket_log - >>a user disconnected
+[2018-11-10T11:57:51.286] [INFO] socket_log - >>a user connected
+[2018-11-10T11:57:51.288] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T11:57:51.477] [INFO] socket_log - >>received.
+[2018-11-10T11:59:06.979] [INFO] socket_log - >>a user connected
+[2018-11-10T11:59:06.998] [INFO] socket_log - >>received.
+[2018-11-10T11:59:10.154] [WARN] socket_log - >>a user disconnected
+[2018-11-10T11:59:10.616] [INFO] socket_log - >>a user connected
+[2018-11-10T11:59:20.413] [WARN] socket_log - >>a user disconnected
+[2018-11-10T11:59:20.857] [INFO] socket_log - >>a user connected
+[2018-11-10T11:59:20.858] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T11:59:21.128] [INFO] socket_log - >>received.
+[2018-11-10T12:00:02.894] [INFO] socket_log - >>a user connected
+[2018-11-10T12:00:02.918] [INFO] socket_log - >>received.
+[2018-11-10T12:00:07.713] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:00:08.216] [INFO] socket_log - >>a user connected
+[2018-11-10T12:00:16.234] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:00:16.588] [INFO] socket_log - >>a user connected
+[2018-11-10T12:00:16.590] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T12:00:16.802] [INFO] socket_log - >>received.
+[2018-11-10T12:01:37.883] [INFO] socket_log - >>a user connected
+[2018-11-10T12:01:37.901] [INFO] socket_log - >>received.
+[2018-11-10T12:01:43.826] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:01:44.278] [INFO] socket_log - >>a user connected
+[2018-11-10T12:01:53.605] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:01:53.990] [INFO] socket_log - >>a user connected
+[2018-11-10T12:01:53.991] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T12:01:54.216] [INFO] socket_log - >>received.
+[2018-11-10T12:03:04.232] [INFO] socket_log - >>a user connected
+[2018-11-10T12:03:04.251] [INFO] socket_log - >>received.
+[2018-11-10T12:03:07.838] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:03:08.283] [INFO] socket_log - >>a user connected
+[2018-11-10T12:03:16.877] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:03:17.240] [INFO] socket_log - >>a user connected
+[2018-11-10T12:03:17.243] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T12:03:17.440] [INFO] socket_log - >>received.
+[2018-11-10T12:05:42.457] [INFO] socket_log - >>a user connected
+[2018-11-10T12:05:42.478] [INFO] socket_log - >>received.
+[2018-11-10T12:05:45.345] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:05:45.796] [INFO] socket_log - >>a user connected
+[2018-11-10T12:05:51.537] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:05:51.938] [INFO] socket_log - >>a user connected
+[2018-11-10T12:05:51.940] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T12:05:52.142] [INFO] socket_log - >>received.
+[2018-11-10T12:07:31.542] [INFO] socket_log - >>a user connected
+[2018-11-10T12:07:31.563] [INFO] socket_log - >>received.
+[2018-11-10T12:07:34.242] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:07:34.680] [INFO] socket_log - >>a user connected
+[2018-11-10T12:07:41.189] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:07:41.550] [INFO] socket_log - >>a user connected
+[2018-11-10T12:07:41.551] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T12:07:41.749] [INFO] socket_log - >>received.
+[2018-11-10T12:19:07.056] [INFO] socket_log - >>a user connected
+[2018-11-10T12:19:07.082] [INFO] socket_log - >>received.
+[2018-11-10T12:19:10.482] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:19:12.566] [INFO] socket_log - >>a user connected
+[2018-11-10T12:19:18.844] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:19:19.254] [INFO] socket_log - >>a user connected
+[2018-11-10T12:19:19.256] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T12:19:19.636] [INFO] socket_log - >>received.
+[2018-11-10T12:19:40.887] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:19:40.888] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T12:19:41.271] [INFO] socket_log - >>a user connected
+[2018-11-10T12:19:41.272] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T12:19:41.495] [INFO] socket_log - >>received.
+[2018-11-10T12:21:23.116] [INFO] socket_log - >>a user connected
+[2018-11-10T12:21:23.134] [INFO] socket_log - >>received.
+[2018-11-10T12:21:31.569] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:21:32.052] [INFO] socket_log - >>a user connected
+[2018-11-10T12:21:38.090] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:21:38.439] [INFO] socket_log - >>a user connected
+[2018-11-10T12:21:38.441] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T12:21:38.615] [INFO] socket_log - >>received.
+[2018-11-10T12:21:50.951] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:21:50.952] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T12:21:51.357] [INFO] socket_log - >>a user connected
+[2018-11-10T12:21:51.358] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T12:21:51.568] [INFO] socket_log - >>received.
+[2018-11-10T12:28:02.812] [INFO] socket_log - >>a user connected
+[2018-11-10T12:28:02.833] [INFO] socket_log - >>received.
+[2018-11-10T12:28:08.432] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:28:09.111] [INFO] socket_log - >>a user connected
+[2018-11-10T12:28:16.024] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:28:16.403] [INFO] socket_log - >>a user connected
+[2018-11-10T12:28:16.404] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T12:28:16.569] [INFO] socket_log - >>received.
+[2018-11-10T12:36:28.966] [INFO] socket_log - >>a user connected
+[2018-11-10T12:36:28.987] [INFO] socket_log - >>received.
+[2018-11-10T12:36:40.081] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:36:40.965] [INFO] socket_log - >>a user connected
+[2018-11-10T12:36:47.206] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:36:47.502] [INFO] socket_log - >>a user connected
+[2018-11-10T12:36:47.503] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T12:36:47.659] [INFO] socket_log - >>received.
+[2018-11-10T12:37:06.837] [WARN] socket_log - >>a user disconnected
+[2018-11-10T12:37:06.838] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T12:37:07.204] [INFO] socket_log - >>a user connected
+[2018-11-10T12:37:07.208] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T12:37:07.417] [INFO] socket_log - >>received.
