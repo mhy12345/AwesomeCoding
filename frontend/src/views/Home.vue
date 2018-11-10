@@ -2,19 +2,22 @@
     <div class="block">
         <el-carousel class="carousel_css">
             <el-carousel-item v-for="(currentitem, idx) in headlines" class = "carousel_item">
-                <h3 v-if="currentitem.path === ''" @click="jump(currentitem)">
+                <div v-if="currentitem.path" @click="jump(currentitem)" style="height: 100%; width: 100%" align="center">
+                    <img v-bind:src="currentitem.path" style="height: 100%;"/>
+                </div>
+                <h3 v-else @click="jump(currentitem)">
                     {{ currentitem.title }}
-                </h3>
-                <h3 v-else>
-                    {{ idx }}
                 </h3>
             </el-carousel-item>
         </el-carousel>
 
         <el-row class="fucked">
-            <el-col :span="4" v-for="(currentitem, idx) in headlines" class = "card_css">
+            <el-col v-for="(currentitem, idx) in headlines" class = "card_css">
                 <el-card :body-style="{ padding: '0px' }">
-                    <h3 v-if="currentitem.path === ''" @click="jump(currentitem)">
+                    <h3 v-if="currentitem.imagepath" @click="jump(currentitem)">
+                        {{ currentitem.title }}
+                    </h3>
+                    <h3 v-else @click="jump(currentitem)">
                         {{ currentitem.title }}
                     </h3>
                     <div style="padding: 14px;">
@@ -30,6 +33,7 @@
     /* eslint-disable camelcase */
 
     import {supported_resources} from '../utils/CourseLists';
+    import root_url from '../../config/http_root_url.js';
 
     export default {
         data: function () {
@@ -47,14 +51,18 @@
                  then(function (res) {
                      console.log('fucking');
                      this.tableData = res.body.results;
-                     console.log(this.tableData);
+                     for(let i of this.tableData) {
+                         console.log(i);
+                         if(i.imagepath)
+                             i.imagepath = root_url + i.imagepath;
+                     }
 
                      for(let i = 0; i < 6; i ++) {
                          this.headlines.push(
                              {
                                  title: this.tableData[i].title,
                                  id: this.tableData[i].id,
-                                 path: ''
+                                 path: this.tableData[i].imagepath
                              }
                          );
                      }
@@ -86,6 +94,7 @@
     }
     .card_css {
         margin: 20px;
+        width: 300px;
     }
     .el-carousel__item h3 {
         color: #475669;
