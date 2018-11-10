@@ -36,45 +36,34 @@ router.use(function (req, res, next) {	// 检查用户是否在课堂中
 		}).
 		then((packed) => {
 			let { conn, sql_res } = packed;
+			conn.end();
 			if (sql_res.results.length === 0) {	// user not in the class
 				logger.warn('[res] not in the class');
 				res.send({
 					status: 'FAILED.',
 					details: 'USER_NOT_IN_THE_CLASS.'
 				});
-				conn.end();
 			}
 			else {
 				next();		// user in the class, go on
 			}
+		}).
+		catch((err) => {
+			logger.error('\n', err);
+			res.send(err);
 		});
 });
 
-router.get('/get_chat_record_count', function (req, res) {		// 获取聊天记录条数
+/* 获取聊天记录条数
+ * req.query 字段：
+ * 		course_id: 课程号
+ */
+router.get('/get_chat_record_count', function (req, res) {
 	logger.info('[get] chat record count\n', req.query);
 	// check if the user is in the course_id
 	getConnection().
 		then((conn) => {
-			let sql = "SELECT * " +
-				"FROM ac_database.classusers WHERE " +
-				"user_id = " + req.session.user_id + " and " +
-				"class_id = " + req.query.course_id + ";";
-			logger.info('\nsql =', sql);
-			return doSqlQuery(conn, sql);
-		}).
-		then((packed) => {
-			let { conn, sql_res } = packed;
-			if (sql_res.results.length === 0) {	// user not in the class
-				logger.warn('[res] not in the class');
-				res.send({
-					status: 'FAILED.',
-					details: 'USER_NOT_IN_THE_CLASS.'
-				});
-				conn.end();
-				return;
-			}
-			// user is in the class, return all the chat record relating the course_id
-			let sql = "SELECT * FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + ";";
+			let sql = "SELECT COUNT(*) FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + ";";
 			return doSqlQuery(conn, sql);
 		}).
 		then((packed) => {
@@ -82,7 +71,7 @@ router.get('/get_chat_record_count', function (req, res) {		// 获取聊天记�
 			logger.info('[res]\nsql_results = \n', sql_res.results);
 			res.send({
 				status: 'SUCCESS.',
-				results: sql_res.results
+				results: sql_res.results[0]['COUNT(*)']
 			});
 			conn.end();
 		}).
@@ -92,31 +81,27 @@ router.get('/get_chat_record_count', function (req, res) {		// 获取聊天记�
 		});
 });
 
-router.get('/get_chat_record', function (req, res) {		// 分页获取聊天记录
+/* 分页获取聊天记录
+ * req.query 的字段：
+ * 		course_id: 课程号
+ * 		start: 按最新消息到最初消息的顺序，待获取的聊天记录的起始编号
+ * 		end:   按最新消息到最初消息的顺序，待获取的聊天记录的末尾编号
+ */
+router.get('/get_chat_record', function (req, res) {
 	logger.info('[get] chat record\n', req.query);
 	// check if the user is in the course_id
 	getConnection().
 		then((conn) => {
-			let sql = "SELECT * " +
-				"FROM ac_database.classusers WHERE " +
-				"user_id = " + req.session.user_id + " and " +
-				"class_id = " + req.query.course_id + ";";
-			logger.info('\nsql =', sql);
+			let sql = "SELECT COUNT(*) FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + ";";
 			return doSqlQuery(conn, sql);
 		}).
 		then((packed) => {
 			let { conn, sql_res } = packed;
-			if (sql_res.results.length === 0) {	// user not in the class
-				logger.warn('[res] not in the class');
-				res.send({
-					status: 'FAILED.',
-					details: 'USER_NOT_IN_THE_CLASS.'
-				});
-				conn.end();
-				return;
-			}
-			// user is in the class, return all the chat record relating the course_id
-			let sql = "SELECT * FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + ";";
+			let count = sql_res.results[0]['COUNT(*)'];	// 获取到记录条数
+			let first_id = count - req.query.end + 1;
+			let last_id = count - req.query.start + 1;
+			let sql = "SELECT * FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + " AND " +
+				first_id + " <= id AND id <= " + last_id + ";";
 			return doSqlQuery(conn, sql);
 		}).
 		then((packed) => {
@@ -124,7 +109,7 @@ router.get('/get_chat_record', function (req, res) {		// 分页获取聊天记�
 			logger.info('[res]\nsql_results = \n', sql_res.results);
 			res.send({
 				status: 'SUCCESS.',
-				results: sql_res.results
+				results: sql_res.results.reverse()
 			});
 			conn.end();
 		}).

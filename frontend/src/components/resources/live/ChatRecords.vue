@@ -83,8 +83,8 @@
                      get('/api/live/get_chat_record', {
                          params: {
                              course_id: this.course_id,
-                             start: (page_ord - 1) * this.num_each,
-                             end: page_ord * this.num_each      // 按最新消息到最初消息的顺序，获取 [start, end) 之间的全部消息
+                             start: (page_ord - 1) * this.num_each + 1,
+                             end: page_ord * this.num_each      // 按最新消息到最初消息的顺序，获取 [start, end] 之间的全部消息
                          } }).
                      then((res) => {
                          this.loadingQ = false;

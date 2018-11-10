@@ -62,6 +62,7 @@
                 // 以后聊天统一通过socket来完成
                 console.log('[socket] send message:', msg);
                 this.$socket.emit('message', msg);
+                // this.emit('addRecord', msg); todo
                 this.input_message = '';
             },
             handleSendVoice() {     // todo 发送语音
