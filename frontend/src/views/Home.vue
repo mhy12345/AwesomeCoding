@@ -11,13 +11,13 @@
             </el-carousel-item>
         </el-carousel>
 
-        <el-row class="fucked">
-            <el-col v-for="(currentitem, idx) in headlines" class = "card_css">
+        <el-row>
+            <el-col v-for="(currentitem, idx) in tableData" class = "card_css">
                 <el-card :body-style="{ padding: '0px' }">
-                    <h3 v-if="currentitem.imagepath" @click="jump(currentitem)">
-                        {{ currentitem.title }}
-                    </h3>
-                    <h3 v-else @click="jump(currentitem)">
+                    <div v-if="currentitem.imagepath" @click="jump(currentitem)" style="height:150px; width: 100%" align="center">
+                        <img v-bind:src="currentitem.imagepath" style="height: 100%;"/>
+                    </div>
+                    <h3 v-else @click="jump(currentitem)" style="height:150px">
                         {{ currentitem.title }}
                     </h3>
                     <div style="padding: 14px;">
@@ -88,13 +88,9 @@
     .carousel_item {
         height: 400px;
     }
-    .fucked {
-        margin: 20px;
-        height: 400px;
-    }
     .card_css {
         margin: 20px;
-        width: 300px;
+        width: 280px;
     }
     .el-carousel__item h3 {
         color: #475669;
