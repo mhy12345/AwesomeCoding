@@ -1,11 +1,10 @@
 <template>
 	<div>
         <el-card v-loading="loadingQ">
-            <h3 slot="header">聊天记录</h3>
             <!--聊天记录-->
             <div v-for="(record, index) in chat_records" :key="index">
-                <p>{{ record.date_time }} {{ record.realname }} : </p>
-                <p>{{ record.message }}</p>
+                {{ record.date_time }} {{ record.realname }} : <br>
+                {{ record.message }}<br>
                 <br>
             </div>
             <!--分页器-->
@@ -52,7 +51,6 @@
                              }
                          }).
                          then((res) => {
-                             console.log('[res] chat record count', res);
                              if (res.body.status === 'FAILED.') {
                                  this.pushRecord({
                                      message: res.body.details
@@ -81,12 +79,10 @@
                 this.updateRecordCount();
             },
             clear() {   // 清空记录
-                console.log('>>clear record');
                 this.chat_records = [];
             },
             handleCurrentChange(page_ord) {     // 获取第 page_ord 页的消息
                 this.loadingQ = true;
-                console.log('[get] chat record');
                 this.$http.
                      get('/api/live/get_chat_record', {
                          params: {
@@ -96,7 +92,6 @@
                          } }).
                      then((res) => {
                          this.loadingQ = false;
-                         console.log('[res] chat record', res);
                          if (res.body.status === 'FAILED.')
                              this.pushRecord({
                                  message: res.body.details

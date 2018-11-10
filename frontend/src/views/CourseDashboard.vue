@@ -44,7 +44,7 @@ import {supported_resources} from '../utils/Resources';
 import TabPane from './MyTabPane.vue';
 
 for (let item in supported_resources) {
-	console.log('[dashboard] components-register : sub-'+supported_resources[item].name);
+	// console.log('[dashboard] components-register : sub-'+supported_resources[item].name);
 	Vue.component('sub-'+supported_resources[item].name, supported_resources[item].component);
 }
 
@@ -96,13 +96,13 @@ export default {
 						this.$message("");
 						window.location.href = '/user/sign_in';
 					} else {
-						console.log("[dashboard] course status error: " + res.body.details);
+						// console.log("[dashboard] course status error: " + res.body.details);
 						this.$message("错误，见console");
 					}
 					return;
 				}
 				this.course_status = res.body.results;
-				console.log("[dashboard] course status: ", this.course_status);
+				// console.log("[dashboard] course status: ", this.course_status);
 				if (this.course_status.role === 0) {
 					this.course_status.role_title = '教师';
 				} else if (this.course_status.role === 1) {
@@ -122,7 +122,7 @@ export default {
 
 	methods: {
 		handleBeforeLeave(new_name, old_name) {
-			console.log(new_name, old_name);
+			// console.log(new_name, old_name);
 		},
 		onTabClick (arg) {
 

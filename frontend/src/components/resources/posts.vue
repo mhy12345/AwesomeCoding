@@ -49,15 +49,14 @@
             this.userid = this.$route.query.userid;
             this.theme = this.$route.query.theme;
             this.$http.get('/api/user/session', {}).
-                 then(function (res) {
+                 then((res) => {
                      this.inputData.userId = res.body.user_id;
-                     this.$http.post('/api/chat/info/query/posts', {forumid: this.forumid}).
+                     this.$http.post('/api/chat/info/query/posts', { forumid: this.forumid }).
                           then(function (res) {
                               if (res.body.status === 'NOT FOUND.') {
                                   this.$message("Room " + this.title + " not found!");
                               } else {
                                   this.chatrecords = res.body.chatrecords;
-                                  console.log(111);
                               }
                           });
                  });
@@ -71,9 +70,9 @@
                     classid: this.inputData.classId,
                 }).
                      then(function (res) {
-                         console.log(res);
+                         // console.log(res);
                          if (res.body.status === 'SUCCESS.') {
-                             console.log(res.body.results);
+                             // console.log(res.body.results);
                              this.chatrecords.push(res.body.results);
                          }
                      });
@@ -81,7 +80,7 @@
             onClear () {
                 this.$http.post('/api/chat/clear_comments', {classid: this.inputData.classId,}).
                      then(function (res) {
-                         console.log(res);
+                         // console.log(res);
                          if (res.body.status === 'SUCCESS.') {
                              this.chatrecords = [];
                          }

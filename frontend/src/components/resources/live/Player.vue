@@ -14,7 +14,7 @@ export default {
 			active_name: undefined,
 			player_config: {
 				width: 800,
-				height: 500,
+				height: 400,
 				uid: '',
 				vid: ''
 			},
@@ -26,16 +26,11 @@ export default {
 			axios.
 				post(nowpath, { class_id: this.class_id }).
 				then((res) => {
-					console.log(res.data);
-
 					this.player_config.uid = res.data.liveplayer_uid;
 					this.player_config.vid = res.data.liveplayer_vid;
 					this.player_config.width = this.$refs.player_box.offsetWidth;
-					this.player_config.height = this.$refs.player_box.offsetWidth*0.7;
-					console.log("THIS SIZE",this.$refs);
+					this.player_config.height = this.$refs.player_box.offsetWidth * 0.6;
 					this.src = '/backend/render/live?uid='+this.player_config.uid+'&vid='+this.player_config.vid;
-
-					console.log("INIT WITH ",this.player_config);
 					let player = polyvObject('#player').  livePlayer(this.player_config);
 				});
 		}

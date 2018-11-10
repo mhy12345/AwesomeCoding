@@ -80,7 +80,6 @@
                         item.role_title = '学生';
                     }
                     data.push(item);
-                    console.log(item);
                 }
                 return data;
             }
@@ -97,7 +96,6 @@
             this.$http.post('/api/class/participants/show', {class_id: this.class_id}, null).
                  then((resp) => {										 // 成功，被 showSQL 的 resolve 调用
                      this.table_data = resp.body.results;
-                     console.log(this.table_data);
                      this.loadingQ = false;
                      this.loadedQ = true;
                  }).
