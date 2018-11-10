@@ -1,9 +1,9 @@
 <template>
     <div class="block">
         <el-carousel height="300px">
-            <el-carousel-item v-for="(currentimgpath, idx) in imgpath">
-                <h3 v-if="currentimgpath === ''">
-                    {{ itemtitle[idx] }}
+            <el-carousel-item v-for="(currentitem, idx) in items">
+                <h3 v-if="currentitem.path === ''">
+                    {{ currentitem.title }}
                 </h3>
                 <h3 v-else>
                     {{ idx }}
@@ -19,27 +19,33 @@
     import {supported_resources} from '../utils/CourseLists';
 
     export default {
-        name: 'Home',
-        data() {
-            return{
-                itemtitle: ['中国历史', '世界历史', '软件工程', '编译原理', 'e', 'f'],
-                imgpath: ['', '', '', '', '', ''],
-                items: ['a', 'b', 'c', 'd', 'e', 'f'],
+        data: function () {
+            return {
+                items: [],
                 tableData: [],
                 title: ' ',
-                isTeacher: false,
                 idx: 'publicCourses'
             };
         },
+        name: 'Home',
         mounted: function () {
             this.title = supported_resources[this.idx].title;
             this.$http.post(supported_resources[this.idx].url + '/fetch', {page_number: 1, page_size: 20}).
                  then(function (res) {
-                     console.log(res.body);
+                     console.log('fucking');
                      this.tableData = res.body.results;
-                     if (this.tableData.length > 0 && this.tableData[0].lvid) {
-                         this.isTeacher = true;
+                     console.log(this.tableData);
+
+                     for(let i = 0; i < 6; i ++) {
+                         this.items.push(
+                             {
+                                 title: this.tableData[i].title,
+                                 path: ''
+                             }
+                         );
                      }
+
+                     console.log(this.items);
                  }).
                  catch(function (res) {
                      this.$message(res);
