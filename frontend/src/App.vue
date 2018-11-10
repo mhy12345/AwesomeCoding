@@ -194,11 +194,11 @@ export default {
         },
         accepted: function () {         // 服务器接受客户发出的消息
             console.log('[socket] accepted!');
-            this.$message.success('发送成功');
+            //this.$message.success('发送成功');
         },
         rejected: function (msg) {       // 服务器拒绝客户发出的消息
             console.log('[socket] rejected!', msg);
-            this.$message.error('发送失败');
+            //this.$message.error('发送失败');
         }
     },
 	methods: {

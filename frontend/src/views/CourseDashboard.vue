@@ -10,7 +10,6 @@
 						  :label="option.name" 
 						  :name="options.route" 
 						  :key='option.index' 
-						  @before-leave='handleBeforeLeave' 
 						  :fly='option.index === "live"'>
 					<!-- 对于live模块，额外加一个fly的props，用于表示是否通过修改visible隐藏-->
 					<components 
@@ -34,6 +33,18 @@
 					</components>
 				 </TabPane>
 		</el-tabs>
+
+		<el-dialog
+			title="新的习题"
+			:visible.sync="new_problem_dialog_visible"
+			width="30%"
+			:before-close="handleNewProblemClose">
+			<span>刚刚，老师发布了新的习题</span>
+			<span slot="footer" class="dialog-footer">
+				<el-button @click="handleNewProblemCancel">留在这里</el-button>
+				<el-button type="primary" @click="handleNewProblemConfirm">去看看</el-button>
+			</span>
+		</el-dialog>
 	</div>
 </template>
 
@@ -60,8 +71,20 @@ export default {
 				role_title: null,
 				role: null,
 			},
-			loading: true
+			loading: true,
+			new_problem_dialog_visible: false,
 		};
+	},
+	sockets: {
+		alert: function(msg) {
+			console.log(msg.operation);
+			if (msg.operation === 'PROBLEM_PUBLISH.') {
+				console.log("New problem published, jump to the practice area.");
+				this.$message("你有新的习题，快去看看吧!");
+				this.new_problem_dialog_visible = true;
+				//this.activeIndex = this.whereIs('train_area');
+			}
+		}
 	},
 	computed: {
 		fly: function() {
@@ -121,11 +144,32 @@ export default {
 	},
 
 	methods: {
-		handleBeforeLeave(new_name, old_name) {
-			console.log(new_name, old_name);
+		whereIs(name) {
+			var current_options = this.class_resources ? this.class_resources : default_options;
+			let idx = 0;
+			for (let k of current_options) {
+				console.log('...',k === name);
+				if (k === name)
+					return ''+idx;
+				idx += 1;
+			}
+			return '0';
+		},
+		handleNewProblemClose(done) {
+			this.$confirm('确认关闭？')
+				.then(_ => {
+					done();
+				})
+				.catch(_ => {});
+		},
+		handleNewProblemConfirm() {
+			this.activeIndex = this.whereIs('train_area');
+			this.new_problem_dialog_visible = false;
+		},
+		handleNewProblemCancel() {
+			this.new_problem_dialog_visible = false;
 		},
 		onTabClick (arg) {
-
 			this.$router.push({name: 'class-' + this.options[arg.paneName].index, params: {class_id: this.title}});
 		},
 		getActiveName () {
