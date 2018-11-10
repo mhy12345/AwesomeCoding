@@ -1,4 +1,5 @@
 <template>
+    <el-container>
     <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="showFilename" label="文件名" width="180"></el-table-column>
         <el-table-column align="center" label="操作">
@@ -6,14 +7,18 @@
                 <el-button icon="el-icon-check" circle
                            @click="handleAdd(scope.row)">
                 </el-button>
+                <!--<el-button v-else = "scope.row.type = 'inserted'" icon="el-icon-delete" circle-->
+                           <!--@click="handleAdd(scope.row)">-->
+                <!--</el-button>-->
             </template>
         </el-table-column>
     </el-table>
+    </el-container>
 </template>
 
 <script>
     export default {
-        data() {
+        data () {
             return {
                 tableData: [],
                 class_id: "undefined",
@@ -35,7 +40,7 @@
                      then(function (lres) {
                          this.$http.post('/api/file/fetch_coursefiles', {classid: this.class_id,}).
                               then(function (fres) {
-                                  this.tableData = [];
+                                  this.tableData = lres.body.results;
                                   for (let i = 0; i < lres.body.results.length; i++) {
                                       let tag = 0;
                                       for (let j = 0; j < fres.body.results.length; j++) {
@@ -44,8 +49,10 @@
                                               break;
                                           }
                                       }
-                                      if (tag === 0) {
-                                          this.tableData.push(lres.body.results[i]);
+                                      if (tag === 0) { //to be added
+                                          this.tableData[i].type = "remained";
+                                      } else {
+                                          this.tableData[i].type = "inserted";
                                       }
                                   }
                                   for (let i = 0; i < this.tableData.length; i++) {
