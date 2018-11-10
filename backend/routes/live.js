@@ -83,6 +83,8 @@ router.get('/get_chat_record_count', function (req, res) {
  * 		course_id: 课程号
  * 		start: 按最新消息到最初消息的顺序，待获取的聊天记录的起始编号
  * 		end:   按最新消息到最初消息的顺序，待获取的聊天记录的末尾编号
+ *
+ * res 内容：按所发时间倒排的聊天记录数组，每个元素的字段与 chat_record 数据库字段相同
  */
 router.get('/get_chat_record', function (req, res) {
 	logger.info('[get] chat record\n', req.query);
