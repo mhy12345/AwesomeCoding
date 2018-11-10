@@ -4,7 +4,7 @@ var funcs = require('../utils/funcs');
 var doSqlQuery = require('../utils/funcs').doSqlQuery;
 var getConnection = require('../utils/funcs').getConnection;
 var multer = require('multer');
-var upload = multer({dest: 'uploads/'});
+var upload = multer({dest: 'public/uploads/'});
 var fs = require('fs');
 var path = require('path');
 var log4js = require("log4js");
@@ -39,7 +39,7 @@ router.post('/upload', upload.any(), function (req, res, next) { //区分文件�
 		let registration_date = mysql.escape(new Date());
 		let filename = registration_date + " " + req.files[0].originalname;
 
-		var des_file = "./uploads/" + filename;
+		var des_file = "./public/uploads/" + filename;
 		fs.readFile(req.files[0].path, function (err, data) {
 			fs.writeFile(des_file, data, function (err) {
 				if (err) {
@@ -79,7 +79,7 @@ router.post('/upload', upload.any(), function (req, res, next) { //区分文件�
 
 router.get('/download', function (req, res, next) {
 	var filename = req.query.filename;
-	var filepath = path.join(__dirname, '../uploads/' + filename);
+	var filepath = path.join(__dirname, './public/uploads/' + filename);
 	var stats = fs.statSync(filepath);
 	if (stats.isFile()) {
 		res.set({
@@ -105,9 +105,6 @@ router.get('/get_pdf_url', function (req, res, next) {
 		res.end(404);
 	}
 });
-
-
-
 
 router.post('/fetch', function (req, res, next) {
 	let user_id = req.session.user_id;
@@ -212,7 +209,7 @@ router.post('/delete', function(req, res, next) {
 			let {conn, sql_res} = packed;
 			conn.end();
 			logger.info(sql_res);
-			var desFile= "./uploads/" + filename;
+			var desFile= "./public/uploads/" + filename;
 			fs.unlinkSync(desFile);
 			res.send(JSON.stringify(sql_res, null, 3));
 		}).

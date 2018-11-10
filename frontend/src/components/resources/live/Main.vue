@@ -1,75 +1,66 @@
 <template>
 	<div>
-		<!--<div class='spanner' ></div>-->
 		<div v-bind:class="{ fly: fly }">
 			<el-row :gutter="40">
-				<el-col :style="{width: player_config.width + 'px'}">
-					<!--<iframe v-show.visibe='bb' src='http://127.0.0.1:8080/backend/render/live?uid=047a911d83&vid=254084' height=500 width=800 />-->
-					<!--<iframe id='haha' :src='src' width=800 height=500 />-->
-					<!--<iframe src="https://scontent-arn2-1.cdninstagram.com/vp/000024fbc5bee26e867cee915e014c21/5BE6675D/t50.2886-16/43029322_156050115340209_4031842061334860489_n.mp4" width=800 height=500> </iframe>-->
-					<div id="player"></div>
+				<el-col :span='15'>
+					<div style='min-height:500px'>
+						<keep-alive>
+							<components ref='big' v-bind:is='cp_player' />
+						</keep-alive>
+					</div>
 					<chat-input></chat-input>
 				</el-col>
-
-				<!--todo 右侧列表，尺寸逻辑还需要修改-->
-				<el-col style="float: right; width: 35%; overflow: auto;">
+				<el-col :span='9'>
 					<sidebar :course_status="course_status"></sidebar>
 				</el-col>
 			</el-row>
 		</div>
+		<div style='width:350px;position:fixed;right:50px;bottom:50px;' v-show='showWidget'>
+			<keep-alive>
+				<components ref='small' v-bind:is='cp_fileviewer' />
+			</keep-alive>
+		</div>
+		<el-button @click='handleSwap'>SWAP</el-button>
 	</div>
 </template>
 
 
 <script>
-import axios from 'axios';
-//import root_url from '../../../../config/http_root_url.js';
+import Vue from 'Vue';
+import Player from './Player';
 import Sidebar from './Sidebar';
 import ChatInput from './ChatInput';
-var root_url = '';
+import FileViewer from '@/components/components/FileViewer.vue';
 
 export default {
 	name: 'Live',
 	props: ['course_status', 'fly'],
 	data() {
 		return {
-			src: undefined,
-			class_id: undefined,
-			active_name: undefined,
-			player_config: {
-				width: 800,
-				height: 500,
-				uid: '',
-				vid: ''
-			},
+			showWidget: true,
+			cp_fileviewer: FileViewer,
+			cp_player: Player,
 		};
-	},
-	mounted: function () {
-		console.log("CLASS <<", this.fly);
-		//document.getElementById('player').addEvent
-	},
-	created: function () {
-		console.log("CREATE PLAYER");
-		var player = undefined;
-		this.class_id = this.$route.params.class_id;
-
-		let nowpath = root_url + '/api/class/liveid/query';
-		axios.
-			post(nowpath, { class_id: this.class_id }).
-			then((res) => {
-				console.log(res.data);
-
-				this.player_config.uid = res.data.liveplayer_uid;
-				this.player_config.vid = res.data.liveplayer_vid;
-				this.src = '/backend/render/live?uid='+this.player_config.uid+'&vid='+this.player_config.vid;
-
-				console.log("INIT WITH ",this.player_config);
-				player = polyvObject('#player').  livePlayer(this.player_config);
-			});
 	},
 	components: {
 		Sidebar,
-		ChatInput
+		ChatInput,
+		Player,
+		FileViewer
+	},
+	methods: {
+		handleSwap: function() {
+			let t = this.cp_fileviewer;
+			this.cp_fileviewer = this.cp_player;
+			this.cp_player = t;
+			this.$nextTick(() => {
+				this.$message("RELOAD");
+				console.log(this.$refs);
+				this.$refs.small.reload();
+				this.$refs.big.reload();
+			});
+			console.log(this);
+		}
 	}
 };
 </script>
@@ -90,5 +81,6 @@ export default {
 .spanner {
 	min-height:600px;
 }
+
 </style>
 

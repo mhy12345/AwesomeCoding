@@ -15,7 +15,7 @@ log4js.configure(log4js_config);
 var logger = log4js.getLogger('default');
 
 describe('# Testing /api/class', function () {
-	this.timeout(5000);
+	this.timeout(8000);
 	let test_user = {
 		nickname: 'test_name' + randomString(8),
 		realname: 'TESTER',

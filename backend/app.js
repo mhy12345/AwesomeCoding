@@ -67,6 +67,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // 设置需要使用的 router 函数
+app.use(express.static(path.join(__dirname, './uploads')));
 app.use(express.static(path.join(__dirname, './public')));
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
