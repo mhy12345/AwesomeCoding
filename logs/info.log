@@ -13573,3 +13573,408 @@ current users:
 current users:
  [ '1' ]
 [2018-11-10T12:37:07.417] [INFO] socket_log - >>received.
+[2018-11-10T13:36:15.671] [INFO] socket_log - >>a user connected
+[2018-11-10T13:36:15.695] [INFO] socket_log - >>received.
+[2018-11-10T13:36:21.936] [WARN] socket_log - >>a user disconnected
+[2018-11-10T13:36:22.837] [INFO] socket_log - >>a user connected
+[2018-11-10T13:36:29.507] [WARN] socket_log - >>a user disconnected
+[2018-11-10T13:36:29.886] [INFO] socket_log - >>a user connected
+[2018-11-10T13:36:29.887] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T13:36:30.042] [INFO] socket_log - >>received.
+[2018-11-10T13:37:38.276] [WARN] socket_log - >>a user disconnected
+[2018-11-10T13:37:38.283] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T13:37:38.747] [INFO] socket_log - >>a user connected
+[2018-11-10T13:37:38.750] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T13:37:38.959] [INFO] socket_log - >>received.
+[2018-11-10T13:38:29.007] [WARN] socket_log - >>a user disconnected
+[2018-11-10T13:38:29.008] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T13:38:29.432] [INFO] socket_log - >>a user connected
+[2018-11-10T13:38:29.433] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T13:38:29.651] [INFO] socket_log - >>received.
+[2018-11-10T13:38:34.135] [WARN] socket_log - >>a user disconnected
+[2018-11-10T13:38:34.136] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T13:38:34.568] [INFO] socket_log - >>a user connected
+[2018-11-10T13:38:34.570] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T13:38:34.783] [INFO] socket_log - >>received.
+[2018-11-10T13:44:50.178] [INFO] socket_log - >>a user connected
+[2018-11-10T13:44:50.206] [INFO] socket_log - >>received.
+[2018-11-10T13:45:05.644] [WARN] socket_log - >>a user disconnected
+[2018-11-10T13:45:06.591] [INFO] socket_log - >>a user connected
+[2018-11-10T13:45:11.311] [WARN] socket_log - >>a user disconnected
+[2018-11-10T13:45:11.697] [INFO] socket_log - >>a user connected
+[2018-11-10T13:45:11.698] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '3' ]
+[2018-11-10T13:45:11.864] [INFO] socket_log - >>received.
+[2018-11-10T13:54:53.970] [INFO] socket_log - >>a user connected
+[2018-11-10T13:54:53.999] [INFO] socket_log - >>received.
+[2018-11-10T13:54:54.365] [WARN] socket_log - >>a user disconnected
+[2018-11-10T13:54:55.622] [INFO] socket_log - >>a user connected
+[2018-11-10T13:55:00.890] [WARN] socket_log - >>a user disconnected
+[2018-11-10T13:55:01.327] [INFO] socket_log - >>a user connected
+[2018-11-10T13:55:01.328] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '3' ]
+[2018-11-10T13:55:01.509] [INFO] socket_log - >>received.
+[2018-11-10T14:00:14.143] [INFO] socket_log - >>a user connected
+[2018-11-10T14:00:14.165] [INFO] socket_log - >>received.
+[2018-11-10T14:00:17.834] [WARN] socket_log - >>a user disconnected
+[2018-11-10T14:00:18.891] [INFO] socket_log - >>a user connected
+[2018-11-10T14:00:24.312] [WARN] socket_log - >>a user disconnected
+[2018-11-10T14:00:24.794] [INFO] socket_log - >>a user connected
+[2018-11-10T14:00:24.795] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '3' ]
+[2018-11-10T14:00:24.954] [INFO] socket_log - >>received.
+[2018-11-10T14:00:58.500] [WARN] socket_log - >>a user disconnected
+[2018-11-10T14:00:58.501] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T14:00:58.985] [INFO] socket_log - >>a user connected
+[2018-11-10T14:00:58.985] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T14:00:59.164] [INFO] socket_log - >>received.
+[2018-11-10T14:01:02.629] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 8,
+       user_id: 1,
+       filename: '\'2018-11-10 10:47:09.531\' Decaf语言规范.pdf',
+       type: null },
+     RowDataPacket {
+       id: 9,
+       user_id: 1,
+       filename: '\'2018-11-10 11:22:12.521\' Slide04_hw.pdf',
+       type: null },
+     RowDataPacket {
+       id: 10,
+       user_id: 1,
+       filename: '\'2018-11-10 11:26:23.498\' 屏幕.png',
+       type: null },
+     RowDataPacket {
+       id: 11,
+       user_id: 1,
+       filename: '\'2018-11-10 11:27:47.718\' 屏幕.s',
+       type: null },
+     RowDataPacket {
+       id: 12,
+       user_id: 1,
+       filename: '\'2018-11-10 11:28:14.134\' 屏幕.不服.s',
+       type: null },
+     RowDataPacket {
+       id: 13,
+       user_id: 1,
+       filename: '\'2018-11-10 11:29:17.197\' 测试',
+       type: null },
+     RowDataPacket { id: 14, user_id: 1, filename: 'students.xlsx', type: null },
+     RowDataPacket { id: 15, user_id: 1, filename: 'Readme.txt', type: null } ],
+  details: undefined }
+[2018-11-10T14:01:21.911] [WARN] socket_log - >>a user disconnected
+[2018-11-10T14:01:21.912] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T14:01:22.438] [INFO] socket_log - >>a user connected
+[2018-11-10T14:01:22.440] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T14:01:22.650] [INFO] socket_log - >>received.
+[2018-11-10T14:01:27.853] [INFO] live - [get] chat record
+ { course_id: '8' }
+[2018-11-10T14:01:27.944] [INFO] live - 
+sql = SELECT * FROM ac_database.classusers WHERE user_id = 1 and class_id = 8;
+[2018-11-10T14:01:28.004] [INFO] live - [res]
+sql_results = 
+ []
+[2018-11-10T14:01:31.360] [INFO] live - [get] chat record
+ { course_id: '8' }
+[2018-11-10T14:01:31.475] [INFO] live - 
+sql = SELECT * FROM ac_database.classusers WHERE user_id = 1 and class_id = 8;
+[2018-11-10T14:01:31.561] [INFO] live - [res]
+sql_results = 
+ []
+[2018-11-10T14:01:36.809] [WARN] socket_log - >>a user disconnected
+[2018-11-10T14:01:36.810] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T14:01:37.617] [INFO] socket_log - >>a user connected
+[2018-11-10T14:01:37.619] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T14:01:37.851] [INFO] socket_log - >>received.
+[2018-11-10T14:04:29.512] [INFO] socket_log - >>a user connected
+[2018-11-10T14:04:34.147] [WARN] socket_log - >>a user disconnected
+[2018-11-10T14:04:34.582] [INFO] socket_log - >>a user connected
+[2018-11-10T14:04:34.583] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '3' ]
+[2018-11-10T14:04:34.752] [INFO] socket_log - >>received.
+[2018-11-10T14:05:01.831] [WARN] socket_log - >>a user disconnected
+[2018-11-10T14:05:01.832] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T14:05:02.236] [INFO] socket_log - >>a user connected
+[2018-11-10T14:05:02.239] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T14:05:02.437] [INFO] socket_log - >>received.
+[2018-11-10T14:05:48.940] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 8,
+       user_id: 1,
+       filename: '\'2018-11-10 10:47:09.531\' Decaf语言规范.pdf',
+       type: null },
+     RowDataPacket {
+       id: 9,
+       user_id: 1,
+       filename: '\'2018-11-10 11:22:12.521\' Slide04_hw.pdf',
+       type: null },
+     RowDataPacket {
+       id: 10,
+       user_id: 1,
+       filename: '\'2018-11-10 11:26:23.498\' 屏幕.png',
+       type: null },
+     RowDataPacket {
+       id: 11,
+       user_id: 1,
+       filename: '\'2018-11-10 11:27:47.718\' 屏幕.s',
+       type: null },
+     RowDataPacket {
+       id: 12,
+       user_id: 1,
+       filename: '\'2018-11-10 11:28:14.134\' 屏幕.不服.s',
+       type: null },
+     RowDataPacket {
+       id: 13,
+       user_id: 1,
+       filename: '\'2018-11-10 11:29:17.197\' 测试',
+       type: null },
+     RowDataPacket { id: 14, user_id: 1, filename: 'students.xlsx', type: null },
+     RowDataPacket { id: 15, user_id: 1, filename: 'Readme.txt', type: null },
+     RowDataPacket {
+       id: 16,
+       user_id: 1,
+       filename: '\'2018-11-10 13:56:16.738\' Readme.txt',
+       type: null } ],
+  details: undefined }
+[2018-11-10T14:06:01.830] [WARN] socket_log - >>a user disconnected
+[2018-11-10T14:06:01.836] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T14:06:02.344] [INFO] socket_log - >>a user connected
+[2018-11-10T14:06:02.344] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T14:06:02.510] [INFO] socket_log - >>received.
+[2018-11-10T14:11:01.699] [INFO] socket_log - >>a user connected
+[2018-11-10T14:11:01.792] [INFO] socket_log - >>received.
+[2018-11-10T14:11:05.100] [WARN] socket_log - >>a user disconnected
+[2018-11-10T14:11:06.321] [INFO] socket_log - >>a user connected
+[2018-11-10T14:11:13.653] [WARN] socket_log - >>a user disconnected
+[2018-11-10T14:11:14.227] [INFO] socket_log - >>a user connected
+[2018-11-10T14:11:14.228] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T14:11:14.447] [INFO] socket_log - >>received.
+[2018-11-10T14:11:23.083] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 8,
+       user_id: 1,
+       filename: '\'2018-11-10 10:47:09.531\' Decaf语言规范.pdf',
+       type: null },
+     RowDataPacket {
+       id: 9,
+       user_id: 1,
+       filename: '\'2018-11-10 11:22:12.521\' Slide04_hw.pdf',
+       type: null },
+     RowDataPacket {
+       id: 10,
+       user_id: 1,
+       filename: '\'2018-11-10 11:26:23.498\' 屏幕.png',
+       type: null },
+     RowDataPacket {
+       id: 11,
+       user_id: 1,
+       filename: '\'2018-11-10 11:27:47.718\' 屏幕.s',
+       type: null },
+     RowDataPacket {
+       id: 12,
+       user_id: 1,
+       filename: '\'2018-11-10 11:28:14.134\' 屏幕.不服.s',
+       type: null },
+     RowDataPacket {
+       id: 13,
+       user_id: 1,
+       filename: '\'2018-11-10 11:29:17.197\' 测试',
+       type: null },
+     RowDataPacket { id: 14, user_id: 1, filename: 'students.xlsx', type: null },
+     RowDataPacket { id: 15, user_id: 1, filename: 'Readme.txt', type: null },
+     RowDataPacket {
+       id: 16,
+       user_id: 1,
+       filename: '\'2018-11-10 13:56:16.738\' Readme.txt',
+       type: null } ],
+  details: undefined }
+[2018-11-10T14:11:44.596] [WARN] socket_log - >>a user disconnected
+[2018-11-10T14:11:44.598] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T14:11:45.025] [INFO] socket_log - >>a user connected
+[2018-11-10T14:11:45.026] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T14:11:45.254] [INFO] socket_log - >>received.
+[2018-11-10T14:12:28.508] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 8,
+       user_id: 1,
+       filename: '\'2018-11-10 10:47:09.531\' Decaf语言规范.pdf',
+       type: null },
+     RowDataPacket {
+       id: 9,
+       user_id: 1,
+       filename: '\'2018-11-10 11:22:12.521\' Slide04_hw.pdf',
+       type: null },
+     RowDataPacket {
+       id: 10,
+       user_id: 1,
+       filename: '\'2018-11-10 11:26:23.498\' 屏幕.png',
+       type: null },
+     RowDataPacket {
+       id: 11,
+       user_id: 1,
+       filename: '\'2018-11-10 11:27:47.718\' 屏幕.s',
+       type: null },
+     RowDataPacket {
+       id: 12,
+       user_id: 1,
+       filename: '\'2018-11-10 11:28:14.134\' 屏幕.不服.s',
+       type: null },
+     RowDataPacket {
+       id: 13,
+       user_id: 1,
+       filename: '\'2018-11-10 11:29:17.197\' 测试',
+       type: null },
+     RowDataPacket { id: 14, user_id: 1, filename: 'students.xlsx', type: null },
+     RowDataPacket { id: 15, user_id: 1, filename: 'Readme.txt', type: null },
+     RowDataPacket {
+       id: 16,
+       user_id: 1,
+       filename: '\'2018-11-10 13:56:16.738\' Readme.txt',
+       type: null },
+     RowDataPacket { id: 17, user_id: 1, filename: 'students.xlsx', type: null } ],
+  details: undefined }
+[2018-11-10T14:12:35.524] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 8,
+       user_id: 1,
+       filename: '\'2018-11-10 10:47:09.531\' Decaf语言规范.pdf',
+       type: null },
+     RowDataPacket {
+       id: 9,
+       user_id: 1,
+       filename: '\'2018-11-10 11:22:12.521\' Slide04_hw.pdf',
+       type: null },
+     RowDataPacket {
+       id: 10,
+       user_id: 1,
+       filename: '\'2018-11-10 11:26:23.498\' 屏幕.png',
+       type: null },
+     RowDataPacket {
+       id: 11,
+       user_id: 1,
+       filename: '\'2018-11-10 11:27:47.718\' 屏幕.s',
+       type: null },
+     RowDataPacket {
+       id: 12,
+       user_id: 1,
+       filename: '\'2018-11-10 11:28:14.134\' 屏幕.不服.s',
+       type: null },
+     RowDataPacket {
+       id: 13,
+       user_id: 1,
+       filename: '\'2018-11-10 11:29:17.197\' 测试',
+       type: null },
+     RowDataPacket { id: 14, user_id: 1, filename: 'students.xlsx', type: null },
+     RowDataPacket { id: 15, user_id: 1, filename: 'Readme.txt', type: null },
+     RowDataPacket {
+       id: 16,
+       user_id: 1,
+       filename: '\'2018-11-10 13:56:16.738\' Readme.txt',
+       type: null },
+     RowDataPacket { id: 17, user_id: 1, filename: 'students.xlsx', type: null } ],
+  details: undefined }
+[2018-11-10T14:12:39.857] [INFO] log_file - { sql: 'select * from files where user_id = 1',
+  status: 'SUCCESS.',
+  results: 
+   [ RowDataPacket {
+       id: 8,
+       user_id: 1,
+       filename: '\'2018-11-10 10:47:09.531\' Decaf语言规范.pdf',
+       type: null },
+     RowDataPacket {
+       id: 9,
+       user_id: 1,
+       filename: '\'2018-11-10 11:22:12.521\' Slide04_hw.pdf',
+       type: null },
+     RowDataPacket {
+       id: 10,
+       user_id: 1,
+       filename: '\'2018-11-10 11:26:23.498\' 屏幕.png',
+       type: null },
+     RowDataPacket {
+       id: 11,
+       user_id: 1,
+       filename: '\'2018-11-10 11:27:47.718\' 屏幕.s',
+       type: null },
+     RowDataPacket {
+       id: 12,
+       user_id: 1,
+       filename: '\'2018-11-10 11:28:14.134\' 屏幕.不服.s',
+       type: null },
+     RowDataPacket {
+       id: 13,
+       user_id: 1,
+       filename: '\'2018-11-10 11:29:17.197\' 测试',
+       type: null },
+     RowDataPacket { id: 14, user_id: 1, filename: 'students.xlsx', type: null },
+     RowDataPacket { id: 15, user_id: 1, filename: 'Readme.txt', type: null },
+     RowDataPacket {
+       id: 16,
+       user_id: 1,
+       filename: '\'2018-11-10 13:56:16.738\' Readme.txt',
+       type: null },
+     RowDataPacket { id: 17, user_id: 1, filename: 'students.xlsx', type: null } ],
+  details: undefined }
+[2018-11-10T14:12:50.810] [WARN] socket_log - >>a user disconnected
+[2018-11-10T14:12:50.818] [WARN] socket_log - >>deleted! user_socket counts:  0 
+current users:
+ []
+[2018-11-10T14:12:51.284] [INFO] socket_log - >>a user connected
+[2018-11-10T14:12:51.286] [INFO] socket_log - >>saved! user_socket counts:  1 
+current users:
+ [ '1' ]
+[2018-11-10T14:12:51.520] [INFO] socket_log - >>received.
