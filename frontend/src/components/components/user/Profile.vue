@@ -269,8 +269,6 @@
             handleCancel () {
                 this.editingQ = false;
             },
-
-
             handleDownload: function (row) {
                 let a = document.createElement('a');
                 a.href = '/api/file/download?filename=' + row.filename;
