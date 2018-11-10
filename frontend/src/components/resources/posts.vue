@@ -1,7 +1,7 @@
 <template>
     <el-container>
         <el-main>
-            <el-card class="box-card" v-loading="loadingQ">
+            <el-card class="box-card">
                 <div slot="header" class="clear-fix">
                     <h2>主题贴</h2>
                 </div>

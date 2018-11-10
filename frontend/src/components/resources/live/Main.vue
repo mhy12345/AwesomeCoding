@@ -14,7 +14,7 @@
 				</el-col>
                 <!--右侧边栏-->
 				<el-col :span='9'>
-                    <sidebar class="right-sidebar" :course_status="course_status"></sidebar>
+                    <sidebar class="right-sidebar" :course_status="course_status" :user="user"></sidebar>
 				</el-col>
 			</el-row>
 		</div>
@@ -36,7 +36,7 @@ import FileViewer from '@/components/components/FileViewer.vue';
 
 export default {
 	name: 'Live',
-	props: ['course_status', 'fly'],
+    props: ['course_status', 'fly', 'user'],
 	data() {
 		return {
 			showWidget: true,

@@ -19,7 +19,7 @@
 						class='lecture-panel' 
 						:index='activeTitle'
 						:ref='option.index'
-						> 
+						>
 					</components>
 					<components 
 						v-else 
@@ -29,6 +29,7 @@
 						:index='activeTitle' 
 						:fly='fly'
 						:ref='option.index'
+                        :user="user"
 						> 
 					</components>
 				 </TabPane>
@@ -75,6 +76,7 @@ export default {
 			new_problem_dialog_visible: false,
 		};
 	},
+    props: ['user'],
 	sockets: {
 		alert: function(msg) {
 			console.log(msg.operation);

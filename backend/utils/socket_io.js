@@ -27,9 +27,10 @@ function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的�
 			let { conn, sql_res } = packed;
 			conn.end();
 			let flow = {
-				from: socket.handshake.session.realname,
+				realname: socket.handshake.session.realname,
+				user_id: socket.handshake.session.user_id,
 				message: msg.message,
-				time: new Date()
+				date_time: new Date()
 			};
 			for (let result of sql_res.results) {	// 用 socket 通知课程中的这些用户消息
 				let id = result.user_id;

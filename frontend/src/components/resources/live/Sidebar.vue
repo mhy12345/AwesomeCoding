@@ -28,7 +28,8 @@
                     </el-col>
                 </el-row>
                 <!--聊天记录-->
-                <chat-records class="sidebar-tab-pane" ref="chat_records" :course_id="$route.params.class_id">
+                <chat-records class="sidebar-tab-pane" ref="chat_records"
+                              :course_id="$route.params.class_id" :user="user">
                 </chat-records>
             </el-tab-pane>
 
@@ -43,7 +44,7 @@
 
     export default {
         name: "sidebar",
-        props: ['course_status'],
+        props: ['course_status', 'user'],
         data() {
             return {
                 active_name: undefined,
@@ -57,7 +58,7 @@
         },
         sockets: {
             pullFlow: function (msg) {       // 收到服务器发来的消息，更新聊天记录显示
-                console.log('[updating chat record]');
+                console.log('[pull chat record flow]');
                 this.$refs.chat_records.pushRecord(msg);
             },
         },
