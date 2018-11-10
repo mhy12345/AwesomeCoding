@@ -84,7 +84,7 @@ router.get('/download', function (req, res, next) {
 	if (stats.isFile()) {
 		res.set({
 			'Content-Type': 'application/octet-stream',
-			'Content-Disposition': 'attachment; filename=' + filename.split(" ")[2],
+			'Content-Disposition': 'attachment; filename=' + encodeURI(filename.split(" ")[2]),
 			"Content-Length": stats.size
 		});
 		fs.createReadStream(filepath).pipe(res);
