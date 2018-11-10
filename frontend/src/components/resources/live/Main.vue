@@ -57,11 +57,9 @@ export default {
 			this.cp_player = t;
 			this.$nextTick(() => {
 				this.$message("RELOAD");
-				console.log(this.$refs);
 				this.$refs.small.reload();
 				this.$refs.big.reload();
 			});
-			console.log(this);
 		},
 		handleHidden: function() {
 			this.showWidget = !this.showWidget;
@@ -81,7 +79,7 @@ export default {
 	/*left: 30px;*/
 	/*min-width: 5%;*/
 	width: 100%;
-    /*height: 50%;*/
+    height: 100%;
 	/*overflow: auto;*/
 }
 .spanner {

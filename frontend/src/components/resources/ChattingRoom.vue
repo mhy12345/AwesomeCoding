@@ -43,7 +43,7 @@
             this.class_id = this.$route.params.class_id;
             this.inputData.classId = this.class_id;
             this.$http.get('/api/user/session', {}).
-                 then(function (res) {
+                 then((res) => {
                      this.inputData.userId = res.body.user_id;
                      this.$http.post('/api/chat/info/query', {class_id: this.class_id}).
                           then(function (res) {
@@ -51,7 +51,6 @@
                                   this.$message("Room " + this.title + " not found!");
                               } else {
                                   this.chatrecords = res.body.chatrecords;
-                                  console.log(111);
                               }
                           });
                  });
@@ -64,7 +63,7 @@
                     message: this.inputData.message,
                 }).
                      then(function (res) {
-                         console.log(res);
+                         // console.log(res);
                          if (res.body.status === 'SUCCESS.') {
                              this.$router.go(0);
                          }
@@ -73,7 +72,7 @@
             onClear () {
                 this.$http.post('/api/chat/clear_comments', {classid: this.inputData.classId,}).
                      then(function (res) {
-                         console.log(res);
+                         // console.log(res);
                          if (res.body.status === 'SUCCESS.') {
                              this.chatrecords = [];
                          }

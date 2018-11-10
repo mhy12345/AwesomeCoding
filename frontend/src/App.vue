@@ -183,7 +183,6 @@ export default {
             console.log('[socket] socket connected')
         },
         message: function (msg) {       // 收到服务器发来的消息, todo 后期可以考虑把消息缓存在用户个人页里，并以红圈在右上角头像上显示
-            console.log('[socket] message:', msg);
             if (!this.loginQ) return;
             this.$notify({
                 title: '收到消息',
@@ -193,11 +192,11 @@ export default {
             this.$socket.emit('received');
         },
         accepted: function () {         // 服务器接受客户发出的消息
-            console.log('[socket] accepted!');
+            // console.log('[socket] accepted!');
             //this.$message.success('发送成功');
         },
         rejected: function (msg) {       // 服务器拒绝客户发出的消息
-            console.log('[socket] rejected!', msg);
+            // console.log('[socket] rejected!', msg);
             //this.$message.error('发送失败');
         }
     },
@@ -210,7 +209,6 @@ export default {
 			sessionSQL(this).
 				then((resp) => {
 					var hash;
-					console.log('[session]' + resp);
 					if (typeof(resp.nickname) !== 'undefined') {
 						this.user = resp;
 						this.$message.success("欢迎回来！" + this.user.realname);
@@ -218,7 +216,6 @@ export default {
 						hash = crypto.createHash('md5');
 						hash.update(this.user.email);
 						this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
-						console.log("[gravatar] URL = ", this.user.gravatar_url);
 					} else {
 						this.$message("请登录。");
 						this.loginQ = false;
@@ -257,7 +254,6 @@ export default {
             }, 100);
 		},
 		handleLogout() { // logout event emitted by children router-view
-			console.log('[app] logout!');
 			this.logout();
 		},
 	}

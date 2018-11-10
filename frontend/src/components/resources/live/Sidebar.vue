@@ -1,25 +1,15 @@
 <template>
-    <div>
-        <el-collapse v-model="active_name" style="height: 500px;">
-            <el-collapse-item title="课程章节" name="chapters">
+    <div ref="sidebar">
+        <el-tabs v-model="active_name" ref="tabs">
+            <el-tab-pane label="课程章节" name="chapters" class="sidebar-tab-pane">
                 ...章节列表...<br>
-                ..<br>
-                ..<br>
-                ..<br>
-                ..<br>
-                ..<br>
-                ..<br>
-                ..<br>
-                ..<br>
-                ..<br>
-                ..<br>
-            </el-collapse-item>
+            </el-tab-pane>
 
-            <el-collapse-item title="班级成员" name="members">
-                <members :course_status="course_status" :table_width="'500px'"></members>
-            </el-collapse-item>
+            <el-tab-pane label="班级成员" name="members">
+                <members :course_status="course_status" :table_width="'400px'" class="sidebar-tab-pane"></members>
+            </el-tab-pane>
 
-            <el-collapse-item title="聊天室" name="chatting-record">
+            <el-tab-pane label="聊天室" name="chatting-record">
                 <el-row v-if="course_status === 0">
                     <el-col :span="8">
                         <el-button size="small" class="chatting-room-tool"
@@ -37,27 +27,33 @@
                         </el-switch>
                     </el-col>
                 </el-row>
-
-                <chat-records class="chat-room" ref="chat_records" :course_id="$route.params.class_id">
+                <!--聊天记录-->
+                <chat-records class="sidebar-tab-pane" ref="chat_records" :course_id="$route.params.class_id">
                 </chat-records>
-            </el-collapse-item>
+            </el-tab-pane>
 
-        </el-collapse>
+        </el-tabs>
     </div>
 </template>
 
 <script>
     import Members from '../Participants';
     import ChatRecords from './ChatRecords';
+    import ElTabPane from "../../../views/MyTabPane";
 
     export default {
         name: "sidebar",
         props: ['course_status'],
         data() {
             return {
-                active_name: 'chatting-record',
+                active_name: undefined,
                 block_chattingQ: false, // 是否禁言
+                client_width: undefined,   // sidebar 的实际尺寸
             }
+        },
+        mounted() {
+            this.client_width = this.$refs.sidebar.offsetWidth + 'px';
+            // this.$refs.members.table_width = this.client_width;
         },
         sockets: {
             pullFlow: function (msg) {       // 收到服务器发来的消息，更新聊天记录显示
@@ -125,6 +121,7 @@
             }
         },
         components: {
+            ElTabPane,
             Members,
             ChatRecords
         }
@@ -136,7 +133,7 @@
         margin-top: 10px;
         margin-bottom: 10px;
     }
-    .chat-room {
+    .sidebar-tab-pane {
         height: 400px;
         width: 100%;
         overflow: auto;
