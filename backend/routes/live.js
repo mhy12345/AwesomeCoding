@@ -4,7 +4,7 @@ const router = express.Router();
 const getConnection = require('../utils/funcs').getConnection;
 const doSqlQuery = require('../utils/funcs').doSqlQuery;
 const getPermission = require('../utils/funcs').getPermission;
-const sockets = require('../utils/global').user_sockets;
+const $sockets = require('../utils/global').$user_sockets;
 
 const log4js = require("log4js");
 const log4js_config = require("../configures/log.config.js").runtime_configure;
@@ -106,7 +106,7 @@ router.get('/clear_chat_record', function (req, res) {		// 清空聊天记录
 		});
 });
 
-router.get('/block_chatting', function (req, res) {		// 禁言模式
+router.get('/block_chatting', function (req, res) {		// 禁止所有课程中在线的用户发言
 	logger.info('[block_chatting]\n', req.query);
 	getPermission(req.session.user_id, req.query.course_id).
 		then((role) => {
@@ -133,9 +133,9 @@ router.get('/block_chatting', function (req, res) {		// 禁言模式
 						// logger.info('sockets\n', Object.keys(sockets));
 						for (let result of sql_res.results) {
 							let user_id = String(result.user_id);	//***
-							if (user_id in sockets) {
+							if (user_id in $sockets) {
 								logger.info('[to block]', user_id);
-								sockets[user_id].emit('block');
+								$sockets[user_id].emit('block');
 							}
 						}
 						res.send({ status: 'SUCCESS.' });
@@ -151,7 +151,7 @@ router.get('/block_chatting', function (req, res) {		// 禁言模式
 		});
 });
 
-router.get('/allow_chatting', function (req, res) {		// 允许发言
+router.get('/allow_chatting', function (req, res) {		// 允许所有课程中在线的用户发言， todo 后期增加数据库表项
 	logger.info('[block_chatting]\n', req.query);
 	getPermission(req.session.user_id, req.query.course_id).
 		then((role) => {
@@ -176,9 +176,9 @@ router.get('/allow_chatting', function (req, res) {		// 允许发言
 						let { conn, sql_res } = packed;
 						for (let result of sql_res.results) {
 							let user_id = String(result.user_id);	//***
-							if (user_id in sockets) {
+							if (user_id in $sockets) {
 								logger.info('[to allow]', user_id);
-								sockets[user_id].emit('allow');
+								$sockets[user_id].emit('allow');
 							}
 						}
 						res.send({ status: 'SUCCESS.' });

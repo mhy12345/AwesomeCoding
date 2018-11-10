@@ -1,7 +1,7 @@
 <!--统一在这个页面里进行vue的测试-->
 <template>
     <div id="test-view">
-
+        <el-button type="danger" @click="handleAlert">学生看过来！</el-button>
         <el-row class="tac">
             <el-col :span="5">
                 <h5>默认颜色</h5>
@@ -171,6 +171,20 @@
                 cur_date2: date2.toUTCString()
             };
         },
+        sockets: {  // todo 学生端处理通知
+            alert: function (msg) {
+                this.$notify.warning({
+                    title: '收到通知',
+                    message: msg.content
+                    // duration: 0
+                });
+                if (msg.operation === 'SHOW_DIALOG.') {
+                    this.dialog.visible = true;
+                    this.dialog.title = msg.operation;
+                    this.dialog.content = msg.content;
+                }
+            }
+        },
         methods: {
             createDialog: function () {
                 this.dialog.visible = true;
@@ -200,6 +214,16 @@
                 str_cookie = this.new_cookie.name + '=' + this.new_cookie.value + ';' + "expires=" + d.toUTCString(); // 这相当于一个字典，‘=’兼有判重和追加的作用
                 document.cookie = str_cookie;
                 this.getCookies();
+            },
+            handleAlert: function () {  // todo 教师端发送通知
+                var d = new Date();
+                var msg = {
+                    course_id: 7,
+                    operation: 'SHOW_DIALOG.',
+                    content: '教师这边的时间：' + d.toTimeString()
+                };
+                this.$socket.emit('alert', msg);
+                this.$message.info('正在广播给学生  ' + msg.content);
             }
         },
         components: {
