@@ -613,7 +613,8 @@ router.get('/page_update', function(req, res) {
 								logger.info('[to block]', user_id);
 								$sockets[user_id].emit('page > ' + page);
 							}
-					})
+						}
+					});
 			}
 		});
 });

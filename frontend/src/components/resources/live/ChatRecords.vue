@@ -28,7 +28,7 @@
                  get('/api/live/get_chat_record', { params: { course_id: this.course_id } }).
                  then((res) => {
                      console.log('[res] chat record', res);
-                     if (res.body.status === 'FAILED.')
+                     if (rees.body.status === 'FAILED.')
                          this.pushRecord({
                              message: res.body.details
                          });
