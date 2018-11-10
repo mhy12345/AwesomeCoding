@@ -25,7 +25,6 @@
 
 
 <script>
-import Vue from 'Vue';
 import Player from './Player';
 import Sidebar from './Sidebar';
 import ChatInput from './ChatInput';
