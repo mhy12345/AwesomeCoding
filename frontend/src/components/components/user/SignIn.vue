@@ -73,11 +73,11 @@
                     });
             },
             handleForgetPassword: function () {
-                this.$router.push('/user/forgetpassword');
+                window.location.href = "/user/forgetpassword";
                 this.loadingQ = true;
             },
             handleSignInbyPhone: function () {
-                this.$router.push('/user/sign_inbyphone');
+                window.location.href = "/user/sign_inbyphone";
                 this.loadingQ = true;
             },
         }

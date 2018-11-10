@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
+var xlsx = require('node-xlsx');
+var fs = require('fs');
 
 var doSqlQuery = require('../utils/funcs').doSqlQuery;
 var getConnection = require('../utils/funcs').getConnection;
@@ -586,6 +588,72 @@ router.post('/liveid/query', function (req, res, next) {
 			if (result.status === 'FAILED.')
 				res.send(JSON.stringify(result, null, 3));
 		});
+});
+
+router.post('/addstudents', function (req, res, next) {
+	let result = {
+		status: undefined
+	};
+	if (req.session.role != 1 && req.session.role != 0) {
+		//res.status(403).send('Only teacher can add students from xlsx.');
+		result.status = 'FAILED.';
+		result.details = 'NOT TEACHER';
+		res.send(JSON.stringify(result, null, 3));
+		return;
+	}
+	fs.exists('./uploads/students.xlsx', function(exists) {
+		if(exists) {
+			var obj = xlsx.parse('./uploads/students.xlsx');//配置excel文件的路径
+			var excelObj=obj[0].data;
+			var studentlist = [];
+
+		for(var i in excelObj){
+			studentlist.push(excelObj[i][0]);
+		}
+
+		getConnection().
+			then(function (conn) {
+				let sql = "SELECT * FROM users WHERE `realname` = " + mysql.escape(studentlist[0]);
+				for(var i in studentlist){
+					sql += " OR `realname` = " + mysql.escape(studentlist[i]);
+				}
+				return doSqlQuery(conn, sql);
+			}).
+			then(function (packed) {
+				let {conn, sql_res} = packed;
+				let sql = 'INSERT INTO classusers (`class_id`,`user_id`,`role`) VALUES ';
+				for(var i in sql_res.results) {
+					sql +=	
+					'(' + 
+					mysql.escape(+req.body.class_id) + ',' + 
+					mysql.escape(+sql_res.results[i].id) + ',' + 
+					mysql.escape(2) + 
+					'), ';
+				}
+				sql = sql.substr(0, sql.length - 2);
+				console.log(sql);
+				return doSqlQuery(conn, sql);
+			}).
+			then(function (packed) {
+				let {conn, sql_res} = packed;
+				console.log(sql_res);
+				result.status = "SUCCESS.";
+				conn.end();
+				res.send(JSON.stringify(result, null, 3));
+			}).
+			catch(function (result) {
+				if (result.status === 'FAILED.')
+					res.send(JSON.stringify(result, null, 3));
+			});
+		}
+		else {
+			//res.status(403).send('Please upload a xlsx file named students.xlsx');
+			result.status = 'FAILED.';
+			result.details = 'NO STUDENTS FILE';
+			res.send(JSON.stringify(result, null, 3));		
+		}
+	});
+	
 });
 
 module.exports = router;

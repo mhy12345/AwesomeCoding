@@ -26,6 +26,7 @@
                 </el-card>
             </el-col>
         </el-row>
+
     </div>
 </template>
 
@@ -45,7 +46,7 @@
             handleEnterByInvitation: function () {
 				console.log(this);
                 window.location.href = "/class/invite/" + this.invitation_code;
-            }
+            },
         },
         components: {
             'publicCourses': CourseList,
