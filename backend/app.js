@@ -34,7 +34,7 @@ mysql_initializer({ no_create: true }).
 var app = express();
 
 
-app.use(log4js.connectLogger(logger, { level: 'debug' }));
+app.use(log4js.connectLogger(logger, { level: 'info' }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

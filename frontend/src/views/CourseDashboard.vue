@@ -4,7 +4,6 @@
 				 @tab-click="onTabClick"
 				 v-loading='loading'
 				 v-model='activeIndex'
-				 :lazy='false'
 				 >
 				 <TabPane v-for="option in options" 
 						  :label="option.name" 

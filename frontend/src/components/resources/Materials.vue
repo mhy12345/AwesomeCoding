@@ -36,7 +36,8 @@
         methods:
             {
                 handleDownload: function (row) {
-                    this.$http.post('/api/file/download', {filename: row.filename,}).
+					console.log("START DL",row.filename);
+                    this.$http.get('/api/file/download?filename='+row.filename).
                          then(function (res) {
                              const blob = new Blob([res.data]);
                              if (window.navigator.msSaveOrOpenBlob) {
