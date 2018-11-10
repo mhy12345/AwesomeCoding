@@ -31,7 +31,6 @@ router.use(function (req, res, next) {	// 检查用户是否在课堂中
 				"FROM ac_database.classusers WHERE " +
 				"user_id = " + req.session.user_id + " and " +
 				"class_id = " + req.query.course_id + ";";
-			logger.info('\nsql =', sql);
 			return doSqlQuery(conn, sql);
 		}).
 		then((packed) => {
@@ -60,7 +59,6 @@ router.use(function (req, res, next) {	// 检查用户是否在课堂中
  */
 router.get('/get_chat_record_count', function (req, res) {
 	logger.info('[get] chat record count\n', req.query);
-	// check if the user is in the course_id
 	getConnection().
 		then((conn) => {
 			let sql = "SELECT COUNT(*) FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + ";";
@@ -68,7 +66,6 @@ router.get('/get_chat_record_count', function (req, res) {
 		}).
 		then((packed) => {
 			let { conn, sql_res } = packed;
-			logger.info('[res]\nsql_results = \n', sql_res.results);
 			res.send({
 				status: 'SUCCESS.',
 				results: sql_res.results[0]['COUNT(*)']
@@ -89,7 +86,6 @@ router.get('/get_chat_record_count', function (req, res) {
  */
 router.get('/get_chat_record', function (req, res) {
 	logger.info('[get] chat record\n', req.query);
-	// check if the user is in the course_id
 	getConnection().
 		then((conn) => {
 			let sql = "SELECT COUNT(*) FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + ";";
@@ -97,16 +93,17 @@ router.get('/get_chat_record', function (req, res) {
 		}).
 		then((packed) => {
 			let { conn, sql_res } = packed;
-			let count = sql_res.results[0]['COUNT(*)'];	// 获取到记录条数
-			let first_id = count - req.query.end + 1;
-			let last_id = count - req.query.start + 1;
-			let sql = "SELECT * FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + " AND " +
-				first_id + " <= id AND id <= " + last_id + ";";
+			let count = Number(sql_res.results[0]['COUNT(*)']);	// 获取到记录条数
+			let first_id = count - Number(req.query.end);
+			let last_id = count - Number(req.query.start);
+			if (first_id < 0) first_id = 0;
+			let sql = `SELECT * FROM ac_database.chat_record ` +
+				`WHERE course_id = ${req.query.course_id} ` +
+				`LIMIT ${first_id}, ${last_id - first_id};`;
 			return doSqlQuery(conn, sql);
 		}).
 		then((packed) => {
 			let { conn, sql_res } = packed;
-			logger.info('[res]\nsql_results = \n', sql_res.results);
 			res.send({
 				status: 'SUCCESS.',
 				results: sql_res.results.reverse()

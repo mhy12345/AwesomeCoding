@@ -20,7 +20,6 @@ function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的�
 		}).
 		then((packed) => {			// 成功添加到聊天记录
 			let { conn, sql_res } = packed;
-			socket.emit('accepted');
 			let sql = "SELECT user_id FROM ac_database.classusers WHERE class_id = " + msg.course_id + ";";
 			return doSqlQuery(conn, sql)
 		}).
@@ -34,7 +33,6 @@ function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的�
 			};
 			for (let result of sql_res.results) {	// 用 socket 通知课程中的这些用户消息
 				let id = result.user_id;
-				if (id === socket.handshake.session.user_id) continue;	// 不广播给自己
 				id = String(id);
 				if ($user_sockets.hasOwnProperty(id)) {
 					$user_sockets[id].emit('message', flow);
@@ -84,7 +82,6 @@ function createSocketIO(server) {
 			logger.info('>>saved! user_socket counts: ', Object.keys($user_sockets).length,
 				'\ncurrent users:\n', Object.keys($user_sockets));
 		}
-		// socket.emit('message', { from: 'Host', message: 'Welcome!' });
 
 		socket.on('disconnect', function () {		// 断开连接
 			logger.warn('>>a user disconnected');

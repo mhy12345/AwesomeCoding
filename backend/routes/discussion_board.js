@@ -186,8 +186,6 @@ router.post('/info/query', function(req, res, next) {
 					chatrecord.forumid = sql_res.results[i].id;
 					result.chatrecords.push(chatrecord);
 				}
-				console.log(">>>>>>>>>>>/info/query/result");
-				console.log(result);
 				res.send(JSON.stringify(result));
 			}
 		}).

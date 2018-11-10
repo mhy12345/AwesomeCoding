@@ -37,39 +37,48 @@
             }
         },
         mounted() {
-            this.$http.
-                 get('/api/live/get_chat_record_count', {   // 获取总的消息个数
-                     params: {
-                         course_id: this.course_id,
-                     } }).
-                 then((res) => {
-                     this.loadingQ = false;
-                     console.log('[res] chat record count', res);
-                     if (res.body.status === 'FAILED.') {
-                         this.pushRecord({
-                             message: res.body.details
-                         });
-                         return;
-                     }
-                     else {
-                         this.record_count = res.body.results;
-                     }
-                     this.handleCurrentChange(1);   // 获取第一页
-                 }).
-                 catch((err) => {
-                     console.log(err);
+            this.updateRecordCount().
+                 then((count) => {
+                     this.handleCurrentChange(1);
                  });
         },
         methods: {
+            updateRecordCount() {   // 获取总的消息个数
+                return new Promise((resolve, reject) => {
+                    this.$http.
+                         get('/api/live/get_chat_record_count', {
+                             params: {
+                                 course_id: this.course_id,
+                             }
+                         }).
+                         then((res) => {
+                             console.log('[res] chat record count', res);
+                             if (res.body.status === 'FAILED.') {
+                                 this.pushRecord({
+                                     message: res.body.details
+                                 });
+                                 return;
+                             }
+                             else {
+                                 this.record_count = res.body.results;
+                             }
+                             resolve(this.record_count);
+                         }).
+                         catch((err) => {
+                             console.log(err);
+                             reject(err)
+                         });
+                });
+            },
             pushRecord(msg) {  // 有拉流消息，需要动态添加聊天记录
-                console.log('>>pushing record');
                 if (this.chat_records.length >= this.num_each)  // 超过 num_each 条就只显示最后的 num_each 条
-                    this.chat_records.splice(0, this.chat_records.length - this.num_each + 1);
-                this.chat_records.push({
-                    date_time: msg.time,
+                    this.chat_records.pop();
+                this.chat_records = [{  // todo display as bubble with expanding animation
+                    date_time: msg.time,    // todo to local time
                     realname: msg.from,
                     message: msg.message
-                })
+                }].concat(this.chat_records);   // 新拉流的消息放在表首
+                this.updateRecordCount();
             },
             clear() {   // 清空记录
                 console.log('>>clear record');
@@ -83,8 +92,8 @@
                      get('/api/live/get_chat_record', {
                          params: {
                              course_id: this.course_id,
-                             start: (page_ord - 1) * this.num_each + 1,
-                             end: page_ord * this.num_each      // 按最新消息到最初消息的顺序，获取 [start, end] 之间的全部消息
+                             start: (page_ord - 1) * this.num_each,
+                             end: page_ord * this.num_each      // 按最新消息到最初消息的顺序，获取 [start, end) 之间的全部消息
                          } }).
                      then((res) => {
                          this.loadingQ = false;
@@ -94,7 +103,7 @@
                                  message: res.body.details
                              });
                          else {     // 获取消息成功
-                             this.chat_records = res.body.results;
+                             this.chat_records = res.body.results;  // 导入消息
                          }
                      }).
                      catch((err) => {
