@@ -19,11 +19,10 @@
                 <members :course_status="course_status" :table_width="'500px'"></members>
             </el-collapse-item>
 
-            <el-collapse-item title="聊天室" name="chatting-room">
-                <el-row>
+            <el-collapse-item title="聊天室" name="chatting-record">
+                <el-row v-if="course_status === 0">
                     <el-col :span="8">
                         <el-button size="small" class="chatting-room-tool"
-                                   :disabled="course_status.role !== 0"
                                    @click="handleClearRecord">
                             清空记录
                             <i class="el-icon-delete"></i>
@@ -34,7 +33,6 @@
                         <el-switch v-model="block_chattingQ"
                                    active-color="#ff4949"
                                    inactive-color="#13ce66"
-                                   :disabled="course_status.role !== 0"
                                    @change="handleBlockChatting">
                         </el-switch>
                     </el-col>
@@ -57,7 +55,7 @@
         props: ['course_status'],
         data() {
             return {
-                active_name: 'members',
+                active_name: 'chatting-record',
                 block_chattingQ: false, // 是否禁言
             }
         },

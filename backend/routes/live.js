@@ -24,40 +24,89 @@ router.use(function (req, res, next) {		// 检查登录状态
 	}
 });
 
-router.get('/get_chat_record', function (req, res) {		// 获取聊天记录
-
-	logger.info('[get] chat record\n', req.query);
-	// check if the user is in the course_id
+router.use(function (req, res, next) {	// 检查用户是否在课堂中
 	getConnection().
 		then((conn) => {
 			let sql = "SELECT * " +
 				"FROM ac_database.classusers WHERE " +
 				"user_id = " + req.session.user_id + " and " +
 				"class_id = " + req.query.course_id + ";";
-			logger.info('\nsql =', sql);
 			return doSqlQuery(conn, sql);
 		}).
 		then((packed) => {
 			let { conn, sql_res } = packed;
+			conn.end();
 			if (sql_res.results.length === 0) {	// user not in the class
 				logger.warn('[res] not in the class');
 				res.send({
 					status: 'FAILED.',
 					details: 'USER_NOT_IN_THE_CLASS.'
 				});
-				conn.end();
-				return;
 			}
-			// user is in the class, return all the chat record relating the course_id
-			let sql = "SELECT * FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + ";";
+			else {
+				next();		// user in the class, go on
+			}
+		}).
+		catch((err) => {
+			logger.error('\n', err);
+			res.send(err);
+		});
+});
+
+/* 获取聊天记录条数
+ * req.query 字段：
+ * 		course_id: 课程号
+ */
+router.get('/get_chat_record_count', function (req, res) {
+	logger.info('[get] chat record count\n', req.query);
+	getConnection().
+		then((conn) => {
+			let sql = "SELECT COUNT(*) FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + ";";
 			return doSqlQuery(conn, sql);
 		}).
 		then((packed) => {
 			let { conn, sql_res } = packed;
-			logger.info('[res]\nsql_results = \n', sql_res.results);
 			res.send({
 				status: 'SUCCESS.',
-				results: sql_res.results
+				results: sql_res.results[0]['COUNT(*)']
+			});
+			conn.end();
+		}).
+		catch((err) => {
+			logger.error('\n', err);
+			res.send(err);
+		});
+});
+
+/* 分页获取聊天记录
+ * req.query 的字段：
+ * 		course_id: 课程号
+ * 		start: 按最新消息到最初消息的顺序，待获取的聊天记录的起始编号
+ * 		end:   按最新消息到最初消息的顺序，待获取的聊天记录的末尾编号
+ */
+router.get('/get_chat_record', function (req, res) {
+	logger.info('[get] chat record\n', req.query);
+	getConnection().
+		then((conn) => {
+			let sql = "SELECT COUNT(*) FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + ";";
+			return doSqlQuery(conn, sql);
+		}).
+		then((packed) => {
+			let { conn, sql_res } = packed;
+			let count = Number(sql_res.results[0]['COUNT(*)']);	// 获取到记录条数
+			let first_id = count - Number(req.query.end);
+			let last_id = count - Number(req.query.start);
+			if (first_id < 0) first_id = 0;
+			let sql = `SELECT * FROM ac_database.chat_record ` +
+				`WHERE course_id = ${req.query.course_id} ` +
+				`LIMIT ${first_id}, ${last_id - first_id};`;
+			return doSqlQuery(conn, sql);
+		}).
+		then((packed) => {
+			let { conn, sql_res } = packed;
+			res.send({
+				status: 'SUCCESS.',
+				results: sql_res.results.reverse()
 			});
 			conn.end();
 		}).
