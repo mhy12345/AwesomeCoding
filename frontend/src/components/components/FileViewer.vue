@@ -34,7 +34,7 @@ export default {
 	data () {
 		return {
 			page: 1,
-			pdfSrc: "/uploads/lecture11.pdf",
+			pdfSrc: undefined,
 			page_num: 0,
 			class_id: this.$route.params.class_id
 		};
@@ -56,7 +56,13 @@ export default {
 					message: msg.page
 				});
 				this.page = msg.page;
-			}
+			} else if (msg.operation === 'CHANGE_PDF.') {
+                this.$notify.warning({
+                    title: '收到更换文件指令',
+                    message: msg.pdfSrc
+                });
+                this.pdfSrc = msg.pdfSrc;
+            }
 		}
 	},
 	methods: {

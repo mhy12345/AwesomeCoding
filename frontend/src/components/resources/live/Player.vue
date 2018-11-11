@@ -7,7 +7,7 @@
 <script>
 import axios from 'axios';
 export default {
-	data() {
+	data () {
 		return {
 			src: undefined,
 			class_id: undefined,
@@ -21,10 +21,10 @@ export default {
 		};
 	},
 	methods: {
-		reload: function() {
+		reload: function () {
 			let nowpath = '/api/class/liveid/query';
 			axios.
-				post(nowpath, { class_id: this.class_id }).
+				post(nowpath, {class_id: this.class_id}).
 				then((res) => {
 					console.log(res.data);
 
@@ -36,7 +36,7 @@ export default {
 					this.src = '/backend/render/live?uid='+this.player_config.uid+'&vid='+this.player_config.vid;
 
 					console.log("INIT WITH ",this.player_config);
-					let player = polyvObject('#player').  livePlayer(this.player_config);
+					let player = polyvObject('#player'). livePlayer(this.player_config);
 				});
 		}
 	},

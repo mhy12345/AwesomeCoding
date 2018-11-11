@@ -93,18 +93,6 @@ router.get('/download', function (req, res, next) {
 	}
 });
 
-router.get('/get_pdf_url', function (req, res, next) {
-	var filename = req.query.filename;
-	var respnose = {};
-	var filepath = path.join(__dirname, '../uploads/' + filename);
-	var stats = fs.statSync(filepath);
-	if (stats.isFile() && filename.find(".pdf") > 0) {
-		respnose.filepath = filepath;
-		res.send(respnose);
-	} else {
-		res.end(404);
-	}
-});
 
 router.post('/fetch', function (req, res, next) {
 	let user_id = req.session.user_id;
