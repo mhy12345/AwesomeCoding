@@ -39,7 +39,7 @@ router.post('/upload', upload.any(), function (req, res, next) { //区分文件�
 		let registration_date = mysql.escape(new Date());
 		let filename = registration_date + " " + req.files[0].originalname;
 
-		var des_file = "./public/uploads/" + filename;
+		var des_file = path.join('./public/uploads/' + filename);
 		fs.readFile(req.files[0].path, function (err, data) {
 			fs.writeFile(des_file, data, function (err) {
 				if (err) {
@@ -79,7 +79,7 @@ router.post('/upload', upload.any(), function (req, res, next) { //区分文件�
 
 router.get('/download', function (req, res, next) {
 	var filename = req.query.filename;
-	var filepath = path.join(__dirname, './public/uploads/' + filename);
+	var filepath = path.join('./public/uploads/' + filename);
 	var stats = fs.statSync(filepath);
 	if (stats.isFile()) {
 		res.set({
@@ -93,18 +93,6 @@ router.get('/download', function (req, res, next) {
 	}
 });
 
-router.get('/get_pdf_url', function (req, res, next) {
-	var filename = req.query.filename;
-	var respnose = {};
-	var filepath = path.join(__dirname, '../uploads/' + filename);
-	var stats = fs.statSync(filepath);
-	if (stats.isFile() && filename.find(".pdf") > 0) {
-		respnose.filepath = filepath;
-		res.send(respnose);
-	} else {
-		res.end(404);
-	}
-});
 
 router.post('/fetch', function (req, res, next) {
 	let user_id = req.session.user_id;
@@ -194,6 +182,38 @@ router.post('/add_to_course', function(req, res, next) {
 			})
 	}
 });
+
+
+router.post('/delete_from_course', function(req, res, next) {
+	let userid  = req.session.user_id;
+	let classid = req.body.classid;
+	let fileid = req.body.fileid;
+	if (userid === undefined) {
+		var response = {
+			message: 'You must login first.',
+			filename: '',
+			status: 'Failed'
+		};
+		res.end(JSON.stringify(response));
+	}
+	else {
+		getConnection().
+			then(function(conn) {
+				let sql = 'delete from coursefiles where class_id = ' + classid + ' and file_id = ' + fileid;
+				return doSqlQuery(conn, sql);
+			}).
+			then(function(packed) {
+				let {conn, sql_res} = packed;
+				conn.end();
+				logger.info(sql_res);
+				res.send(JSON.stringify(sql_res, null, 3));
+			}).
+			catch(function(sql_res) {
+				res.send(JSON.stringify(sql_res, null, 3));
+			})
+	}
+});
+
 
 
 

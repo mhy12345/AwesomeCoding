@@ -7,7 +7,7 @@
 <script>
 import axios from 'axios';
 export default {
-	data() {
+	data () {
 		return {
 			src: undefined,
 			class_id: undefined,
@@ -21,10 +21,10 @@ export default {
 		};
 	},
 	methods: {
-		reload: function() {
+		reload: function () {
 			let nowpath = '/api/class/liveid/query';
 			axios.
-				post(nowpath, { class_id: this.class_id }).
+				post(nowpath, {class_id: this.class_id}).
 				then((res) => {
 					this.player_config.uid = res.data.liveplayer_uid;
 					this.player_config.vid = res.data.liveplayer_vid;

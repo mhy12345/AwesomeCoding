@@ -63,18 +63,15 @@
             },
         },
         methods: {
-            handleClearRecord() {       // 清空记录
+            handleClearRecord () { // 清空记录
                 this.$http.
-                     get('/api/live/clear_chat_record', {
-                         params: { course_id: this.$route.params.class_id }
-                     }).
+                     get('/api/live/clear_chat_record', {params: {course_id: this.$route.params.class_id}}).
                      then((res) => {
                          console.log('[res to clear]', res.body);
                          if (res.body.status === 'SUCCESS.') {
                              this.$message.success('清空成功');
                              this.$refs.chat_records.clear();
-                         }
-                         else {
+                         } else {
                              throw res.body;
                          }
                      }).
@@ -82,36 +79,29 @@
                          this.$message.error('清空失败', err);
                      });
             },
-            handleBlockChatting() {     // 禁言/允许发言
-                if (this.block_chattingQ === true) {        // 禁言
+            handleBlockChatting () { // 禁言/允许发言
+                if (this.block_chattingQ === true) { // 禁言
                     this.$http.
-                         get('/api/live/block_chatting', {
-                             params: { course_id: this.$route.params.class_id }
-                         }).
+                         get('/api/live/block_chatting', {params: {course_id: this.$route.params.class_id}}).
                          then((res) => {
                              console.log('[res to block]', res.body);
                              if (res.body.status === 'SUCCESS.') {
                                  this.$message.warning('已禁言');
-                             }
-                             else {
+                             } else {
                                  throw res.body.details;
                              }
                          }).
                          catch((err) => {
                              this.$message.error('禁言失败', err);
                          });
-                }
-                else {      // 允许发言
+                } else { // 允许发言
                     this.$http.
-                         get('/api/live/allow_chatting', {
-                             params: { course_id: this.$route.params.class_id }
-                         }).
+                         get('/api/live/allow_chatting', {params: {course_id: this.$route.params.class_id}}).
                          then((res) => {
                              console.log('[res to allow]', res.body);
                              if (res.body.status === 'SUCCESS.') {
                                  this.$message.success('已允许发言');
-                             }
-                             else {
+                             } else {
                                  throw res.body.details;
                              }
                          }).
@@ -126,7 +116,7 @@
             Members,
             ChatRecords
         }
-    }
+    };
 </script>
 
 <style scoped>
