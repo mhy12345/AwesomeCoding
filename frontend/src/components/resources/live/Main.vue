@@ -6,7 +6,7 @@
                     <!--正中直播窗口-->
 					<div style='min-height:500px'>
 						<keep-alive>
-							<components ref='big' :is='cp_player' @swap='handleSwap' @hidden='handleHidden'/>
+							<components ref='big' :is='cp_player' @swap='handleSwap' @hidden='handleHidden'></components>
 						</keep-alive>
 					</div>
                     <!--下方输入框-->
@@ -21,7 +21,7 @@
         <!--右下角ppt窗口-->
 		<div style='width:350px;position:fixed;right:50px;bottom:50px;' v-show='showWidget'>
 			<keep-alive>
-				<components ref='small' :is='cp_fileviewer' @swap='handleSwap' @hidden='handleHidden'/>
+				<components ref='small' :is='cp_fileviewer' @swap='handleSwap' @hidden='handleHidden'></components>
 			</keep-alive>
 		</div>
 	</div>
@@ -37,7 +37,7 @@ import FileViewer from '@/components/components/FileViewer.vue';
 export default {
 	name: 'Live',
 	props: ['course_status', 'fly'],
-	data() {
+	data () {
 		return {
 			showWidget: true,
 			cp_fileviewer: FileViewer,
@@ -51,7 +51,7 @@ export default {
 		FileViewer
 	},
 	methods: {
-		handleSwap: function() {
+		handleSwap: function () {
 			let t = this.cp_fileviewer;
 			this.cp_fileviewer = this.cp_player;
 			this.cp_player = t;
@@ -63,7 +63,7 @@ export default {
 			});
 			console.log(this);
 		},
-		handleHidden: function() {
+		handleHidden: function () {
 			this.showWidget = !this.showWidget;
 		}
 	}
@@ -73,7 +73,7 @@ export default {
 <style scoped>
 .fly {
 	position: fixed;
-	visibility: 'hidden';
+	visibility: hidden;
 }
 .right-sidebar{
 	float: right;

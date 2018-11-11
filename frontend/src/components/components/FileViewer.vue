@@ -31,10 +31,10 @@ import pdf from 'vue-pdf';
 //https://www.npmjs.com/package/vue-pdf
 
 export default {
-	data() {
+	data () {
 		return {
 			page: 1,
-			pdfSrc: "/uploads/2018-lecture7-autoencoder_987906464.pdf",
+			pdfSrc: "/uploads/lecture11.pdf",
 			page_num: 0,
 			class_id: this.$route.params.class_id
 		};
@@ -44,7 +44,7 @@ export default {
 		this.pdfSrc = this.pdfSrc;
 	},
 	sockets: {
-		alert: function(msg) {
+		alert: function (msg) {
 			this.$notify.warning({
 				title: '收到通知',
 				message: msg.content
@@ -60,15 +60,15 @@ export default {
 		}
 	},
 	methods: {
-		handleSwap() {
+		handleSwap () {
 			this.$emit('swap');
 		},
-		handleHidden() {
+		handleHidden () {
 			this.$emit('hidden');
 		},
-		reload: function() {
+		reload: function () {
 		},
-		handleUploadPages(event) {
+		handleUploadPages (event) {
 			this.page_num = event;
 		},
 		nextPage: function () {
