@@ -52,15 +52,26 @@
                 </div>
             </div>
 
-            <!--分页器-->
-            <div class="paginator">
-                <el-pagination
-                    small
-                    @current-change="handleCurrentChange"
-                    :page-size="num_each"
-                    layout="prev, pager, next, jumper"
-                    :total="record_count">
-                </el-pagination>
+            <!--底栏-->
+            <div class="chat-footer">
+                <el-row>
+                    <!--分页器-->
+                    <el-col :span="20">
+                        <el-pagination
+                            small
+                            @current-change="handleCurrentChange"
+                            :page-size="num_each"
+                            layout="prev, pager, next, jumper"
+                            :total="record_count">
+                        </el-pagination>
+                    </el-col>
+                    <!--刷新聊天记录按钮-->
+                    <el-col :span="4">
+                        <el-tooltip content="刷新">
+                            <el-button icon="el-icon-refresh" circle size="mini" @click="refresh"></el-button>
+                        </el-tooltip>
+                    </el-col>
+                </el-row>
             </div>
 
         </el-card>
@@ -86,12 +97,15 @@
         },
         mounted() {
             console.log('[ChatRecords.vue] user', this.user);
-            this.updateRecordCount().
-                 then((count) => {
-                     this.handleCurrentChange(1);
-                 });
+            this.refresh();
         },
         methods: {
+            refresh() {     // 刷新聊天记录
+                this.updateRecordCount().
+                     then((count) => {
+                         this.handleCurrentChange(1);
+                     });
+            },
             updateRecordCount() {   // 获取总的消息个数
                 return new Promise((resolve, reject) => {
                     this.$http.
@@ -248,12 +262,12 @@
         border-radius: 15px;
     }
 
-    .paginator {
+    .chat-footer {
         position: relative;
         margin: auto;
         padding: 5px 12px 5px 12px;
-        border-top: black 1px dashed;
+        border-top: #c6c6c6 1px dashed;
         background-color: #ffffff;
-        bottom: 5px;
+        bottom: 10px;
     }
 </style>
