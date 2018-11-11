@@ -118,16 +118,16 @@ export default {
 			then((res) => {
 				if (res.body.status !== 'SUCCESS.') {
 					if (res.body.details === 'NOT_LOGIN.') {
-						this.$message("");
+						this.$message("请登录");
 						window.location.href = '/user/sign_in';
 					} else {
-						// console.log("[dashboard] course status error: " + res.body.details);
+						console.log("[dashboard] course status error: " + res.body.details);
 						this.$message("错误，见console");
 					}
 					return;
 				}
 				this.course_status = res.body.results;
-				// console.log("[dashboard] course status: ", this.course_status);
+				console.log("[dashboard] course status: ", this.course_status);
 				if (this.course_status.role === 0) {
 					this.course_status.role_title = '教师';
 				} else if (this.course_status.role === 1) {
@@ -141,7 +141,7 @@ export default {
 			}).
 			catch((res) => {
 				this.loading = false;
-				this.$message(res);
+				console.log('[dashboard] error', res);
 			});
 	},
 

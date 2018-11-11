@@ -10,13 +10,23 @@
                     </div>
                     <!--文字消息-->
                     <div v-if="record.type === 'text'">
-                        <div v-if="record.user_id === user.user_id">
+                        <!--教师消息-->
+                        <div v-if="record.role === 1">
+                            <el-row>
+                                <div class="bubble-teacher">
+                                    {{ record.message }}d
+                                </div>
+                            </el-row>
+                        </div>
+                        <!--我的消息-->
+                        <div v-else-if="record.user_id === user.user_id">
                             <el-row>
                                 <div class="bubble-me">
                                     {{ record.message }}
                                 </div>
                             </el-row>
                         </div>
+                        <!--其他同学的消息-->
                         <div v-else>
                             {{ record.realname }} :
                             <el-row>
@@ -167,7 +177,7 @@
         overflow: auto;
     }
 
-    .bubble-me, .bubble-others {
+    .bubble-me, .bubble-others, .bubble-teacher {
         width: auto;
         max-width: 80%;
         height: 100%;
@@ -180,7 +190,7 @@
         border-radius: 6px;
     }
 
-    .bubble-others::before, .bubble-me::after {
+    .bubble-others::before, .bubble-me::after, .bubble-teacher::before {
         content: '';
         position: absolute;
         width: 8px;
@@ -191,13 +201,14 @@
         border-style: solid solid none none;
     }
 
+    /*其他用户发出的聊天气泡*/
     .bubble-others {
         float: left;
         background-color: #fffdf8;
         border: 1px solid #d6c489;
     }
 
-    .bubble-others::before {
+    .bubble-others::before, .bubble-teacher::before {
         left: -5px;
         transform: rotate(-135deg);
     }
@@ -212,6 +223,13 @@
     .bubble-me::after {
         right: -5px;
         transform: rotate(45deg);
+    }
+
+    /*教师发出的聊天气泡*/
+    .bubble-teacher {
+        float: left;
+        background-color: #fff3f1;
+        border: 2px solid #ae3832;
     }
 
     .bubble-time {
