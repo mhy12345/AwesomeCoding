@@ -10,18 +10,19 @@
                     </div>
                     <!--文字消息-->
                     <div v-if="record.type === 'text'">
-                        <!--教师消息-->
-                        <div v-if="record.role === 1">
+                        <!--我的消息-->
+                        <div v-if="record.user_id === user.user_id">
                             <el-row>
-                                <div class="bubble-teacher">
-                                    {{ record.message }}d
+                                <div class="bubble-me">
+                                    {{ record.message }}
                                 </div>
                             </el-row>
                         </div>
-                        <!--我的消息-->
-                        <div v-else-if="record.user_id === user.user_id">
+                        <!--教师消息-->
+                        <div v-else-if="record.course_status === 0">
+                            {{ record.realname }} :
                             <el-row>
-                                <div class="bubble-me">
+                                <div class="bubble-teacher">
                                     {{ record.message }}
                                 </div>
                             </el-row>
@@ -70,7 +71,7 @@
     import {parseFlow, parseList, formatDateTime} from './chat_records'
     import {deepCopy} from "../../../utils/Copy";
 
-    const MINUTES_SEPARATE = 1;    // 每隔多少分钟显示一次时间
+    const MINUTES_SEPARATE = 5;    // 每隔多少分钟显示一次时间
     var time_marker = undefined;
     export default {
         name: "ChatRecords",
@@ -81,10 +82,10 @@
                 loadingQ: true,
                 record_count: 0,   // total chat records
                 num_each: 20,   // display 20 messages on each page
-
             }
         },
         mounted() {
+            console.log('[ChatRecords.vue] user', this.user);
             this.updateRecordCount().
                  then((count) => {
                      this.handleCurrentChange(1);
@@ -100,10 +101,12 @@
                              }
                          }).
                          then((res) => {
+                             console.log('[get chat count]', res);
                              if (res.body.status === 'FAILED.') {
                                  this.pushRecord({
                                      message: res.body.details
                                  });
+                                 this.loadingQ = false;
                                  return;
                              }
                              else {
@@ -118,12 +121,10 @@
                 });
             },
             pushRecord(flow) {  // 有拉流消息，需要动态添加聊天记录
-                // time_marker = new Date();
                 if (this.chat_records.length >= this.num_each)  // 超过 num_each 条就只显示最后的 num_each 条
                     this.chat_records.pop();
                 time_marker = new Date();
                 let record = parseFlow(flow);   // 将流转化为记录
-                // console.log('[pushRecord]', time_marker.toLocaleTimeString());
                 this.chat_records = [record].concat(this.chat_records);   // 新拉流的消息放在表首
                 this.record_count++;
             },
@@ -132,7 +133,6 @@
             },
             displayTimeQ(date_time) {
                 if ((time_marker.getTime() - date_time.getTime()) / 60000 > MINUTES_SEPARATE) {
-                    console.log(true);
                     time_marker = new Date(date_time.toString());
                     return true;
                 }

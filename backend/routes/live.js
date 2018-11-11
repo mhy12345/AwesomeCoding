@@ -53,6 +53,7 @@ router.get('/get_chat_record_count', function (req, res) {
 		}).
 		then((packed) => {
 			let { conn, sql_res } = packed;
+			logger.info('[get] chat record count, success.', sql_res.results[0]['COUNT(*)']);
 			res.send({
 				status: 'SUCCESS.',
 				results: sql_res.results[0]['COUNT(*)']
@@ -97,6 +98,7 @@ router.get('/get_chat_record', function (req, res) {
 				status: 'SUCCESS.',
 				results: sql_res.results.reverse()
 			});
+			logger.info('[get] chat record, success.');
 			conn.end();
 		}).
 		catch((err) => {

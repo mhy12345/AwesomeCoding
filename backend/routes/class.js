@@ -102,21 +102,15 @@ router.post('/status', function (req, res, next) {
 		then(function (packed) {
 			let { conn, role } = packed;
 			conn.end();
-			logger.info('[status] success');
+			req.session.course_status = role;
+			updateSocketSession(req.session);
 			res.send({
 				status: 'SUCCESS.',
 				results: { role: role },
 			});
-			req.session.course_status = role;
 		}).
 		catch(function (sql_res) {
-			req.session.course_status = undefined;
-			logger.info('[status] failed');
 			res.send(sql_res);
-		}).
-		finally(() => {
-			logger.info('[status] finally');
-			updateSocketSession(req.session);	// 将新增了字段的 session 同步到 socket.handshake.session
 		});
 });
 

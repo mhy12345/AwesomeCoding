@@ -127,7 +127,7 @@ export default {
 					return;
 				}
 				this.course_status = res.body.results;
-				console.log("[dashboard] course status: ", this.course_status);
+				// console.log("[dashboard] course status: ", this.course_status);
 				if (this.course_status.role === 0) {
 					this.course_status.role_title = '教师';
 				} else if (this.course_status.role === 1) {
@@ -150,7 +150,7 @@ export default {
 			var current_options = this.class_resources ? this.class_resources : default_options;
 			let idx = 0;
 			for (let k of current_options) {
-				console.log('...',k === name);
+				// console.log('...',k === name);
 				if (k === name)
 					return ''+idx;
 				idx += 1;

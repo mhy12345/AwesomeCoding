@@ -136,7 +136,7 @@
 </template>
 
 <script>
-var crypto = require('crypto');
+import {getGravatarUrl} from './utils/funcs'
 import {copy} from "./utils/Copy";
 import {sessionSQL, logoutSQL} from "./utils/DoSQL";
 
@@ -213,9 +213,7 @@ export default {
 						this.user = resp;
 						this.$message.success("欢迎回来！" + this.user.realname);
 						this.loginQ = true;
-						hash = crypto.createHash('md5');
-						hash.update(this.user.email);
-						this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
+                        this.user.gravatar_url = getGravatarUrl(this.user.email);
 					} else {
 						this.$message("请登录。");
 						this.loginQ = false;
@@ -248,10 +246,11 @@ export default {
 				this.$router.push(key);
 			}
 		},
-		handleLogined() { // logined event emitted by children router-view
-            setTimeout(() => {
-                this.$router.go(0); // 过一段时间后刷新页面，以解决socket session不能更新的问题
-            }, 100);
+		handleLogined(user_info) { // logined event emitted by children router-view
+            console.log('[App] user logged in.', user_info);
+            this.user = user_info;
+            this.user.gravatar_url = getGravatarUrl(this.user.email);
+            this.loginQ = true;
 		},
 		handleLogout() { // logout event emitted by children router-view
 			this.logout();

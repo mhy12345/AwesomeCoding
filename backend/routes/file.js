@@ -9,7 +9,7 @@ var fs = require('fs');
 var path = require('path');
 var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").runtime_configure;
-var logger = log4js.getLogger('log_file');
+var logger = log4js.getLogger('file_log');
 var mysql = require('mysql');
 
 log4js.configure(log4js_config);

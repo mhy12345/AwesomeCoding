@@ -7,7 +7,7 @@ function updateSocketSession(session) {		// 将 req.session 同步到 socket.han
 	let socket = user_sockets[session.user_id];
 	if (socket === undefined) return;
 	socket.handshake.session = session;
-	console.log('[global] update session:', session, socket.handshake.session);
+	// console.log('[global] update session:', session, socket.handshake.session);
 }
 
 module.exports = {
