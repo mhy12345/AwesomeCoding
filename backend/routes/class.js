@@ -463,7 +463,7 @@ router.post('/create', function (req, res, next) { //创建新班级
 				else {
 					let { conn, sql_res } = packed;
 					conn.end();
-					//res.send(JSON.stringify(result, null, 3));
+					res.send(JSON.stringify(result, null, 3));
 				}
 			}).
 			catch(function (sql_res) {
@@ -505,7 +505,7 @@ router.post('/public/fetch', function (req, res, next) {//公开课程目录获�
 			res.send(JSON.stringify(sql_res, null, 3));
 		}).
 		catch(function (sql_res) {
-			res.status(403).
+			res.status(200).
 				send(JSON.stringify(sql_res, null, 3));
 		});
 });
@@ -557,44 +557,6 @@ router.post('/my_course/fetch', function (req, res, next) {
 		});
 });
 
-/*
-router.post('/my_course_vid/fetch', function (req, res, next) {
-	if (typeof(req.body.page_number) === 'undefined') {
-		res.status(403).send('Pagenum not defined.');
-		return;
-	}
-	if (typeof(req.body.page_size) === 'undefined') {
-		req.body.page_size = 20;
-		logger.warn('Page size not defined...');
-		return;
-	}
-	if (typeof(req.session.user_id) === 'undefined') {
-		res.status(403).send('User not login...');
-		return;
-	}
-
-	let sql =
-		'select title, description, liveplayer_vid\n' +
-		'from lives l, classusers cu, classes cl\n' +
-		'where cu.user_id = 5 and cu.role = 0 and l.class = cu.class_id and cl.id = cu.class_id';
-
-	//let sql = 'SELECT liveplayer_vid from classes.id, classes.title, classusers.registration_date FROM classes LEFT JOIN classusers ON classusers.class_id = classes.id AND role=' + mysql.escape(req.session.role) + ' WHERE classusers.user_id = ' + mysql.escape(+req.session.user_id) + ' ORDER BY classusers.registration_date DESC';
-	getConnection().
-		then(function (conn) {
-			return doSqlQuery(conn, sql);
-		}).
-		then(function (packed) {
-			let {conn, sql_res} = packed;
-			conn.end();
-			res.send(JSON.stringify(sql_res, null, 3));
-		}).
-		catch(function (sql_res) {
-			res.status(403).send(JSON.stringify(sql_res));
-		});
-});
-*/
-
-
 router.post('/liveid/query', function (req, res, next) {
 	let result = {
 		status: undefined
@@ -618,36 +580,6 @@ router.post('/liveid/query', function (req, res, next) {
 		});
 });
 
-/*
-router.get('/page_update', function(req, res) {
-	logger.info("[publish]");
-	let page = +req.body.page;
-	getPermission(req.session.user_id, req.query.class_id).
-		then((role) => {
-			if (role !== 0) {
-				res.status(403).send('PERMISSION DENIED.');
-			} else { 
-				res.status(200).send('OKAY.');
-				getConnection().
-					then((conn) => {
-						let sql = "SELECT user_id FROM ac_database.classusers " +
-							"WHERE class_id = " + req.query.course_id + " AND role > 0;";
-						return doSqlQuery(conn, sql);
-					}).
-					then((packed) => {
-						let { conn, sql_res } = packed;
-						for (let result of sql_res.results) {
-							let user_id = String(result.user_id);	//***
-							if (user_id in $sockets) {
-								logger.info('[to block]', user_id);
-								$sockets[user_id].emit('page > ' + page);
-							}
-						}
-					});
-			}
-		});
-});
-*/
 router.post('/addstudents', function (req, res, next) {
 	let result = {
 		status: undefined
