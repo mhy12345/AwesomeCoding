@@ -14,40 +14,18 @@ var log4js_config = require("../configures/log.config.js").unittest_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('default');
 
-describe('# Testing /api/class', function () {
+describe('# Testing /api/problem', function () {
 	this.timeout(8000);
-	let test_user = {
-		nickname: 'test_name' + randomString(8),
-		realname: 'TESTER',
-		email: '123456@mail.com',
-		role: 0,
-		motto: 'just for test',
-		password: '111111',
-		phone: '13688880000'
-	};
-	let test_class = {
-		title: "unit_test_class",
-		type: 1,
-		resources: ["details","participants","settings","live","file_settings","train_area","train_area_teacher","posts"],
-		notice: "FtJxcAhrRp7rkfmp",
-		description:"ifQxW2EQzbAMm7Je"
-	};
 	let class_id = null;
 	before(function (done) {
 		mysql_config.database = 'ac_test';
-		request.
-			post('/api/user/register').
-			send(test_user).
-			expect(200).
-			end(function (err, res) {
-				if (err) 
-					done(err);
-				else
-					done();
-			});
 	});
-	describe('# Create A Class.', function() {
-		it("Create the class.", function(done) {
+	let choice_problem_test = {
+		problem_id: 'PROBLEM_ID',
+		class_id: 'CLASS_ID',
+	};
+	describe('# Create A Problem.', function() {
+		it("Create....", function(done) {
 			request.
 				post('/api/class/create').
 				send(test_class).
