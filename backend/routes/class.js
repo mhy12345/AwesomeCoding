@@ -390,7 +390,7 @@ router.post('/create', function (req, res, next) { //创建新班级
 					let url = 'http://api.polyv.net/live/v2/channels';
 					axios.post(url, querystring.stringify(NewChannelJSON)).then((resp) => {
 						let vid = resp.data.data.channelId.toString();
-						let uid = '047a911d83';
+						let uid = '99c8b47fe1';    // CONST
 						let url = "https://open.ucpaas.com/ol/sms/sendsms";
 
 						let params = vid + ',' + NewChannelJSON.channelPasswd;
