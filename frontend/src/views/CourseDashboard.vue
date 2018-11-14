@@ -7,13 +7,14 @@
 				 :lazy='false'
 				 >
 				 <TabPane v-for="option in options" 
+						  :disabled='option.disabled'
 						  :label="option.name" 
 						  :name="options.route" 
 						  :key='option.index' 
 						  :fly='option.index === "live"'>
 					<!-- 对于live模块，额外加一个fly的props，用于表示是否通过修改visible隐藏-->
 					<components 
-						v-if='option.index !== "live" && option.visible' 
+						v-if='option.index !== "live" && !option.disabled' 
 						v-bind:is="option.component" 
 						:course_status='course_status' 
 						class='lecture-panel' 
@@ -22,7 +23,7 @@
 						>
 					</components>
 					<components 
-						v-if='option.index === "live" && option.visible' 
+						v-if='option.index === "live" && !option.disabled' 
 						v-bind:is="option.component" 
 						:course_status='course_status' 
 						class='lecture-panel' 
@@ -101,7 +102,7 @@ export default {
 					index: k,
 					name: supported_resources[k].title,
 					component: supported_resources[k].component,
-					visible: supported_resources[k].access[role]
+					disabled: !supported_resources[k].access[role]
 				});
 			}
 			return result;
