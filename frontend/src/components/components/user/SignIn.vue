@@ -37,7 +37,7 @@
 
     export default {
         name: "SignIn",
-        data () {
+        data() {
             return {
                 title: '欢迎登录',
                 inputs: {
@@ -57,7 +57,7 @@
                         this.loadingQ = false;
                         this.$message.success("登录成功！" + resp.results.realname);
                         this.$emit('logined', resp.results); // 通知父级已登录
-						window.history.go(-1);  // 回到上一个页面
+                        self.location = document.referrer;
                     }).
                     catch((resp) => {
                         console.log(resp);

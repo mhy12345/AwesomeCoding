@@ -100,9 +100,9 @@
                  catch((resp) => {
                      this.loadingQ = false;
                      this.loadedQ = false;
-                     if (resp.body === 'NOT_LOGIN.') {
+                     if (resp.body.details === 'NOT_LOGIN.') {
                          _this.$message("请登录...");
-                     } else if (resp.body === "NOT_IN_CLASS.") {
+                     } else if (resp.body.details === "NOT_IN_CLASS.") {
                          _this.$message("请先加入班级");
                      } else {
                          _this.$message("未知错误");

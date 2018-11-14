@@ -64,7 +64,7 @@ function alertClassMembers(socket, msg) {	// 教师向本门课程的所有在�
 			conn.end();
 			for (let result of sql_res.results) {	// 用 socket 通知课程中的这些用户
 				let id = result.user_id;
-				if (id === socket.handshake.session.user_id) continue;	// 不广播给自己
+				if (id === socket.handshake.session.user_id && msg.echo == undefined) continue;	// 不广播给自己
 				id = String(id);
 				if ($user_sockets.hasOwnProperty(id)) {
 					logger.info('[alerted] ', id);
