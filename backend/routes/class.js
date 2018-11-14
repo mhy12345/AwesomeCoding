@@ -18,9 +18,9 @@ var createSign = require('../utils/sign').getSign;
 const axios = require('axios');
 const querystring = require('querystring');
 var NewChannelTemplate = {
-	appId: 'f5gs13hkpw',
+	appId: 'f6nom3tneq',
 	timestamp: '',
-	userId: '047a911d83',
+	userId: '99c8b47fe1',
 	name: '',
 	channelPasswd: '111111'
 };
