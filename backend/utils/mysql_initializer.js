@@ -165,6 +165,7 @@ var sqls = {
 		"`date_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, " +	// 发消息的日期时间，由数据库自动填充
 		"`course_id` INT NOT NULL, " +			// 课程id
 		"`user_id` INT NOT NULL, " +			// 用户id
+		"`course_status` INT NOT NULL, " +		// 用户在课程中的角色
 		"`realname` VARCHAR(40), " +			// 用户姓名
 		"`message` VARCHAR(200) NOT NULL, " +	// 所发的消息，要求不能为空消息
 		"PRIMARY KEY (`id`) " +

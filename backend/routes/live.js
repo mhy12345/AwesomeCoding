@@ -24,33 +24,20 @@ router.use(function (req, res, next) {		// 检查登录状态
 	}
 });
 
-router.use(function (req, res, next) {	// 检查用户是否在课堂中
-	getConnection().
-		then((conn) => {
-			let sql = "SELECT * " +
-				"FROM ac_database.classusers WHERE " +
-				"user_id = " + req.session.user_id + " and " +
-				"class_id = " + req.query.course_id + ";";
-			return doSqlQuery(conn, sql);
-		}).
-		then((packed) => {
-			let { conn, sql_res } = packed;
-			conn.end();
-			if (sql_res.results.length === 0) {	// user not in the class
-				logger.warn('[res] not in the class');
-				res.send({
-					status: 'FAILED.',
-					details: 'USER_NOT_IN_THE_CLASS.'
-				});
-			}
-			else {
-				next();		// user in the class, go on
-			}
-		}).
-		catch((err) => {
-			logger.error('\n', err);
-			res.send(err);
-		});
+/* 检查用户是否在课堂中
+ * 以 session.course_status 字段是否被定义为标准
+ * 该字段在 /api/class/status 被调用时就自动添加到 session 字段里了
+ */
+router.use(function (req, res, next) {
+	if (req.session.course_status === undefined) {
+		res.send({
+			status: 'FAILED.',
+			details: 'USER_NOT_IN_THE_CLASS.'
+		})
+	}
+	else {
+		next();	// user in the class, can apply subsequent router
+	}
 });
 
 /* 获取聊天记录条数
@@ -66,6 +53,7 @@ router.get('/get_chat_record_count', function (req, res) {
 		}).
 		then((packed) => {
 			let { conn, sql_res } = packed;
+			logger.info('[get] chat record count, success.', sql_res.results[0]['COUNT(*)']);
 			res.send({
 				status: 'SUCCESS.',
 				results: sql_res.results[0]['COUNT(*)']
@@ -110,6 +98,7 @@ router.get('/get_chat_record', function (req, res) {
 				status: 'SUCCESS.',
 				results: sql_res.results.reverse()
 			});
+			logger.info('[get] chat record, success.');
 			conn.end();
 		}).
 		catch((err) => {

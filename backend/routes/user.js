@@ -1,19 +1,20 @@
 var user_verification_codes = {};
 const axios = require('axios');
 
-var express = require('express');
+const express = require('express');
 var router = express.Router();
-var mysql = require('mysql');
+const mysql = require('mysql');
 
-var doSqlQuery = require('../utils/funcs').doSqlQuery;
-var getConnection = require('../utils/funcs').getConnection;
+const doSqlQuery = require('../utils/funcs').doSqlQuery;
+const getConnection = require('../utils/funcs').getConnection;
+const updateSocketSession = require('../utils/global').updateSocketSession;
 
-var log4js = require("log4js");
-var log4js_config = require("../configures/log.config.js").runtime_configure;
+const log4js = require("log4js");
+const log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
-var logger = log4js.getLogger('log_file');
+const logger = log4js.getLogger('log_file');
 
-var fixed_items = ['id', 'nickname', 'role', 'registration_date'];	// 不允许用户修改的表项，后期加入email?
+const fixed_items = ['id', 'nickname', 'role', 'registration_date'];	// 不允许用户修改的表项，后期加入email?
 
 function updateSession(session, user)
 {
@@ -27,6 +28,7 @@ function updateSession(session, user)
 	session.email = user.email;
 	session.phone = user.phone;
 	session.motto = user.motto;
+	updateSocketSession(session);	// session 同步到 socket.handshake.session
 }
 
 router.get('/session', function (req, res, next) {	// 判断用户是否登录
@@ -191,12 +193,12 @@ router.post('/login', function (req, res, next) {  // 响应登录，并进行�
 				}
 				else {
 					delete user.password;   // ensure safety
-					updateSession(req.session, user);
+					updateSession(req.session, user);	// 更新 session
 					conn.end();
 					res.send({
 						status: 'SUCCESS.',
 						details: 'SUCCESS.',
-						results: user
+						results: req.session
 					});
 				}
 			}

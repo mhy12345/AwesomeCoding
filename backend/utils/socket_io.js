@@ -11,9 +11,10 @@ function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的�
 	getConnection().
 		then((conn) => {
 			let sql = "INSERT INTO `ac_database`.`chat_record` " +
-				"(`course_id`, `user_id`, `realname`, `message`) VALUES ('" +
+				"(`course_id`, `user_id`, `course_status`, `realname`, `message`) VALUES ('" +
 				msg.course_id + "', '" +
 				socket.handshake.session.user_id + "', '" +
+				socket.handshake.session.course_status + "', '" +
 				socket.handshake.session.realname + "', '" +
 				msg.message + "');";
 			return doSqlQuery(conn, sql);

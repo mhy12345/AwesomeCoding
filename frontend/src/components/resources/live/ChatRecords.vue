@@ -10,6 +10,7 @@
                     </div>
                     <!--文字消息-->
                     <div v-if="record.type === 'text'">
+                        <!--我的消息-->
                         <div v-if="record.user_id === user.user_id">
                             <el-row>
                                 <div class="bubble-me">
@@ -17,6 +18,16 @@
                                 </div>
                             </el-row>
                         </div>
+                        <!--教师消息-->
+                        <div v-else-if="record.course_status === 0">
+                            {{ record.realname }} :
+                            <el-row>
+                                <div class="bubble-teacher">
+                                    {{ record.message }}
+                                </div>
+                            </el-row>
+                        </div>
+                        <!--其他同学的消息-->
                         <div v-else>
                             {{ record.realname }} :
                             <el-row>
@@ -41,15 +52,26 @@
                 </div>
             </div>
 
-            <!--分页器-->
-            <div class="paginator">
-                <el-pagination
-                    small
-                    @current-change="handleCurrentChange"
-                    :page-size="num_each"
-                    layout="prev, pager, next, jumper"
-                    :total="record_count">
-                </el-pagination>
+            <!--底栏-->
+            <div class="chat-footer">
+                <el-row>
+                    <!--分页器-->
+                    <el-col :span="20">
+                        <el-pagination
+                            small
+                            @current-change="handleCurrentChange"
+                            :page-size="num_each"
+                            layout="prev, pager, next, jumper"
+                            :total="record_count">
+                        </el-pagination>
+                    </el-col>
+                    <!--刷新聊天记录按钮-->
+                    <el-col :span="4">
+                        <el-tooltip content="刷新">
+                            <el-button icon="el-icon-refresh" circle size="mini" @click="refresh"></el-button>
+                        </el-tooltip>
+                    </el-col>
+                </el-row>
             </div>
 
         </el-card>
@@ -60,7 +82,7 @@
     import {parseFlow, parseList, formatDateTime} from './chat_records'
     import {deepCopy} from "../../../utils/Copy";
 
-    const MINUTES_SEPARATE = 1;    // 每隔多少分钟显示一次时间
+    const MINUTES_SEPARATE = 5;    // 每隔多少分钟显示一次时间
     var time_marker = undefined;
     export default {
         name: "ChatRecords",
@@ -71,16 +93,19 @@
                 loadingQ: true,
                 record_count: 0,   // total chat records
                 num_each: 20,   // display 20 messages on each page
-
             }
         },
         mounted() {
-            this.updateRecordCount().
-                 then((count) => {
-                     this.handleCurrentChange(1);
-                 });
+            console.log('[ChatRecords.vue] user', this.user);
+            this.refresh();
         },
         methods: {
+            refresh() {     // 刷新聊天记录
+                this.updateRecordCount().
+                     then((count) => {
+                         this.handleCurrentChange(1);
+                     });
+            },
             updateRecordCount() {   // 获取总的消息个数
                 return new Promise((resolve, reject) => {
                     this.$http.
@@ -90,10 +115,12 @@
                              }
                          }).
                          then((res) => {
+                             console.log('[get chat count]', res);
                              if (res.body.status === 'FAILED.') {
                                  this.pushRecord({
                                      message: res.body.details
                                  });
+                                 this.loadingQ = false;
                                  return;
                              }
                              else {
@@ -108,12 +135,10 @@
                 });
             },
             pushRecord(flow) {  // 有拉流消息，需要动态添加聊天记录
-                // time_marker = new Date();
                 if (this.chat_records.length >= this.num_each)  // 超过 num_each 条就只显示最后的 num_each 条
                     this.chat_records.pop();
                 time_marker = new Date();
                 let record = parseFlow(flow);   // 将流转化为记录
-                // console.log('[pushRecord]', time_marker.toLocaleTimeString());
                 this.chat_records = [record].concat(this.chat_records);   // 新拉流的消息放在表首
                 this.record_count++;
             },
@@ -122,7 +147,6 @@
             },
             displayTimeQ(date_time) {
                 if ((time_marker.getTime() - date_time.getTime()) / 60000 > MINUTES_SEPARATE) {
-                    console.log(true);
                     time_marker = new Date(date_time.toString());
                     return true;
                 }
@@ -167,7 +191,7 @@
         overflow: auto;
     }
 
-    .bubble-me, .bubble-others {
+    .bubble-me, .bubble-others, .bubble-teacher {
         width: auto;
         max-width: 80%;
         height: 100%;
@@ -180,7 +204,7 @@
         border-radius: 6px;
     }
 
-    .bubble-others::before, .bubble-me::after {
+    .bubble-others::before, .bubble-me::after, .bubble-teacher::before {
         content: '';
         position: absolute;
         width: 8px;
@@ -191,13 +215,14 @@
         border-style: solid solid none none;
     }
 
+    /*其他用户发出的聊天气泡*/
     .bubble-others {
         float: left;
         background-color: #fffdf8;
         border: 1px solid #d6c489;
     }
 
-    .bubble-others::before {
+    .bubble-others::before, .bubble-teacher::before {
         left: -5px;
         transform: rotate(-135deg);
     }
@@ -212,6 +237,13 @@
     .bubble-me::after {
         right: -5px;
         transform: rotate(45deg);
+    }
+
+    /*教师发出的聊天气泡*/
+    .bubble-teacher {
+        float: left;
+        background-color: #fff3f1;
+        border: 2px solid #ae3832;
     }
 
     .bubble-time {
@@ -230,12 +262,12 @@
         border-radius: 15px;
     }
 
-    .paginator {
+    .chat-footer {
         position: relative;
         margin: auto;
         padding: 5px 12px 5px 12px;
-        border-top: black 1px dashed;
+        border-top: #c6c6c6 1px dashed;
         background-color: #ffffff;
-        bottom: 5px;
+        bottom: 10px;
     }
 </style>

@@ -118,10 +118,10 @@ export default {
 			then((res) => {
 				if (res.body.status !== 'SUCCESS.') {
 					if (res.body.details === 'NOT_LOGIN.') {
-						this.$message("");
+						this.$message("请登录");
 						window.location.href = '/user/sign_in';
 					} else {
-						// console.log("[dashboard] course status error: " + res.body.details);
+						console.log("[dashboard] course status error: " + res.body.details);
 						this.$message("错误，见console");
 					}
 					return;
@@ -141,7 +141,7 @@ export default {
 			}).
 			catch((res) => {
 				this.loading = false;
-				this.$message(res);
+				console.log('[dashboard] error', res);
 			});
 	},
 
@@ -150,7 +150,7 @@ export default {
 			var current_options = this.class_resources ? this.class_resources : default_options;
 			let idx = 0;
 			for (let k of current_options) {
-				console.log('...',k === name);
+				// console.log('...',k === name);
 				if (k === name)
 					return ''+idx;
 				idx += 1;
