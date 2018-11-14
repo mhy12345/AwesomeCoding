@@ -405,8 +405,7 @@ router.post('/create', function (req, res, next) { //创建新班级
 						NewChannelJSON[i] = NewChannelTemplate[i];
 					}
 
-					let timeStamp = Date.now().
-										 toString();
+					let timeStamp = Date.now().toString();
 					NewChannelJSON.name = timeStamp;
 					NewChannelJSON.timestamp = timeStamp;
 					NewChannelJSON.sign = createSign(NewChannelJSON);
@@ -689,8 +688,8 @@ router.post('/addstudents', function (req, res, next) {
 				}).
 				then(function (packed) {
 					let { conn, sql_res } = packed;
-					for (var i in sql_res.results) {
-						existidlist.push(sql_res.results[i].user_id);
+					for (let ix in sql_res.results) {
+						existidlist.push(sql_res.results[ix].user_id);
 					}
 					console.log(">>>>>>>idlist");
 					console.log(idlist);
