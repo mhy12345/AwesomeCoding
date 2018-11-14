@@ -13,7 +13,7 @@
 						  :fly='option.index === "live"'>
 					<!-- 对于live模块，额外加一个fly的props，用于表示是否通过修改visible隐藏-->
 					<components 
-						v-if='option.index !== "live"' 
+						v-if='option.index !== "live" && option.visible' 
 						v-bind:is="option.component" 
 						:course_status='course_status' 
 						class='lecture-panel' 
@@ -22,7 +22,7 @@
 						>
 					</components>
 					<components 
-						v-else 
+						v-if='option.index === "live" && option.visible' 
 						v-bind:is="option.component" 
 						:course_status='course_status' 
 						class='lecture-panel' 
@@ -95,11 +95,13 @@ export default {
 		options: function () {
 			var result = [];
 			var current_options = this.class_resources ? this.class_resources : default_options;
+			let role = this.course_status.role === null ? 3 : this.course_status.role;
 			for (var k of current_options) {
 				result.push({
 					index: k,
 					name: supported_resources[k].title,
-					component: supported_resources[k].component
+					component: supported_resources[k].component,
+					visible: supported_resources[k].access[role]
 				});
 			}
 			return result;
@@ -126,7 +128,8 @@ export default {
 					}
 					return;
 				}
-				this.course_status = res.body.results;
+				this.course_status.role = res.body.results.role;
+				//this.course_status = res.body.results;
 				// console.log("[dashboard] course status: ", this.course_status);
 				if (this.course_status.role === 0) {
 					this.course_status.role_title = '教师';

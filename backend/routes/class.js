@@ -108,7 +108,11 @@ router.post('/status', function(req, res, next) {
 
 router.post('/participants/delete', function(req, res, next) {
 	let user_id = +req.session.user_id;
-	let target_id = +req.body.user_id;
+	let target_id = undefined;
+	if (req.body.user_id === null) 
+		target_id = user_id;//当req.body.user为null的话，表示删除自己
+	else 
+		target_id = +req.body.user_id;//否则表示删除指定用户
 	let class_id = +req.body.class_id;
 	let user_role = req.session.role;
 	let target_role = undefined;
@@ -124,9 +128,12 @@ router.post('/participants/delete', function(req, res, next) {
 		then(function(packed) {
 			let {conn, role} = packed;
 			target_role = role;
-			if (target_role <= user_role) {
+			if (target_role <= user_role && target_id != user_id) {
 				conn.end();
 				return Promise.reject({status:"FAILED.",details:"PermissionDenied."});
+			} else if (target_role == 0) {
+				conn.end();
+				return Promise.reject({status:"FAILED.",details:"TeacherCannotQuit."});
 			}
 			let sql = 'DELETE FROM classusers WHERE user_id = '+mysql.escape(target_id) + ' AND class_id = '+mysql.escape(class_id);
 			return doSqlQuery(conn, sql);

@@ -57,7 +57,8 @@
                         this.loadingQ = false;
                         this.$message.success("登录成功！" + resp.results.realname);
                         this.$emit('logined', resp.results); // 通知父级已登录
-						window.history.go(-1);
+						//window.history.go(-1);
+						self.location=document.referrer;
                         //this.$router.push('/user/profile');
                     }).
                     catch((resp) => {

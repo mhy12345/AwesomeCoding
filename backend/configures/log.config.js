@@ -14,7 +14,7 @@ var database_configure = {
 		info: {type: 'file', filename: './logs/info.log'},
 	},
 	categories: {
-		default: {appenders: ['out', 'info'], level: 'warn'},
+		default: {appenders: ['out', 'info'], level: 'debug'},
 	}
 };
 
