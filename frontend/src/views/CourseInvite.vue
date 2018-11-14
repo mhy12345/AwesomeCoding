@@ -37,6 +37,7 @@
                          type: 'success',
                          message: '成功加入班级'
                      });
+					 self.location=document.referrer;
                  }).
                  catch((res) => {
                      let translate = {
@@ -49,6 +50,7 @@
                          type: 'info',
                          message: '加入班级失败...' + translate[res.body]
                      });
+					 self.location=document.referrer;
                  });
         }
     };

@@ -110,7 +110,8 @@ export default {
                 this.$socket.emit('alert', {
                     operation: 'CHANGE_PDF.',
                     pdfSrc: "/uploads/" + row.filename,
-                    course_id: this.class_id
+                    course_id: this.class_id,
+					echo: true,
                 });
             } else {
                 alert("请选择pdf文件");
