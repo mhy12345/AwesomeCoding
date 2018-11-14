@@ -405,59 +405,54 @@ router.post('/create', function (req, res, next) { //创建新班级
 					NewChannelJSON.sign = createSign(NewChannelJSON);
 
 					let url = 'http://api.polyv.net/live/v2/channels';
-					axios.post(url, querystring.stringify(NewChannelJSON)).
-						  then((resp) => {
-							  let vid = resp.data.data.channelId.toString();
-							  let uid = '047a911d83';
-							  let url = "https://open.ucpaas.com/ol/sms/sendsms";
+					axios.post(url, querystring.stringify(NewChannelJSON)).then((resp) => {
+						let vid = resp.data.data.channelId.toString();
+						let uid = '99c8b47fe1';    // CONST
+						let url = "https://open.ucpaas.com/ol/sms/sendsms";
 
-							  let params = vid + ',' + NewChannelJSON.channelPasswd;
-							  console.log(params);
+						let params = vid + ',' + NewChannelJSON.channelPasswd;
+						console.log(params);
 
-							  getConnection().
-								  then(function (_conn) {
-									  var _sql = 'SELECT phone FROM users WHERE `id` = ' + mysql.escape(+req.session.user_id);
-									  return doSqlQuery(_conn, _sql);
-								  }).
-								  then(function (_packed) {
-									  let phone_number = _packed.sql_res.results[0].phone;
+						getConnection().
+							then(function (_conn) {
+								var _sql = 'SELECT phone FROM users WHERE `id` = ' + mysql.escape(+req.session.user_id);
+								return doSqlQuery(_conn, _sql);
+							}).
+							then(function (_packed) {
+								let phone_number = _packed.sql_res.results[0].phone;
 
-									  axios.post(url, {
-										  "sid": "55d17519129b8973ea369b5ba8f14f4d", // const
-										  "token": "43eee5a8cff8d6fd6f54ad612819b466", // const
-										  "appid": "de5779c82e844993b4f28470cf545d77", // const
-										  "templateid": "392980", // const
-										  "param": params,
-										  "mobile": phone_number
-									  }).
-											then((resp) => {
-											}).
-											catch((err) => {
-											});
+								axios.post(url, {
+									"sid": "55d17519129b8973ea369b5ba8f14f4d", // const
+									"token": "43eee5a8cff8d6fd6f54ad612819b466", // const
+									"appid": "de5779c82e844993b4f28470cf545d77", // const
+									"templateid": "392980", // const
+									"param": params,
+									"mobile": phone_number
+								}).then((resp) => {
+								}).catch((err) => {
+								});
 
-									  _packed.conn.end();
-								  }).
-								  catch(function (sql_res) {
-								  });
-							  let { conn, sql_res } = packed;
-							  let sql = 'INSERT INTO `lives` (`class`,`liveplayer_uid`,`liveplayer_vid`) VALUES (' + mysql.escape(+result.id) + ',' + mysql.escape(uid) + ',' + mysql.escape(vid) + ')';
+								_packed.conn.end();
+							}).
+							catch(function (sql_res) {
+							});
+						let {conn, sql_res} = packed;
+						let sql = 'INSERT INTO `lives` (`class`,`liveplayer_uid`,`liveplayer_vid`) VALUES (' + mysql.escape(+result.id) + ',' + mysql.escape(uid) + ',' + mysql.escape(vid) + ')';
 
 
-							  return doSqlQuery(conn, sql)
-						  }).
-						  then(function (packed) {
-							  let { conn, sql_res } = packed;
-							  conn.end();
-							  res.send(JSON.stringify(result, null, 3));
-						  }).
-						  catch((err) => {
-							  //console.log('error');
-							  //console.log(err);
-							  res.send(JSON.stringify({
-								  status: 'FAILED.',
-								  details: 'CAN NOT CREATE NEW CHANNEL.'
-							  }));
-						  });
+						return doSqlQuery(conn, sql)
+					}).then(function (packed) {
+						let {conn, sql_res} = packed;
+						conn.end();
+						res.send(JSON.stringify(result, null, 3));
+					}).catch((err) => {
+						//console.log('error');
+						//console.log(err);
+						res.send(JSON.stringify({
+							status: 'FAILED.',
+							details: 'CAN NOT CREATE NEW CHANNEL.'
+						}));
+					});
 				}
 				else {
 					let { conn, sql_res } = packed;
