@@ -24,7 +24,7 @@ var unittest_configure = {
 		info: {type: 'file', filename: './logs/info.log'},
 	},
 	categories: {
-		default: {appenders: ['out', 'info'], level: 'info'},//去掉'out'。控制台不打印日志
+		default: {appenders: ['out', 'info'], level: 'warn'},//去掉'out'。控制台不打印日志
 	}
 };
 module.exports = {
