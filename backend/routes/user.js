@@ -16,8 +16,7 @@ const logger = log4js.getLogger('log_file');
 
 const fixed_items = ['id', 'nickname', 'role', 'registration_date'];	// 不允许用户修改的表项，后期加入email?
 
-function updateSession(session, user)
-{
+function updateSession(session, user) {
 	/*
 	 * all key-values in session (7)
 	 */
@@ -40,33 +39,33 @@ router.get('/session', function (req, res, next) {	// 判断用户是否登录
 });
 
 router.post('/verification', function (req, res, next) {	// 让后端程序发送验证码
-    console.log('sending sms...');
+	console.log('sending sms...');
 	console.log(req.body);
 	var code_generated = '';
 	for (let i = 0; i < 6; i++) {
-        code_generated += Math.ceil(Math.random() * 9);
-    }
+		code_generated += Math.ceil(Math.random() * 9);
+	}
 
-    let url = "https://open.ucpaas.com/ol/sms/sendsms";
+	let url = "https://open.ucpaas.com/ol/sms/sendsms";
 
-    
-
-    axios.post(url, {
-        "sid": "55d17519129b8973ea369b5ba8f14f4d", // const
-        "token": "43eee5a8cff8d6fd6f54ad612819b466", // const
-        "appid": "de5779c82e844993b4f28470cf545d77", // const
-        "templateid": "388909", // const
-        "param": code_generated,
-        "mobile": req.body.number
-	}).then(() => {
-		user_verification_codes[req.body.number] = +code_generated;
-        let res_body = req.session;
-        res_body.status = 'SUCCESS.';
-        // res_body.code_generated = code_generated;
-        res.send(JSON.stringify(res_body));
-    }).catch((err) => {
-		console.log('Failed');
-	});
+	axios.post(url, {
+		"sid": "55d17519129b8973ea369b5ba8f14f4d", // const
+		"token": "43eee5a8cff8d6fd6f54ad612819b466", // const
+		"appid": "de5779c82e844993b4f28470cf545d77", // const
+		"templateid": "388909", // const
+		"param": code_generated,
+		"mobile": req.body.number
+	}).
+		  then(() => {
+			  user_verification_codes[req.body.number] = +code_generated;
+			  let res_body = req.session;
+			  res_body.status = 'SUCCESS.';
+			  // res_body.code_generated = code_generated;
+			  res.send(JSON.stringify(res_body));
+		  }).
+		  catch((err) => {
+			  console.log('Failed');
+		  });
 });
 
 router.post('/register', function (req, res, next) {	// 响应注册，并进行合法判断
@@ -100,7 +99,7 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 			return doSqlQuery(conn, sql);
 		}).
 		then(function (packed) {
-			let {conn, sql_res} = packed;
+			let { conn, sql_res } = packed;
 			if (sql_res.results.length !== 0) {    //判重
 				conn.end();
 				return Promise.reject({
@@ -132,13 +131,13 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 			return doSqlQuery(conn, sql);
 		}).
 		then(function (packed) {
-			let {conn, sql_res} = packed;
+			let { conn, sql_res } = packed;
 			res_body.status = "SUCCESS.";              // 成功注册
 			let sql = 'SELECT * FROM users WHERE nickname = ' + mysql.escape(req.body.nickname);
 			return doSqlQuery(conn, sql);
 		}).
 		then(function (packed) {
-			let {conn, sql_res} = packed;
+			let { conn, sql_res } = packed;
 			if (sql_res.results.length <= 0) {
 				conn.end();
 				return new Promise.reject({
@@ -164,7 +163,8 @@ router.post('/login', function (req, res, next) {  // 响应登录，并进行�
 	let nickname = req.body.nickname;
 	let password = req.body.password;
 	if (typeof(nickname) === 'undefined' || typeof(password) === 'undefined') {
-		res.status(403).send('Don\'t post such things.');
+		res.status(403).
+			send('Don\'t post such things.');
 		return;
 	}
 	getConnection().
@@ -173,7 +173,7 @@ router.post('/login', function (req, res, next) {  // 响应登录，并进行�
 			return doSqlQuery(conn, sql);
 		}).
 		then(function (packed) {
-			let {conn, sql_res} = packed;
+			let { conn, sql_res } = packed;
 			if (sql_res.results.length === 0) {
 				conn.end();
 				return Promise.reject({
@@ -246,7 +246,7 @@ router.post('/change', function (req, res, next) {  // 响应设置个人信息�
 					res_body.details = 'property ' + item + ' cannot be changed.';
 					res.send(JSON.stringify(res_body));
 					conn.end();
-					return Promise.reject({status:'SKIPPED.'});
+					return Promise.reject({ status: 'SKIPPED.' });
 				}
 				if (req.body[item])
 					arr.push(item + ' = \'' + req.body[item] + '\'');
@@ -256,12 +256,12 @@ router.post('/change', function (req, res, next) {  // 响应设置个人信息�
 			return doSqlQuery(conn, sql);
 		}).
 		then(function (packed) {
-			let {conn, sql_res} = packed;
+			let { conn, sql_res } = packed;
 			let sql = 'SELECT * FROM users WHERE id = ' + req.session.user_id;
 			return doSqlQuery(conn, sql);
 		}).
 		then(function (packed) {		// 成功修改用户字段
-			let {conn, sql_res} = packed;
+			let { conn, sql_res } = packed;
 			res_body.results = sql_res.results[0];
 			delete res_body.results.password;
 			updateSession(req.session, res_body.results);
@@ -292,7 +292,7 @@ router.post('/forgetPassword', function (req, res, next) {
 			return doSqlQuery(conn, sql);
 		}).
 		then(function (packed) {
-			let {conn, sql_res} = packed;
+			let { conn, sql_res } = packed;
 			res_body.status = 'SUCCESS.';
 			res.send(JSON.stringify(res_body));
 		}).
@@ -314,8 +314,8 @@ router.post('/queryPhone', function (req, res, next) {//判断手机号是否注
 			return doSqlQuery(conn, sql);
 		}).
 		then(function (packed) {
-			let {conn, sql_res} = packed;
-			if(sql_res.results.length === 0) {
+			let { conn, sql_res } = packed;
+			if (sql_res.results.length === 0) {
 				res_body.status = 'FAILED.';
 				res_body.details = 'Phone Not Registered';
 			}
@@ -346,8 +346,8 @@ router.post('/queryPhoneExist', function (req, res, next) {//判断手机号是�
 			return doSqlQuery(conn, sql);
 		}).
 		then(function (packed) {
-			let {conn, sql_res} = packed;
-			if(sql_res.results.length === 0) {
+			let { conn, sql_res } = packed;
+			if (sql_res.results.length === 0) {
 				res_body.status = 'SUCCESS.';
 				res_body.details = 'Phone Not Registered';
 			}
@@ -381,7 +381,7 @@ router.post('/changePassword', function (req, res, next) {//修改密码
 			return doSqlQuery(conn, sql);
 		}).
 		then(function (packed) {
-			let {conn, sql_res} = packed;
+			let { conn, sql_res } = packed;
 			res_body.status = 'SUCCESS.';
 			res.send(JSON.stringify(res_body));
 		}).

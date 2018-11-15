@@ -82,6 +82,8 @@ router.get('/delete', function (req, res, next) { //根据id删除班级
 });
 
 /* 获取用户在课程中的角色，若用户在课程中，就把用户 session 中添加 `course_status` 字段，
+ * req 字段： class_id
+ * res 格式： 成功与否 & 用户在课程中的角色
  * 用于表示用户在课程中的角色，这样以后不用再检查用户是否在课堂了
  * 若用户不在课程中，`course_status` 就定义为 undefined
  */

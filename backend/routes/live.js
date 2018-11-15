@@ -17,7 +17,6 @@ router.use(function (req, res, next) {		// 检查登录状态
 			status: 'FAILED.',
 			details: 'USER OFFLINE.'
 		}));
-		logger.error('Not login.');
 	}
 	else {
 		next();
@@ -178,7 +177,6 @@ router.get('/block_chatting', function (req, res) {		// 禁止所有课程中在
 								$sockets[user_id].emit('block');
 							}
 						}
-						res.send({ status: 'SUCCESS.' });
 						conn.end();
 					});
 			}
@@ -192,7 +190,7 @@ router.get('/block_chatting', function (req, res) {		// 禁止所有课程中在
 });
 
 router.get('/allow_chatting', function (req, res) {		// 允许所有课程中在线的用户发言， todo 后期增加数据库表项
-	logger.info('[block_chatting]\n', req.query);
+	logger.info('[allow_chatting]\n', req.query);
 	getPermission(req.session.user_id, req.query.course_id).
 		then((role) => {
 			logger.info('[role]', role);
@@ -221,7 +219,6 @@ router.get('/allow_chatting', function (req, res) {		// 允许所有课程中在
 								$sockets[user_id].emit('allow');
 							}
 						}
-						res.send({ status: 'SUCCESS.' });
 						conn.end();
 					});
 			}

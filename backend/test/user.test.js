@@ -15,7 +15,7 @@ var logger = log4js.getLogger('unit-test');
 describe('# Testing /api/user', function () {
 	this.timeout(5000);
 	var test_user;
-	before(function (done) {			// 测试前
+	before(function (done) {			// 测试前 注册一个临时用户
 		test_user = {
 			nickname: 'test_name' + randomString(8),
 			realname: 'TESTER',
