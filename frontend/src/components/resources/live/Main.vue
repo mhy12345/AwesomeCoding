@@ -14,7 +14,7 @@
 				</el-col>
                 <!--右侧边栏-->
 				<el-col :span='9'>
-                    <sidebar class="right-sidebar" :course_status="course_status" :user="user"></sidebar>
+                    <sidebar class="right-sidebar" :course_status="course_status.role" :user="user"></sidebar>
 				</el-col>
 			</el-row>
 		</div>

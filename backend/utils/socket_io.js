@@ -31,6 +31,7 @@ function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的�
 				realname: socket.handshake.session.realname,
 				user_id: socket.handshake.session.user_id,
 				message: msg.message,
+				course_status: socket.handshake.session.course_status,
 				date_time: new Date()
 			};
 			for (let result of sql_res.results) {	// 用 socket 通知课程中的这些用户消息

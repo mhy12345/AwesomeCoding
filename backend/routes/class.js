@@ -106,8 +106,7 @@ router.post('/status', function (req, res, next) {
 			conn.end();
 			logger.error(`[/status]\n`, req.session);
 			req.session['course_status'] = role;
-			// req.session['email'] = 'xxx';
-			setTimeout(() => {
+			setTimeout(() => {	//todo
 				logger.error('[some time later]\n', req.session);
 			}, 1000);
 			updateSocketSession(req.session);

@@ -6,32 +6,32 @@
 				 v-model='activeIndex'
 				 :lazy='false'
 				 >
-				 <TabPane v-for="option in options" 
+				 <TabPane v-for="option in options"
 						  :disabled='option.disabled'
-						  :label="option.name" 
-						  :name="options.route" 
-						  :key='option.index' 
+						  :label="option.name"
+						  :name="options.route"
+						  :key='option.index'
 						  :fly='option.index === "live"'>
 					<!-- 对于live模块，额外加一个fly的props，用于表示是否通过修改visible隐藏-->
-					<components 
-						v-if='option.index !== "live" && !option.disabled' 
-						v-bind:is="option.component" 
-						:course_status='course_status' 
-						class='lecture-panel' 
+					<components
+						v-if='option.index !== "live" && !option.disabled'
+						v-bind:is="option.component"
+						:course_status='course_status'
+						class='lecture-panel'
 						:index='activeTitle'
 						:ref='option.index'
 						>
 					</components>
-					<components 
-						v-if='option.index === "live" && !option.disabled' 
-						v-bind:is="option.component" 
-						:course_status='course_status' 
-						class='lecture-panel' 
-						:index='activeTitle' 
+					<components
+						v-if='option.index === "live" && !option.disabled'
+						v-bind:is="option.component"
+						:course_status='course_status'
+						class='lecture-panel'
+						:index='activeTitle'
 						:fly='fly'
 						:ref='option.index'
                         :user="user"
-						> 
+						>
 					</components>
 				 </TabPane>
 		</el-tabs>
@@ -55,6 +55,7 @@ import Vue from 'vue';
 var default_options = ['details'];
 import {supported_resources} from '../utils/Resources';
 import TabPane from './MyTabPane.vue';
+import {createCookie, getCookie} from "../utils/Cookie";
 
 for (let item in supported_resources) {
 	// console.log('[dashboard] components-register : sub-'+supported_resources[item].name);
@@ -109,6 +110,14 @@ export default {
 		},
 	},
 	mounted: function () {
+        // self.location = document.referrer;
+        // let cnt = getCookie().refresh_cht;
+        // if (cnt === undefined) cnt = 0;
+        // this.$message.info(`cnt ${cnt}`);
+        // if (cnt === 0) {    // 用cookie记录是否已刷新
+        //     createCookie({ refresh_cht: 1 }, 100000);
+        //     this.$router.go(0);
+        // }
 		this.activeIndex = this.getActiveName();
 		this.title = this.$route.params.class_id;
 		this.$http.post('/api/class/resources/query', { class_id: this.title }, null).
