@@ -27,7 +27,7 @@ function parseText(res_text) {		// text 转化为 json
 function _addUser(request, user) {	// 注册用户
 	return new Promise((resolve, reject) => {
 		request.
-			get("/api/developer/do_query?sql=INSERT INTO users " +
+			get("/api/developer/do_query?sql=INSERT INTO ac_database.users " +
 				"(" + Object.keys(user).
 							 join(',') + ") VALUES " +
 				"('" + Object.values(user).
@@ -78,7 +78,7 @@ function _login(request, user) {		// 登录
 			end(function (err, res) {
 				let body = res.body;
 				if (body.status === 'SUCCESS.')
-					resolve();
+					resolve(body);
 				else
 					reject(body.details);
 			});

@@ -42,7 +42,9 @@ describe('# Test `live.js` as a student', function () {
 		describe('online test', function () {		// 登录状态下的测试
 			before(function (done) {
 				loginStudent(request).
-					then(done);
+					then(() => {
+						done()
+					});
 			});
 			it('should fail to load resources when user is not in the class.', function (done) {
 				request.
@@ -101,7 +103,7 @@ describe('# Test `live.js` as a student', function () {
 						});
 				});
 				teacher_operations.forEach((operation) => {
-					it(`should deny permission when a student tries to \`${operation}\``, function (done) {
+					it(`should deny permission when a student tries to ${operation}`, function (done) {
 						request.
 							get(`/api/live/${operation}`).
 							query({ course_id: 1 }).
@@ -162,11 +164,15 @@ describe('# Test `live.js` as a teacher', function () {
 			});
 	});
 	describe('## online test', function () {
+		var user_id;
 		before(function (done) {
 			loginTeacher(request).
-				then(done);
+				then((body) => {
+					user_id = body.results.user_id;	// 保存 session 中的 user_id
+					done();
+				});
 		});
-		it('should reject `/clear_chat_record` when teacher is not in the class', function (done) {	// 教师不在课堂1 中
+		it('should reject `/clear_chat_record` when teacher is not in the class', function (done) {	// 教师不在课堂 1 中
 			request.get('/api/live/clear_chat_record').
 					query({ course_id: 1 }).
 					end(function (err, res) {
@@ -183,8 +189,54 @@ describe('# Test `live.js` as a teacher', function () {
 						done();
 					});
 		});
-		describe('### teacher join class whose course_id=1', function () {	// 教师加入课堂1
-
+		describe('### teacher joined class whose course_id=1', function () {	// 教师加入课堂1
+			before(function (done) {
+				let sql = `INSERT INTO ac_database.classusers (class_id, role, user_id) VALUES (1, 0, ${user_id});`;
+				request.
+					get('/api/developer/do_query').
+					query({ sql: sql }).
+					end(function (err, res) {
+						if (err) done(err);
+						logger.info('\n\n>>>>[join]', res.text, '\n\n');
+						request.
+							post('/api/class/status').
+							// session 中获取到 role
+							send({ class_id: 1 }).
+							end(function (err, res) {
+								logger.info('\n\n>>>>[status]', res.text, '\n\n');
+								done();
+							});
+					});
+			});
+			teacher_operations.forEach((operation) => {
+				it(`teacher should be able to ${operation}`, function (done) {
+					request.
+						post('/api/class/status').
+						send({ class_id: 1 }).
+						end(function (err, res) {
+							logger.info('\n\n>>>>[status]', res.text, '\n\n');
+							request.
+								get(`/api/live/${operation}`).
+								query({ course_id: 1 }).
+								end(function (err, res) {
+									if (err) done(err);
+									logger.info(`\n\n>>>[${operation}]`, res.body, '\n\n');
+									res.body.status.should.eql("SUCCESS.");
+									done();
+								});
+						});
+				})
+			});
+			after(function (done) {		// classusers 里清空 test_teacher
+				let sql = `DELETE FROM ac_database.classusers WHERE user_id = ${user_id};`;
+				request.
+					get('/api/developer/do_query').
+					query({ sql: sql }).
+					end(function (err, res) {
+						if (err) done(err);
+						done();
+					});
+			})
 		});
 		after(function (done) {
 			logout(request).
