@@ -247,7 +247,7 @@ describe('# Testing /api/user', function () {
 				end(function (err, res) {
 					if (err) return done(err);
 					logger.warn(res.text);
-					// done();
+					done();
 				});
 		});
 		it('should fail to login with a nonexistent nickname', function (done) {		// 不存在的用户名应该登录失败

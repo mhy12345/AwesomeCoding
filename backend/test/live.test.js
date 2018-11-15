@@ -1,9 +1,9 @@
-// 测试初始化
-const should = require('should');
 // 一个没有监听端口的 Express 实例
 const app = require('../app');
 // Express 实例传入 supertest，使其运行实例
 const request = require('supertest-session')(app);
+// 测试初始化
+const should = require('should');
 const { parseText, addUser, clearUser, login, logout, test_user } = require('./test_utils');
 
 var log4js = require("log4js");
@@ -45,14 +45,20 @@ describe('# Test `live.js`', function () {
 			});
 			it('should fail to load resources when user is not in the class.', function (done) {
 				request.
-					get('/api/live/get_cat_record_count?course_id=1').
+					get('/api/live/get_cat_record_count').
+					query({ course_id: 1 }).
 					end(function (err, res) {
 						if (err) done(err);
 						let body = parseText(res.text);
 						body.should.have.keys('status', 'details');
 						body.status.should.eql('FAILED.');
-						body.details.toLowerCase().should.
-							 containEql('not').and.containEql('in').and.containEql('class');
+						body.details.toLowerCase().
+							 should.
+							 containEql('not').
+							 and.
+							 containEql('in').
+							 and.
+							 containEql('class');
 						done()
 					});
 			});
@@ -73,13 +79,26 @@ describe('# Test `live.js`', function () {
 				});
 				it('should load chat count when user is in the class.', function (done) {
 					request.
-						get('/api/live/get_chat_record_count?course_id=1').
+						get('/api/live/get_chat_record_count').
+						query({ course_id: 1 }).
 						end(function (err, res) {
 							if (err) done(err);
 							let body = parseText(res.text);
-							logger.info('[it]', body);
 							body.should.have.keys('status', 'results');
 							body.results.should.eql(0);
+							done();
+						});
+				});
+				it('should load chat when user is in the class.', function (done) {
+					request.
+						get('/api/live/get_chat_record').
+						query({ course_id: 1, start: 0, end: 20 }).
+						end(function (err, res) {
+							if (err) done(err);
+							let body = parseText(res.text);
+							logger.info('[record]', body);
+							body.should.have.keys('status', 'results');
+							body.results.length.should.eql(0);
 							done();
 						});
 				});
