@@ -11,10 +11,12 @@ var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").unittest_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('test_live');
+const mysql_config = require('../configures/database.config.js');
 
 describe('# Test `live.js` as a student', function () {
 	this.timeout(2000);
 	before(function (done) {		// 事先注册用户
+		mysql_config.database = 'ac_database';		// 切换回数据库
 		addStudent(request).
 			then((res) => {
 				done();
@@ -155,6 +157,7 @@ describe('# Test `live.js` as a student', function () {
 describe('# Test `live.js` as a teacher', function () {
 	this.timeout(2000);
 	before(function (done) {		// 事先注册用户
+		mysql_config.database = 'ac_database';		// 切换回数据库
 		addTeacher(request).
 			then((res) => {
 				done();
@@ -197,13 +200,11 @@ describe('# Test `live.js` as a teacher', function () {
 					query({ sql: sql }).
 					end(function (err, res) {
 						if (err) done(err);
-						logger.info('\n\n>>>>[join]', res.text, '\n\n');
 						request.
 							post('/api/class/status').
 							// session 中获取到 role
 							send({ class_id: 1 }).
 							end(function (err, res) {
-								logger.info('\n\n>>>>[status]', res.text, '\n\n');
 								done();
 							});
 					});
@@ -211,19 +212,12 @@ describe('# Test `live.js` as a teacher', function () {
 			teacher_operations.forEach((operation) => {
 				it(`teacher should be able to ${operation}`, function (done) {
 					request.
-						post('/api/class/status').
-						send({ class_id: 1 }).
+						get(`/api/live/${operation}`).
+						query({ course_id: 1 }).
 						end(function (err, res) {
-							logger.info('\n\n>>>>[status]', res.text, '\n\n');
-							request.
-								get(`/api/live/${operation}`).
-								query({ course_id: 1 }).
-								end(function (err, res) {
-									if (err) done(err);
-									logger.info(`\n\n>>>[${operation}]`, res.body, '\n\n');
-									res.body.status.should.eql("SUCCESS.");
-									done();
-								});
+							if (err) done(err);
+							res.body.status.should.eql("SUCCESS.");
+							done();
 						});
 				})
 			});
@@ -254,4 +248,5 @@ describe('# Test `live.js` as a teacher', function () {
 				done();
 			});
 	})
-});
+})
+;
