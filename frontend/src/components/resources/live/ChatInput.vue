@@ -42,7 +42,7 @@
             }
         },
         sockets: {
-            block() {   // 服务端发来禁言的消息 todo 这个逻辑将来要在后端通过bannedlist来实现
+            block() {   // 服务端发来禁言的消息
                 this.blockQ = true;
                 this.$message.warning('老师已开启禁言。');
             },

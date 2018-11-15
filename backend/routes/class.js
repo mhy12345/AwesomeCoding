@@ -98,20 +98,25 @@ router.post('/status', function (req, res, next) {
 		return;
 	}
 	getConnection().
-		then(function (conn) {
+		then((conn) => {
 			return checkPermission(conn, req.body.class_id, req.session.user_id);
 		}).
-		then(function (packed) {
+		then((packed) => {
 			let { conn, role } = packed;
 			conn.end();
-			req.session.course_status = role;
+			logger.error(`[/status]\n`, req.session);
+			req.session['course_status'] = role;
+			// req.session['email'] = 'xxx';
+			setTimeout(() => {
+				logger.error('[some time later]\n', req.session);
+			}, 1000);
 			updateSocketSession(req.session);
 			res.send({
 				status: 'SUCCESS.',
 				results: { role: role },
 			});
 		}).
-		catch(function (sql_res) {
+		catch((sql_res) => {
 			res.send(sql_res);
 		});
 });

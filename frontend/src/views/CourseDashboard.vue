@@ -119,6 +119,7 @@ export default {
 				return this.$http.post('/api/class/status', { class_id: this.title }, null);
 			}).
 			then((res) => {
+                console.log('[dashboard]', res.body);
 				if (res.body.status !== 'SUCCESS.') {
 					if (res.body.details === 'NOT_LOGIN.') {
 						this.$message("请登录");
