@@ -136,7 +136,7 @@
 </template>
 
 <script>
-var crypto = require('crypto');
+import {getGravatarUrl} from './utils/funcs'
 import {copy} from "./utils/Copy";
 import {sessionSQL, logoutSQL} from "./utils/DoSQL";
 
@@ -180,50 +180,40 @@ export default {
 	},
     sockets: {      // usages of socket.io
         connect: function () {
-            console.log('socket connected')
+            console.log('[socket] socket connected')
         },
         message: function (msg) {       // 收到服务器发来的消息, todo 后期可以考虑把消息缓存在用户个人页里，并以红圈在右上角头像上显示
-            console.log('[message]', msg);
             if (!this.loginQ) return;
             this.$notify({
                 title: '收到消息',
-                message: msg.from + ' says: ' + msg.message,
-                duration: 0
+                message: msg.realname + ' says: ' + msg.message,
+                // duration: 0
             });
             this.$socket.emit('received');
         },
         accepted: function () {         // 服务器接受客户发出的消息
-            console.log('[accepted]');
-            this.$notify.success({
-                title: '发出成功',
-            });
+            console.log('[socket] accepted!');
+            this.$message.success('发送成功');
         },
         rejected: function (msg) {       // 服务器拒绝客户发出的消息
-            console.log('[rejected]', msg);
-            this.$notify.error({
-                title: '发出失败',
-                message: msg.details,
-            })
+            console.log('[socket] rejected!', msg);
+            this.$message.error('发送失败');
         }
     },
 	methods: {
 		showUnknownError(err) {
-			console.log(err);
+			console.log('[error] ',err);
 			this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
 		},
 		checkLogin() { // 检验用户是否登录
 			sessionSQL(this).
 				then((resp) => {
 					var hash;
-					console.log(resp);
 					if (typeof(resp.nickname) !== 'undefined') {
 						this.user = resp;
 						this.$message.success("欢迎回来！" + this.user.realname);
 						this.loginQ = true;
-						hash = crypto.createHash('md5');
-						hash.update(this.user.email);
-						this.user.gravatar_url = 'https://www.gravatar.com/avatar/' + hash.digest('hex');
-						console.log("GRAVATAR URL = ", this.user.gravatar_url);
+                        this.user.gravatar_url = getGravatarUrl(this.user.email);
 					} else {
 						this.$message("请登录。");
 						this.loginQ = false;
@@ -234,13 +224,11 @@ export default {
 		logout() { // 退出登录
 			logoutSQL(this).
 				then((resp) => {
-					console.log(resp);
 					this.loginQ = false;
 					this.user = copy(this.default_user);
 					this.$message.warning('已退出登录。');
 				}).
 				catch((err) => {
-					console.log(err);
 					if (err.status === 'FAILED.' && err.details === 'USER_NOT_ONLINE.') {
 						this.$message.error('您已离线。');
 						return;
@@ -256,16 +244,15 @@ export default {
 				this.$router.push('/home');
 			} else {
 				this.$router.push(key);
-				console.log(key);
 			}
 		},
-		handleLogined() { // logined event emitted by children router-view
-            setTimeout(() => {
-                this.$router.go(0); // 过一段时间后刷新页面，以解决socket session不能更新的问题
-            }, 100);
+		handleLogined(user_info) { // logined event emitted by children router-view
+            console.log('[App] user logged in.', user_info);
+            this.user = user_info;
+            this.user.gravatar_url = getGravatarUrl(this.user.email);
+            this.loginQ = true;
 		},
 		handleLogout() { // logout event emitted by children router-view
-			console.log('>>>in app logout!');
 			this.logout();
 		},
 	}

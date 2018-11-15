@@ -37,7 +37,7 @@
 
     export default {
         name: "SignIn",
-        data () {
+        data() {
             return {
                 title: '欢迎登录',
                 inputs: {
@@ -57,8 +57,7 @@
                         this.loadingQ = false;
                         this.$message.success("登录成功！" + resp.results.realname);
                         this.$emit('logined', resp.results); // 通知父级已登录
-						window.history.go(-1);
-                        //this.$router.push('/user/profile');
+                        self.location = document.referrer;
                     }).
                     catch((resp) => {
                         console.log(resp);
@@ -73,11 +72,11 @@
                     });
             },
             handleForgetPassword: function () {
-                this.$router.push('/user/forgetpassword');
+                window.location.href = "/user/forgetpassword";
                 this.loadingQ = true;
             },
             handleSignInbyPhone: function () {
-                this.$router.push('/user/sign_inbyphone');
+                window.location.href = "/user/sign_inbyphone";
                 this.loadingQ = true;
             },
         }

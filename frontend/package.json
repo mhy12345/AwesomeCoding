@@ -18,10 +18,11 @@
         "codemirror": "^5.41.0",
         "element-ui": "^2.4.8",
         "node-sass": "^4.9.3",
+        "pdf.js": "^0.1.0",
         "sass-loader": "^7.1.0",
         "tiptap": "^0.19.0",
         "tiptap-extensions": "^0.21.0",
-        "vue": "^2.5.2",
+        "vue": "^2.5.17",
         "vue-axios": "^2.1.4",
         "vue-codemirror": "^4.0.5",
         "vue-codemirror-lite": "^1.0.4",
@@ -30,6 +31,7 @@
         "vue-resource": "^1.5.1",
         "vue-router": "^3.0.1",
         "vue-socket.io": "^2.1.1-b",
+        "vue-visible": "^1.0.2",
         "vue2-editor": "^2.6.6"
     },
     "devDependencies": {

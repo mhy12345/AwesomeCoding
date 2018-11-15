@@ -1,33 +1,35 @@
 <template>
-    <div>
-        <div>
-            聊天输入
-        </div>
-        <el-row>
-            <el-col style="width: 90%">
-                <el-input type="textarea"
-                          v-model="input_message"
-                          placeholder="输入文本..."
-                          :autosize="{minRows: 3.2}"
-                          resize="none">
-                </el-input>
-            </el-col>
-            <el-col style="position:relative; left: 2%; width: 8%">
-                <div>
-                    <el-button type="warning" icon="el-icon-message"
-                               @click="handleSendMessage" :disabled="blockQ">
-                        发送
-                    </el-button>
-                </div>
-                <div>
-                    <el-button type="success" icon="el-icon-phone"
-                               @click="handleSendVoice" :disabled="blockQ">
-                        语音
-                    </el-button>
-                </div>
-            </el-col>
-        </el-row>
-    </div>
+	<div>
+		<div>
+			聊天输入
+		</div>
+		<el-row :gutter='20' type='flex'>
+			<el-col :span='19'>
+				<el-input type="textarea"
+						  v-model="input_message"
+						  placeholder="输入文本..."
+						  :autosize="{minRows: 3.2}"
+						  resize="none">
+				</el-input>
+			</el-col>
+			<el-col :span='5'>
+				<div>
+					<el-button 
+						  type="warning" 
+						  icon="el-icon-message"
+						  @click="handleSendMessage" :disabled="blockQ">
+						发送
+					</el-button>
+				</div>
+				<div>
+					<el-button type="success" icon="el-icon-phone"
+											  @click="handleSendVoice" :disabled="blockQ">
+						语音
+					</el-button>
+				</div>
+			</el-col>
+		</el-row>
+	</div>
 </template>
 
 <script>
@@ -66,9 +68,9 @@
             },
             handleSendVoice() {     // todo 发送语音
 
-            }
-        }
-    }
+		}
+	}
+}
 </script>
 
 <style scoped>

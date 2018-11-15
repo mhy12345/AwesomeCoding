@@ -5,10 +5,10 @@
                @open="handleOpened"
                @close="$emit('dialogClose')">
         <h1>
-            <slot name="h1"></slot>
+            <slot name="h1">{{config.title}}</slot>
         </h1>
         <p></p>
-        <slot></slot>
+        <slot>{{config.content}}</slot>
         <p></p>
         <el-input placeholder="输入..." v-model="config.input"></el-input>
         <span slot="footer" class="dialog-footer">

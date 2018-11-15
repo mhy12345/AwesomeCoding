@@ -9,8 +9,7 @@ log4js.configure(log4js_config);
 var logger = log4js.getLogger('database');
 
 function getConnection() { //获取连接connection，并调用回调函数
-	/*
-	return mysql_initializer({
+	/*return mysql_initializer({
 	 	no_create:true
 	});*/
 	return new Promise(function (resolve, reject) {
@@ -47,7 +46,7 @@ function doSqlQuery(conn, sql) {           // 执行数据库命令
 	return new Promise(function (resolve, reject) {
 		conn.query(sql, function (error, results, fields) {
 			if (error) {
-				logger.debug(sql + '[FAILED.]');
+				logger.info(sql + '[FAILED.]');
 				conn.end();
 				reject(
 					{
@@ -57,7 +56,7 @@ function doSqlQuery(conn, sql) {           // 执行数据库命令
 						details: error,
 					});
 			} else {
-				logger.debug(sql + '[FILLED.]');
+				logger.info(sql + '[FILLED.]');
 				logger.debug(results);
 				resolve({
 					conn: conn,
@@ -74,9 +73,9 @@ function doSqlQuerySequential(conn, sqls) {
 		async.eachSeries(sqls, function (item, callback) {
 			conn.query(item, function (err, res) {
 				if (err)
-					logger.debug(item + '[FAILED.]');
+					logger.info(item + '[FAILED.]');
 				else
-					logger.debug(item + '[FILLED.]');
+					logger.info(item + '[FILLED.]');
 				logger.debug(res);
 				callback(err, res);
 			});

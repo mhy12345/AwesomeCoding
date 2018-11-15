@@ -4,6 +4,7 @@ require('./test-debug.js')
 const app = require('../app');
 const request = require('supertest-session')(app);
 const should = require('should');
+const assert = require('assert');
 const randomString = require('../utils/funcs').randomString;
 const getConnection = require('../utils/funcs.js').getConnection;
 const doSqlQuery = require('../utils/funcs.js').doSqlQuery;
@@ -15,11 +16,12 @@ log4js.configure(log4js_config);
 var logger = log4js.getLogger('default');
 
 describe('# Testing /api/class', function () {
+	this.timeout(8000);
 	let test_user = {
-		nickname: 'test_name' + randomString(8),
+		nickname: 'i_am_a_teacher',
 		realname: 'TESTER',
 		email: '123456@mail.com',
-		role: 0,
+		role: 1,
 		motto: 'just for test',
 		password: '111111',
 		phone: '13688880000'
@@ -27,25 +29,27 @@ describe('# Testing /api/class', function () {
 	let test_class = {
 		title: "unit_test_class",
 		type: 1,
-		resources: ["details","participants","settings","live","file_settings","train_area","train_area_teacher","posts"],
+		resources: ["details","participants","settings","file_settings","train_area","train_area_teacher","posts"],
 		notice: "FtJxcAhrRp7rkfmp",
-		description:"ifQxW2EQzbAMm7Je"
+		description:"ifQxW2EQzbAMm7Je",
 	};
 	let class_id = null;
-	before(function (done) {
+	before(function () {
 		mysql_config.database = 'ac_test';
-		request.
-			post('/api/user/register').
-			send(test_user).
-			expect(200).
-			end(function (err, res) {
-				if (err) 
-					done(err);
-				else
-					done();
-			});
 	});
-	describe('# Create A Class.', function() {
+	describe('#Single class challenge.', function() {
+		before(function (done) {
+			request.
+				post('/api/user/register').
+				send(test_user).
+				expect(200).
+				end(function (err, res) {
+					if (err) 
+						done(err);
+					else
+						done();
+				});
+		});
 		it("Create the class.", function(done) {
 			request.
 				post('/api/class/create').
@@ -63,12 +67,26 @@ describe('# Testing /api/class', function () {
 				});
 		});
 		it("Make sure that the id is returned.", function() {
-			(class_id).should.not.be.false();
+			assert(class_id != undefined);
+		});
+		it("Check if the `status` works.", function(done) {
+			request.
+				post('/api/class/status').
+				send({class_id: class_id}).
+				expect(200).
+				end(function (err, res) {
+					res.body = JSON.parse(res.text);
+					if (err)done(err);
+					else {
+						assert(res.body.results.role === 0);
+						done();
+					}
+				});
 		});
 		it("Check the infomation.", function(done) {
 			request.
 				post('/api/class/info/query').
-				send({class_id: class_id}).
+				send({class_id: class_id, page_size: 20}).
 				expect(200).
 				end(function (err, res) {
 					res.body = JSON.parse(res.text);
@@ -83,21 +101,118 @@ describe('# Testing /api/class', function () {
 					}
 				});
 		});
-	});
-		after(function (done) {	
-			getConnection().
-				then(function(conn) {
-					let sql = 'DELETE FROM classes';
-					return doSqlQuery(conn, sql);
-				}).then(function(packed) {
-					let {conn, sql_res} = packed;
-					let sql = 'DELETE FROM users';
-					return doSqlQuery(conn, sql);
-				}).then(function(packed) {
-					let {conn, sql_res} = packed;
-					done();
-				}).catch(function(sql_res) {
-					done(JSON.stringify(sql_res, null, 3));
+		it("Can be fetched from public courses.", function(done) {
+			request.
+				post('/api/class/public/fetch').
+				send({page_number:1, page_size:20}).
+				expect(200).
+				end(function (err, res) {
+					if (err) done(err);
+					else {
+						res.body = JSON.parse(res.text);
+						res.body.results[0].title.should.be.equal(test_class.title);
+						done();
+					}
 				});
 		});
+		it("Can be fetch from my course.", function(done) {
+			request.
+				post('/api/class/my_course/fetch').
+				send({page_number:1, page_size:20}).
+				expect(200).
+				end(function (err, res) {
+					if (err) done(err);
+					else {
+						res.body = JSON.parse(res.text);
+						assert(res.body.results.length === 0);//Because the live is not defined.[ This is feature :) ]
+						done();
+					}
+				});
+		});
+		after(function(done) {
+			request.
+				get('/api/user/logout').
+				expect(200).
+				end(function (err, res) {
+					if (err) done(err);
+					else done();
+				});
+		});
+	});
+	describe("Action for someone who is not teacher", function() {
+		let test_user_stu = {
+			nickname: 'i_am_a_student',
+			realname: '_TESTER',
+			email: '_123456@mail.com',
+			role: 2,
+			motto: 'just for test',
+			password: '111111',
+			phone: '13688880001'
+		};
+		before(function (done) {
+			request.
+				post('/api/user/register').
+				send(test_user_stu).
+				expect(200).
+				end(function (err, res) {
+					if (err) 
+						done(err);
+					else
+						done();
+				});
+		});
+		it('Try to create class.', function (done) {
+			request.
+				post('/api/class/create').
+				send(test_class).
+				expect(403).
+				end(function (err, res) {
+					if (err) 
+						done(err);
+					else
+						done();
+				});
+		});
+		it('Try to join class.', function (done) {
+			request.
+				post('/api/class/join').
+				send({class_id:class_id}).
+				expect(200).
+				end(function (err, res) {
+					if (err)done(err);
+					else {
+						done();
+					}
+				});
+		});
+		after(function(done) {
+			request.
+				get('/api/user/logout').
+				expect(200).
+				end(function (err, res) {
+					if (err) done(err);
+					else done();
+				});
+		});
+	});
+	after(function (done) {	
+		getConnection().
+			then(function(conn) {
+				let sql = 'DELETE FROM classes';
+				return doSqlQuery(conn, sql);
+			}).then(function(packed) {
+				let {conn, sql_res} = packed;
+				let sql = 'DELETE FROM classusers';
+				return doSqlQuery(conn, sql);
+			}).then(function(packed) {
+				let {conn, sql_res} = packed;
+				let sql = 'DELETE FROM users';
+				return doSqlQuery(conn, sql);
+			}).then(function(packed) {
+				let {conn, sql_res} = packed;
+				done();
+			}).catch(function(sql_res) {
+				done(JSON.stringify(sql_res, null, 3));
+			});
+	});
 });

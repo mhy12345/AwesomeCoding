@@ -1,11 +1,6 @@
 FROM node:9.9.0
 #修改源，安装依赖项
 RUN npm config set registry https://registry.npm.taobao.org
-RUN apt update
-RUN apt install -y mysql-client
-RUN mkdir /prebuild
-WORKDIR /prebuild
-RUN npm init -y
 
 #创建前端目录，并安装依赖项
 COPY frontend /frontend

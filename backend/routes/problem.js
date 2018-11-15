@@ -1,18 +1,19 @@
-var express = require('express');
-var router = express.Router();
-var mysql=require('mysql');
+const express = require('express');
+const router = express.Router();
+const mysql=require('mysql');
 
-var doSqlQuery = require('../utils/funcs').doSqlQuery;
-var getConnection = require('../utils/funcs').getConnection;
-var doSqlQuerySequential = require('../utils/funcs').doSqlQuerySequential;
-var randomString = require('../utils/funcs').randomString;
+const doSqlQuery = require('../utils/funcs').doSqlQuery;
+const getConnection = require('../utils/funcs').getConnection;
+const doSqlQuerySequential = require('../utils/funcs').doSqlQuerySequential;
+const getPermission = require('../utils/funcs').getPermission;
+const randomString = require('../utils/funcs').randomString;
 
-var log4js = require("log4js");
-var log4js_config = require("../configures/log.config.js").runtime_configure;
+const log4js = require("log4js");
+const log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
-var logger = log4js.getLogger('log_file')
+const logger = log4js.getLogger('log_file')
 
-var fs = require('fs');
+const fs = require('fs');
 
 router.post('/delete', function(req, res, next) {
 	getConnection().
@@ -374,4 +375,5 @@ router.post('/program_problem/fetch', function(req, res, next) {
 				res.send(JSON.stringify(sql_res));
 		});
 });
+
 module.exports = router;

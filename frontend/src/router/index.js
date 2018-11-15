@@ -6,7 +6,6 @@ import Home from '../views/Home';
 import PageNotFound from '../views/404';
 
 Vue.use(Router);
-console.log(router_childs);
 
 export default new Router({
 	mode: 'history',
@@ -98,6 +97,11 @@ export default new Router({
 					component: PageNotFound,
 				}
 			]
+		},
+		{
+			path: '/posts/:forumid',
+			name: 'posts',
+			component: () => import('@/components/resources/posts.vue')
 		},
 		{
 			path: '/user',

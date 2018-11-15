@@ -11,6 +11,7 @@ var supported_resources = {
 			0: true,
 			1: true,
 			2: true,
+			3: true,
 		}
 	},
 	participants: {
@@ -23,6 +24,7 @@ var supported_resources = {
 			0: true,
 			1: true,
 			2: true,
+			3: false,
 		}
 	},
 	live: {
@@ -35,6 +37,7 @@ var supported_resources = {
 			0: true,
 			1: true,
 			2: true,
+			3: false,
 		}
 	},
 	materials: {
@@ -47,6 +50,7 @@ var supported_resources = {
 			0: true,
 			1: true,
 			2: true,
+			3: false,
 		}
 	},
     file_settings : {
@@ -57,8 +61,9 @@ var supported_resources = {
         defaultChosen: false,
         access: {
             0: true,
-            1: true,
-            2: true,
+            1: false,
+            2: false,
+			3: false,
         }
     },
 	settings: {
@@ -71,6 +76,7 @@ var supported_resources = {
 			0: true,
 			1: true,
 			2: false,
+			3: false,
 		}
 	},
 	chatting_room: {
@@ -83,6 +89,7 @@ var supported_resources = {
 			0: true,
 			1: true,
 			2: true,
+			3: false,
 		}
 	},
 	train_area: {
@@ -95,12 +102,21 @@ var supported_resources = {
 			0: true,
 			1: true,
 			2: true,
+			3: false,
 		}
 	},
 	train_area_teacher : {
 		name:'train_area_teacher',
 		title:'练习区(教师)',
-		component: ()=>import('../components/resources/PracticeAreaTeacher.vue')
+		component: ()=>import('../components/resources/PracticeAreaTeacher.vue'),
+		disabled: false,
+		defaultChosen: false,
+		access: {
+			0: true,
+			1: false,
+			2: false,
+			3: false,
+		}
 	},
 	posts : {
 		name:'posts',
@@ -108,6 +124,12 @@ var supported_resources = {
 		component: ()=>import('../components/resources/posts.vue'),
 		disabled : false,
 		defaultChosen : false,
+		access: {
+			0: true,
+			1: true,
+			2: true,
+			3: false,
+		}
 	},
 };
 var router_childs = [{path: '', redirect: 'details'}];

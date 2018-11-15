@@ -4,26 +4,42 @@ var funcs = require('../utils/funcs');
 var doSqlQuery = require('../utils/funcs').doSqlQuery;
 var getConnection = require('../utils/funcs').getConnection;
 var multer = require('multer');
-var upload = multer({dest: 'uploads/'});
+var upload = multer({dest: 'public/uploads/'});
 var fs = require('fs');
 var path = require('path');
 var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").runtime_configure;
+var logger = log4js.getLogger('file_log');
+var mysql = require('mysql');
+
 log4js.configure(log4js_config);
-var logger = log4js.getLogger('log_file');
 
-
-router.post('/upload', upload.any(), function (req, res, next) {
+router.post('/upload', upload.any(), function (req, res, next) { //区分文件名(用空格)，禁止上传含有空格的文件
 	var user_id = req.session.user_id;
+	var response, i;
+	for (i = 0; i < req.files[0].originalname.length; i = i + 1) {
+		if (req.files[0].originalname[i] === ' ') {
+			response = {
+				message: 'Spaces do not allowed.',
+				filename: ''
+			};
+			res.end(JSON.stringify(response));
+			return;
+		}
+	}
+
 	if (user_id === undefined) {
-		var response = {
+		response = {
 			message: 'You must login first.',
 			filename: ''
 		};
 		res.end(JSON.stringify(response));
 	}
 	else {
-		var des_file = "./uploads/" + req.files[0].originalname;
+		let registration_date = mysql.escape(new Date());
+		let filename = registration_date + " " + req.files[0].originalname;
+
+		var des_file = path.join('./public/uploads/' + filename);
 		fs.readFile(req.files[0].path, function (err, data) {
 			fs.writeFile(des_file, data, function (err) {
 				if (err) {
@@ -32,7 +48,7 @@ router.post('/upload', upload.any(), function (req, res, next) {
 				else {
 					getConnection().
 						then(function (conn) {
-							let sql = 'insert into files (`user_id`,`filename`) VALUES ("' + user_id + '","' + req.files[0].originalname + '")';
+							let sql = 'insert into files (`user_id`,`filename`) VALUES ("' + user_id + '","' + filename + '")';
 							return doSqlQuery(conn, sql);
 						}).
 						then(function (packed) {
@@ -41,7 +57,6 @@ router.post('/upload', upload.any(), function (req, res, next) {
 							if (sql_res.status === 'SUCCESS.') {
 								response.message = 'File uploaded successfully';
 								response.filename = req.files[0].originalname;
-								console.log("成功");
 								res.end(JSON.stringify(response));
 							}
 							else {
@@ -64,28 +79,18 @@ router.post('/upload', upload.any(), function (req, res, next) {
 
 router.get('/download', function (req, res, next) {
 	var filename = req.query.filename;
-	var filepath = path.join(__dirname, '../uploads/' + filename);
+	var filepath = path.join('./public/uploads/' + filename);
 	var stats = fs.statSync(filepath);
 	if (stats.isFile()) {
 		res.set({
 			'Content-Type': 'application/octet-stream',
-			'Content-Disposition': 'attachment; filename=' + filename,
+			'Content-Disposition': 'attachment; filename=' + encodeURI(filename.split(" ")[2]),
 			"Content-Length": stats.size
 		});
 		fs.createReadStream(filepath).pipe(res);
 	} else {
 		res.end(404);
 	}
-});
-
-
-router.post('/download', function (req, res, next) {
-	var path = './uploads/' + req.body.filename;
-	res.writeHead(200,{
-		'Content-Type':'image/jpg;charset=UTF8'
-	});
-	res.download(path);
-	// res.send({"url": './uploads/' + req.body.filename});
 });
 
 
@@ -147,8 +152,8 @@ router.post('/fetch_coursefiles', function (req, res, next) {
 
 
 
-router.post('/add', function(req, res, next) {
-	let userid = req.body.userid;
+router.post('/add_to_course', function(req, res, next) {
+	let userid  = req.session.user_id;
 	let classid = req.body.classid;
 	let fileid = req.body.fileid;
 	let filename = req.body.filename;
@@ -179,6 +184,38 @@ router.post('/add', function(req, res, next) {
 });
 
 
+router.post('/delete_from_course', function(req, res, next) {
+	let userid  = req.session.user_id;
+	let classid = req.body.classid;
+	let fileid = req.body.fileid;
+	if (userid === undefined) {
+		var response = {
+			message: 'You must login first.',
+			filename: '',
+			status: 'Failed'
+		};
+		res.end(JSON.stringify(response));
+	}
+	else {
+		getConnection().
+			then(function(conn) {
+				let sql = 'delete from coursefiles where class_id = ' + classid + ' and file_id = ' + fileid;
+				return doSqlQuery(conn, sql);
+			}).
+			then(function(packed) {
+				let {conn, sql_res} = packed;
+				conn.end();
+				logger.info(sql_res);
+				res.send(JSON.stringify(sql_res, null, 3));
+			}).
+			catch(function(sql_res) {
+				res.send(JSON.stringify(sql_res, null, 3));
+			})
+	}
+});
+
+
+
 
 router.post('/delete', function(req, res, next) {
 	let id = req.body.fileId;
@@ -192,7 +229,7 @@ router.post('/delete', function(req, res, next) {
 			let {conn, sql_res} = packed;
 			conn.end();
 			logger.info(sql_res);
-			var desFile= "./uploads/" + filename;
+			var desFile= "./public/uploads/" + filename;
 			fs.unlinkSync(desFile);
 			res.send(JSON.stringify(sql_res, null, 3));
 		}).

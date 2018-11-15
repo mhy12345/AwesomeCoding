@@ -19,13 +19,20 @@ module.exports = {
                     '^/api': '/'
                 }
             },
-            '/backend': {
+            '/backend/*': {
                 target: 'http://localhost:' + host_port + '/backend',//接口的域名
                 changeOrigin: true,
                 pathRewrite: {
                     '^/backend': '/'
                 }
-            }
+            },
+			'/uploads/*': {
+                target: 'http://localhost:' + host_port + '/uploads',//接口的域名
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/uploads': '/'
+                }
+            },
         },
 
         // Various Dev Server settings

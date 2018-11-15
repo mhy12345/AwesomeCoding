@@ -25,6 +25,12 @@
                     </el-table-column>
                 </el-table>
             </div>
+            <div class="item" v-if='course_status.role!==2'>
+                <el-tooltip content="请上传一个名为students.xlsx的xlsx文件，文件中应含有需导入学生的真实姓名">
+                    <el-button type='primary' style='width:100%' @click='handleImportStudents'> 导入学生
+                    </el-button>
+                </el-tooltip>
+            </div>
         </div>
     </el-container>
 </template>
@@ -72,7 +78,6 @@
                         item.role_title = '学生';
                     }
                     data.push(item);
-                    console.log(item);
                 }
                 return data;
             }
@@ -89,16 +94,15 @@
             this.$http.post('/api/class/participants/show', {class_id: this.class_id}, null).
                  then((resp) => {										 // 成功，被 showSQL 的 resolve 调用
                      this.table_data = resp.body.results;
-                     console.log(this.table_data);
                      this.loadingQ = false;
                      this.loadedQ = true;
                  }).
                  catch((resp) => {
                      this.loadingQ = false;
                      this.loadedQ = false;
-                     if (resp.body === 'NOT_LOGIN.') {
+                     if (resp.body.details === 'NOT_LOGIN.') {
                          _this.$message("请登录...");
-                     } else if (resp.body === "NOT_IN_CLASS.") {
+                     } else if (resp.body.details === "NOT_IN_CLASS.") {
                          _this.$message("请先加入班级");
                      } else {
                          _this.$message("未知错误");
@@ -126,10 +130,43 @@
                 this.loadingQ = true;
                 this.edit_dialog.visual = false;
                 //TODO
-            }
+            },
+            handleImportStudents: function() {
+                this.loadingQ = true;
+                this.$http.post('/api/class/addstudents', {class_id: this.class_id}, null).
+                    then((resp) => {
+                        if(resp.body.status === 'SUCCESS.') {
+                            this.$message("成功");
+                            this.loadingQ = false;
+                        }
+                        else {
+                            if(resp.body.details === 'NO STUDENTS FILE') {
+                                this.$message("请上传一个名为students.xlsx的xlsx文件");
+                            }
+                            if(resp.body.details === 'NOT TEACHER'){
+                                this.$message("您的身份没有导入学生的权限");
+                            }
+                            this.loadingQ = false;
+                        }
+                    }).
+                    catch((resp) => {
+                        if(resp.body.details === 'NO STUDENTS FILE') {
+                            this.$message("请上传一个名为students.xlsx的xlsx文件");
+                        }
+                        if(resp.body.details === 'NOT TEACHER'){
+                            this.$message("您的身份没有导入学生的权限");
+                        }
+                        this.loadingQ = false;
+                    });
+            },
         },
     };
 </script>
 
 <style scoped>
+    .item {
+      margin: 4px;
+      width: 100px;
+      text-align: center;
+    }
 </style>

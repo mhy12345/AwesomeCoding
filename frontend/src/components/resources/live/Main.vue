@@ -1,77 +1,90 @@
 <template>
-    <div>
-        <el-row :gutter="40">
-            <el-col :style="{width: player_config.width + 'px'}">
-                <!--直播窗口-->
-                <div id="player"></div>
-
-                <!--聊天输入框-->
-                <chat-input></chat-input>
-            </el-col>
-
-            <!--todo 右侧列表，尺寸逻辑还需要修改-->
-            <el-col style="float: right; width: 35%; overflow: auto;">
-                <sidebar :course_status="course_status"></sidebar>
-            </el-col>
-        </el-row>
-    </div>
+	<div>
+		<div v-bind:class="{ fly: fly }">
+			<el-row :gutter="40">
+				<el-col :span='15'>
+                    <!--正中直播窗口-->
+					<div style='min-height:500px'>
+						<keep-alive>
+							<components ref='big' :is='cp_player' @swap='handleSwap' @hidden='handleHidden'></components>
+						</keep-alive>
+					</div>
+                    <!--下方输入框-->
+					<chat-input></chat-input>
+				</el-col>
+                <!--右侧边栏-->
+				<el-col :span='9'>
+                    <sidebar class="right-sidebar" :course_status="course_status" :user="user"></sidebar>
+				</el-col>
+			</el-row>
+		</div>
+        <!--右下角ppt窗口-->
+		<div style='width:350px;position:fixed;right:50px;bottom:50px;' v-show='showWidget'>
+			<keep-alive>
+				<components ref='small' :is='cp_fileviewer' @swap='handleSwap' @hidden='handleHidden'></components>
+			</keep-alive>
+		</div>
+	</div>
 </template>
 
 
 <script>
-    import axios from 'axios';
-    //import root_url from '../../../../config/http_root_url.js';
-    import Sidebar from './Sidebar';
-    import ChatInput from './ChatInput';
-	var root_url = '';
+import Player from './Player';
+import Sidebar from './Sidebar';
+import ChatInput from './ChatInput';
+import FileViewer from '@/components/components/FileViewer.vue';
 
-    export default {
-        name: 'Live',
-        props: ['course_status'],
-        data() {
-            return {
-                class_id: undefined,
-                active_name: undefined,
-                player_config: {
-                    width: 800,
-                    height: 500,
-                    uid: '',
-                    vid: ''
-                },
-            };
-        },
-        mounted: function () {
-            var player = undefined;
-            this.class_id = this.$route.params.class_id;
-
-            let nowpath = root_url + '/api/class/liveid/query';
-            axios.
-                post(nowpath, { class_id: this.class_id }).
-                then((res) => {
-                    console.log(res.data);
-
-                    this.player_config.uid = res.data.liveplayer_uid;
-                    this.player_config.vid = res.data.liveplayer_vid;
-
-                    player = polyvObject('#player').
-                        livePlayer(this.player_config);
-                });
-        },
-        components: {
-            Sidebar,
-            ChatInput
-        }
-    };
+export default {
+	name: 'Live',
+    props: ['course_status', 'fly', 'user'],
+	data() {
+		return {
+			showWidget: true,
+			cp_fileviewer: FileViewer,
+			cp_player: Player,
+		};
+	},
+	components: {
+		Sidebar,
+		ChatInput,
+		Player,
+		FileViewer
+	},
+	methods: {
+		handleSwap: function () {
+			let t = this.cp_fileviewer;
+			this.cp_fileviewer = this.cp_player;
+			this.cp_player = t;
+			this.$nextTick(() => {
+				this.$message("RELOAD");
+				this.$refs.small.reload();
+				this.$refs.big.reload();
+			});
+		},
+		handleHidden: function () {
+			this.showWidget = !this.showWidget;
+		}
+	}
+};
 </script>
 
 <style scoped>
-    .right-sidebar{
-        float: right;
-        /*position: relative;*/
-        /*left: 30px;*/
-        /*min-width: 5%;*/
-        width: 35%;
-        overflow: auto;
-    }
+.fly {
+	position: fixed;
+	visibility: hidden;
+}
+.right-sidebar{
+	float: right;
+	/*position: relative;*/
+	/*left: 30px;*/
+	/*min-width: 5%;*/
+	width: 100%;
+    height: 100%;
+	/*overflow: auto;*/
+}
+.spanner {
+	min-height:600px;
+}
+
 </style>
 

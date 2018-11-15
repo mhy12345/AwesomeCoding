@@ -4,7 +4,7 @@ const router = express.Router();
 const getConnection = require('../utils/funcs').getConnection;
 const doSqlQuery = require('../utils/funcs').doSqlQuery;
 const getPermission = require('../utils/funcs').getPermission;
-const sockets = require('../utils/global').user_sockets;
+const $sockets = require('../utils/global').$user_sockets;
 
 const log4js = require("log4js");
 const log4js_config = require("../configures/log.config.js").runtime_configure;
@@ -24,41 +24,81 @@ router.use(function (req, res, next) {		// 检查登录状态
 	}
 });
 
-router.get('/get_chat_record', function (req, res) {		// 获取聊天记录
+/* 检查用户是否在课堂中
+ * 以 session.course_status 字段是否被定义为标准
+ * 该字段在 /api/class/status 被调用时就自动添加到 session 字段里了
+ */
+router.use(function (req, res, next) {
+	if (req.session.course_status === undefined) {
+		res.send({
+			status: 'FAILED.',
+			details: 'USER_NOT_IN_THE_CLASS.'
+		})
+	}
+	else {
+		next();	// user in the class, can apply subsequent router
+	}
+});
 
-	logger.info('[get] chat record\n', req.query);
-	// check if the user is in the course_id
+/* 获取聊天记录条数
+ * req.query 字段：
+ * 		course_id: 课程号
+ */
+router.get('/get_chat_record_count', function (req, res) {
+	logger.info('[get] chat record count\n', req.query);
 	getConnection().
 		then((conn) => {
-			let sql = "SELECT * " +
-				"FROM ac_database.classusers WHERE " +
-				"user_id = " + req.session.user_id + " and " +
-				"class_id = " + req.query.course_id + ";";
-			logger.info('\nsql =', sql);
+			let sql = "SELECT COUNT(*) FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + ";";
 			return doSqlQuery(conn, sql);
 		}).
 		then((packed) => {
 			let { conn, sql_res } = packed;
-			if (sql_res.results.length === 0) {	// user not in the class
-				logger.warn('[res] not in the class');
-				res.send({
-					status: 'FAILED.',
-					details: 'USER_NOT_IN_THE_CLASS.'
-				});
-				conn.end();
-				return;
-			}
-			// user is in the class, return all the chat record relating the course_id
-			let sql = "SELECT * FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + ";";
-			return doSqlQuery(conn, sql);
-		}).
-		then((packed) => {
-			let { conn, sql_res } = packed;
-			logger.info('[res]\nsql_results = \n', sql_res.results);
+			logger.info('[get] chat record count, success.', sql_res.results[0]['COUNT(*)']);
 			res.send({
 				status: 'SUCCESS.',
-				results: sql_res.results
+				results: sql_res.results[0]['COUNT(*)']
 			});
+			conn.end();
+		}).
+		catch((err) => {
+			logger.error('\n', err);
+			res.send(err);
+		});
+});
+
+/* 分页获取聊天记录
+ * req.query 的字段：
+ * 		course_id: 课程号
+ * 		start: 按最新消息到最初消息的顺序，待获取的聊天记录的起始编号
+ * 		end:   按最新消息到最初消息的顺序，待获取的聊天记录的末尾编号
+ *
+ * res 内容：按所发时间倒排的聊天记录数组，每个元素的字段与 chat_record 数据库字段相同
+ */
+router.get('/get_chat_record', function (req, res) {
+	logger.info('[get] chat record\n', req.query);
+	getConnection().
+		then((conn) => {
+			let sql = "SELECT COUNT(*) FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + ";";
+			return doSqlQuery(conn, sql);
+		}).
+		then((packed) => {
+			let { conn, sql_res } = packed;
+			let count = Number(sql_res.results[0]['COUNT(*)']);	// 获取到记录条数
+			let first_id = count - Number(req.query.end);
+			let last_id = count - Number(req.query.start);
+			if (first_id < 0) first_id = 0;
+			let sql = `SELECT * FROM ac_database.chat_record ` +
+				`WHERE course_id = ${req.query.course_id} ` +
+				`LIMIT ${first_id}, ${last_id - first_id};`;
+			return doSqlQuery(conn, sql);
+		}).
+		then((packed) => {
+			let { conn, sql_res } = packed;
+			res.send({
+				status: 'SUCCESS.',
+				results: sql_res.results.reverse()
+			});
+			logger.info('[get] chat record, success.');
 			conn.end();
 		}).
 		catch((err) => {
@@ -106,7 +146,7 @@ router.get('/clear_chat_record', function (req, res) {		// 清空聊天记录
 		});
 });
 
-router.get('/block_chatting', function (req, res) {		// 禁言模式
+router.get('/block_chatting', function (req, res) {		// 禁止所有课程中在线的用户发言
 	logger.info('[block_chatting]\n', req.query);
 	getPermission(req.session.user_id, req.query.course_id).
 		then((role) => {
@@ -133,9 +173,9 @@ router.get('/block_chatting', function (req, res) {		// 禁言模式
 						// logger.info('sockets\n', Object.keys(sockets));
 						for (let result of sql_res.results) {
 							let user_id = String(result.user_id);	//***
-							if (user_id in sockets) {
+							if (user_id in $sockets) {
 								logger.info('[to block]', user_id);
-								sockets[user_id].emit('block');
+								$sockets[user_id].emit('block');
 							}
 						}
 						res.send({ status: 'SUCCESS.' });
@@ -151,7 +191,7 @@ router.get('/block_chatting', function (req, res) {		// 禁言模式
 		});
 });
 
-router.get('/allow_chatting', function (req, res) {		// 允许发言
+router.get('/allow_chatting', function (req, res) {		// 允许所有课程中在线的用户发言， todo 后期增加数据库表项
 	logger.info('[block_chatting]\n', req.query);
 	getPermission(req.session.user_id, req.query.course_id).
 		then((role) => {
@@ -176,9 +216,9 @@ router.get('/allow_chatting', function (req, res) {		// 允许发言
 						let { conn, sql_res } = packed;
 						for (let result of sql_res.results) {
 							let user_id = String(result.user_id);	//***
-							if (user_id in sockets) {
+							if (user_id in $sockets) {
 								logger.info('[to allow]', user_id);
-								sockets[user_id].emit('allow');
+								$sockets[user_id].emit('allow');
 							}
 						}
 						res.send({ status: 'SUCCESS.' });

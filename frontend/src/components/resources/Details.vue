@@ -16,7 +16,9 @@
 							</el-row>
 							<el-row>
 								<el-col :span='8'>用户角色</el-col>
-								<el-col :span='16'>{{course_status.role_title === undefined ? course_status.role_title : '游客'}}</el-col>
+								<el-col :span='16'>{{
+									roleTitle
+									}}</el-col>
 							</el-row>
 							<el-row>
 								<el-col :span='8'>邀请链接</el-col>
@@ -47,6 +49,15 @@
 					</ContentDisplay>
 					</el-card>
 				</el-col>
+				<el-col :span='12'>
+					<el-card class='details-card'>
+						<div slot='header' class='clearfix'>
+							课程操作
+						</div>
+						<el-button v-if='course_status.role_title === null' @click='handleJoin'>进入课程</el-button>
+						<el-button v-if='course_status.role_title != null' @click='handleQuit'>退出课程</el-button>
+					</el-card>
+				</el-col>
 			</el-row>
 		</el-main>
 	</el-container>
@@ -71,6 +82,11 @@ export default {
 			loading: true
 		};
 	},
+	computed: {
+		roleTitle: function() {
+			return this.course_status.role_title !== null ? this.course_status.role_title : '--';
+		}
+	},
 	props: ['course_status'],
 	mounted: function () {
 		this.class_id = this.$route.params.class_id;
@@ -81,7 +97,6 @@ export default {
 				} else {
 					this.info = res.body.info;
 					this.invitation_url = '/course/invite/' + this.info.invitation_code;
-					console.log(this.info);
 					this.handleUpdate();
 				}
 				this.loading = false;
@@ -91,6 +106,24 @@ export default {
 		handleUpdate: function() {
 			this.$refs.display_description.handleUpdate(this.info.description);
 			this.$refs.display_notice.handleUpdate(this.info.notice);
+		},
+		handleJoin: function() {
+			window.location.href = '/course/invite/' + this.info.invitation_code;
+		},
+		handleQuit: function() {
+			this.$http.post('/api/class/participants/delete', {class_id: this.class_id, user_id:null}).
+				then(function (res) {
+					if (res.body.status === 'SUCCESS.') {
+						this.$message("成功!");
+						history.go(0);
+					}else {
+						if (res.body.details === 'TeacherCannotQuit.') {
+							this.$message("教师不能够退出班级!");
+						} else {
+							this.$message("失败!");
+						} 
+					}
+				});
 		}
 	},
 	components: {

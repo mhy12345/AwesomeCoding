@@ -1,4 +1,4 @@
-var appSecret = '42169b1723444a51bb8282a42b44bec2';
+var appSecret = '9769ac120b044ade994559ca72d14169';
 
 function getSign(Params) {
 	let arr = [];

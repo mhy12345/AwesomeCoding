@@ -37,6 +37,9 @@
 								size="mini"
 								@click="handleAnalyze(scope.$index, scope.row)">统计</el-button>
 							<el-button
+								size='mini'
+								@click="handlePublish(scope.$index, scope.row)">发布</el-button>
+							<el-button
 								size="mini"
 								type="danger"
 								@click="handleDelete(scope.row)">删除</el-button>
@@ -91,6 +94,14 @@ export default {
 	methods: {
 		tableRowClassName: function({row, rowIndex}) {
 			return '';
+		},
+		handlePublish: function(idx, row) {
+			this.$socket.emit('alert',{
+				operation: 'PROBLEM_PUBLISH.',
+				course_id: this.class_id,
+				problem_code: row.code
+			});
+			this.$message("题目已经发布!");
 		},
 		handleDelete: function(row)  {
 			this.$http.post('/api/problem/delete', {code: row.code}).

@@ -28,7 +28,7 @@
         },
         mounted() {
             let _this = this;
-            var url = 'https://arxiv.org/pdf/1710.09829.pdf';
+            var url = "/uploads/2018-lecture7-autoencoder_987906464.pdf";
             PDFJS.getDocument(url).then(function (pdf) {
                 _this.pdfDoc = pdf;
                 _this.renderPage(1);
