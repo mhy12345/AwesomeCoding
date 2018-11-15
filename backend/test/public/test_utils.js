@@ -1,5 +1,5 @@
 // 测试需要用到的函数
-const randomString = require('../utils/funcs').randomString;
+const randomString = require('../../utils/funcs').randomString;
 const test_student = {	// 测试学生账户
 	nickname: 'test_student' + randomString(8),
 	realname: 'TESTER',
