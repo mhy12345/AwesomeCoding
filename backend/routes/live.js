@@ -17,7 +17,6 @@ router.use(function (req, res, next) {		// 检查登录状态
 			status: 'FAILED.',
 			details: 'USER OFFLINE.'
 		}));
-		logger.error('Not login.');
 	}
 	else {
 		next();

@@ -5,6 +5,9 @@
 	"scripts": {
 		"start": "node ./bin/www",
 		"test": "nyc --reporter=lcov --reporter=text mocha --exit",
+		"mocha": "mocha --reporter mochawesome",
+        "coverage": "istanbul cover _mocha -- -R spec --timeout 5000 --recursive",
+        "coverage:check": "istanbul check-coverage",
 		"lint": "eslint --ext .js ./routes"
 	},
 	"dependencies": {
@@ -30,16 +33,20 @@
 		"supertest-session": "^3.3.0"
 	},
 	"devDependencies": {
+		"chai": "^4.2.0",
 		"eslint": "^5.7.0",
 		"eslint-config-standard": "^12.0.0",
 		"eslint-plugin-import": "^2.14.0",
 		"eslint-plugin-node": "^7.0.1",
 		"eslint-plugin-promise": "^4.0.1",
 		"eslint-plugin-standard": "^4.0.0",
+		"istanbul": "^0.4.5",
 		"mocha": "^5.2.0",
+		"mochawesome": "^3.1.1",
 		"nyc": "^13.0.1",
 		"power-assert": "^1.6.1",
 		"should": "^13.2.3",
+		"sinon": "^7.1.1",
 		"supertest": "^3.3.0"
 	}
 }

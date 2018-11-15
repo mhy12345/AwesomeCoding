@@ -15,7 +15,7 @@ var logger = log4js.getLogger('unit-test');
 describe('# Testing /api/user', function () {
 	this.timeout(5000);
 	var test_user;
-	before(function (done) {			// 测试前
+	before(function (done) {			// 测试前 注册一个临时用户
 		test_user = {
 			nickname: 'test_name' + randomString(8),
 			realname: 'TESTER',
@@ -247,7 +247,7 @@ describe('# Testing /api/user', function () {
 				end(function (err, res) {
 					if (err) return done(err);
 					logger.warn(res.text);
-					done();
+					// done();
 				});
 		});
 		it('should fail to login with a nonexistent nickname', function (done) {		// 不存在的用户名应该登录失败
