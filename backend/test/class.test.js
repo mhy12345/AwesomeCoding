@@ -33,11 +33,13 @@ describe('# Testing /api/class', function () {
 		notice: "FtJxcAhrRp7rkfmp",
 		description:"ifQxW2EQzbAMm7Je",
 	};
-	let class_id = null;
 	before(function () {
 		mysql_config.database = 'ac_test';
 	});
-	describe('#Single class challenge.', function() {
+	let class_id = null;
+	let select_prob_code = null;
+	let program_prob_code = null;
+	describe('#Teacher`s action.', function() {
 		before(function (done) {
 			request.
 				post('/api/user/register').
@@ -129,6 +131,47 @@ describe('# Testing /api/class', function () {
 					}
 				});
 		});
+		it("Can add a selection problem into my course.", function(done) {
+			request.
+				post('/api/problem/create').
+				send({class_id:class_id, type:0}).
+				expect(200).
+				end(function (err, res) {
+					res.body = JSON.parse(res.text);
+					if (err) done(err);
+					else done();
+				});
+		});
+		it("Can add a problem problem into my course.", function(done) {
+			request.
+				post('/api/problem/create').
+				send({class_id:class_id, type:1}).
+				expect(200).
+				end(function (err, res) {
+					res.body = JSON.parse(res.text);
+					if (err) done(err);
+					else done();
+				});
+		});
+		it("Check the problem list.", function(done) {
+			request.
+				post('/api/problem/list').
+				send({class_id:class_id}).
+				expect(200).
+				end(function (err, res) {
+					res.body = JSON.parse(res.text);
+					if (err) done(err);
+					else {
+						select_prob_code = res.body.results[0].code;
+						program_prob_code = res.body.results[0].code;
+						assert(select_prob_code !== undefined);
+						assert(select_prob_code !== null);
+						assert(program_prob_code !== undefined);
+						assert(program_prob_code !== null);
+						done();
+					}
+				});
+		});
 		after(function(done) {
 			request.
 				get('/api/user/logout').
@@ -139,7 +182,7 @@ describe('# Testing /api/class', function () {
 				});
 		});
 	});
-	describe("Action for someone who is not teacher", function() {
+	describe("#Student's action.", function() {
 		let test_user_stu = {
 			nickname: 'i_am_a_student',
 			realname: '_TESTER',
@@ -185,6 +228,73 @@ describe('# Testing /api/class', function () {
 					}
 				});
 		});
+		it("Try to exit class.", function(done) {
+			request.
+				post('/api/class/participants/delete').
+				send({class_id:class_id, user_id:null}).
+				expect(200).
+				end(function (err, res) {
+					if (err) done(err);
+					else {
+						done();
+					}
+				});
+		});
+		it("Try to verify the user do quit.", function(done) {
+			request.
+				post('/api/class/status').
+				send({class_id:class_id}).
+				expect(200).
+				end(function (err, res) {
+					res.body = JSON.parse(res.text);
+					if (err) done(err);
+					else {
+						res.body.details.should.be.equal('NOT_IN_CLASS.');
+						done();
+					}
+				});
+		});
+		it('Try to join class, again.', function (done) {
+			request.
+				post('/api/class/join').
+				send({class_id:class_id}).
+				expect(200).
+				end(function (err, res) {
+					if (err)done(err);
+					else {
+						done();
+					}
+				});
+		});
+		it("Check the selection problem list.", function(done) {
+			request.
+				post('/api/problem/list').
+				send({class_id:class_id}).
+				expect(200).
+				end(function (err, res) {
+					res.body = JSON.parse(res.text);
+					if (err) done(err);
+					else {
+						select_prob_code = res.body.results[0].code;
+						assert(select_prob_code !== undefined);
+						assert(select_prob_code !== null);
+						done();
+					}
+				});
+		});
+		it("Try to submit a answer.", function(done) {
+			request.
+				post('/api/problem/choice_problem/submit').
+				send({code: select_prob_code, answer:'A'}).
+				expect(200).
+				end(function (err, res) {
+					if (err) done(err);
+					else {
+						done();
+					}
+				});
+
+		});
 		after(function(done) {
 			request.
 				get('/api/user/logout').
@@ -199,6 +309,10 @@ describe('# Testing /api/class', function () {
 		getConnection().
 			then(function(conn) {
 				let sql = 'DELETE FROM classes';
+				return doSqlQuery(conn, sql);
+			}).then(function(packed) {
+				let {conn, sql_res} = packed;
+				let sql = 'DELETE FROM problems';
 				return doSqlQuery(conn, sql);
 			}).then(function(packed) {
 				let {conn, sql_res} = packed;
