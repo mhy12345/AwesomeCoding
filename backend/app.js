@@ -3,7 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var history = require('connect-history-api-fallback');
-var session = require('./configures/session.config');
+var session_config = require('./configures/session.config');
+var session = require("express-session");
+var http = require('http');
+
 
 var api = require('./routes/api');
 var api_user = require('./routes/user');
@@ -32,9 +35,24 @@ mysql_initializer({ no_create: true }).
 	});
 
 var app = express();
+var server = http.createServer(app);
 
+var sio = require("socket.io")(server);
 
+var sessionMiddleware = session({
+	secret: "keyboard cat",
+	resave: false,
+	saveUninitialized: true
+});
+
+sio.use(function(socket, next) {
+	sessionMiddleware(socket.request, socket.request.res, next);
+});
+
+app.use(sessionMiddleware);
 app.use(log4js.connectLogger(logger, { level: 'info' }));
+
+require('./utils/socket_io')(sio);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -59,7 +77,7 @@ app.use(history({
 }));
 
 // session for app
-app.use(session);
+//app.use(session);
 
 //app.use(logger('dev'));
 app.use(express.json());
@@ -98,4 +116,4 @@ app.use(function (err, req, res, next) {
 	res.render('error');
 });
 
-module.exports = app;
+module.exports = {app, server};

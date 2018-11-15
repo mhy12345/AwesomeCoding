@@ -104,8 +104,8 @@ router.post('/status', function (req, res, next) {
 		then((packed) => {
 			let { conn, role } = packed;
 			conn.end();
-			logger.error(`[/status]\n`, req.session);
 			req.session['course_status'] = role;
+			logger.error(`[/status]\n`, req.session);
 			setTimeout(() => {	//todo
 				logger.error('[some time later]\n', req.session);
 			}, 1000);

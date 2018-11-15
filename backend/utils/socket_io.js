@@ -10,12 +10,13 @@ var $user_sockets = require('../utils/global').$user_sockets;		// restore all us
 function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的用户广播聊天消息，并发送拉流的通知
 	getConnection().
 		then((conn) => {
+			console.log('?>>',socket.request.session);
 			let sql = "INSERT INTO `ac_database`.`chat_record` " +
 				"(`course_id`, `user_id`, `course_status`, `realname`, `message`) VALUES ('" +
 				msg.course_id + "', '" +
-				socket.handshake.session.user_id + "', '" +
-				socket.handshake.session.course_status + "', '" +
-				socket.handshake.session.realname + "', '" +
+				socket.request.session.user_id + "', '" +
+				socket.request.session.course_status + "', '" +
+				socket.request.session.realname + "', '" +
 				msg.message + "');";
 			return doSqlQuery(conn, sql);
 		}).
@@ -28,10 +29,10 @@ function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的�
 			let { conn, sql_res } = packed;
 			conn.end();
 			let flow = {
-				realname: socket.handshake.session.realname,
-				user_id: socket.handshake.session.user_id,
+				realname: socket.request.session.realname,
+				user_id: socket.request.session.user_id,
 				message: msg.message,
-				course_status: socket.handshake.session.course_status,
+				course_status: socket.request.session.course_status,
 				date_time: new Date()
 			};
 			for (let result of sql_res.results) {	// 用 socket 通知课程中的这些用户消息
@@ -65,7 +66,7 @@ function alertClassMembers(socket, msg) {	// 教师向本门课程的所有在�
 			conn.end();
 			for (let result of sql_res.results) {	// 用 socket 通知课程中的这些用户
 				let id = result.user_id;
-				if (id === socket.handshake.session.user_id && msg.echo == undefined) continue;	// 不广播给自己
+				if (id === socket.request.session.user_id && msg.echo == undefined) continue;	// 不广播给自己
 				id = String(id);
 				if ($user_sockets.hasOwnProperty(id)) {
 					logger.info('[alerted] ', id);
@@ -78,21 +79,20 @@ function alertClassMembers(socket, msg) {	// 教师向本门课程的所有在�
 		});
 }
 
-function createSocketIO(server) {
-	var io = require('socket.io')(server);
-	io.on('connection', function (socket) {
+function initSocketIO(sio) {
+	sio.sockets.on('connection', function (socket) {
 
 		logger.info('>>a user connected');
-		if (socket.handshake.session.user_id) {		// 若为登录状态，就保存连接到的用户
-			$user_sockets[socket.handshake.session.user_id] = socket;
+		if (socket.request.session.user_id) {		// 若为登录状态，就保存连接到的用户
+			$user_sockets[socket.request.session.user_id] = socket;
 			logger.info('>>saved! user_socket counts: ', Object.keys($user_sockets).length,
 				'\ncurrent users:\n', Object.keys($user_sockets));
 		}
 
 		socket.on('disconnect', function () {		// 断开连接
 			logger.warn('>>a user disconnected');
-			if (socket.handshake.session.user_id) {	// 若为登录状态，就删除断开连接的用户
-				delete $user_sockets[socket.handshake.session.user_id];
+			if (socket.request.session.user_id) {	// 若为登录状态，就删除断开连接的用户
+				delete $user_sockets[socket.request.session.user_id];
 				logger.warn('>>deleted! user_socket counts: ', Object.keys($user_sockets).length,
 					'\ncurrent users:\n', Object.keys($user_sockets));
 			}
@@ -100,7 +100,9 @@ function createSocketIO(server) {
 
 		socket.on('message', function (msg) {		// 客户发来消息
 			logger.info('>>message: \n', msg);
-			if (socket.handshake.session.user_id === undefined) {	// offline, reject
+
+			console.log(socket.request.session);
+			if (socket.request.session.user_id === undefined) {	// offline, reject
 				socket.emit('rejected', {
 					details: '您尚未登录，不能发送消息。'
 				});
@@ -110,7 +112,7 @@ function createSocketIO(server) {
 			notifyClassMembers(socket, msg);
 		});
 
-		if (socket.handshake.session.role === 1) {	// 教师权限——通知班级学生进行操作
+		if (socket.request.session.role === 1) {	// 教师权限——通知班级学生进行操作
 			socket.on('alert', function (msg) {
 				socket.emit('accepted');
 				alertClassMembers(socket, msg);
@@ -122,7 +124,7 @@ function createSocketIO(server) {
 		});
 
 	});
-	return io;
+	return sio;
 }
 
-module.exports = createSocketIO;
+module.exports = initSocketIO;
