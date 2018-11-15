@@ -324,8 +324,10 @@ describe('# Testing /api/class', function () {
 				return doSqlQuery(conn, sql);
 			}).then(function(packed) {
 				let {conn, sql_res} = packed;
+				mysql_config.database = 'ac_database';
 				done();
 			}).catch(function(sql_res) {
+				mysql_config.database = 'ac_database';
 				done(JSON.stringify(sql_res, null, 3));
 			});
 	});
