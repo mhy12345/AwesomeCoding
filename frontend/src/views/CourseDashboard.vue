@@ -55,7 +55,6 @@ import Vue from 'vue';
 var default_options = ['details'];
 import {supported_resources} from '../utils/Resources';
 import TabPane from './MyTabPane.vue';
-import {createCookie, getCookie} from "../utils/Cookie";
 
 for (let item in supported_resources) {
 	// console.log('[dashboard] components-register : sub-'+supported_resources[item].name);
@@ -110,14 +109,6 @@ export default {
 		},
 	},
 	mounted: function () {
-        // self.location = document.referrer;
-        // let cnt = getCookie().refresh_cht;
-        // if (cnt === undefined) cnt = 0;
-        // this.$message.info(`cnt ${cnt}`);
-        // if (cnt === 0) {    // 用cookie记录是否已刷新
-        //     createCookie({ refresh_cht: 1 }, 100000);
-        //     this.$router.go(0);
-        // }
 		this.activeIndex = this.getActiveName();
 		this.title = this.$route.params.class_id;
 		this.$http.post('/api/class/resources/query', { class_id: this.title }, null).
