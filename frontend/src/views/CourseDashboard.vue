@@ -6,32 +6,32 @@
 				 v-model='activeIndex'
 				 :lazy='false'
 				 >
-				 <TabPane v-for="option in options" 
+				 <TabPane v-for="option in options"
 						  :disabled='option.disabled'
-						  :label="option.name" 
-						  :name="options.route" 
-						  :key='option.index' 
+						  :label="option.name"
+						  :name="options.route"
+						  :key='option.index'
 						  :fly='option.index === "live"'>
 					<!-- 对于live模块，额外加一个fly的props，用于表示是否通过修改visible隐藏-->
-					<components 
-						v-if='option.index !== "live" && !option.disabled' 
-						v-bind:is="option.component" 
-						:course_status='course_status' 
-						class='lecture-panel' 
+					<components
+						v-if='option.index !== "live" && !option.disabled'
+						v-bind:is="option.component"
+						:course_status='course_status'
+						class='lecture-panel'
 						:index='activeTitle'
 						:ref='option.index'
 						>
 					</components>
-					<components 
-						v-if='option.index === "live" && !option.disabled' 
-						v-bind:is="option.component" 
-						:course_status='course_status' 
-						class='lecture-panel' 
-						:index='activeTitle' 
+					<components
+						v-if='option.index === "live" && !option.disabled'
+						v-bind:is="option.component"
+						:course_status='course_status'
+						class='lecture-panel'
+						:index='activeTitle'
 						:fly='fly'
 						:ref='option.index'
                         :user="user"
-						> 
+						>
 					</components>
 				 </TabPane>
 		</el-tabs>
@@ -119,6 +119,7 @@ export default {
 				return this.$http.post('/api/class/status', { class_id: this.title }, null);
 			}).
 			then((res) => {
+                console.log('[dashboard]', res.body);
 				if (res.body.status !== 'SUCCESS.') {
 					if (res.body.details === 'NOT_LOGIN.') {
 						this.$message("请登录");

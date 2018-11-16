@@ -28,6 +28,7 @@ router.use(function (req, res, next) {		// 检查登录状态
  * 该字段在 /api/class/status 被调用时就自动添加到 session 字段里了
  */
 router.use(function (req, res, next) {
+	logger.error(`[/live]\n`, req.session);
 	if (req.session.course_status === undefined) {
 		res.send({
 			status: 'FAILED.',
