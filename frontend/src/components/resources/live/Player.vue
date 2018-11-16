@@ -25,7 +25,9 @@ export default {
 		reload: function () {
 			let nowpath = '/api/class/liveid/query';
 			global.a = document.getElementById('player');
-			global.a.onresize = () => {alert('haha');};
+			global.a.onresize = () => {
+                alert('haha');
+			};
 			axios.
 				post(nowpath, {class_id: this.class_id}).
 				then((res) => {

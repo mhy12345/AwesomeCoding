@@ -21,15 +21,15 @@
 <script>
 import ProgramProblemRender from '../render/ProgramProblem.vue';
 export default {
-	data: function() {
+	data: function () {
 		return {
 			text: "",
 			data: []
-		}
+		};
 	},
 	props: ['code'],
 	methods: {
-		handleItemClick: function(cmd) {
+		handleItemClick: function (cmd) {
 			console.log(cmd);
 			this.$refs.render.handleLocate(cmd);
 		}
@@ -44,8 +44,6 @@ export default {
 				console.log(res);
 			});
 	},
-	components: {
-		ProgramProblemRender: ProgramProblemRender
-	}
-}
+	components: {ProgramProblemRender: ProgramProblemRender}
+};
 </script>

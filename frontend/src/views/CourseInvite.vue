@@ -21,12 +21,12 @@
             this.invitation_code = this.$route.params.invitation_code;
             let _this = this;
             this.$http.post('/api/class/invite/check', {invitation_code: this.invitation_code}, null).
-                 then(function (res) {
-                     this.class_id = res.body.class_id;
-                     return this.$confirm('你即将加入班级 ' + res.body.class_title + '. 是否继续?', '提示', {
-                         confirmButtonText: '继续',
-                         cancelButtonText: '取消',
-                         type: 'warning'
+                then(function (res) {
+                    this.class_id = res.body.class_id;
+                    return this.$confirm('你即将加入班级 ' + res.body.class_title + '. 是否继续?', '提示', {
+                        confirmButtonText: '继续',
+                        cancelButtonText: '取消',
+                        type: 'warning'
                      });
                  }).
                  then(function () {
@@ -37,7 +37,7 @@
                          type: 'success',
                          message: '成功加入班级'
                      });
-					 self.location=document.referrer;
+                     self.location=document.referrer;
                  }).
                  catch((res) => {
                      let translate = {
@@ -50,7 +50,7 @@
                          type: 'info',
                          message: '加入班级失败...' + translate[res.body]
                      });
-					 self.location=document.referrer;
+                     self.location=document.referrer;
                  });
         }
     };

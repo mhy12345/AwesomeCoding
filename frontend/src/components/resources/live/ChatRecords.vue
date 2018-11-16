@@ -79,100 +79,92 @@
 </template>
 
 <script>
-    import {parseFlow, parseList, formatDateTime} from './chat_records'
+    import {parseFlow, parseList, formatDateTime} from './chat_records';
     import {deepCopy} from "../../../utils/Copy";
 
-    const MINUTES_SEPARATE = 5;    // 每隔多少分钟显示一次时间
+    const MINUTES_SEPARATE = 5; // 每隔多少分钟显示一次时间
     var time_marker = undefined;
     export default {
         name: "ChatRecords",
         props: ['course_id', 'user'],
-        data() {
+        data () {
             return {
                 chat_records: [],
                 loadingQ: true,
-                record_count: 0,   // total chat records
-                num_each: 20,   // display 20 messages on each page
-            }
+                record_count: 0, // total chat records
+                num_each: 20, // display 20 messages on each page
+            };
         },
-        mounted() {
+        mounted () {
             console.log('[ChatRecords.vue] user', this.user);
             this.refresh();
         },
         methods: {
-            refresh() {     // 刷新聊天记录
+            refresh () { // 刷新聊天记录
                 this.updateRecordCount().
                      then((count) => {
                          this.handleCurrentChange(1);
                      });
             },
-            updateRecordCount() {   // 获取总的消息个数
+            updateRecordCount () { // 获取总的消息个数
                 return new Promise((resolve, reject) => {
                     this.$http.
-                         get('/api/live/get_chat_record_count', {
-                             params: {
-                                 course_id: this.course_id,
-                             }
-                         }).
+                         get('/api/live/get_chat_record_count', {params: {course_id: this.course_id,}}).
                          then((res) => {
                              console.log('[get chat count]', res);
                              if (res.body.status === 'FAILED.') {
-                                 this.pushRecord({
-                                     message: res.body.details
-                                 });
+                                 this.pushRecord({message: res.body.details});
                                  this.loadingQ = false;
                                  return;
-                             }
-                             else {
+                             } else {
                                  this.record_count = res.body.results;
                              }
                              resolve(this.record_count);
                          }).
                          catch((err) => {
                              console.log(err);
-                             reject(err)
+                             reject(err);
                          });
                 });
             },
-            pushRecord(flow) {  // 有拉流消息，需要动态添加聊天记录
-                if (this.chat_records.length >= this.num_each)  // 超过 num_each 条就只显示最后的 num_each 条
-                    this.chat_records.pop();
+            pushRecord (flow) { // 有拉流消息，需要动态添加聊天记录
+                if (this.chat_records.length >= this.num_each) // 超过 num_each 条就只显示最后的 num_each 条
+                    {
+this.chat_records.pop();
+}
                 time_marker = new Date();
-                let record = parseFlow(flow);   // 将流转化为记录
-                this.chat_records = [record].concat(this.chat_records);   // 新拉流的消息放在表首
+                let record = parseFlow(flow); // 将流转化为记录
+                this.chat_records = [record].concat(this.chat_records); // 新拉流的消息放在表首
                 this.record_count++;
             },
-            clear() {   // 清空记录
+            clear () { // 清空记录
                 this.chat_records = [];
             },
-            displayTimeQ(date_time) {
+            displayTimeQ (date_time) {
                 if ((time_marker.getTime() - date_time.getTime()) / 60000 > MINUTES_SEPARATE) {
                     time_marker = new Date(date_time.toString());
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             },
-            handleCurrentChange(page_ord) {     // 获取第 page_ord 页的消息
+            handleCurrentChange (page_ord) { // 获取第 page_ord 页的消息
                 this.loadingQ = true;
                 this.$http.
                      get('/api/live/get_chat_record', {
                          params: {
                              course_id: this.course_id,
                              start: (page_ord - 1) * this.num_each,
-                             end: page_ord * this.num_each      // 按最新消息到最初消息的顺序，获取 [start, end) 之间的全部消息
+                             end: page_ord * this.num_each // 按最新消息到最初消息的顺序，获取 [start, end) 之间的全部消息
                          }
                      }).
                      then((res) => {
                          this.loadingQ = false;
-                         if (res.body.status === 'FAILED.')
-                             this.pushRecord({
-                                 message: res.body.details
-                             });
-                         else {     // 获取消息成功
+                         if (res.body.status === 'FAILED.') {
+this.pushRecord({message: res.body.details});
+} else { // 获取消息成功
                              time_marker = new Date();
-                             this.chat_records = parseList(res.body.results);  // 导入消息
+                             this.chat_records = parseList(res.body.results); // 导入消息
                          }
                      }).
                      catch((err) => {
@@ -181,7 +173,7 @@
             },
             formatDateTime: formatDateTime
         }
-    }
+    };
 </script>
 
 <style scoped>

@@ -35,24 +35,24 @@
 <script>
     export default {
         name: "Chat",
-        data() {
+        data () {
             return {
                 input_message: '',
-                blockQ: false,      // 是否被禁言
-            }
+                blockQ: false, // 是否被禁言
+            };
         },
         sockets: {
-            block() {   // 服务端发来禁言的消息
+            block () { // 服务端发来禁言的消息
                 this.blockQ = true;
                 this.$message.warning('老师已开启禁言。');
             },
-            allow() {
+            allow () {
                 this.blockQ = false;
                 this.$message.success('老师已允许发言。');
             }
         },
         methods: {
-            handleSendMessage() {   // 发送消息
+            handleSendMessage () { // 发送消息
                 if (this.input_message.length <= 0) {
                     this.$message.warning('输入不能为空。');
                     return;
@@ -66,11 +66,11 @@
                 this.$socket.emit('message', msg);
                 this.input_message = '';
             },
-            handleSendVoice() {     // todo 发送语音
+            handleSendVoice () { // todo 发送语音
 
 		}
 	}
-}
+};
 </script>
 
 <style scoped>

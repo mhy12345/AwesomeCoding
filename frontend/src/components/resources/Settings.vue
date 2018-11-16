@@ -45,7 +45,7 @@ import ContentDisplay from '../components/ContentDisplay.vue';
 var randomString = require('../../utils/funcs').randomString;
 
 export default {
-	data() {
+	data () {
 		return {
 			class_id: undefined,
 			CourseData: {
@@ -75,12 +75,12 @@ export default {
 			});
 	},
 	methods: {
-		handleUpdate: function() {
+		handleUpdate: function () {
 			// console.log("Setting updated...");
 			this.$refs.description_display.handleUpdate(this.CourseData.description);
 			this.$refs.notice_display.handleUpdate(this.CourseData.notice);
 		},
-		onSubmit() {
+		onSubmit () {
 			// console.log(this.CourseData);
 			this.$http.post('/api/class/info/update', {
 				resources: this.resources,
@@ -93,7 +93,7 @@ export default {
 					location.reload();
 				});
 		},
-		onEdit(content_id) {
+		onEdit (content_id) {
 			// console.log("ON EDIT CALL ",content_id);
 			this.$refs.editor.handleOpen(content_id);
 		},

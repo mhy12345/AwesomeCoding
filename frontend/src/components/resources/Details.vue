@@ -66,7 +66,7 @@
 <script>
 import ContentDisplay from '@/components/components/ContentDisplay.vue';
 export default {
-	data() {
+	data () {
 		return {
 			info: {title:''},
 			default_items: ["title", "id", "description", "notice", "invitation_code"],
@@ -83,7 +83,7 @@ export default {
 		};
 	},
 	computed: {
-		roleTitle: function() {
+		roleTitle: function () {
 			return this.course_status.role_title !== null ? this.course_status.role_title : '--';
 		}
 	},
@@ -103,14 +103,14 @@ export default {
 			});
 	},
 	methods: {
-		handleUpdate: function() {
+		handleUpdate: function () {
 			this.$refs.display_description.handleUpdate(this.info.description);
 			this.$refs.display_notice.handleUpdate(this.info.notice);
 		},
-		handleJoin: function() {
+		handleJoin: function () {
 			window.location.href = '/course/invite/' + this.info.invitation_code;
 		},
-		handleQuit: function() {
+		handleQuit: function () {
 			this.$http.post('/api/class/participants/delete', {class_id: this.class_id, user_id:null}).
 				then(function (res) {
 					if (res.body.status === 'SUCCESS.') {
@@ -126,9 +126,7 @@ export default {
 				});
 		}
 	},
-	components: {
-		'ContentDisplay': ContentDisplay
-	},
+	components: {'ContentDisplay': ContentDisplay},
 };
 </script>
 

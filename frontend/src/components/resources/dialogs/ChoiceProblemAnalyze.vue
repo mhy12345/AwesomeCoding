@@ -7,10 +7,8 @@
 
 <script>
 export default {
-	data: function() {
-		return {
-			count: {},
-		}
+	data: function () {
+		return {count: {},};
 	},
 	props: ['code'],
 	mounted: function () {
@@ -18,8 +16,9 @@ export default {
 			then((res) => {
 				this.count = {};
 				for (let item of res.body.results) {
-					if (this.count[item.answer] === undefined)
-						this.count[item.answer] = 0;
+					if (this.count[item.answer] === undefined) {
+this.count[item.answer] = 0;
+}
 					this.count[item.answer] += 1;
 				}
 				var myChart = echarts.init(document.getElementById('board'));
@@ -40,7 +39,6 @@ export default {
 			});
 
 	},
-	components: {
-	}
-}
+	components: {}
+};
 </script>

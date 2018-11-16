@@ -37,10 +37,8 @@
 
 
     export default {
-        data() {
-            return {
-				invitation_code: null,
-			};
+        data () {
+            return {invitation_code: null,};
         },
         methods: {
             handleEnterByInvitation: function () {

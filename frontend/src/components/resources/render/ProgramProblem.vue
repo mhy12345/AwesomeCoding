@@ -9,15 +9,15 @@
 
 <script>
 import ContentDisplay from '@/components/components/ContentDisplay.vue';
-var VueCodeMirror = require('vue-codemirror-lite')
-import { codemirror } from 'vue-codemirror-lite'
+var VueCodeMirror = require('vue-codemirror-lite');
+import {codemirror} from 'vue-codemirror-lite';
 
-import 'codemirror/mode/clike/clike.js'
-import 'codemirror/theme/base16-dark.css'
+import 'codemirror/mode/clike/clike.js';
+import 'codemirror/theme/base16-dark.css';
 
 
 export default {
-	data : function() {
+	data : function () {
 		return {
 			code: null,
 			answer: null,
@@ -46,12 +46,15 @@ export default {
 				catch((res) => {
 				});
 		},
-		handleLocate: function(program_code) {
+		handleLocate: function (program_code) {
 			this.$http.post('/api/problem/program_problem/pick',{code: program_code}).
 				then((res) => {
 					if (res.body.status === 'FAILED.') {
-						if (res.body.details === 'NOT_EXISTS.') this.$message("错误，无法找到程序");
-						else this.$message("未知错误");
+						if (res.body.details === 'NOT_EXISTS.') {
+this.$message("错误，无法找到程序");
+} else {
+this.$message("未知错误");
+}
 					} else {
 						this.text = res.body.text;
 						this.$message("更新");
@@ -62,7 +65,7 @@ export default {
 				});
 
 		},
-		handleUpdate: function(code) {
+		handleUpdate: function (code) {
 			console.log("handleUpdate...",code);
 			this.code = code;
 			this.$http.post('/api/problem/table/program_problems/get',{code: this.code}).
@@ -79,16 +82,13 @@ export default {
 		}
 	},
 	props: {
-		default_code: {
-			default: null
-		},
-		mode : {
-			default: 'editor'
-		}
+		default_code: {default: null},
+		mode : {default: 'editor'}
 	},
-	mounted: function() {
-		if (this.default_code)
-			this.handleUpdate(this.default_code);
+	mounted: function () {
+		if (this.default_code) {
+this.handleUpdate(this.default_code);
+}
 	},
 	components: {
 		ContentDisplay: ContentDisplay,

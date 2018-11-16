@@ -26,7 +26,7 @@
       lazy: Boolean
     },
 
-    data() {
+    data () {
       return {
         index: null,
         loaded: false
@@ -34,23 +34,23 @@
     },
 
     computed: {
-      isClosable() {
+      isClosable () {
         return this.closable || this.$parent.closable;
       },
-      active() {
+      active () {
         const active = this.$parent.currentName === (this.name || this.index);
         if (active) {
           this.loaded = true;
         }
         return active;
       },
-      paneName() {
+      paneName () {
         return this.name || this.index;
       }
     },
 
     watch: {
-      label() {
+      label () {
         this.$parent.$forceUpdate();
       }
     }

@@ -78,24 +78,28 @@ export default {
 	props: ['course_status'],
 	mounted: function () {
 		this.$http.post('/api/problem/list',{class_id: this.class_id}).
-			then(function(res) {
+			then(function (res) {
 				this.problemData = res.body.results;
 				this.problemData.forEach(function (item, index) {
 					item.index = index+1; 
-					if (item.type == 0) item.type_title = '选择题';
-					if (item.type == 1) item.type_title = '程序题';
+					if (item.type == 0) {
+item.type_title = '选择题';
+}
+					if (item.type == 1) {
+item.type_title = '程序题';
+}
 				});
 			}).
-			catch(function(err) {
+			catch(function (err) {
 				this.$message(err);
 			});
 	},
 	computed: {},
 	methods: {
-		tableRowClassName: function({row, rowIndex}) {
+		tableRowClassName: function ({row, rowIndex}) {
 			return '';
 		},
-		handlePublish: function(idx, row) {
+		handlePublish: function (idx, row) {
 			this.$socket.emit('alert',{
 				operation: 'PROBLEM_PUBLISH.',
 				course_id: this.class_id,
@@ -103,7 +107,7 @@ export default {
 			});
 			this.$message("题目已经发布!");
 		},
-		handleDelete: function(row)  {
+		handleDelete: function (row) {
 			this.$http.post('/api/problem/delete', {code: row.code}).
 				then((res) => {
 					window.location.href = window.location.href;
@@ -111,10 +115,10 @@ export default {
 				catch((err) => {
 				});
 		},
-		handleAnalyze: function(idx, row) {
+		handleAnalyze: function (idx, row) {
 			this.$refs.prob_analyze.handleOpen(row);
 		},
-		handleChoiceDialogCompleted: function(obj) {
+		handleChoiceDialogCompleted: function (obj) {
 			this.problemData[obj.index].title = obj.title;
 			this.$http.post('/api/problem/save',{
 				code: obj.info.code,
@@ -124,7 +128,7 @@ export default {
 				then((res) => {}).
 				catch((err) => {});
 		},
-		handleProgramDialogCompleted: function(obj) {
+		handleProgramDialogCompleted: function (obj) {
 			this.problemData[obj.index].title = obj.title;
 			this.$http.post('/api/problem/save',{
 				code: obj.code,
@@ -134,12 +138,16 @@ export default {
 				then((res) => {}).
 				catch((err) => {});
 		},
-		handleContentEditByPID: function(info,field) {
+		handleContentEditByPID: function (info,field) {
 			let ptype = undefined;
-			if (info.type == 0) ptype = 'choice_problems';
-			else if (info.type == 1) ptype = 'program_problems';
-			else console.log("未知类别",info);
-			this.$http.post('/api/problem/table/'+ptype+'/get',{code: info.code }).
+			if (info.type == 0) {
+ptype = 'choice_problems';
+} else if (info.type == 1) {
+ptype = 'program_problems';
+} else {
+console.log("未知类别",info);
+}
+			this.$http.post('/api/problem/table/'+ptype+'/get',{code: info.code}).
 				then((res) => {
 					let content_id = res.body.results[0][field];
 					this.$refs.content_editor.handleOpen(content_id);
@@ -149,7 +157,7 @@ export default {
 					console.log("未知错误",err);
 				});
 		},
-		handleCreate: function(ptype) {
+		handleCreate: function (ptype) {
 			this.loading = true;
 			this.$http.post('/api/problem/create',{class_id: this.class_id, type: ptype}).
 				then((res) => {
@@ -159,8 +167,12 @@ export default {
 					this.problemData = res.body.results;
 					this.problemData.forEach(function (item, index) {
 						item.index = index+1; 
-						if (item.type == 0) item.type_title = '选择题';
-						if (item.type == 1) item.type_title = '程序题';
+						if (item.type == 0) {
+item.type_title = '选择题';
+}
+						if (item.type == 1) {
+item.type_title = '程序题';
+}
 					});
 					this.loading = false;
 				}).
@@ -168,13 +180,17 @@ export default {
 					this.loading = false;
 				});
 		},
-		handleEdit: function(idx, row) {
+		handleEdit: function (idx, row) {
 			let dialog_id = null;
-			if (row.type == 0) dialog_id = 'dialog_choice';
-			if (row.type == 1) dialog_id = 'dialog_program';
+			if (row.type == 0) {
+dialog_id = 'dialog_choice';
+}
+			if (row.type == 1) {
+dialog_id = 'dialog_program';
+}
 			this.$refs[dialog_id].handleOpen(idx,row);
 		},
-		handlePreview: function(idx, row) {
+		handlePreview: function (idx, row) {
 			this.$refs.prob_preview.handleOpen(row);
 		},
 	},
@@ -185,7 +201,7 @@ export default {
 		Preview: Preview,
 		Analyze: Analyze,
 	},
-}
+};
 </script>
 
 <style>

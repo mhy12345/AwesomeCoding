@@ -79,7 +79,7 @@ export default {
 	},
     props: ['user'],
 	sockets: {
-		alert: function(msg) {
+		alert: function (msg) {
 			console.log(msg.operation);
 			if (msg.operation === 'PROBLEM_PUBLISH.') {
 				console.log("New problem published, jump to the practice area.");
@@ -90,7 +90,7 @@ export default {
 		}
 	},
 	computed: {
-		fly: function() {
+		fly: function () {
 			return this.class_resources[this.activeIndex] !== 'live';
 		},
 		options: function () {
@@ -111,12 +111,12 @@ export default {
 	mounted: function () {
 		this.activeIndex = this.getActiveName();
 		this.title = this.$route.params.class_id;
-		this.$http.post('/api/class/resources/query', { class_id: this.title }, null).
+		this.$http.post('/api/class/resources/query', {class_id: this.title}, null).
 			then((res) => {
 				this.class_resources = res.body.resources;
 				this.loading = false;
 				this.activeIndex = this.getActiveName();
-				return this.$http.post('/api/class/status', { class_id: this.title }, null);
+				return this.$http.post('/api/class/status', {class_id: this.title}, null);
 			}).
 			then((res) => {
                 console.log('[dashboard]', res.body);
@@ -151,29 +151,30 @@ export default {
 	},
 
 	methods: {
-		whereIs(name) {
+		whereIs (name) {
 			var current_options = this.class_resources ? this.class_resources : default_options;
 			let idx = 0;
 			for (let k of current_options) {
 				// console.log('...',k === name);
-				if (k === name)
-					return ''+idx;
+				if (k === name) {
+return ''+idx;
+}
 				idx += 1;
 			}
 			return '0';
 		},
-		handleNewProblemClose(done) {
+		handleNewProblemClose (done) {
 			this.$confirm('确认关闭？')
 				.then(_ => {
 					done();
 				})
 				.catch(_ => {});
 		},
-		handleNewProblemConfirm() {
+		handleNewProblemConfirm () {
 			this.activeIndex = this.whereIs('train_area');
 			this.new_problem_dialog_visible = false;
 		},
-		handleNewProblemCancel() {
+		handleNewProblemCancel () {
 			this.new_problem_dialog_visible = false;
 		},
 		onTabClick (arg) {
@@ -192,9 +193,7 @@ export default {
 			return '0';
 		}
 	},
-	components: {
-		TabPane: TabPane
-	}
+	components: {TabPane: TabPane}
 };
 </script>
 

@@ -36,7 +36,7 @@
 	var randomString = require('../utils/funcs').randomString;
 
     export default {
-        data() {
+        data () {
             return {
                 CourseData: {
                     title: "",
@@ -49,21 +49,19 @@
             };
         },
         methods: {
-            onSubmit() {
+            onSubmit () {
                 console.log(this.CourseData);
                 this.$http.post('/api/class/create', this.CourseData).then(function (res) {
                     console.log(res.bodyText);
                     this.$message(res.bodyText);
                 });
 			},
-			onEdit(content_id) {
+			onEdit (content_id) {
 				console.log("ON EDIT CALL ",content_id);
 				this.$refs.editor.handleOpen(content_id);
 			},
 		},
-		components: {
-			'ContentEditor': ContentEditor
-		}
+		components: {'ContentEditor': ContentEditor}
 	};
 </script>
 
