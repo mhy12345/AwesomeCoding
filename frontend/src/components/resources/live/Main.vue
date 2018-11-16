@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style='width:100%'>
 		<div v-bind:class="{ fly: fly }">
 			<el-row :gutter="40">
 				<el-col :span='15'>
@@ -19,11 +19,11 @@
 			</el-row>
 		</div>
         <!--右下角ppt窗口-->
-		<div style='width:350px;position:fixed;right:50px;bottom:50px;' v-show='showWidget'>
+		<Popup v-show='showWidget'>
 			<keep-alive>
 				<components ref='small' :is='cp_fileviewer' @swap='handleSwap' @hidden='handleHidden'></components>
 			</keep-alive>
-		</div>
+		</Popup>
 	</div>
 </template>
 
@@ -32,6 +32,7 @@
 import Player from './Player';
 import Sidebar from './Sidebar';
 import ChatInput from './ChatInput';
+import Popup from './Popup';
 import FileViewer from '@/components/components/FileViewer.vue';
 
 export default {
@@ -48,7 +49,8 @@ export default {
 		Sidebar,
 		ChatInput,
 		Player,
-		FileViewer
+		FileViewer,
+		Popup
 	},
 	methods: {
 		handleSwap: function () {
@@ -71,6 +73,7 @@ export default {
 <style scoped>
 .fly {
 	position: fixed;
+	width: 83%;
 	visibility: hidden;
 }
 .right-sidebar{

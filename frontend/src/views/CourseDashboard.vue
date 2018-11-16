@@ -4,7 +4,7 @@
 				 @tab-click="onTabClick"
 				 v-loading='loading'
 				 v-model='activeIndex'
-				 :lazy='false'
+				 :lazy='true'
 				 >
 				 <TabPane v-for="option in options"
 						  :disabled='option.disabled'

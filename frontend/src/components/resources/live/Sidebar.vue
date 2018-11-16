@@ -1,15 +1,15 @@
 <template>
     <div ref="sidebar">
-        <el-tabs v-model="active_name" ref="tabs">
-            <el-tab-pane label="课程章节" name="chapters" class="sidebar-tab-pane">
+        <el-tabs v-model="active_name" ref="tabs" style='visibility:unset'>
+            <ElTabPane label="课程章节" name="chapters" class="sidebar-tab-pane">
                 ...章节列表...<br>
-            </el-tab-pane>
+            </ElTabPane>
 
-            <el-tab-pane label="班级成员" name="members">
+            <ElTabPane label="班级成员" name="members">
                 <members :course_status="course_status" :table_width="'400px'" class="sidebar-tab-pane"></members>
-            </el-tab-pane>
+            </ElTabPane>
 
-            <el-tab-pane label="聊天室" name="chatting-record">
+            <ElTabPane label="聊天室" name="chatting-record">
                 <el-row v-if="course_status === 0">
                     <el-col :span="8">
                         <el-button size="small" class="chatting-room-tool"
@@ -31,7 +31,7 @@
                 <chat-records class="sidebar-tab-pane" ref="chat_records"
                               :course_id="$route.params.class_id" :user="user">
                 </chat-records>
-            </el-tab-pane>
+            </ElTabPane>
 
         </el-tabs>
     </div>
@@ -40,7 +40,7 @@
 <script>
     import Members from '../Participants';
     import ChatRecords from './ChatRecords';
-    import ElTabPane from "../../../views/MyTabPane";
+    import ElTabPane from "./MyTabPane";
 
     export default {
         name: "sidebar",
