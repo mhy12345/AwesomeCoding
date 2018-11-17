@@ -36,7 +36,7 @@
 									>描述</el-button>
 								<el-button
 									size="mini"
-									@click="handlePreview(scope.$index, scope.row)">预览</el-button>
+									@click="handlePreview(scope.$index, scope.row)">答案</el-button>
 								<el-button
 									size="mini"
 									@click="handleAnalyze(scope.$index, scope.row)">统计</el-button>
@@ -45,9 +45,14 @@
 									size='mini'
 									@click="handlePublish(scope.$index, scope.row, 1)">发布</el-button>
 								<el-button
-									v-if='scope.row.state===1'
+									v-if='scope.row.state===1 || scope.row.state===2'
 									size='mini'
-									@click="handlePublish(scope.$index, scope.row, 0)">收回</el-button>
+									@click="handlePublish(scope.$index, scope.row, 0)">重置</el-button>
+								<el-button
+									size='mini'
+									@click="handlePublish(scope.$inedx, scope.row, 2)"
+									:disabled='scope.row.state !== 1'
+									>结束</el-button>
 								<el-button
 									size="mini"
 									type="danger"
@@ -109,14 +114,25 @@ export default {
 				});
 		},
 		tableRowClassName: function ({row, rowIndex}) {
-			console.log("GET CLASS NAME", row.state === 1);
+			console.log("GET CLASS NAME", row.state);
 			if (row.state === 1)
 				return 'published';
-			else
-				return '';
+			else if (row.state === 2)
+				return 'ended';
+			return '';
 		},
 		handlePublish: function (idx, row, st) {
 			this.$http.post('/api/problem/state/set', {state: st, code: row.code}).
+				then((res) => {
+					return this.$http.post('/api/class/cache/set',{
+						class_id: this.class_id, 
+						entry: 'PROBLEM', 
+						data: JSON.stringify({
+							code: row.code,
+							type: row.type
+						})
+					});
+				}).
 				then((res) => {
 					if (st === 1) {
 						this.$socket.emit('alert',{
@@ -239,6 +255,9 @@ export default {
 <style>
 .el-table .published {
 	background-color:#f0f9eb;
+}
+.el-table .ended {
+	background-color:oldlace;
 }
 .correct-answer-button {
 }

@@ -10,6 +10,7 @@ var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file');
+var checkPermission = require('../utils/funcs').checkPermission;
 
 router.post('/ban', function (req, res, next) { //添加禁言名单 @调整部分逻辑 TODO 确认正确性
 	let userid = req.body.userid;
@@ -120,6 +121,7 @@ router.post('/add_comments/posts', function(req, res, next) {
 	let forumid = req.body.forumid;
 	let message = req.body.message;
 	let classid = req.body.classid;
+	let nickname = req.body.nickname;
 	let registration_date = mysql.escape(new Date());
 	console.log(">>>>>>>>/add_comments");
 	var resp = {};
@@ -147,6 +149,7 @@ router.post('/add_comments/posts', function(req, res, next) {
 				resp.results.userid = userid;
 				resp.results.registration_date = registration_date;
 				resp.results.message = message;
+				resp.results.nickname = nickname;
 				res.send(JSON.stringify(resp));
 				conn.end();
 			}).
@@ -159,11 +162,21 @@ router.post('/add_comments/posts', function(req, res, next) {
 
 router.post('/info/query', function(req, res, next) {
 	let result = {
-		status: undefined
+		status: undefined,
+		role: undefined,
 	};
+	let user_id = +req.session.user_id;
+	let class_id = +req.body.class_id;
 	getConnection().
 		then(function (conn) {
-			let sql = 'SELECT * FROM forums WHERE classid = ' + req.body.class_id;
+			return checkPermission(conn, class_id, user_id);
+		}).
+		then(function (packed) {
+			let {conn, role} = packed;
+			result.role = role;
+			let sql = 'SELECT users.realname, users.nickname, forums.userid, forums.message, forums.registration_date, forums.id ' +
+						'FROM users LEFT JOIN forums ON users.id = forums.userid WHERE forums.classid = ' + 
+						mysql.escape(class_id);
 			return doSqlQuery(conn, sql);
 		}).
 		then(function (packed) {
@@ -184,6 +197,7 @@ router.post('/info/query', function(req, res, next) {
 					chatrecord.message = sql_res.results[i].message;
 					chatrecord.registration_date = sql_res.results[i].registration_date;
 					chatrecord.forumid = sql_res.results[i].id;
+					chatrecord.nickname = sql_res.results[i].nickname;
 					result.chatrecords.push(chatrecord);
 				}
 				res.send(JSON.stringify(result));
@@ -253,11 +267,20 @@ router.post('/info/query/posts', function(req, res, next) {
 			result.classid = sql_res.results[0].classid;
 			result.theme = sql_res.results[0].message;
 			result.userid = sql_res.results[0].userid;
-			let sql = 'SELECT * FROM posts WHERE forumid = ' + req.body.forumid;
+			let sql = 'SELECT * FROM users WHERE id = ' + result.userid;
 			return doSqlQuery(conn, sql);
 		}).
 		then(function(packed) {
 			let {conn, sql_res} = packed;
+			result.nickname = sql_res.results[0].nickname;
+			let sql = 'SELECT users.realname, users.nickname, posts.userid, posts.message, posts.registration_date ' +
+						'FROM users LEFT JOIN posts ON users.id = posts.userid WHERE posts.forumid = ' + 
+						mysql.escape(req.body.forumid);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			console.log(sql_res);
 			if (sql_res.results.length === 0) {
 				res.send(JSON.stringify(result, null,3));
 				conn.end();
@@ -273,6 +296,7 @@ router.post('/info/query/posts', function(req, res, next) {
 					chatrecord.userid = sql_res.results[i].userid;
 					chatrecord.message = sql_res.results[i].message;
 					chatrecord.registration_date = sql_res.results[i].registration_date;
+					chatrecord.nickname = sql_res.results[i].nickname;
 					result.chatrecords.push(chatrecord);
 				}
 				console.log(">>>>>>>>>>>/info/query/posts/result");

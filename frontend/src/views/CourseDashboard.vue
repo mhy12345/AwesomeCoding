@@ -125,6 +125,9 @@ export default {
 					if (res.body.details === 'NOT_LOGIN.') {
 						this.$message("请登录");
 						window.location.href = '/user/sign_in';
+					} else if (res.body.details === 'NOT_IN_CLASS.') {
+						this.$message("用户没有加入班级");
+						window.location.href = '/user/sign_in';
 					} else {
 						console.log("[dashboard] course status error: " + res.body.details);
 						this.$message("错误，见console");

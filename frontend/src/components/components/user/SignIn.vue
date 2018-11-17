@@ -58,7 +58,7 @@
                         this.$message.success("登录成功！" + resp.results.realname);
                         this.$emit('logined', resp.results); // 通知父级已登录
 						//history.go(-1);
-                        self.location = document.referrer;
+                        self.location = '/';
                     }).
                     catch((resp) => {
                         console.log(resp);

@@ -13,7 +13,7 @@
 							>
 						</pdf>
 					</div>
-					<div>
+					<div v-else>
 						当前没有可放映课件
 					</div>
 				</div>
@@ -38,7 +38,7 @@ export default {
 	data () {
 		return {
 			page: 1,
-			pdfSrc: undefined,
+			pdfSrc: null,
 			page_num: 0,
 			class_id: this.$route.params.class_id
 		};
@@ -46,6 +46,21 @@ export default {
 	components: {pdf: pdf},
 	updated: function () {
 		this.pdfSrc = this.pdfSrc;
+	},
+	mounted: function () {
+		this.$http.post('/api/class/cache/get', {class_id: this.class_id, entry: 'FILE_NAME'}).
+			then((res) => {
+				this.pdfSrc = res.body.results[0].data;
+				return this.$http.post('/api/class/cache/get', {class_id: this.class_id, entry: 'PAGE'});
+			}).
+			then((res) => {
+				this.page = +res.body.results[0].data;
+				console.log("THIS_PDF_SRC =",this.pdfSrc);
+				console.log("THIS_PAGE_NUM=",this.page_num);
+			}).
+			catch((err) => {
+				console.log(err);
+			});
 	},
 	sockets: {
 		alert: function (msg) {
@@ -79,10 +94,12 @@ export default {
 			if (this.page + 1 <= this.page_num) {
 				console.log('[file] next page, succeed.');
 				this.page += 1;
-				this.$socket.emit('alert', {
-					operation: 'TURN_PAGE.',
-					page: +this.page,
-					course_id: this.class_id
+				this.$http.post('/api/class/cache/set',{class_id: this.class_id, entry:'PAGE', data:''+this.page}).then((res) => {
+					this.$socket.emit('alert', {
+						operation: 'TURN_PAGE.',
+						page: +this.page,
+						course_id: this.class_id
+					});
 				});
 			} else {
 				console.log('[file] next page, failed.');
@@ -91,10 +108,12 @@ export default {
 		prevPage: function () {
 			if (this.page - 1 > 0) {
 				this.page -= 1;
-				this.$socket.emit('alert', {
-					operation: 'TURN_PAGE.',
-					page: +this.page,
-					course_id: this.class_id
+				this.$http.post('/api/class/cache/set',{class_id: this.class_id, entry:'PAGE', data:''+this.page}).then((res) => {
+					this.$socket.emit('alert', {
+						operation: 'TURN_PAGE.',
+						page: +this.page,
+						course_id: this.class_id
+					});
 				});
 			}
 		}

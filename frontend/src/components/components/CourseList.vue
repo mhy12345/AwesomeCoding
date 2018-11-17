@@ -31,27 +31,30 @@
             this.title = supported_resources[this.idx].title;
             this.$http.post(supported_resources[this.idx].url + '/fetch', {page_number: 1, page_size: 20}).
                  then(function (res) {
-                     console.log(res.body);
                      this.tableData = res.body.results;
                      if (this.tableData.length > 0 && this.tableData[0].lvid) {
                          this.isTeacher = true;
                      }
                  }).
                  catch(function (res) {
-                     this.$message(res);
-                 });
-        },
-        methods: {
-            handleCurrentChange: function (item) {
-                this.$router.push(
-                    {name: 'class', params: {class_id: item.id}});
-            }
-        }
-    };
+					 if (res.body === 'USER_NOT_LOGIN.') {
+						 console.log("用户为登陆，无法渲染个人课程.");
+					 } else { 
+						 this.$message(JSON.stringify(res));
+					 }
+				 });
+		},
+		methods: {
+			handleCurrentChange: function (item) {
+				this.$router.push(
+					{name: 'class', params: {class_id: item.id}});
+			}
+		}
+	};
 </script>
 
 <style scoped>
-    h3 {
-        margin-top: 0px;
-    }
+h3 {
+	margin-top: 0px;
+}
 </style>

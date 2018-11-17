@@ -125,7 +125,8 @@ module.exports = function (request) {
 						if (err) done(err);
 						else {
 							res.body = JSON.parse(res.text);
-							assert(res.body.results.length === 0);//Because the live is not defined.[ This is feature :) ]
+							console.log(res.body);
+							assert(res.body.results.length !== 0);
 							done();
 						}
 					});
@@ -141,7 +142,7 @@ module.exports = function (request) {
 						else done();
 					});
 			});
-			it("Can add a problem problem into my course.", function (done) {
+			it("Can add a program problem into my course.", function (done) {
 				request.
 					post('/api/problem/create').
 					send({ class_id: class_id, type: 1 }).
@@ -152,10 +153,22 @@ module.exports = function (request) {
 						else done();
 					});
 			});
-			it("Check the problem list.", function (done) {
+			it("Check the practice area.", function (done) {
 				request.
 					post('/api/problem/list').
 					send({ class_id: class_id }).
+					expect(200).
+					end(function (err, res) {
+						res.body = JSON.parse(res.text);
+						console.log(res.body);
+						assert(res.body.results.length === 0);
+						done();
+					});
+			});
+			it("Check the problem list.", function (done) {
+				request.
+					post('/api/problem/list').
+					send({ class_id: class_id, type:'teacher' }).
 					expect(200).
 					end(function (err, res) {
 						res.body = JSON.parse(res.text);
@@ -169,6 +182,28 @@ module.exports = function (request) {
 							assert(program_prob_code !== null);
 							done();
 						}
+					});
+			});
+			it("Publish the choice problem.", function(done) {
+				request.  
+					post('/api/problem/state/set').
+					send({code: select_prob_code, state:1}).
+					expect(200).
+					end(function (err, res) {
+						res.body = JSON.parse(res.text);
+						if (err) done(err);
+						else done();
+					});
+			});
+			it("Publish the program problem.", function(done) {
+				request.  
+					post('/api/problem/state/set').
+					send({code: select_prob_code, state:1}).
+					expect(200).
+					end(function (err, res) {
+						res.body = JSON.parse(res.text);
+						if (err) done(err);
+						else done();
 					});
 			});
 			after(function (done) {
