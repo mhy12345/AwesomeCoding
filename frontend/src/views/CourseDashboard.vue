@@ -4,7 +4,8 @@
 				 @tab-click="onTabClick"
 				 v-loading='loading'
 				 v-model='activeIndex'
-				 :lazy='true'
+				 style='min-height:600px'
+				 :lazy='false'
 				 >
 				 <TabPane v-for="option in options"
 						  :disabled='option.disabled'
@@ -82,9 +83,8 @@ export default {
 		alert: function (msg) {
 			console.log(msg.operation);
 			if (msg.operation === 'PROBLEM_PUBLISH.') {
-				console.log("New problem published, jump to the practice area.");
 				this.$message("你有新的习题，快去看看吧!");
-				this.new_problem_dialog_visible = true;
+				//this.new_problem_dialog_visible = true;
 				//this.activeIndex = this.whereIs('train_area');
 			}
 		}

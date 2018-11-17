@@ -26,10 +26,14 @@
 							<template slot-scope="scope">
 								<el-button
 									size="mini"
-									@click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+									@click="handleEdit(scope.$index, scope.row)"
+									:disabled='scope.row.state === 1'
+									>编辑</el-button>
 								<el-button 
 									size="mini"
-									@click='handleContentEditByPID(scope.row,"description")'>描述</el-button>
+									@click='handleContentEditByPID(scope.row,"description")'
+									:disabled='scope.row.state === 1'
+									>描述</el-button>
 								<el-button
 									size="mini"
 									@click="handlePreview(scope.$index, scope.row)">预览</el-button>
@@ -54,8 +58,8 @@
 			</el-col>
 		</el-row>
 		<el-row>
-			<el-button @click='handleCreate(0)'> 选择题 </el-button>
-			<el-button @click='handleCreate(1)'> 程序题 </el-button>
+			<el-button @click='handleCreate(0)'> 新建选择题 </el-button>
+			<el-button @click='handleCreate(1)'> 新建程序题 </el-button>
 		</el-row>
 		<ChoiceProblemDialog ref='dialog_choice' @completed='handleChoiceDialogCompleted'> </ChoiceProblemDialog>
 		<ProgramProblemDialog ref='dialog_program' @completed='handleProgramDialogCompleted'> </ProgramProblemDialog>
@@ -108,17 +112,21 @@ export default {
 			console.log("GET CLASS NAME", row.state === 1);
 			if (row.state === 1)
 				return 'published';
-else
-			return '';
+			else
+				return '';
 		},
 		handlePublish: function (idx, row, st) {
 			this.$http.post('/api/problem/state/set', {state: st, code: row.code}).
 				then((res) => {
-					this.$socket.emit('alert',{
-						operation: 'PROBLEM_PUBLISH.',
-						course_id: this.class_id,
-						problem_code: row.code
-					});
+					if (st === 1) {
+						this.$socket.emit('alert',{
+							operation: 'PROBLEM_PUBLISH.',
+							course_id: this.class_id,
+							problem_code: row.code,
+							info: {type:row.type, code:row.code},
+							echo: true,
+						});
+					}
 					this.$socket.emit('alert',{
 						operation: 'REFRESH.',
 						course_id: this.class_id,
