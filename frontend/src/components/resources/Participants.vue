@@ -49,13 +49,12 @@
                          ref="ruleForm">
                     <el-form-item>
                         <el-upload class="upload-demo"
-                                   action="/api/file/upload"
+                                   action="/api/file/import"
                                    :on-success="successUpload"
-                                   :on-remove="handleRemove"
                                    :file-list="fileList">
                             <el-tooltip content="请上传一个xlsx文件，文件中应含有需导入学生的真实姓名">
                                 <el-button size="small"
-                                           type="primary">点击上传
+                                           type="primary">导入名单
                                 </el-button>
                             </el-tooltip>
                         </el-upload>
@@ -94,7 +93,7 @@
                     margin: 'auto',
                     padding: '5px'
                 },
-                ruleform: {fileList: []},
+                ruleForm: {fileList: []},
                 fileList: [],
             };
         },
@@ -190,9 +189,12 @@
             },
             successUpload: function (response, file, fileList, $event) {
                 this.loadingQ = true;
-                console.log(response.filename);
+                console.log(response);
+                console.log("喵喵喵");
                 this.$http.post('/api/class/addstudents', {class_id: this.class_id, filename: response.filename}, null).
                      then((resp) => {
+                         console.log("太奇怪了");
+                         console.log(resp.body);
                          if(resp.body.status === 'SUCCESS.') {
                              this.$message("成功");
                              this.loadingQ = false;
