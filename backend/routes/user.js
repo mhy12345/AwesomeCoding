@@ -56,16 +56,16 @@ router.post('/verification', function (req, res, next) {	// 让后端程序发�
 		"param": code_generated,
 		"mobile": req.body.number
 	}).
-		  then(() => {
-			  user_verification_codes[req.body.number] = +code_generated;
-			  let res_body = req.session;
-			  res_body.status = 'SUCCESS.';
-			  // res_body.code_generated = code_generated;
-			  res.send(JSON.stringify(res_body));
-		  }).
-		  catch((err) => {
-			  console.log('Failed');
-		  });
+		then(() => {
+			user_verification_codes[req.body.number] = +code_generated;
+			let res_body = req.session;
+			res_body.status = 'SUCCESS.';
+			// res_body.code_generated = code_generated;
+			res.send(JSON.stringify(res_body));
+		}).
+		catch((err) => {
+			console.log('Failed');
+		});
 });
 
 router.post('/register', function (req, res, next) {	// 响应注册，并进行合法判断
