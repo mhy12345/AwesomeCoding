@@ -6,7 +6,7 @@
                     <h2>讨论区</h2>
                 </div>
                 <el-table :data="chatrecords" stripe style="width: 100%" @current-change="handleCurrentChange">
-                    <el-table-column prop="userid" label="发贴人" width="180"></el-table-column>
+                    <el-table-column prop="nickname" label="发贴人" width="180"></el-table-column>
                     <el-table-column prop="message" label="主题" width="280"></el-table-column>
                     <el-table-column prop="registration_date" label="发贴时间" width="180"></el-table-column>
                 </el-table>
