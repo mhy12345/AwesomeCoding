@@ -33,6 +33,15 @@
                             </el-button>
                         </template>
                     </el-table-column>
+                    <el-table-column align="center" label="取消助教身份" v-if='course_status.role===0'>
+                        <template slot-scope="scope">
+                            <el-button type="primary" 
+                                       icon="el-icon-edit" circle
+                                       v-if='scope.row.role===1'
+                                       @click="handleCancelTA(scope.row.id)">
+                            </el-button>
+                        </template>
+                    </el-table-column>
                 </el-table>
             </div>
             <div class="item" v-if='course_status.role!==2'>
@@ -139,6 +148,18 @@
             handleAssignTA: function (id) { // 向后端数据库发出指定助教的请求
                 this.loadingQ = true;
                 this.$http.post('/api/class/participants/assignTA', {class_id: this.class_id, user_id: id}, null).
+                     then(() => {
+                         this.$message("成功");
+                         this.loadingQ = false;
+                     }).
+                     catch(() => {
+                         this.$message("失败");
+                         this.loadingQ = false;
+                     });
+            },
+            handleCancelTA: function (id) { // 向后端数据库发出指定助教的请求
+                this.loadingQ = true;
+                this.$http.post('/api/class/participants/cancelTA', {class_id: this.class_id, user_id: id}, null).
                      then(() => {
                          this.$message("成功");
                          this.loadingQ = false;
