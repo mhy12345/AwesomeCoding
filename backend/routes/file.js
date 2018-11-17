@@ -79,6 +79,65 @@ router.post('/upload', upload.any(), function (req, res, next) { //区分文件�
 });
 
 
+router.post('/uploadcourseimg', upload.any(), function (req, res, next) { //区分文件名(用空格)，禁止上传含有空格的文件
+	console.log('uploadingimg');
+	console.log(req.session);
+	console.log(req);
+	console.log(req.files[0]);
+	console.log('===========================');
+	var user_id = req.session.user_id;
+	var response, i;
+	for (i = 0; i < req.files[0].originalname.length; i = i + 1) {
+		if (req.files[0].originalname[i] === ' ') {
+			response = {
+				message: 'Spaces do not allowed.',
+				filename: ''
+			};
+			res.end(JSON.stringify(response));
+			return;
+		}
+	}
+
+	if (user_id === undefined) {
+		response = {
+			message: 'You must login first.',
+			filename: ''
+		};
+		res.end(JSON.stringify(response));
+	}
+	else {
+		let registration_date = mysql.escape(new Date().getTime());
+		let filename = req.body.class.toString() + "_" + registration_date + "_" + req.files[0].originalname;
+
+		var des_file = path.join('./public/uploads/' + filename);
+		fs.readFile(req.files[0].path, function (err, data) {
+			fs.writeFile(des_file, data, function (err) {
+				if (err) {
+					logger.info(err);
+				}
+				else {
+					getConnection().
+						then(function (conn) {
+							let sql = 'update classes set imagepath = ' + mysql.escape(filename) +
+								' where id = ' + mysql.escape(+req.body.class);
+							return doSqlQuery(conn, sql);
+						}).
+						then(function (packed) {
+							let { conn, sql_res } = packed;
+							conn.end();
+							res.send(JSON.stringify(sql_res, null, 3));
+						}).
+						catch(function (sql_res) {
+							res.status(403).
+								send(JSON.stringify(sql_res));
+						});
+				}
+			});
+		});
+	}
+});
+
+
 router.post('/import', upload.any(), function (req, res, next) { //区分文件名(用空格)，禁止上传含有空格的文件
 	var user_id = req.session.user_id;
 	var response, i;
