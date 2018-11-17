@@ -6,7 +6,7 @@
                     <!--正中直播窗口-->
 					<div style='min-height:500px'>
 						<keep-alive>
-							<components ref='big' :is='cp_player' @swap='handleSwap' @hidden='handleHidden'></components>
+							<components ref='big' :is='cp_player'></components>
 						</keep-alive>
 					</div>
                     <!--下方输入框-->
@@ -17,39 +17,54 @@
                     <sidebar class="right-sidebar" :course_status="course_status.role" :user="user"></sidebar>
 				</el-col>
 			</el-row>
+			<el-row type='flex' justify='center' :gutter='20'>
+				<el-col :span='2'>
+					<el-button type='mini' @click='handleSwap("live")'>直播 </el-button>
+				</el-col>
+				<el-col :span='2'>
+					<el-button type='mini' @click='handleSwap("pdf")'>课件 </el-button>
+				</el-col>
+				<el-col :span='2'>
+					<el-button type='mini' @click='handleSwap("problem")'>练习 </el-button>
+				</el-col>
+			</el-row>
 		</div>
-        <!--右下角ppt窗口-->
+		<!--右下角ppt窗口-->
 		<Popup v-show='showWidget'>
-			<keep-alive>
-				<components ref='small' :is='cp_fileviewer' @swap='handleSwap' @hidden='handleHidden'></components>
-			</keep-alive>
+		<keep-alive>
+			<components ref='small' :is='cp_fileviewer'></components>
+		</keep-alive>
 		</Popup>
 	</div>
 </template>
 
 
 <script>
+import Vue from 'vue';
 import Player from './Player';
 import Sidebar from './Sidebar';
 import ChatInput from './ChatInput';
 import Popup from './Popup';
 import FileViewer from '@/components/components/FileViewer.vue';
 
+Vue.component('sub-pdf', FileViewer);
+Vue.component('sub-live', Player);
+
 export default {
 	name: 'Live',
-    props: ['course_status', 'fly', 'user'],
+	props: ['course_status', 'fly', 'user'],
 	data() {
 		return {
 			showWidget: true,
-			cp_fileviewer: FileViewer,
-			cp_player: Player,
+			cp_fileviewer: 'sub-pdf',
+			cp_player: 'sub-live',
 		};
 	},
 	components: {
 		Sidebar,
 		ChatInput,
-		Player,
-		FileViewer,
+		//Player,
+		//FileViewer,
 		Popup
 	},
 	methods: {
@@ -82,7 +97,7 @@ export default {
 	/*left: 30px;*/
 	/*min-width: 5%;*/
 	width: 100%;
-    height: 100%;
+	height: 100%;
 	/*overflow: auto;*/
 }
 .spanner {

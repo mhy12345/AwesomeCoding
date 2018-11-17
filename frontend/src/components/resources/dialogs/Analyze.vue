@@ -1,7 +1,7 @@
 <template>
-	<el-dialog title="数据分析" :visible.sync="visible">
-		<ChoiceProblemAnalyze v-if='info.type === 0' :code='info.code'/>
-		<ProgramProblemAnalyze v-if='info.type === 1' :code='info.code'/>
+	<el-dialog title="数据分析" :visible.sync="visible" @close='handleClose'>
+		<ChoiceProblemAnalyze ref='choice_analyze' v-if='info.type === 0' :code='info.code'/>
+		<ProgramProblemAnalyze ref='problem_analyze' v-if='info.type === 1' :code='info.code'/>
 	</el-dialog>
 </template>
 
@@ -22,6 +22,11 @@ export default {
 		handleOpen(info) {
 			this.visible = true;
 			this.info = info;
+		},
+		handleClose(info) {
+			console.log(info.type);
+			if (info.type === 0)
+				this.$refs.choice_analyze.stop_refresh();
 		},
 	},
 	components: {
