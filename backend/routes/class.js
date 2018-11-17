@@ -123,9 +123,9 @@ router.post('/status', function (req, res, next) {
 router.post('/participants/delete', function (req, res, next) {
 	let user_id = +req.session.user_id;
 	let target_id = undefined;
-	if (req.body.user_id === null) 
+	if (req.body.user_id === null)
 		target_id = user_id;//当req.body.user为null的话，表示删除自己
-	else 
+	else
 		target_id = +req.body.user_id;//否则表示删除指定用户
 	let class_id = +req.body.class_id;
 	let user_role = req.session.role;
@@ -541,12 +541,18 @@ router.post('/my_course/fetch', function (req, res, next) {
 	}
 	else {
 		sql =
+			/*
 			'select cl.id, cl.title, liveplayer_vid as lvid ' +
 			'from lives l, classusers cu, classes cl ' +
 			'where cu.user_id = ' + mysql.escape(+req.session.user_id) + ' ' +
 			'and cu.role = ' + mysql.escape(0) + ' ' +
 			'and l.class = cu.class_id and cl.id = cu.class_id';
-
+			*/
+			'select cl.id, cl.title, liveplayer_vid as lvid ' +
+			'from classusers cu left join lives l on l.class = cu.class_id, classes cl ' +
+			'where cu.user_id = ' + mysql.escape(+req.session.user_id) + ' ' +
+			'and cu.role = ' + mysql.escape(0) + ' ' +
+			'and cl.id = cu.class_id';
 	}
 	getConnection().
 		then(function (conn) {
