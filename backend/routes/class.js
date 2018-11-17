@@ -27,6 +27,9 @@ var NewChannelTemplate = {
 	channelPasswd: '111111'
 };
 
+Date.prototype.add_minute= function(minute){//日期加减
+	return new Date(this.valueOf()+minute*1000*60);
+};
 
 router.get('/delete', function (req, res, next) { //根据id删除班级
 	let id = req.query.id;
@@ -717,6 +720,57 @@ router.post('/participants/cancelTA', function (req, res, next) {
 			res.send(JSON.stringify(sql_res));
 		}).
 		catch(function (sql_res) {
+			res.send(JSON.stringify(sql_res));
+		});
+});
+
+router.post('/cache/get', function(req, res, next) {
+	getConnection().
+		then(function(conn) {
+			let sql = 'SELECT * FROM `class_caches` WHERE `class_id`='+mysql.escape(+req.body.class_id)+' AND `entry`='+mysql.escape(req.body.entry);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			res.send(JSON.stringify(sql_res));
+		}).
+		catch(function(sql_res) {
+			res.send(JSON.stringify(sql_res));
+		});
+});
+
+router.post('/cache/set', function(req, res, next) {
+	getConnection().
+		then(function(conn) {
+			let current_time = new Date();
+			let sql = 'DELETE FROM `class_caches` WHERE `drop_time`<'+mysql.escape(current_time);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			let sql = 'SELECT * FROM `class_caches` WHERE `class_id`='+mysql.escape(+req.body.class_id)+' AND `entry`='+mysql.escape(req.body.entry);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			if (sql_res.results.length === 0) {
+				let create_time = new Date();
+				let drop_time = new Date().add_minute(20);
+				let sql = 'INSERT INTO `class_caches` (`class_id`, `entry`,`data`,`create_time`,`drop_time`) VALUES ('+mysql.escape(+req.body.class_id) + ',' + mysql.escape(req.body.entry) + ','+ mysql.escape(req.body.data) + ',' + mysql.escape(create_time) + ','+mysql.escape(drop_time)+')';
+				return doSqlQuery(conn, sql);
+			} else {
+				let drop_time = new Date().add_minute(20);
+				let sql = 'UPDATE `class_caches` SET `data`='+mysql.escape(req.body.data)+', `drop_time`='+mysql.escape(drop_time)+' WHERE `class_id`='+mysql.escape(+req.body.class_id)+' AND `entry`='+mysql.escape(req.body.entry);
+				return doSqlQuery(conn, sql);
+			}
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			res.send(JSON.stringify(sql_res));
+		}).
+		catch(function(sql_res) {
 			res.send(JSON.stringify(sql_res));
 		});
 });

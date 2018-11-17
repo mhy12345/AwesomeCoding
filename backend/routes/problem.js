@@ -100,7 +100,7 @@ router.post('/list', function(req, res, next) {
 			if (role === 0 && req.body.type === 'teacher') {
 				sql = 'SELECT * FROM `problems` WHERE class_id = ' + mysql.escape(req.body.class_id);
 			} else {
-				sql = 'SELECT * FROM `problems` WHERE class_id = ' + mysql.escape(req.body.class_id) + ' AND `state`=1';
+				sql = 'SELECT * FROM `problems` WHERE class_id = ' + mysql.escape(req.body.class_id) + ' AND `state`>=1';
 			}
 			return doSqlQuery(conn,sql);
 		}).
@@ -223,6 +223,7 @@ router.post('/choice_problem/gather', function(req, res, next) {
 			res.send(JSON.stringify(sql_res));
 		});
 });
+
 router.post('/choice_problem/fetch', function(req, res, next) {
 	if (req.session.user_id === undefined) {
 		res.status(403).send("NOT_LOGIN.");
@@ -230,7 +231,11 @@ router.post('/choice_problem/fetch', function(req, res, next) {
 	}
 	getConnection().
 		then(function(conn) {
-			let sql = 'SELECT * FROM `choice_problem_answers` WHERE `code` = ' + mysql.escape(req.body.code) + ' AND `user_id` = ' + mysql.escape(req.session.user_id);
+			let sql = null;
+			if (req.body.ans)
+				sql = 'SELECT * FROM `choice_problem_answers` WHERE `code` = ' + mysql.escape(req.body.code) + ' AND `type` = 1';
+			else
+				sql = 'SELECT * FROM `choice_problem_answers` WHERE `code` = ' + mysql.escape(req.body.code) + ' AND `user_id` = ' + mysql.escape(req.session.user_id);
 			return doSqlQuery(conn, sql);
 		}).
 		then(function(packed) {
@@ -249,13 +254,26 @@ router.post('/choice_problem/submit', function(req, res, next) {
 	}
 	getConnection().
 		then(function(conn) {
+			let sql = 'SELECT * FROM problems WHERE code='+mysql.escape(req.body.code);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			if (sql_res.results[0].state != 1 && req.session.user_id != info.creater) {
+				conn.end();
+				res.status(403).send('PROBLEM_LOCKED.');
+				return Promise.reject({
+					status: 'SKIPPED.'
+				});
+			}
 			let sql = 'SELECT * FROM `choice_problem_answers` WHERE `code` = ' + mysql.escape(req.body.code) + ' AND `user_id` = ' + mysql.escape(req.session.user_id);
 			return doSqlQuery(conn, sql);
 		}).
 		then(function(packed) {
 			let {conn, sql_res} = packed;
+			let type = +(req.session.role === 1);
 			if (sql_res.results.length === 0) {
-				let sql = 'INSERT INTO `choice_problem_answers` (`code`,`user_id`,`answer`) VALUES ('+mysql.escape(req.body.code)+','+mysql.escape(+req.session.user_id)+','+mysql.escape(req.body.answer)+')';
+				let sql = 'INSERT INTO `choice_problem_answers` (`code`,`user_id`,`answer`,`type`) VALUES ('+mysql.escape(req.body.code)+','+mysql.escape(+req.session.user_id)+','+mysql.escape(req.body.answer)+','+mysql.escape(type)+')';
 				return doSqlQuery(conn, sql);
 			} else {
 				let sql = 'UPDATE `choice_problem_answers` SET `answer`='+mysql.escape(req.body.answer)+' WHERE `code`='+mysql.escape(req.body.code)+' AND `user_id`='+mysql.escape(req.session.user_id);
@@ -268,7 +286,8 @@ router.post('/choice_problem/submit', function(req, res, next) {
 			res.send(JSON.stringify(sql_res));
 		}).
 		catch(function(sql_res) {
-			res.send(JSON.stringify(sql_res));
+			if (sql_res.status != 'SKIPPED.')
+				res.send(JSON.stringify(sql_res));
 		});
 });
 router.post('/program_problem/gather', function(req, res, next) {
@@ -297,6 +316,18 @@ router.post('/program_problem/submit', function(req, res, next) {
 	}
 	getConnection().
 		then(function(conn) {
+			let sql = 'SELECT * FROM problems WHERE code='+mysql.escape(req.body.code);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			if (sql_res.results[0].state != 1 && req.session.user_id != info.creater) {
+				conn.end();
+				res.status(403).send('PROBLEM_LOCKED.');
+				return Promise.reject({
+					status: 'SKIPPED.'
+				});
+			}
 			let sql = 'SELECT * FROM `program_problem_answers` WHERE `problem_code` = ' + mysql.escape(req.body.code) + ' AND `user_id` = ' + mysql.escape(req.session.user_id);
 			return doSqlQuery(conn, sql);
 		}).
@@ -351,14 +382,33 @@ router.post('/program_problem/fetch', function(req, res, next) {
 	let program_code = 'p_' + randomString(16);
 	getConnection().
 		then(function(conn) {
-			let sql = 'SELECT * FROM `program_problem_answers` WHERE `problem_code` = ' + mysql.escape(req.body.code) + ' AND `user_id` = ' + mysql.escape(req.session.user_id);
+			let sql = null;
+			if (req.body.ans) {
+				sql = 'SELECT * FROM `program_problem_answers` WHERE `problem_code` = ' + mysql.escape(req.body.code) + ' AND `type` = 1';
+			} else {
+				sql = 'SELECT * FROM `program_problem_answers` WHERE `problem_code` = ' + mysql.escape(req.body.code) + ' AND `user_id` = ' + mysql.escape(req.session.user_id);
+			}
 			return doSqlQuery(conn, sql);
 		}).
 		then(function(packed) {
 			let {conn, sql_res} = packed;
 			if (sql_res.results.length === 0) {
-				let sql = 'INSERT INTO `program_problem_answers` (`code`,`user_id`,`problem_code`) VALUES ('+mysql.escape(program_code)+','+mysql.escape(req.session.user_id)+','+mysql.escape(req.body.code)+')';
-				return doSqlQuery(conn, sql);
+				if (req.body.ans) {
+					conn.end();
+					res.send(JSON.stringify({
+						status: 'SUCCESS.',
+						details: 'NOT EXISTS.',
+						code: program_code,
+						text: '',
+					}));
+					return Promise.reject({
+						status: 'SKIPPED.',
+					});
+				} else {
+					let type = +(req.session.role === 1);
+					let sql = 'INSERT INTO `program_problem_answers` (`code`,`user_id`,`problem_code`,`type`) VALUES ('+mysql.escape(program_code)+','+mysql.escape(req.session.user_id)+','+mysql.escape(req.body.code)+','+mysql.escape(type)+')';
+					return doSqlQuery(conn, sql);
+				}
 			}else {
 				conn.end();
 				let program_code = sql_res.results[0].code;

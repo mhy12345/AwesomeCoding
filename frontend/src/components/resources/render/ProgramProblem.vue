@@ -2,6 +2,15 @@
 	<div>
 		<ContentDisplay ref='ctx_display' :visible='mode=="display"'>
 		</ContentDisplay>
+		<div style='float:right'>
+			<div @click='handleShowAnswer(0)' style='float:right'>
+				[我的答案]
+			</div>
+			<div style='float:right;width:100%'> </div>
+			<div @click='handleShowAnswer(1)' style='float:right'>
+				[标准答案]
+			</div>
+		</div>
 		<codemirror v-model="text"></codemirror>
 		<el-button @click='handleSave' >保存</el-button>
 	</div>
@@ -38,6 +47,9 @@ export default {
 		};
 	},
 	methods: {
+		handleShowAnswer: function(tag) {
+			this.handleUpdate(this.code, tag);
+		},
 		handleSave: function (tag) {
 			this.$http.post('/api/problem/program_problem/submit',{code: this.code, text: this.text}).
 				then((res) => {
@@ -51,10 +63,10 @@ export default {
 				then((res) => {
 					if (res.body.status === 'FAILED.') {
 						if (res.body.details === 'NOT_EXISTS.') {
-this.$message("错误，无法找到程序");
-} else {
-this.$message("未知错误");
-}
+							this.$message("错误，无法找到程序");
+						} else {
+							this.$message("未知错误");
+						}
 					} else {
 						this.text = res.body.text;
 						this.$message("更新");
@@ -65,14 +77,14 @@ this.$message("未知错误");
 				});
 
 		},
-		handleUpdate: function (code) {
+		handleUpdate: function (code, tag) {
 			console.log("handleUpdate...",code);
 			this.code = code;
 			this.$http.post('/api/problem/table/program_problems/get',{code: this.code}).
 				then((res) => {
 					this.info = res.body.results[0];
 					this.$refs.ctx_display.handleUpdate(this.info.description);
-					return this.$http.post('/api/problem/program_problem/fetch',{code: this.code, class_code: this.class_code});
+					return this.$http.post('/api/problem/program_problem/fetch',{code: this.code, class_code: this.class_code, ans: tag});
 				}).
 				then((res) => {
 					this.text = res.body.text;
@@ -87,8 +99,8 @@ this.$message("未知错误");
 	},
 	mounted: function () {
 		if (this.default_code) {
-this.handleUpdate(this.default_code);
-}
+			this.handleUpdate(this.default_code);
+		}
 	},
 	components: {
 		ContentDisplay: ContentDisplay,

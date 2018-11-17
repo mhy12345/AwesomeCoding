@@ -50,7 +50,7 @@
 			<template slot='abbrev'>
 				课件
 			</template>
-			<components ref='cp_pdf' :is='cp_pdf'></components>
+			<keep-alive><components ref='cp_pdf' :is='cp_pdf'></components></keep-alive>
 			</Popup>
 			<Popup name='practice' 
 				   @display='handleDisplay("prob")' 
@@ -113,8 +113,6 @@ export default {
 	components: {
 		Sidebar,
 		ChatInput,
-		//Player,
-		//FileViewer,
 		Popup
 	},
 	methods: {

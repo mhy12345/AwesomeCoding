@@ -17,6 +17,7 @@ import ProgramProblem from '../render/ProgramProblem.vue';
 export default {
 	data: function() {
 		return {
+			class_id: this.$route.params.class_id,
 			info: {
 				type: null,
 				code: null,
@@ -34,6 +35,15 @@ export default {
 				this.$refs.ctx.handleUpdate(info.code);
 			});
 		}
+	},
+	mounted: function(){
+		this.$http.post('/api/class/cache/get', {class_id: this.class_id, entry: 'PROBLEM'}).
+		then((res) => {
+			this.info = JSON.parse(res.body.results[0].data);
+		}).
+			catch((err) => {
+				console.log("ERROR IN CACHE GET.",err);
+			});
 	},
 	components: {
 		ChoiceProblem: ChoiceProblem,
