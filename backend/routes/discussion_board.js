@@ -10,6 +10,7 @@ var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file');
+var checkPermission = require('../utils/funcs').checkPermission;
 
 router.post('/ban', function (req, res, next) { //添加禁言名单 @调整部分逻辑 TODO 确认正确性
 	let userid = req.body.userid;
@@ -159,11 +160,19 @@ router.post('/add_comments/posts', function(req, res, next) {
 
 router.post('/info/query', function(req, res, next) {
 	let result = {
-		status: undefined
+		status: undefined,
+		role: undefined,
 	};
+	let user_id = +req.session.user_id;
+	let class_id = +req.body.class_id;
 	getConnection().
 		then(function (conn) {
-			let sql = 'SELECT * FROM forums WHERE classid = ' + req.body.class_id;
+			return checkPermission(conn, class_id, user_id);
+		}).
+		then(function (packed) {
+			let {conn, role} = packed;
+			result.role = role;
+			let sql = 'SELECT * FROM forums WHERE classid = ' + class_id;
 			return doSqlQuery(conn, sql);
 		}).
 		then(function (packed) {

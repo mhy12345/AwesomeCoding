@@ -19,7 +19,7 @@
                     <el-button type="primary" @click="onSubmit">发贴</el-button>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onClear">clear</el-button>
+                    <el-button type="primary" @click="onClear" v-if="role===0">clear</el-button>
                 </el-form-item>
             </el-form>
         </el-main>
@@ -32,6 +32,7 @@
             return {
                 chatrecords: [],
                 class_id: "undefined",
+                role: undefined,
                 inputData: {
                     userId: undefined,
                     classId: undefined,
@@ -51,6 +52,7 @@
                                   this.$message("Room " + this.title + " not found!");
                               } else {
                                   this.chatrecords = res.body.chatrecords;
+                                  this.role = res.body.role;
                               }
                           });
                  });
