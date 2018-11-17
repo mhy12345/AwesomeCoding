@@ -5,7 +5,7 @@ const mysql=require('mysql');
 const doSqlQuery = require('../utils/funcs').doSqlQuery;
 const getConnection = require('../utils/funcs').getConnection;
 const doSqlQuerySequential = require('../utils/funcs').doSqlQuerySequential;
-const getPermission = require('../utils/funcs').getPermission;
+const checkPermission = require('../utils/funcs').checkPermission;
 const randomString = require('../utils/funcs').randomString;
 
 const log4js = require("log4js");
@@ -14,6 +14,22 @@ log4js.configure(log4js_config);
 const logger = log4js.getLogger('log_file')
 
 const fs = require('fs');
+
+router.post('/state/set', function(req, res, next) {
+	getConnection().
+		then(function(conn) {
+			let sql = 'UPDATE `problems` SET `state`='+mysql.escape(req.body.state)+' WHERE `code`='+mysql.escape(req.body.code);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function(packed) {
+			let {conn, sql_res} = packed;
+			conn.end();
+			res.send(JSON.stringify(sql_res));
+		}).
+		catch(function(sql_res) {
+			res.send(JSON.stringify(sql_res));
+		});
+});
 
 router.post('/delete', function(req, res, next) {
 	getConnection().
@@ -74,7 +90,18 @@ router.post('/create', function(req, res, next) {
 router.post('/list', function(req, res, next) {
 	getConnection().
 		then(function(conn) {
-			let sql = 'SELECT * FROM `problems` WHERE class_id = ' + mysql.escape(req.body.class_id);
+			return checkPermission(conn, req.body.class_id, req.session.user_id);
+		}).
+		then(function(packed) {
+			let {conn, role} = packed;
+			logger.info("ROLE = ", role);
+			logger.info("TYPE = ", req.body.type);
+			let sql = null;
+			if (role === 0 && req.body.type === 'teacher') {
+				sql = 'SELECT * FROM `problems` WHERE class_id = ' + mysql.escape(req.body.class_id);
+			} else {
+				sql = 'SELECT * FROM `problems` WHERE class_id = ' + mysql.escape(req.body.class_id) + ' AND `state`=1';
+			}
 			return doSqlQuery(conn,sql);
 		}).
 		then(function(packed) {
@@ -128,7 +155,7 @@ router.post('/get', function(req, res, next) {
 router.post('/save', function(req, res, next) {
 	getConnection().
 		then(function(conn) {
-			let sql = 'UPDATE `problems` SET `state`='+mysql.escape(req.body.state)+', `title`='+mysql.escape(req.body.title)+' WHERE `code`='+mysql.escape(req.body.code);
+			let sql = 'UPDATE `problems` SET `title`='+mysql.escape(req.body.title)+' WHERE `code`='+mysql.escape(req.body.code);
 			return doSqlQuery(conn, sql);
 		}).
 		then(function(packed) {
@@ -184,7 +211,7 @@ router.post('/table/:ptype/save', function(req, res, next) {
 router.post('/choice_problem/gather', function(req, res, next) {
 	getConnection().
 		then(function(conn) {
-			let sql = 'SELECT * FROM `choice_problem_answers` WHERE `code` = ' + mysql.escape(req.body.code);
+			let sql = 'SELECT `users`.`role`,`users`.`id`,`users`.`realname`,`choice_problem_answers`.`answer`, `choice_problem_answers`.`time` FROM `users` LEFT JOIN `choice_problem_answers` ON `choice_problem_answers`.`user_id`=`users`.`id` WHERE `code` = '+mysql.escape(req.body.code)+' ORDER BY `choice_problem_answers`.`time` DESC;'
 			return doSqlQuery(conn, sql);
 		}).
 		then(function(packed) {

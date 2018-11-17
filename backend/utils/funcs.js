@@ -143,6 +143,43 @@ function getPermission(user_id, course_id) {		// 获取 user_id 在 course_id �
 	});
 }
 
+function checkPermission(conn, class_id, user_id) {
+	return new Promise((resolve, reject) => {
+		if (typeof(class_id) === 'undefined') {
+			conn.end();
+			reject({
+				status: 'FAILED.',
+				details: 'Undefined class_id',
+			});
+			return;
+		}
+		if (typeof(user_id) === 'undefined') {
+			conn.end();
+			reject({
+				status: 'FAILED.',
+				details: 'Undefined user_id',
+			});
+			return;
+		}
+		let sql = 'SELECT * FROM classusers WHERE user_id = ' + mysql.escape(user_id) + ' AND class_id = ' + mysql.escape(class_id);
+		doSqlQuery(conn, sql).
+			then(function (packed) {
+				let { conn, sql_res } = packed;
+				if (sql_res.results.length === 0) {
+					conn.end();
+					reject({
+						status: 'FAILED.',
+						details: 'NOT_IN_CLASS.',
+					});
+					return;
+				}
+				resolve({ conn: conn, role: sql_res.results[0].role });
+			}).
+			catch(function (err) {
+				reject(err);
+			});
+	});
+}
 module.exports = {
-	randomString, doSqlQuery, doSqlQuerySequential, getConnection, getPermission
+	randomString, doSqlQuery, doSqlQuerySequential, getConnection, getPermission, checkPermission,
 };

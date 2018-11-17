@@ -9,6 +9,7 @@ var getConnection = require('../utils/funcs').getConnection;
 var doSqlQuerySequential = require('../utils/funcs').doSqlQuerySequential;
 var randomString = require('../utils/funcs').randomString;
 var updateSocketSession = require('../utils/global').updateSocketSession;
+var checkPermission = require('../utils/funcs').checkPermission;
 
 var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").runtime_configure;
@@ -26,43 +27,6 @@ var NewChannelTemplate = {
 	channelPasswd: '111111'
 };
 
-function checkPermission(conn, class_id, user_id) {
-	return new Promise((resolve, reject) => {
-		if (typeof(class_id) === 'undefined') {
-			conn.end();
-			reject({
-				status: 'FAILED.',
-				details: 'Undefined class_id',
-			});
-			return;
-		}
-		if (typeof(user_id) === 'undefined') {
-			conn.end();
-			reject({
-				status: 'FAILED.',
-				details: 'Undefined user_id',
-			});
-			return;
-		}
-		let sql = 'SELECT * FROM classusers WHERE user_id = ' + mysql.escape(user_id) + ' AND class_id = ' + mysql.escape(class_id);
-		doSqlQuery(conn, sql).
-			then(function (packed) {
-				let { conn, sql_res } = packed;
-				if (sql_res.results.length === 0) {
-					conn.end();
-					reject({
-						status: 'FAILED.',
-						details: 'NOT_IN_CLASS.',
-					});
-					return;
-				}
-				resolve({ conn: conn, role: sql_res.results[0].role });
-			}).
-			catch(function (err) {
-				reject(err);
-			});
-	});
-}
 
 router.get('/delete', function (req, res, next) { //根据id删除班级
 	let id = req.query.id;

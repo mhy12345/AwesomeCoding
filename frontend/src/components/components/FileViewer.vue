@@ -1,26 +1,30 @@
 <template>
 	<el-card>
 		<el-row type='flex' justify='center'>
-			<pdf
-				id='pdf-frame'
-				:page='page'
-				:src='pdfSrc'
-				@num-pages='handleUploadPages'
-				ref='pdf'
-				>
-			</pdf>
+			<el-col :span='24'>
+				<div style='min-height:150px'>
+					<div v-if='pdfSrc!=null'>
+						<pdf
+							id='pdf-frame'
+							:page='page'
+							:src='pdfSrc'
+							@num-pages='handleUploadPages'
+							ref='pdf'
+							>
+						</pdf>
+					</div>
+					<div>
+						当前没有可放映课件
+					</div>
+				</div>
+			</el-col>
 		</el-row>
 		<el-row type='flex' justify="center">
-			<el-tooltip class="item" effect="dark" content="屏幕交换" placement="top-start">
-				<div @click='handleSwap' class='tag'> <i class="el-icon-refresh" ></i> </div> </el-tooltip>
 			<el-tooltip class="item" effect="dark" content="上一页" placement="top-start">
 				<div @click='prevPage' class='tag'> <i class="el-icon-arrow-left"></i> </div> </el-tooltip>
 			<span class='tag'> 第{{page}}页 / 共{{page_num}}页 </span>
 			<el-tooltip class="item" effect="dark" content="下一页" placement="top-start">
 				<div @click='nextPage' class='tag'><i class="el-icon-arrow-right"></i></div>
-			</el-tooltip>
-			<el-tooltip class="item" effect="dark" content="隐藏浮窗" placement="top-start">
-				<div @click='handleHidden' class='tag'><i class="el-icon-view"></i></div>
 			</el-tooltip>
 		</el-row>
 	</el-card>
@@ -57,21 +61,15 @@ export default {
 				});
 				this.page = msg.page;
 			} else if (msg.operation === 'CHANGE_PDF.') {
-                this.$notify.warning({
-                    title: '收到更换文件指令',
-                    message: msg.pdfSrc
-                });
-                this.pdfSrc = msg.pdfSrc;
-            }
+				this.$notify.warning({
+					title: '收到更换文件指令',
+					message: msg.pdfSrc
+				});
+				this.pdfSrc = msg.pdfSrc;
+			}
 		}
 	},
 	methods: {
-		handleSwap () {
-			this.$emit('swap');
-		},
-		handleHidden () {
-			this.$emit('hidden');
-		},
 		reload: function () {
 		},
 		handleUploadPages (event) {

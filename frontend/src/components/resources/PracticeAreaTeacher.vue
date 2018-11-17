@@ -22,29 +22,34 @@
 						width='80'
 						>
 					</el-table-column>
-					<el-table-column label="操作">
-						<template slot-scope="scope">
-							<el-button
-								size="mini"
-								@click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-							<el-button 
-								size="mini"
-								@click='handleContentEditByPID(scope.row,"description")'>描述</el-button>
-							<el-button
-								size="mini"
-								@click="handlePreview(scope.$index, scope.row)">预览</el-button>
-							<el-button
-								size="mini"
-								@click="handleAnalyze(scope.$index, scope.row)">统计</el-button>
-							<el-button
-								size='mini'
-								@click="handlePublish(scope.$index, scope.row)">发布</el-button>
-							<el-button
-								size="mini"
-								type="danger"
-								@click="handleDelete(scope.row)">删除</el-button>
-						</template>
-					</el-table-column>
+						<el-table-column label="操作">
+							<template slot-scope="scope">
+								<el-button
+									size="mini"
+									@click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+								<el-button 
+									size="mini"
+									@click='handleContentEditByPID(scope.row,"description")'>描述</el-button>
+								<el-button
+									size="mini"
+									@click="handlePreview(scope.$index, scope.row)">预览</el-button>
+								<el-button
+									size="mini"
+									@click="handleAnalyze(scope.$index, scope.row)">统计</el-button>
+								<el-button
+									v-if='scope.row.state===0'
+									size='mini'
+									@click="handlePublish(scope.$index, scope.row, 1)">发布</el-button>
+								<el-button
+									v-if='scope.row.state===1'
+									size='mini'
+									@click="handlePublish(scope.$index, scope.row, 0)">收回</el-button>
+								<el-button
+									size="mini"
+									type="danger"
+									@click="handleDelete(scope.row)">删除</el-button>
+							</template>
+						</el-table-column>
 				</el-table>
 			</el-col>
 		</el-row>
@@ -77,35 +82,54 @@ export default {
 	},
 	props: ['course_status'],
 	mounted: function () {
-		this.$http.post('/api/problem/list',{class_id: this.class_id}).
-			then(function (res) {
-				this.problemData = res.body.results;
-				this.problemData.forEach(function (item, index) {
-					item.index = index+1; 
-					if (item.type == 0) {
-item.type_title = '选择题';
-}
-					if (item.type == 1) {
-item.type_title = '程序题';
-}
-				});
-			}).
-			catch(function (err) {
-				this.$message(err);
-			});
+		this.reload();
 	},
 	computed: {},
 	methods: {
+		reload: function() {
+			this.$http.post('/api/problem/list',{class_id: this.class_id, type:'teacher'}).
+				then(function (res) {
+					this.problemData = res.body.results;
+					this.problemData.forEach(function (item, index) {
+						item.index = index+1; 
+						if (item.type == 0) {
+							item.type_title = '选择题';
+						}
+						if (item.type == 1) {
+							item.type_title = '程序题';
+						}
+					});
+				}).
+				catch(function (err) {
+					this.$message(err);
+				});
+		},
 		tableRowClassName: function ({row, rowIndex}) {
+			console.log("GET CLASS NAME", row.state === 1);
+			if (row.state === 1)
+				return 'published';
+else
 			return '';
 		},
-		handlePublish: function (idx, row) {
-			this.$socket.emit('alert',{
-				operation: 'PROBLEM_PUBLISH.',
-				course_id: this.class_id,
-				problem_code: row.code
-			});
-			this.$message("题目已经发布!");
+		handlePublish: function (idx, row, st) {
+			this.$http.post('/api/problem/state/set', {state: st, code: row.code}).
+				then((res) => {
+					this.$socket.emit('alert',{
+						operation: 'PROBLEM_PUBLISH.',
+						course_id: this.class_id,
+						problem_code: row.code
+					});
+					this.$socket.emit('alert',{
+						operation: 'REFRESH.',
+						course_id: this.class_id,
+						target: 'train_area',
+						echo: true,
+					});
+					this.$message("题目已经发布!");
+					this.reload();
+				}).
+				catch((err) => {
+				});
 		},
 		handleDelete: function (row) {
 			this.$http.post('/api/problem/delete', {code: row.code}).
@@ -141,12 +165,12 @@ item.type_title = '程序题';
 		handleContentEditByPID: function (info,field) {
 			let ptype = undefined;
 			if (info.type == 0) {
-ptype = 'choice_problems';
-} else if (info.type == 1) {
-ptype = 'program_problems';
-} else {
-console.log("未知类别",info);
-}
+				ptype = 'choice_problems';
+			} else if (info.type == 1) {
+				ptype = 'program_problems';
+			} else {
+				console.log("未知类别",info);
+			}
 			this.$http.post('/api/problem/table/'+ptype+'/get',{code: info.code}).
 				then((res) => {
 					let content_id = res.body.results[0][field];
@@ -161,18 +185,18 @@ console.log("未知类别",info);
 			this.loading = true;
 			this.$http.post('/api/problem/create',{class_id: this.class_id, type: ptype}).
 				then((res) => {
-					return this.$http.post('/api/problem/list', {class_id: this.class_id});
+					return this.$http.post('/api/problem/list', {class_id: this.class_id, type:'teacher'});
 				}).
 				then((res) => {
 					this.problemData = res.body.results;
 					this.problemData.forEach(function (item, index) {
 						item.index = index+1; 
 						if (item.type == 0) {
-item.type_title = '选择题';
-}
+							item.type_title = '选择题';
+						}
 						if (item.type == 1) {
-item.type_title = '程序题';
-}
+							item.type_title = '程序题';
+						}
 					});
 					this.loading = false;
 				}).
@@ -183,11 +207,11 @@ item.type_title = '程序题';
 		handleEdit: function (idx, row) {
 			let dialog_id = null;
 			if (row.type == 0) {
-dialog_id = 'dialog_choice';
-}
+				dialog_id = 'dialog_choice';
+			}
 			if (row.type == 1) {
-dialog_id = 'dialog_program';
-}
+				dialog_id = 'dialog_program';
+			}
 			this.$refs[dialog_id].handleOpen(idx,row);
 		},
 		handlePreview: function (idx, row) {
@@ -205,6 +229,9 @@ dialog_id = 'dialog_program';
 </script>
 
 <style>
+.el-table .published {
+	background-color:#f0f9eb;
+}
 .correct-answer-button {
 }
 

@@ -1,7 +1,7 @@
 <template>
 	<el-dialog title="编辑文本" 
 			v-loading='loading'
-			:visible.sync='visible
+			:visible.sync='visible'
 			>
 			<VueEditor
 			v-model='content'
