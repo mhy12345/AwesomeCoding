@@ -1,10 +1,10 @@
 <template>
-    <el-dialog title="编辑文本"
-               v-loading='loading'
-               :visible.sync='visible'
-    >
-        <VueEditor
-            v-model='content'
+	<el-dialog title="编辑文本" 
+			v-loading='loading'
+			:visible.sync='visible'
+			>
+			<VueEditor
+			v-model='content'
             :editorOptions="editorOption"
             ref='editor'
         >
