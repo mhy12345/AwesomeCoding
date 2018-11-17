@@ -19,7 +19,17 @@
                         <template slot-scope="scope">
                             <el-button type="danger"
                                        icon="el-icon-delete" circle
+                                       v-if='scope.row.role!==0'
                                        @click="handleDelete(scope.row.id)">
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                    <el-table-column align="center" label="指定助教" v-if='course_status.role===0'>
+                        <template slot-scope="scope">
+                            <el-button type="primary" 
+                                       icon="el-icon-edit" circle
+                                       v-if='scope.row.role===2'
+                                       @click="handleAssignTA(scope.row.id)">
                             </el-button>
                         </template>
                     </el-table-column>
@@ -117,6 +127,18 @@
             handleDelete: function (id) { // 向后端数据库发出删除数据的请求
                 this.loadingQ = true;
                 this.$http.post('/api/class/participants/delete', {class_id: this.class_id, user_id: id}, null).
+                     then(() => {
+                         this.$message("成功");
+                         this.loadingQ = false;
+                     }).
+                     catch(() => {
+                         this.$message("失败");
+                         this.loadingQ = false;
+                     });
+            },
+            handleAssignTA: function (id) { // 向后端数据库发出指定助教的请求
+                this.loadingQ = true;
+                this.$http.post('/api/class/participants/assignTA', {class_id: this.class_id, user_id: id}, null).
                      then(() => {
                          this.$message("成功");
                          this.loadingQ = false;
