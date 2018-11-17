@@ -98,24 +98,6 @@
 							<span slot="title">进入课程</span>
 						</el-menu-item>
 					</el-submenu>
-
-					<!--<el-submenu index="/files">-->
-						<!--<template slot='title'>-->
-							<!--<i class='el-icon-upload'></i>-->
-							<!--<span>文件</span>-->
-						<!--</template>-->
-						<!--<el-menu-item index="/file/upload">-->
-							<!--<span slot="title">上传文件</span>-->
-						<!--</el-menu-item>-->
-						<!--<el-menu-item index="/file/show">-->
-							<!--<span slot="title">我的文件</span>-->
-						<!--</el-menu-item>-->
-					<!--</el-submenu>-->
-
-					<el-menu-item index="/class/123">
-						<i class='el-icon-service'></i>
-						<span slot='title'>房间</span>
-					</el-menu-item>
 					<el-menu-item index="/about">
 						<i class='el-icon-info'></i>
 						<span slot='title'>关于</span>

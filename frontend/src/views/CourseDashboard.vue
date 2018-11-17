@@ -12,7 +12,8 @@
 						  :label="option.name"
 						  :name="options.route"
 						  :key='option.index'
-						  :fly='option.index === "live"'>
+						  :fly='option.index === "live"'
+                 >
 					<!-- 对于live模块，额外加一个fly的props，用于表示是否通过修改visible隐藏-->
 					<components
 						v-if='option.index !== "live" && !option.disabled'
