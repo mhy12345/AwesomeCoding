@@ -125,17 +125,19 @@ export default {
 
         handleView: function (row) {
             if (row.filename.indexOf("pdf") >= 0) {
-                this.$socket.emit('alert', {
-                    operation: 'CHANGE_PDF.',
-                    pdfSrc: "/uploads/" + row.filename,
-                    course_id: this.class_id,
-					echo: true,
-                });
-            } else {
-                alert("请选择pdf文件");
-            }
-        }
-    }
+				this.$http.post('/api/class/cache/set',{class_id: this.class_id, entry:'FILE_NAME', data:'/uploads/'+row.filename}).then((res) => {
+					this.$socket.emit('alert', {
+						operation: 'CHANGE_PDF.',
+						pdfSrc: "/uploads/" + row.filename,
+						course_id: this.class_id,
+						echo: true,
+					});
+				});
+			} else {
+				alert("请选择pdf文件");
+			}
+		}
+	}
 };
 </script>
 

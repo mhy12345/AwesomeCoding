@@ -24,8 +24,7 @@ export default {
 			this.info = info;
 		},
 		handleClose(info) {
-			console.log(info.type);
-			if (info.type === 0)
+			if (info && info.type === 0)
 				this.$refs.choice_analyze.stop_refresh();
 		},
 	},

@@ -10,14 +10,23 @@ var logger = log4js.getLogger('database');
 
 
 var sqls = {
+	'create_class_cache_table': "CREATE TABLE IF NOT EXISTS `class_caches` ("+
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
+		"`class_id` INT UNSIGNED NOT NULL, " +
+		"`entry` CHAR(30) NOT NULL, " +
+		"`data` VARCHAR(1000), " +
+		"`create_time` TIMESTAMP NULL, " +	
+		"`drop_time` TIMESTAMP NULL, " +	
+		"PRIMARY KEY (`id`) " +
+		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
 	'create_program_problem_answer_table': "CREATE TABLE IF NOT EXISTS `program_problem_answers` (" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`code` CHAR(20) NOT NULL, " +
 		"`problem_code` CHAR(20) NOT NULL, " +
 		"`user_id` INT UNSIGNED NOT NULL, " +
+		"`type` INT UNSIGNED, " +
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
-
 	'create_program_problem_table' : "CREATE TABLE IF NOT EXISTS `program_problems` (" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`code` CHAR(20) NOT NULL, " +
@@ -26,16 +35,15 @@ var sqls = {
 		"`solution` CHAR(20) NOT NULL, " +
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
-
 	'create_choice_problem_answer_table' : "CREATE TABLE IF NOT EXISTS `choice_problem_answers` (" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`user_id` INT UNSIGNED NOT NULL, " +
 		"`code` CHAR(20), " +
 		"`answer` CHAR(2), " +
 		"`time` TIMESTAMP, " +
+		"`type` INT UNSIGNED, " +
 		"PRIMARY KEY (`id`) " +
 		")ENGINE=InnoDB DEFAULT CHARSET=utf8;",
-
 	'create_choice_problem_table' : "CREATE TABLE IF NOT EXISTS `choice_problems` (" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
 		"`code` CHAR(20) NOT NULL, " +
@@ -212,7 +220,8 @@ function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新�
 				'create_class_file_table',
 				'create_posts',
 				'create_lives',
-				'create_chat_record'
+				'create_chat_record',
+				'create_class_cache_table',
 			];
 			if (db_cfg.no_create !== true) {
 				tasks = ['create_database'].concat(tasks);
