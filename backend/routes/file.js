@@ -56,7 +56,8 @@ router.post('/upload', upload.any(), function (req, res, next) { //区分文件�
 							var response = {};
 							if (sql_res.status === 'SUCCESS.') {
 								response.message = 'File uploaded successfully';
-								response.filename = req.files[0].originalname;
+								response.filename = filename;
+								response.showname = req.files[0].originalname;
 								res.end(JSON.stringify(response));
 							}
 							else {

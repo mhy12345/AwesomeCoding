@@ -14,7 +14,7 @@ var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('class_log');
-
+var path = require('path');
 var createSign = require('../utils/sign').getSign;
 const axios = require('axios');
 const querystring = require('querystring');
@@ -362,7 +362,7 @@ router.post('/info/update', function (req, res, next) {
 });
 
 router.post('/create', function (req, res, next) { //创建新班级
-	if (req.session.role != 1 && req.session.role != 0) {
+	if (req.session.role !== 1 && req.session.role !== 0) {
 		res.status(403).
 			send('Only teacher can create a course.');
 		return;
@@ -590,16 +590,18 @@ router.post('/addstudents', function (req, res, next) {
 	let result = {
 		status: undefined
 	};
-	if (req.session.role != 1 && req.session.role != 0) {
+	let filepath = path.join('./public/uploads/' + req.body.filename);
+	console.log(filepath);
+	if (req.session.role !== 1 && req.session.role !== 0) {
 		//res.status(403).send('Only teacher can add students from xlsx.');
 		result.status = 'FAILED.';
 		result.details = 'NOT TEACHER';
 		res.send(JSON.stringify(result, null, 3));
 		return;
 	}
-	fs.exists('./uploads/students.xlsx', function (exists) {
+	fs.exists(filepath, function (exists) {
 		if (exists) {
-			var obj = xlsx.parse('./uploads/students.xlsx');//配置excel文件的路径
+			var obj = xlsx.parse(filepath);//配置excel文件的路径
 			var excelObj = obj[0].data;
 			var studentlist = [];
 

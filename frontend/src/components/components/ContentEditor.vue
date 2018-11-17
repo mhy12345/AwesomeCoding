@@ -1,18 +1,19 @@
 <template>
-	<el-dialog title="编辑文本" 
-			v-loading='loading'
-			:visible.sync='visible
-			>
-			<VueEditor
-			v-model='content'
+    <el-dialog title="编辑文本"
+               v-loading='loading'
+               :visible.sync='visible'
+    >
+        <VueEditor
+            v-model='content'
             :editorOptions="editorOption"
             ref='editor'
-            >
-            </VueEditor>
-            <el-button @click='handleSave' > 保存 </el-button>
-            <el-button @click='handleLoad' > 同步 </el-button>
-	</el-dialog>
+        >
+        </VueEditor>
+        <el-button @click='handleSave' > 保存 </el-button>
+        <el-button @click='handleLoad' > 同步 </el-button>
+    </el-dialog>
 </template>
+
 
 <script>
 import {VueEditor} from 'vue2-editor';

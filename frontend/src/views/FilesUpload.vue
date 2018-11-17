@@ -19,6 +19,8 @@
         <!--</el-form-item>-->
     </el-form>
 </template>
+
+
 <script>
     /* eslint-disable no-unused-vars,no-undef */
 
@@ -41,7 +43,6 @@
                 }
             },
             successUpload (response, file, fileList, $event) {
-                // 上传成功在表单的某个字段里加一个值
                 if (response.message !== "File uploaded successfully") {
                     fileList.pop();
                     this.$message("文件上传失败！");
@@ -49,8 +50,6 @@
 
             },
             submitForm (formName) {
-                // just a test
-                console.log(formName);
                 this.$http.post('/api/file/download', {filename: "lecture11.pdf"}).
                      then(function (res) {
                          //how to save it?

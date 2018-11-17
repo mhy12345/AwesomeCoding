@@ -26,10 +26,22 @@
                 </el-table>
             </div>
             <div class="item" v-if='course_status.role!==2'>
-                <el-tooltip content="请上传一个名为students.xlsx的xlsx文件，文件中应含有需导入学生的真实姓名">
-                    <el-button type='primary' style='width:100%' @click='handleImportStudents'> 导入学生
-                    </el-button>
-                </el-tooltip>
+                <el-form :model="ruleForm"
+                         ref="ruleForm">
+                    <el-form-item>
+                        <el-upload class="upload-demo"
+                                   action="/api/file/upload"
+                                   :on-success="successUpload"
+                                   :on-remove="handleRemove"
+                                   :file-list="fileList">
+                            <el-tooltip content="请上传一个xlsx文件，文件中应含有需导入学生的真实姓名">
+                                <el-button size="small"
+                                           type="primary">点击上传
+                                </el-button>
+                            </el-tooltip>
+                        </el-upload>
+                    </el-form-item>
+                </el-form>
             </div>
         </div>
     </el-container>
@@ -62,7 +74,9 @@
                     width: '1000px',
                     margin: 'auto',
                     padding: '5px'
-                }
+                },
+                ruleform: {fileList: []},
+                fileList: [],
             };
         },
         props: ['course_status', 'table_width'],
@@ -131,34 +145,34 @@
                 this.edit_dialog.visual = false;
                 //TODO
             },
-            handleImportStudents: function() {
+            successUpload: function (response, file, fileList, $event) {
                 this.loadingQ = true;
-                this.$http.post('/api/class/addstudents', {class_id: this.class_id}, null).
-                    then((resp) => {
-                        if(resp.body.status === 'SUCCESS.') {
-                            this.$message("成功");
-                            this.loadingQ = false;
-                        }
-                        else {
-                            if(resp.body.details === 'NO STUDENTS FILE') {
-                                this.$message("请上传一个名为students.xlsx的xlsx文件");
-                            }
-                            if(resp.body.details === 'NOT TEACHER'){
-                                this.$message("您的身份没有导入学生的权限");
-                            }
-                            this.loadingQ = false;
-                        }
-                    }).
-                    catch((resp) => {
-                        if(resp.body.details === 'NO STUDENTS FILE') {
-                            this.$message("请上传一个名为students.xlsx的xlsx文件");
-                        }
-                        if(resp.body.details === 'NOT TEACHER'){
-                            this.$message("您的身份没有导入学生的权限");
-                        }
-                        this.loadingQ = false;
-                    });
-            },
+                console.log(response.filename);
+                this.$http.post('/api/class/addstudents', {class_id: this.class_id, filename: response.filename}, null).
+                     then((resp) => {
+                         if(resp.body.status === 'SUCCESS.') {
+                             this.$message("成功");
+                             this.loadingQ = false;
+                         } else {
+                             if(resp.body.details === 'NO STUDENTS FILE') {
+                                 this.$message("请上传xlsx文件");
+                             }
+                             if(resp.body.details === 'NOT TEACHER'){
+                                 this.$message("您的身份没有导入学生的权限");
+                             }
+                             this.loadingQ = false;
+                         }
+                     }).
+                     catch((resp) => {
+                         if(resp.body.details === 'NO STUDENTS FILE') {
+                             this.$message("请上传一个xlsx文件");
+                         }
+                         if(resp.body.details === 'NOT TEACHER'){
+                             this.$message("您的身份没有导入学生的权限");
+                         }
+                         this.loadingQ = false;
+                     });
+            }
         },
     };
 </script>
