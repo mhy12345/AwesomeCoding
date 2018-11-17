@@ -1,5 +1,5 @@
 <template>
-	<el-card>
+	<div>
 		<el-row type='flex' justify='center'>
 			<el-col :span='24'>
 				<div style='min-height:150px'>
@@ -27,7 +27,7 @@
 				<div @click='nextPage' class='tag'><i class="el-icon-arrow-right"></i></div>
 			</el-tooltip>
 		</el-row>
-	</el-card>
+	</div>
 </template>
 
 <script>

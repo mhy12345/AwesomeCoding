@@ -3,38 +3,66 @@
 		<div v-bind:class="{ fly: fly }">
 			<el-row :gutter="40">
 				<el-col :span='15'>
-                    <!--正中直播窗口-->
+					<!--正中直播窗口-->
 					<div style='min-height:500px'>
 						<keep-alive>
-							<components ref='big' :is='cp_player'></components>
+							<components ref='cp_main' :is='cp_main'></components>
 						</keep-alive>
 					</div>
-                    <!--下方输入框-->
+					<!--下方输入框-->
 					<chat-input></chat-input>
 				</el-col>
-                <!--右侧边栏-->
+				<!--右侧边栏-->
 				<el-col :span='9'>
-                    <sidebar class="right-sidebar" :course_status="course_status.role" :user="user"></sidebar>
+					<sidebar class="right-sidebar" :course_status="course_status.role" :user="user"></sidebar>
 				</el-col>
 			</el-row>
-			<el-row type='flex' justify='center' :gutter='20'>
-				<el-col :span='2'>
-					<el-button type='mini' @click='handleSwap("live")'>直播 </el-button>
-				</el-col>
-				<el-col :span='2'>
-					<el-button type='mini' @click='handleSwap("pdf")'>课件 </el-button>
-				</el-col>
-				<el-col :span='2'>
-					<el-button type='mini' @click='handleSwap("problem")'>练习 </el-button>
-				</el-col>
-			</el-row>
+			<!--
+	   <el-row type='flex' justify='center' :gutter='20'>
+	   <el-col :span='2'>
+	   <el-button type='mini' @click='handleSwap("live")'>直播 </el-button>
+	   </el-col>
+	   <el-col :span='2'>
+	   <el-button type='mini' @click='handleSwap("pdf")'>课件 </el-button>
+	   </el-col>
+	   <el-col :span='2'>
+	   <el-button type='mini' @click='handleSwap("problem")'>练习 </el-button>
+	   </el-col>
+	   </el-row>-->
 		</div>
 		<!--右下角ppt窗口-->
-		<Popup v-show='showWidget'>
-		<keep-alive>
-			<components ref='small' :is='cp_fileviewer'></components>
-		</keep-alive>
-		</Popup>
+		<div class='pop-up-container'>
+			<Popup name='live' 
+				   @display='handleDisplay("live")' 
+				   v-show='cp_live'
+				   ref='pu_live'
+				   >
+			<template slot='abbrev'>
+				直播
+			</template>
+			<components ref='cp_live' :is='cp_live'></components>
+			</Popup>
+			<Popup name='pdf' 
+				   @display='handleDisplay("pdf")' 
+				   v-show='cp_pdf'
+				   ref='pu_pdf'
+				   >
+			<template slot='abbrev'>
+				课件
+			</template>
+			<components ref='cp_pdf' :is='cp_pdf'></components>
+			</Popup>
+			<Popup name='practice' 
+				   @display='handleDisplay("prob")' 
+				   v-show='cp_prob'
+				   ref='pu_prob'
+				   >
+			<template slot='abbrev'>
+				习题
+			</template>
+			<components ref='cp_prob' :is='cp_prob'></components>
+			</Popup>
+		</div>
 	</div>
 </template>
 
@@ -44,21 +72,43 @@ import Vue from 'vue';
 import Player from './Player';
 import Sidebar from './Sidebar';
 import ChatInput from './ChatInput';
+import ProbViewer from './ProbViewer';
 import Popup from './Popup';
 import FileViewer from '@/components/components/FileViewer.vue';
 
-Vue.component('sub-pdf', FileViewer);
-Vue.component('sub-live', Player);
+Vue.component('sub_pdf', FileViewer);
+Vue.component('sub_live', Player);
+Vue.component('sub_prob', ProbViewer);
 
 export default {
 	name: 'Live',
 	props: ['course_status', 'fly', 'user'],
 	data() {
 		return {
-			showWidget: true,
-			cp_fileviewer: 'sub-pdf',
-			cp_player: 'sub-live',
+			cp_main: 'sub_live',
+			cp_pdf: 'sub_pdf',
+			cp_live: null,
+			cp_prob: 'sub_prob',
 		};
+	},
+	sockets: {
+		alert: function(msg) {
+			if (msg.operation === 'PROBLEM_PUBLISH.') {
+				if (this.cp_prob === null) {
+					this.$refs.cp_main.update(msg.info);
+				}else {
+					this.$refs.cp_prob.update(msg.info);
+					this.$refs.pu_prob.handleHidden(1);
+				}
+			} else if (msg.operation === 'PROBLEM_RECALL.') {
+				if (this.cp_prob === null) {
+					this.$refs.cp_main.update(null);
+				}else {
+					this.$refs.cp_prob.update(null);
+					this.$refs.pu_prob.handleHidden(0);
+				}
+			}
+		}
 	},
 	components: {
 		Sidebar,
@@ -68,19 +118,17 @@ export default {
 		Popup
 	},
 	methods: {
-		handleSwap: function () {
-			let t = this.cp_fileviewer;
-			this.cp_fileviewer = this.cp_player;
-			this.cp_player = t;
-			this.$nextTick(() => {
-				this.$message("RELOAD");
-				this.$refs.small.reload();
-				this.$refs.big.reload();
-			});
+		handleDisplay: function (name) {
+			let old = this.cp_main.substr(4);
+			console.log(old, this['cp_'+old]);
+			console.log(name, this['cp_'+name]);
+			this['cp_'+old] = this.cp_main;
+			this.cp_main = this['cp_'+name];
+			this['cp_'+name] = null;
 		},
-		handleHidden: function () {
-			this.showWidget = !this.showWidget;
-		}
+	},
+	mounted: function() {
+		console.log(this);
 	}
 };
 </script>
@@ -102,6 +150,10 @@ export default {
 }
 .spanner {
 	min-height:600px;
+}
+
+.pop-up-container {
+	position:fixed;width:350px;bottom:20px;right:20px;
 }
 
 </style>

@@ -51,7 +51,6 @@
                         <el-upload class="upload-demo"
                                    action="/api/file/upload"
                                    :on-success="successUpload"
-                                   :on-remove="handleRemove"
                                    :file-list="fileList">
                             <el-tooltip content="请上传一个xlsx文件，文件中应含有需导入学生的真实姓名">
                                 <el-button size="small"
@@ -94,7 +93,7 @@
                     margin: 'auto',
                     padding: '5px'
                 },
-                ruleform: {fileList: []},
+                ruleForm: {fileList: []},
                 fileList: [],
             };
         },

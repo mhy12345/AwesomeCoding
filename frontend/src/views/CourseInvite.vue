@@ -50,7 +50,6 @@
                          type: 'info',
                          message: '加入班级失败...' + translate[res.body]
                      });
-                     self.location=document.referrer;
                  });
         }
     };

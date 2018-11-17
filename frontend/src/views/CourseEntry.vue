@@ -43,7 +43,7 @@
         methods: {
             handleEnterByInvitation: function () {
 				console.log(this);
-                window.location.href = "/class/invite/" + this.invitation_code;
+                window.location.href = "/course/invite/" + this.invitation_code;
             },
         },
         components: {
