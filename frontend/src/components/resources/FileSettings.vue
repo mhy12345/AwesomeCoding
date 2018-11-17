@@ -70,7 +70,7 @@ export default {
                                   }
                               }
                               for (let i = 0; i < this.tableData.length; i++) {
-                                  this.tableData[i].showFilename = this.tableData[i].filename.split(" ")[2];
+                                  this.tableData[i].showFilename = this.tableData[i].filename.slice(32);
                               }
                           });
                  });

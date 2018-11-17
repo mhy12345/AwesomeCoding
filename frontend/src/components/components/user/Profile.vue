@@ -206,7 +206,7 @@
                          console.log(res.body.results);
                          this.tableData = res.body.results;
                          for (let i = 0; i < this.tableData.length; i++) {
-                             this.tableData[i].showFilename = this.tableData[i].filename.split(" ")[2];
+                             this.tableData[i].showFilename = this.tableData[i].filename.slice(32);
                          }
                      });
                 this.$http.post('/api/chat/info/query/user', {}).

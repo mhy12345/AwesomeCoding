@@ -11,12 +11,14 @@ var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").runtime_configure;
 var logger = log4js.getLogger('file_log');
 var mysql = require('mysql');
-
+var doSqlQuerySequential = require('../utils/funcs').doSqlQuerySequential;
+const crypto = require('crypto');
 log4js.configure(log4js_config);
 
 router.post('/upload', upload.any(), function (req, res, next) { //区分文件名(用空格)，禁止上传含有空格的文件
 	var user_id = req.session.user_id;
 	var response, i;
+	var hash = crypto.createHash('md5');
 	for (i = 0; i < req.files[0].originalname.length; i = i + 1) {
 		if (req.files[0].originalname[i] === ' ') {
 			response = {
@@ -27,6 +29,9 @@ router.post('/upload', upload.any(), function (req, res, next) { //区分文件�
 			return;
 		}
 	}
+	let registration_date = mysql.escape(new Date());
+	hash.update(registration_date);
+	let filename = hash.digest("hex") + req.files[0].originalname;
 
 	if (user_id === undefined) {
 		response = {
@@ -36,8 +41,6 @@ router.post('/upload', upload.any(), function (req, res, next) { //区分文件�
 		res.end(JSON.stringify(response));
 	}
 	else {
-		let registration_date = mysql.escape(new Date());
-		let filename = registration_date + " " + req.files[0].originalname;
 
 		var des_file = path.join('./public/uploads/' + filename);
 		fs.readFile(req.files[0].path, function (err, data) {
@@ -85,7 +88,7 @@ router.get('/download', function (req, res, next) {
 	if (stats.isFile()) {
 		res.set({
 			'Content-Type': 'application/octet-stream',
-			'Content-Disposition': 'attachment; filename=' + encodeURI(filename.split(" ")[2]),
+			'Content-Disposition': 'attachment; filename=' + encodeURI(filename.slice(32)),
 			"Content-Length": stats.size
 		});
 		fs.createReadStream(filepath).pipe(res);
@@ -221,10 +224,14 @@ router.post('/delete_from_course', function(req, res, next) {
 router.post('/delete', function(req, res, next) {
 	let id = req.body.fileId;
 	let filename = req.body.filename;
+	let sqls = [];
+	let sql = 'delete from files where id = ' + id;
+	sqls.push(sql);
+	sql = 'delete from coursefiles where file_id = ' + id;
+	sqls.push(sql);
 	getConnection().
 		then(function(conn) {
-			let sql = 'delete from files where id = ' + id;
-			return doSqlQuery(conn, sql);
+			return doSqlQuerySequential(conn, sqls);
 		}).
 		then(function(packed) {
 			let {conn, sql_res} = packed;
@@ -236,7 +243,7 @@ router.post('/delete', function(req, res, next) {
 		}).
 		catch(function(sql_res) {
 			res.send(JSON.stringify(sql_res, null, 3));
-		})
+		});
 });
 
 module.exports = router;
