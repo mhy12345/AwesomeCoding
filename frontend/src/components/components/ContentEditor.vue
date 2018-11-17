@@ -50,7 +50,7 @@ export default {
 			this.$http.
 				post('/api/content/save',{
 					content: this.content,
-					deltas: quill_deltas,
+                    deltas: quill_deltas,
 					code: this.content_id,
 				}).
 				then(function (res) {

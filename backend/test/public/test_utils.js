@@ -29,9 +29,9 @@ function _addUser(request, user) {	// 注册用户
 		request.
 			get("/api/developer/do_query?sql=INSERT INTO ac_database.users " +
 				"(" + Object.keys(user).
-							 join(',') + ") VALUES " +
+							join(',') + ") VALUES " +
 				"('" + Object.values(user).
-							  join("','") + "');").
+							join("','") + "');").
 			end(function (err, res) {
 				if (err) reject(err);
 				body = eval('(' + res.text + ')');
