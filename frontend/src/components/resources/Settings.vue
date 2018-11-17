@@ -29,6 +29,7 @@
                     <el-upload
                         action="/api/file/uploadcourseimg"
                         list-type="picture-card"
+                        :data='{class:class_id}'
                         :on-preview="handlePictureCardPreview"
                         :on-remove="handleRemove">
                         <i class="el-icon-plus"></i>
