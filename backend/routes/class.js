@@ -216,6 +216,7 @@ router.post('/join', function (req, res, next) { //学生加入班级
 		}).
 		then(function (packed) {
 			let { conn, sql_res } = packed;
+
 			conn.end();
 			res.send('SUCCESS.');
 		}).
@@ -670,6 +671,84 @@ router.post('/addstudents', function (req, res, next) {
 		}
 	});
 
+});
+
+router.post('/participants/assignTA', function (req, res, next) {
+	let user_id = +req.session.user_id;
+	let target_id = +req.body.user_id;
+	let class_id = +req.body.class_id;
+	let user_role = req.session.role;
+	let target_role = undefined;
+	getConnection().
+		then(function (conn) {
+			return checkPermission(conn, class_id, user_id);
+		}).
+		then(function (packed) {
+			let { conn, role } = packed;
+			user_role = role;
+			return checkPermission(conn, class_id, target_id);
+		}).
+		then(function (packed) {
+			let { conn, role } = packed;
+			target_role = role;
+			if (target_role !== 2) {
+				conn.end();
+				return Promise.reject({status:"FAILED.",details:"Cannot Assgin Teacher or TA as TA."});
+			}
+			if	(user_role !== 0) {
+				conn.end();
+				return Promise.reject({status:"FAILED.",details:"Not A Teacher"});
+			} 
+			let sql = 'UPDATE classusers SET role = 1 WHERE user_id = ' + mysql.escape(target_id) + ' AND class_id = ' + mysql.escape(class_id);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let { conn, sql_res } = packed;
+			conn.end();
+			res.send(JSON.stringify(sql_res));
+		}).
+		catch(function (sql_res) {
+			res.send(JSON.stringify(sql_res));
+		});
+});
+
+router.post('/participants/cancelTA', function (req, res, next) {
+	let user_id = +req.session.user_id;
+	let target_id = +req.body.user_id;
+	let class_id = +req.body.class_id;
+	let user_role = req.session.role;
+	let target_role = undefined;
+	getConnection().
+		then(function (conn) {
+			return checkPermission(conn, class_id, user_id);
+		}).
+		then(function (packed) {
+			let { conn, role } = packed;
+			user_role = role;
+			return checkPermission(conn, class_id, target_id);
+		}).
+		then(function (packed) {
+			let { conn, role } = packed;
+			target_role = role;
+			if (target_role !== 1) {
+				conn.end();
+				return Promise.reject({status:"FAILED.",details:"NOTTA."});
+			}
+			if	(user_role !== 0) {
+				conn.end();
+				return Promise.reject({status:"FAILED.",details:"Not A Teacher"});
+			} 
+			let sql = 'UPDATE classusers SET role = 2 WHERE user_id = ' + mysql.escape(target_id) + ' AND class_id = ' + mysql.escape(class_id);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let { conn, sql_res } = packed;
+			conn.end();
+			res.send(JSON.stringify(sql_res));
+		}).
+		catch(function (sql_res) {
+			res.send(JSON.stringify(sql_res));
+		});
 });
 
 module.exports = router;
