@@ -115,7 +115,7 @@
                         this.loadingQ = false;
                         this.$message.success("登录成功！" + resp.results.realname);
                         this.$emit('logined', resp.results); // 通知父级已登录
-                        this.$router.push('/user/profile');
+                        window.location.href = "/home";
                     }).
                     catch((resp) => {
                         console.log(resp);

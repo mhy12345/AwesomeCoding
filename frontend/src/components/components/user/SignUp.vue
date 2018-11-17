@@ -78,6 +78,11 @@
             </el-row>
 
         </div>
+        <div>
+            <el-row>
+                <h1>*表示必填项</h1>
+            </el-row>
+        </div>
         <div align="center">
             <el-row>
                 <el-button type="success" class="register-button" @click="handleSignUp">注册</el-button>
@@ -100,14 +105,14 @@
             return {
                 title: '欢迎注册',
                 heads: { // 输入框提示词
-                    nickname: '用户名',
-                    realname: '真实姓名',
-                    role: '身份',
+                    nickname: '用户名(*)',
+                    realname: '真实姓名(*)',
+                    role: '身份(*)',
                     email: '邮箱',
-                    phone: '手机号',
+                    phone: '手机号(*)',
                     motto: '签名',
-                    password: '密码',
-                    re_password: '重复密码',
+                    password: '密码(*)',
+                    re_password: '重复密码(*)',
                 },
                 inputs: { // 输入框的信息
                     nickname: '',
