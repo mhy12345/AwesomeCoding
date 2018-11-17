@@ -24,10 +24,25 @@
 					<ContentDisplay @click.native='onEdit(CourseData.notice)' :border='true' ref='notice_display'>
 					</ContentDisplay>
                 </el-form-item>
+
+                <el-form-item label="上传课程图片：">
+                    <el-upload
+                        action="/api/file/uploadcourseimg"
+                        list-type="picture-card"
+                        :data='{class:class_id}'
+                        :on-preview="handlePictureCardPreview"
+                        :on-remove="handleRemove">
+                        <i class="el-icon-plus"></i>
+                    </el-upload>
+                    <el-dialog :visible.sync="dialogVisible">
+                        <img width="100%" :src="dialogImageUrl" alt="">
+                    </el-dialog>
+                </el-form-item>
+
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">更新</el-button>
                 </el-form-item>
-				<ContentEditor ref=editor
+                <ContentEditor ref=editor
 					@updated='handleUpdate'
 				>
 				</ContentEditor>
@@ -56,7 +71,8 @@ export default {
 			resources: undefined,
 			loading: true,
 			avaliable_resources: avaliable_resources,
-
+            dialogImageUrl: '',
+            dialogVisible: false
 		};
 	},
 	mounted: function () {
@@ -75,6 +91,15 @@ export default {
 			});
 	},
 	methods: {
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+        },
+        handlePictureCardPreview(file) {
+            console.log('fileurl');
+            console.log(file.url);
+            this.dialogImageUrl = file.url;
+            this.dialogVisible = true;
+        },
 		handleUpdate: function () {
 			// console.log("Setting updated...");
 			this.$refs.description_display.handleUpdate(this.CourseData.description);
