@@ -151,7 +151,7 @@ export default {
 }
 
 .pop-up-container {
-	position:fixed;width:350px;bottom:20px;right:20px;
+	position:fixed;width:350px;bottom:50px;right:40px;
 }
 
 </style>

@@ -487,7 +487,7 @@ router.post('/public/fetch', function (req, res, next) {//公开课程目录获�
 router.post('/my_course/fetch', function (req, res, next) {
 	if (typeof(req.body.page_number) === 'undefined') {
 		res.status(403).
-			send('Pagenum not defined.');
+			send('PAGENUM_NOT_DEFINED.');
 		return;
 	}
 	if (typeof(req.body.page_size) === 'undefined') {
@@ -497,7 +497,7 @@ router.post('/my_course/fetch', function (req, res, next) {
 	}
 	if (typeof(req.session.user_id) === 'undefined') {
 		res.status(403).
-			send('User not login...');
+			send('USER_NOT_LOGIN.');
 		return;
 	}
 
