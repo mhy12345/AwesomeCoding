@@ -181,7 +181,6 @@
             };
         },
         beforeMount () {
-            console.log('role =', this.user.role);
             if (this.user.role === 0) {
                 this.role.text = '管理员';
                 this.role.icon_url = require('../../../assets/images/icons/administrator.png');
@@ -203,7 +202,6 @@
             loadTableData () {
                 this.$http.post('/api/file/fetch', {}).
                      then(function (res) {
-                         console.log(res.body.results);
                          this.tableData = res.body.results;
                          for (let i = 0; i < this.tableData.length; i++) {
                              this.tableData[i].showFilename = this.tableData[i].filename.slice(32);
@@ -254,7 +252,6 @@
                     then((res) => {
                         this.loadingQ = false;
                         this.user = res.results;
-                        console.log('[Changed Profile]', this.user);
                         this.$message('修改成功。');
                         this.editingQ = false;
                         this.inputs.password = '●●●●●●●●●●●●';

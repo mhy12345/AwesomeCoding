@@ -30,7 +30,6 @@ export default {
 	},
 	methods: {
 		handleOpen: function (index,row) {
-			console.log("Dialog open with params ",row);
 			this.code = row.code;
 			this.title = row.title;
 			this.state = row.state;
@@ -53,7 +52,6 @@ export default {
 		handleClose: function (done) {
 			this.$confirm('确认关闭？')
 				.then(_ => {
-					console.log("CONFIRMED");
 					this.visible = false;
 					done();
 				})

@@ -20,7 +20,6 @@ export default {
 	props: ['course_status'],
 	sockets: {
 		alert: function (msg) {
-			console.log("PRACTICE AREA", msg.operation);
 			if (msg.operation === 'REFRESH.' && msg.target=='train_area') {
 				this.reload();
 			}

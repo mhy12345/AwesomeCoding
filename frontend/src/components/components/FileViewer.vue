@@ -55,11 +55,8 @@ export default {
 			}).
 			then((res) => {
 				this.page = +res.body.results[0].data;
-				console.log("THIS_PDF_SRC =",this.pdfSrc);
-				console.log("THIS_PAGE_NUM=",this.page_num);
 			}).
 			catch((err) => {
-				console.log(err);
 			});
 	},
 	sockets: {
@@ -68,7 +65,6 @@ export default {
 				title: '收到通知',
 				message: msg.content
 			});
-			console.log(">>>>>",msg);
 			if (msg.operation === 'TURN_PAGE.') {
 				this.$notify.warning({
 					title: '收到翻页指令',
@@ -92,7 +88,6 @@ export default {
 		},
 		nextPage: function () {
 			if (this.page + 1 <= this.page_num) {
-				console.log('[file] next page, succeed.');
 				this.page += 1;
 				this.$http.post('/api/class/cache/set',{class_id: this.class_id, entry:'PAGE', data:''+this.page}).then((res) => {
 					this.$socket.emit('alert', {
@@ -102,7 +97,6 @@ export default {
 					});
 				});
 			} else {
-				console.log('[file] next page, failed.');
 			}
 		},
 		prevPage: function () {

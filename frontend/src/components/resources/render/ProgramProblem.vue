@@ -78,7 +78,6 @@ export default {
 
 		},
 		handleUpdate: function (code, tag) {
-			console.log("handleUpdate...",code);
 			this.code = code;
 			this.$http.post('/api/problem/table/program_problems/get',{code: this.code}).
 				then((res) => {

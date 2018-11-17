@@ -190,7 +190,6 @@
                 this.dialog.input = this.input;
             },
             handleClose: function () {
-                //console.log("对话框关闭。");
                 if (this.dialog.response === true) {
                     this.input = this.dialog.input;
                 }
@@ -198,13 +197,11 @@
             getCookies: function () {
                 var str_cookie = document.cookie;
                 var list, cookie;
-                console.log(str_cookie);
                 list = str_cookie.split(';');
                 this.cookies = [];
                 for (cookie of list) {
                     this.cookies.push(cookie.trim());
                 }
-                console.log(this.cookies);
             },
             createCookie: function () {
                 var str_cookie;

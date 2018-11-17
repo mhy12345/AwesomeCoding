@@ -85,41 +85,33 @@ export default {
 					this.CourseData = res.body.info;
 					this.resources = res.body.resources;
 					this.loading = false;
-					// console.log(this.CourseData);
 					this.handleUpdate();
 				}
 			});
 	},
 	methods: {
         handleRemove(file, fileList) {
-            console.log(file, fileList);
         },
         handlePictureCardPreview(file) {
-            console.log('fileurl');
-            console.log(file.url);
             this.dialogImageUrl = file.url;
             this.dialogVisible = true;
         },
 		handleUpdate: function () {
-			// console.log("Setting updated...");
 			this.$refs.description_display.handleUpdate(this.CourseData.description);
 			this.$refs.notice_display.handleUpdate(this.CourseData.notice);
 		},
 		onSubmit () {
-			// console.log(this.CourseData);
 			this.$http.post('/api/class/info/update', {
 				resources: this.resources,
 				info: this.CourseData,
 				class_id: this.class_id
 			}).
 				then(function (res) {
-					// console.log(res.bodyText);
 					this.$message("课程信息已更新");
 					location.reload();
 				});
 		},
 		onEdit (content_id) {
-			// console.log("ON EDIT CALL ",content_id);
 			this.$refs.editor.handleOpen(content_id);
 		},
 	},

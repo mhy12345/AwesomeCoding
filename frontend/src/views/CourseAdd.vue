@@ -50,14 +50,11 @@
         },
         methods: {
             onSubmit () {
-                console.log(this.CourseData);
                 this.$http.post('/api/class/create', this.CourseData).then(function (res) {
-                    console.log(res.bodyText);
                     this.$message(res.bodyText);
                 });
 			},
 			onEdit (content_id) {
-				console.log("ON EDIT CALL ",content_id);
 				this.$refs.editor.handleOpen(content_id);
 			},
 		},

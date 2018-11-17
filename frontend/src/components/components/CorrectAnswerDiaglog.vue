@@ -38,7 +38,6 @@ export default {
 	},
 	methods: {
 		handleOpen: function (problem_id) {
-			console.log("Open dialog with ",problem_id);
 			this.problem_id = problem_id;
 			this.visible = true;
 			/*
@@ -68,7 +67,6 @@ export default {
 					answer: this.form.answer,
 				}).
 				then(function (res) {
-					console.log('>>>',this);
 					this.$message('成功');
 					this.visible = false;
 				}).
@@ -80,7 +78,6 @@ export default {
 		handleClose: function (done) {
 			this.$confirm('确认关闭？')
 				.then(_ => {
-					console.log("CONFIRMED");
 					this.visible = false;
 					done();
 				})

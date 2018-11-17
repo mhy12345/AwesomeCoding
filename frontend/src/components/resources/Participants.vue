@@ -189,12 +189,8 @@
             },
             successUpload: function (response, file, fileList, $event) {
                 this.loadingQ = true;
-                console.log(response);
-                console.log("喵喵喵");
                 this.$http.post('/api/class/addstudents', {class_id: this.class_id, filename: response.filename}, null).
                      then((resp) => {
-                         console.log("太奇怪了");
-                         console.log(resp.body);
                          if(resp.body.status === 'SUCCESS.') {
                              this.$message("成功");
                              this.loadingQ = false;

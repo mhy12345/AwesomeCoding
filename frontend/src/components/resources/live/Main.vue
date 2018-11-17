@@ -118,15 +118,12 @@ export default {
 	methods: {
 		handleDisplay: function (name) {
 			let old = this.cp_main.substr(4);
-			console.log(old, this['cp_'+old]);
-			console.log(name, this['cp_'+name]);
 			this['cp_'+old] = this.cp_main;
 			this.cp_main = this['cp_'+name];
 			this['cp_'+name] = null;
 		},
 	},
 	mounted: function() {
-		console.log(this);
 	}
 };
 </script>

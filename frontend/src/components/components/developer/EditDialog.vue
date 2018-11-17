@@ -24,7 +24,6 @@
         props: {config: Object},
         methods: {
             handleOpened: function () {
-                console.log('对话框开启。');
             },
             cancel: function () {
                 this.config.visible = false;

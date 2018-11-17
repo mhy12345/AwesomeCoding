@@ -65,7 +65,6 @@
                     message: this.inputData.message,
                 }).
                      then(function (res) {
-                         // console.log(res);
                          if (res.body.status === 'SUCCESS.') {
                              this.$router.go(0);
                          }
@@ -74,7 +73,6 @@
             onClear () {
                 this.$http.post('/api/chat/clear_comments', {classid: this.inputData.classId,}).
                      then(function (res) {
-                         // console.log(res);
                          if (res.body.status === 'SUCCESS.') {
                              this.chatrecords = [];
                          }

@@ -38,7 +38,6 @@
                  }).
                  catch(function (res) {
 					 if (res.body === 'USER_NOT_LOGIN.') {
-						 console.log("用户为登陆，无法渲染个人课程.");
 					 } else { 
 						 this.$message(JSON.stringify(res));
 					 }

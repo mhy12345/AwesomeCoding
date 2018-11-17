@@ -111,14 +111,12 @@
                 this.loadingQ = true;
                 loginSQL(this, this.user).
                     then((resp) => {
-                        console.log(resp);
                         this.loadingQ = false;
                         this.$message.success("登录成功！" + resp.results.realname);
                         this.$emit('logined', resp.results); // 通知父级已登录
                         window.location.href = "/home";
                     }).
                     catch((resp) => {
-                        console.log(resp);
                         this.loadingQ = false;
                         if (resp.details === 'WRONG_PASSWORD.') {
                             this.$message.error("登录失败，密码错误！");
@@ -166,14 +164,11 @@
                         this.$refs.verify_input.focus();
 
                         let nowpath = '/api/user/verification';
-                        console.log(nowpath);
                         axios.post(nowpath, {
                             number: this.inputs.phone
                         })
                         .then((resp) => {
-                            console.log(resp);
                             this.verify.code_generated = parseInt(resp.data.code_generated);
-                            console.log(this.verify.code_generated);
                         });
 
                         }    

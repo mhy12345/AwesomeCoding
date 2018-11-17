@@ -67,10 +67,8 @@ export default {
 					data.radius = '75%';
 					// 使用刚指定的配置项和数据显示图表。
 					myChart.setOption({series:data});
-					console.log(data);
 				}).
 				catch((res) => {
-					console.log(res);
 				});
 			this.refreshHandle = setTimeout(this.refresh,2000);
 		}

@@ -30,7 +30,6 @@ export default {
 	props: ['code'],
 	methods: {
 		handleItemClick: function (cmd) {
-			console.log(cmd);
 			this.$refs.render.handleLocate(cmd);
 		}
 	},
@@ -38,10 +37,8 @@ export default {
 		this.$http.post('/api/problem/program_problem/gather',{code: this.code}).
 			then((res) => {
 				this.data = res.body.results;
-				console.log(this.data);
 			}).
 			catch((res) => {
-				console.log(res);
 			});
 	},
 	components: {ProgramProblemRender: ProgramProblemRender}

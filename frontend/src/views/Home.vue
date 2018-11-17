@@ -51,10 +51,8 @@
             this.title = supported_resources[this.idx].title;
             this.$http.post(supported_resources[this.idx].url + '/fetch', {page_number: 1, page_size: 20}).
                  then(function (res) {
-                     console.log('fucking');
                      this.tableData = res.body.results;
                      for(let i of this.tableData) {
-                         console.log(i);
                          if(i.imagepath)
                              i.imagepath = root_url + i.imagepath;
                      }

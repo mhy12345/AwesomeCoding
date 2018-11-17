@@ -59,9 +59,7 @@ function updateSQL (parent, table_name, row) {
 
 function postSQL(parent, query, params) { // 向服务器发出post请求
     var query_url = '/api' + query;
-    console.log('[post] request sent!', query_url, params);
     return parent.$http.post(query_url, params).then((resp) => {
-        console.log(resp);
         return new Promise((resolve, reject) => {
             if (resp.body.status === 'SUCCESS.') {
                 resolve(resp.body);

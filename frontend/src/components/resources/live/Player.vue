@@ -31,7 +31,6 @@ export default {
 			axios.
 				post(nowpath, {class_id: this.class_id}).
 				then((res) => {
-					console.log(">>>RELOAD WITH SIZE", this.$refs.player.offsetWidth);
 					this.player_config.uid = res.data.liveplayer_uid;
 					this.player_config.vid = res.data.liveplayer_vid;
 					this.player_config.width = this.$refs.player.offsetWidth;

@@ -58,12 +58,10 @@ class SelectProblemEmbeder extends Embed {
 	}
 
 	static formats(domNode) {
-		console.log("CALL formats()",domNode);
 		return domNode.getAttribute('id');
 	}
 
 	static sanitize(url) {
-		console.log("CALL sanitize()",domNode);
 	}
 
 	format(name, value) {

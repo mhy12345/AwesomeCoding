@@ -38,7 +38,6 @@ export default {
 	},
 	methods: {
 		handleOpen: function (code) {
-			console.log("The content dialog was opened with code = ", code);
 			this.content_id = code;
 			this.visible = true;
 			this.$nextTick(() => {
@@ -66,20 +65,16 @@ export default {
 			this.loading = true;
 			if (this.quill === undefined) {
 				if (this.$refs.editor !== undefined) {
-					console.log("Successfully located quill instance during handleLoad function.");
 					this.quill = this.$refs.editor.quill;
 				} else {
-					console.log("Failed to located quill instance, but the handleLoad function was called!");
 				}
 			} else {
-				console.log("Quill was already loaded.");
 			}
 			this.$http.post('/api/content/fetch/deltas',{code: this.content_id}).
 				then(function (res) {
 					if (res.body.deltas !== undefined) {
 						let quill_deltas = JSON.parse(res.body.deltas);
 						this.quill.setContents(quill_deltas);
-						console.log("Resume content...");
 						this.loading = false;
 					} else {
 						this.loading = false;
@@ -94,7 +89,6 @@ export default {
 		/*
 		this.$nextTick(() => {
 			if (this.$refs.editor !== undefined) {
-				console.log("Successfully located quill instance during mount time.");
 				this.quill = this.$refs.editor.quill;
 			}
 			this.handleLoad();

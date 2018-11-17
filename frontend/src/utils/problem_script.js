@@ -6,9 +6,7 @@ function generateProblem(configures) {
 	let suffix = "<input type='submit'></input></form>";
 	let body = "";
 	for (var w in configures.choices) {
-		console.log(configures.choices[w]);
 		body += "<input type='radio' name='problem' value='"+w+"'>"+configures.choices[w]+"</input><br/>";
-		console.log(body);
 	}
 	return prefix+body+suffix;
 }

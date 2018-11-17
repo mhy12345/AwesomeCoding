@@ -3,7 +3,6 @@ import Parchment from 'parchment';
 class MHY extends Parchment.Embed {
 	static create(value) {
 		let node = super.create(value);
-		console.log(node);
 		return node;
 	}
 

@@ -62,7 +62,6 @@
                     message: this.input_message
                 };
                 // 以后聊天统一通过socket来完成
-                console.log('[socket] send message:', msg);
                 this.$socket.emit('message', msg);
                 this.input_message = '';
             },

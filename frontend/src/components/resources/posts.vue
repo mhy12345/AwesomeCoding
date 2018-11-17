@@ -83,9 +83,7 @@
                     nickname: this.inputData.nickname,
                 }).
                      then(function (res) {
-                         // console.log(res);
                          if (res.body.status === 'SUCCESS.') {
-                             // console.log(res.body.results);
                              this.chatrecords.push(res.body.results);
                          }
                      });
@@ -93,7 +91,6 @@
             onClear () {
                 this.$http.post('/api/chat/clear_comments', {classid: this.inputData.classId,}).
                      then(function (res) {
-                         // console.log(res);
                          if (res.body.status === 'SUCCESS.') {
                              this.chatrecords = [];
                          }

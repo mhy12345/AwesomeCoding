@@ -7,7 +7,6 @@ function getCookie() {
     var list = document.cookie.split(';');
     var item;
     var elems;
-    // console.log('in get: ', list);
     for (item of list) {
         elems = item.split('=');
         if (elems.length < 2) {

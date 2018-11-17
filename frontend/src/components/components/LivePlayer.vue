@@ -14,7 +14,6 @@
             'uid': String
         },
         created: function () {
-			console.log("PYOBJECT CREATED>>>");
             // eslint-disable-next-line
             var player = polyvObject('#player').livePlayer({
                 width: this.size[0],

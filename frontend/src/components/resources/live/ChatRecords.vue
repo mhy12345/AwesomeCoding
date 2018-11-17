@@ -96,7 +96,6 @@
             };
         },
         mounted () {
-            console.log('[ChatRecords.vue] user', this.user);
             this.refresh();
         },
         methods: {
@@ -111,7 +110,6 @@
                     this.$http.
                          get('/api/live/get_chat_record_count', {params: {course_id: this.course_id,}}).
                          then((res) => {
-                             console.log('[get chat count]', res);
                              if (res.body.status === 'FAILED.') {
                                  this.pushRecord({message: res.body.details});
                                  this.loadingQ = false;
@@ -122,7 +120,6 @@
                              resolve(this.record_count);
                          }).
                          catch((err) => {
-                             console.log(err);
                              reject(err);
                          });
                 });
@@ -168,7 +165,6 @@ this.pushRecord({message: res.body.details});
                          }
                      }).
                      catch((err) => {
-                         console.log(err);
                      });
             },
             formatDateTime: formatDateTime

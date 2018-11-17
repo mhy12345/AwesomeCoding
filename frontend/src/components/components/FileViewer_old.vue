@@ -47,9 +47,7 @@
                 this.pageRendering = true;
                 let _this = this;
                 this.pdfDoc.getPage(num).then(function (page) {
-                    console.log(page);
                     viewport = page.getViewport(_this.scale);
-                    console.log(viewport);
                     let canvas = document.getElementById('the-canvas');
                     canvas.height = viewport.height;
                     canvas.width = viewport.width;

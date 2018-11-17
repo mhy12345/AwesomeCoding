@@ -95,7 +95,6 @@ export default {
                 filename: row.filename,
             }).
                  then(function (res) {
-                     console.log(res);
                      this.loadTableData(true);
                  });
         },
@@ -105,7 +104,6 @@ export default {
                 fileid: row.id,
             }).
                  then(function (res) {
-                     console.log(res);
                      this.loadTableData(false);
                  });
         },

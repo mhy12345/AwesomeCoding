@@ -114,7 +114,6 @@ export default {
 				});
 		},
 		tableRowClassName: function ({row, rowIndex}) {
-			console.log("GET CLASS NAME", row.state);
 			if (row.state === 1)
 				return 'published';
 			else if (row.state === 2)
@@ -193,7 +192,6 @@ export default {
 			} else if (info.type == 1) {
 				ptype = 'program_problems';
 			} else {
-				console.log("未知类别",info);
 			}
 			this.$http.post('/api/problem/table/'+ptype+'/get',{code: info.code}).
 				then((res) => {
@@ -202,7 +200,6 @@ export default {
 				}).
 				catch((err) => {
 					this.$message("未知错误");
-					console.log("未知错误",err);
 				});
 		},
 		handleCreate: function (ptype) {

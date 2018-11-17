@@ -59,7 +59,6 @@ import {supported_resources} from '../utils/Resources';
 import TabPane from './MyTabPane.vue';
 
 for (let item in supported_resources) {
-	// console.log('[dashboard] components-register : sub-'+supported_resources[item].name);
 	Vue.component('sub-'+supported_resources[item].name, supported_resources[item].component);
 }
 
@@ -82,7 +81,6 @@ export default {
     props: ['user'],
 	sockets: {
 		alert: function (msg) {
-			console.log(msg.operation);
 			if (msg.operation === 'PROBLEM_PUBLISH.') {
 				this.$message("你有新的习题，快去看看吧!");
 				//this.new_problem_dialog_visible = true;
@@ -120,7 +118,6 @@ export default {
 				return this.$http.post('/api/class/status', {class_id: this.title}, null);
 			}).
 			then((res) => {
-                console.log('[dashboard]', res.body);
 				if (res.body.status !== 'SUCCESS.') {
 					if (res.body.details === 'NOT_LOGIN.') {
 						this.$message("请登录");
@@ -129,14 +126,12 @@ export default {
 						this.$message("用户没有加入班级");
 						window.location.href = '/user/sign_in';
 					} else {
-						console.log("[dashboard] course status error: " + res.body.details);
 						this.$message("错误，见console");
 					}
 					return;
 				}
 				this.course_status.role = res.body.results.role;
 				//this.course_status = res.body.results;
-				// console.log("[dashboard] course status: ", this.course_status);
 				if (this.course_status.role === 0) {
 					this.course_status.role_title = '教师';
 				} else if (this.course_status.role === 1) {
@@ -150,7 +145,6 @@ export default {
 			}).
 			catch((res) => {
 				this.loading = false;
-				console.log('[dashboard] error', res);
 			});
 	},
 
@@ -159,7 +153,6 @@ export default {
 			var current_options = this.class_resources ? this.class_resources : default_options;
 			let idx = 0;
 			for (let k of current_options) {
-				// console.log('...',k === name);
 				if (k === name) {
 return ''+idx;
 }

@@ -42,7 +42,6 @@
         },
         methods: {
             handleEnterByInvitation: function () {
-				console.log(this);
                 window.location.href = "/course/invite/" + this.invitation_code;
             },
         },

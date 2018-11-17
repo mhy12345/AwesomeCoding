@@ -53,7 +53,6 @@
                 this.$http.post('/api/file/download', {filename: "lecture11.pdf"}).
                      then(function (res) {
                          //how to save it?
-                         console.log(res);
                          const blob = new Blob([res.data]);
                          if (window.navigator.msSaveOrOpenBlob) {
                              // 兼容IE10

@@ -162,7 +162,6 @@ export default {
 	},
     sockets: {      // usages of socket.io
         connect: function () {
-            console.log('[socket] socket connected')
         },
         message: function (msg) {       // 收到服务器发来的消息, todo 后期可以考虑把消息缓存在用户个人页里，并以红圈在右上角头像上显示
             if (!this.loginQ) return;
@@ -174,17 +173,14 @@ export default {
             this.$socket.emit('received');
         },
         accepted: function () {         // 服务器接受客户发出的消息
-            console.log('[socket] accepted!');
             this.$message.success('发送成功');
         },
         rejected: function (msg) {       // 服务器拒绝客户发出的消息
-            console.log('[socket] rejected!', msg);
             this.$message.error('发送失败');
         }
     },
 	methods: {
 		showUnknownError(err) {
-			console.log('[error] ',err);
 			this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
 		},
 		checkLogin() { // 检验用户是否登录
@@ -229,7 +225,6 @@ export default {
 			}
 		},
 		handleLogined(user_info) { // logined event emitted by children router-view
-            console.log('[App] user logged in.', user_info);
             this.user = user_info;
             this.user.gravatar_url = getGravatarUrl(this.user.email);
             this.loginQ = true;

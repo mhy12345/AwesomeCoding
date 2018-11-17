@@ -158,14 +158,11 @@
                         this.$refs.verify_input.focus();
 
                         let nowpath = '/api/user/verification';
-                        console.log(nowpath);
                         axios.post(nowpath, {
                             number: this.inputs.phone
                         })
                         .then((resp) => {
-                            console.log(resp);
                             this.verify.code_generated = parseInt(resp.data.code_generated);
-                            console.log(this.verify.code_generated);
                         });
 
                         }    

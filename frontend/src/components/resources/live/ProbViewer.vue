@@ -42,7 +42,6 @@ export default {
 			this.info = JSON.parse(res.body.results[0].data);
 		}).
 			catch((err) => {
-				console.log("ERROR IN CACHE GET.",err);
 			});
 	},
 	components: {

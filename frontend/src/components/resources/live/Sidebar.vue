@@ -58,7 +58,6 @@
         },
         sockets: {
             pullFlow: function (msg) {       // 收到服务器发来的消息，更新聊天记录显示
-                console.log('[pull chat record flow]');
                 this.$refs.chat_records.pushRecord(msg);
             },
         },
@@ -67,7 +66,6 @@
                 this.$http.
                      get('/api/live/clear_chat_record', {params: {course_id: this.$route.params.class_id}}).
                      then((res) => {
-                         console.log('[res to clear]', res.body);
                          if (res.body.status === 'SUCCESS.') {
                              this.$message.success('清空成功');
                              this.$refs.chat_records.clear();
@@ -84,7 +82,6 @@
                     this.$http.
                          get('/api/live/block_chatting', {params: {course_id: this.$route.params.class_id}}).
                          then((res) => {
-                             console.log('[res to block]', res.body);
                              if (res.body.status === 'SUCCESS.') {
                                  this.$message.warning('已禁言');
                              } else {
@@ -98,7 +95,6 @@
                     this.$http.
                          get('/api/live/allow_chatting', {params: {course_id: this.$route.params.class_id}}).
                          then((res) => {
-                             console.log('[res to allow]', res.body);
                              if (res.body.status === 'SUCCESS.') {
                                  this.$message.success('已允许发言');
                              } else {
