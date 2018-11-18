@@ -5,7 +5,8 @@ var log4js = require("log4js");
 var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('socket_log');
-var $user_sockets = require('../utils/global').$user_sockets;		// restore all user sockets, key: user_id, value: a socket object
+var $user_sockets = require('../utils/global').$user_sockets;
+// restore all user sockets, key: user_id, value: a socket object
 
 function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的用户广播聊天消息，并发送拉流的通知
 	getConnection().
@@ -66,7 +67,7 @@ function alertClassMembers(socket, msg) {	// 教师向本门课程的所有在�
 			conn.end();
 			for (let result of sql_res.results) {	// 用 socket 通知课程中的这些用户
 				let id = result.user_id;
-				if (id === socket.request.session.user_id && msg.echo == undefined) continue;	// 不广播给自己
+				if (id === socket.request.session.user_id && msg.echo === undefined) continue;	// 不广播给自己
 				id = String(id);
 				if ($user_sockets.hasOwnProperty(id)) {
 					logger.info('[alerted] ', id);

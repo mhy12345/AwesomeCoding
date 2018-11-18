@@ -8,7 +8,13 @@
 
 <script>
     /* eslint-disable camelcase,no-unused-vars */
-
+    var translate = {
+        undefined: '',
+        'NOT_LOGIN.': '请登录。',
+        'NOT_STUDENT.': '只有学生账户可以加入班级。',
+        'ALREADY_IN.': '你已经在班级中。',
+        'IN_BLACKLISTING.': '你在黑名单中，不能加入课程，请联系老师。'
+    };
     export default {
         data: function () {
             return {
@@ -19,7 +25,6 @@
         computed: {},
         mounted: function () {
             this.invitation_code = this.$route.params.invitation_code;
-            let _this = this;
             this.$http.post('/api/class/invite/check', {invitation_code: this.invitation_code}, null).
                 then(function (res) {
                     this.class_id = res.body.class_id;
@@ -29,27 +34,15 @@
                         type: 'warning'
                      });
                  }).
-                 then(function () {
+                 then(() => {
                      return this.$http.post('/api/class/join', {class_id: this.class_id}, null);
                  }).
                  then((res) => {
-                     _this.$message({
-                         type: 'success',
-                         message: '成功加入班级'
-                     });
-                     self.location=document.referrer;
+                     this.$message.success('成功加入班级');
+                     self.location = document.referrer;
                  }).
                  catch((res) => {
-                     let translate = {
-                         undefined: '',
-                         'NOT_LOGIN.': '请登录.',
-                         'NOT_STUDENT.': '只有学生账户可以加入班级',
-                         'ALREADY_IN.': '你已经在班级中了'
-                     };
-                     this.$message({
-                         type: 'info',
-                         message: '加入班级失败...' + translate[res.body]
-                     });
+                     this.$message.error('加入班级失败。' + translate[res.body]);
                  });
         }
     };

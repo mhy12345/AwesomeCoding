@@ -1,67 +1,72 @@
 <template>
     <el-container>
-        <!--<el-header>-->
-            <!--<h3>班级成员管理</h3>-->
-        <!--</el-header>-->
-        <div id="DataVisualizer" v-loading="loadingQ">
-            <div v-if="loadedQ">
-                <el-table id="display-table"
-                          :data="fancy_data"
-                          :style="display_config"
-                          highlight-current-row stripe>
-                    <el-table-column v-for="obj in heads"
-                                     :key="obj.idx"
-                                     :label="obj.title"
-                                     align="center"
-                                     :prop="obj.idx">
-                    </el-table-column>
-                    <el-table-column align="center" label="操作" v-if='course_status.role!==2'>
-                        <template slot-scope="scope">
-                            <el-button type="danger"
-                                       icon="el-icon-delete" circle
-                                       v-if='scope.row.role!==0'
-                                       @click="handleDelete(scope.row.id)">
-                            </el-button>
-                        </template>
-                    </el-table-column>
-                    <el-table-column align="center" label="指定助教" v-if='course_status.role===0'>
-                        <template slot-scope="scope">
-                            <el-button type="primary" 
-                                       icon="el-icon-edit" circle
-                                       v-if='scope.row.role===2'
-                                       @click="handleAssignTA(scope.row.id)">
-                            </el-button>
-                        </template>
-                    </el-table-column>
-                    <el-table-column align="center" label="取消助教身份" v-if='course_status.role===0'>
-                        <template slot-scope="scope">
-                            <el-button type="primary" 
-                                       icon="el-icon-edit" circle
-                                       v-if='scope.row.role===1'
-                                       @click="handleCancelTA(scope.row.id)">
-                            </el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
-            </div>
-            <div class="item" v-if='course_status.role!==2'>
-                <el-form :model="ruleForm"
-                         ref="ruleForm">
-                    <el-form-item>
-                        <el-upload class="upload-demo"
-                                   action="/api/file/import"
-                                   :on-success="successUpload"
-                                   :file-list="fileList">
-                            <el-tooltip content="请上传一个xlsx文件，文件中应含有需导入学生的真实姓名">
-                                <el-button size="small"
-                                           type="primary">导入名单
-                                </el-button>
-                            </el-tooltip>
-                        </el-upload>
-                    </el-form-item>
-                </el-form>
-            </div>
-        </div>
+        <!--班级成员管理-->
+        <el-collapse v-model="active_name">
+            <el-collapse-item title="班级成员" name="class-users">
+                <div id="DataVisualizer" v-loading="loadingQ">
+                    <div v-if="loadedQ">
+                        <el-table id="display-table"
+                                  :data="fancy_data"
+                                  :style="display_config"
+                                  highlight-current-row stripe>
+                            <el-table-column v-for="obj in heads"
+                                             :key="obj.idx"
+                                             :label="obj.title"
+                                             align="center"
+                                             :prop="obj.idx">
+                            </el-table-column>
+                            <el-table-column align="center" label="移出教室" v-if='course_status.role!==2'>
+                                <template slot-scope="scope">
+                                    <el-button type="danger"
+                                               icon="el-icon-delete" circle
+                                               v-if='scope.row.role!==0'
+                                               @click="handleDelete(scope.row.id, scope.row.realname)">
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                            <el-table-column align="center" label="指定助教" v-if='course_status.role===0'>
+                                <template slot-scope="scope">
+                                    <el-button type="primary"
+                                               icon="el-icon-edit" circle
+                                               v-if='scope.row.role===2'
+                                               @click="handleAssignTA(scope.row.id)">
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                            <el-table-column align="center" label="取消助教身份" v-if='course_status.role===0'>
+                                <template slot-scope="scope">
+                                    <el-button type="primary"
+                                               icon="el-icon-edit" circle
+                                               v-if='scope.row.role===1'
+                                               @click="handleCancelTA(scope.row.id)">
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                    <div class="item" v-if='course_status.role!==2'>
+                        <el-form :model="ruleForm"
+                                 ref="ruleForm">
+                            <el-form-item>
+                                <el-upload class="upload-demo"
+                                           action="/api/file/import"
+                                           :on-success="successUpload"
+                                           :file-list="fileList">
+                                    <el-tooltip content="请上传一个xlsx文件，文件中应含有需导入学生的真实姓名">
+                                        <el-button size="small"
+                                                   type="primary">导入名单
+                                        </el-button>
+                                    </el-tooltip>
+                                </el-upload>
+                            </el-form-item>
+                        </el-form>
+                    </div>
+                </div>
+            </el-collapse-item>
+            <el-collapse-item title="黑名单" name="blacklisting">
+
+            </el-collapse-item>
+        </el-collapse>
     </el-container>
 </template>
 
@@ -95,6 +100,7 @@
                 },
                 ruleForm: {fileList: []},
                 fileList: [],
+                active_name: 'class-users'
             };
         },
         props: ['course_status', 'table_width'],
@@ -121,8 +127,6 @@
             this.class_id = this.$route.params.class_id;
             this.loadingQ = true;//...
 
-            let _this = this;
-
             this.$http.post('/api/class/participants/show', {class_id: this.class_id}, null).
                  then((resp) => {										 // 成功，被 showSQL 的 resolve 调用
                      this.table_data = resp.body.results;
@@ -133,11 +137,11 @@
                      this.loadingQ = false;
                      this.loadedQ = false;
                      if (resp.body.details === 'NOT_LOGIN.') {
-                         _this.$message("请登录...");
+                         this.$message("请登录...");
                      } else if (resp.body.details === "NOT_IN_CLASS.") {
-                         _this.$message("请先加入班级");
+                         this.$message("请先加入班级");
                      } else {
-                         _this.$message("未知错误");
+                         this.$message("未知错误");
                      }
                  });
         },
@@ -146,17 +150,29 @@
                 this.loadingQ = true;
                 //TODO
             },
-            handleDelete: function (id) { // 向后端数据库发出删除数据的请求
-                this.loadingQ = true;
-                this.$http.post('/api/class/participants/delete', {class_id: this.class_id, user_id: id}, null).
-                     then(() => {
-                         this.$message("成功");
-                         this.loadingQ = false;
-                     }).
-                     catch(() => {
-                         this.$message("失败");
-                         this.loadingQ = false;
-                     });
+            handleDelete: function (id, realname) { // 向后端数据库发出删除数据的请求
+                this.
+                    $confirm(`真的要将${realname}移出教室吗？`, '提示', {
+                        confirmButtonText: '确认',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).
+                    then(() => {
+                        this.loadingQ = true;
+                        return this.$http.post('/api/class/participants/delete', {
+                            class_id: this.class_id,
+                            user_id: id
+                        }, null);
+                    }).
+                    then(() => {
+                        this.$message.success("成功");
+                        this.loadingQ = false;
+
+                    }).
+                    catch(() => {
+                        this.$message.info("失败");
+                        this.loadingQ = false;
+                    });
             },
             handleAssignTA: function (id) { // 向后端数据库发出指定助教的请求
                 this.loadingQ = true;
