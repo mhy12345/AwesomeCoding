@@ -179,6 +179,15 @@ var sqls = {
 		"PRIMARY KEY (`id`) " +
 		") ENGINE = InnoDB DEFAULT CHARSET = utf8;",
 
+	'create_blacklisting': "CREATE TABLE IF NOT EXISTS `blacklisting` (" +	// 课程黑名单
+		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +	// id
+		"`date_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, " +	// 日期时间，由数据库自动填充
+		"`class_id` INT NOT NULL, " +			// 课程id
+		"`user_id` INT NOT NULL, " +			// 用户id
+		"`realname` VARCHAR(40), " +			// 用户姓名
+		"PRIMARY KEY (`id`) " +
+		") ENGINE = InnoDB DEFAULT CHARSET = utf8;",
+
 	'create_database': 'CREATE DATABASE ' + mysql_config.database,
 	'use_database': 'USE ' + mysql_config.database,
 };
@@ -222,6 +231,7 @@ function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新�
 				'create_lives',
 				'create_chat_record',
 				'create_class_cache_table',
+				'create_blacklisting'
 			];
 			if (db_cfg.no_create !== true) {
 				tasks = ['create_database'].concat(tasks);

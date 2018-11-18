@@ -42,7 +42,8 @@
         },
         methods: {
             handleEnterByInvitation: function () {
-                window.location.href = "/course/invite/" + this.invitation_code;
+                // window.location.href = "/course/invite/" + this.invitation_code;
+                this.$router.push(`/course/invite/${this.invitation_code}`);
             },
         },
         components: {
