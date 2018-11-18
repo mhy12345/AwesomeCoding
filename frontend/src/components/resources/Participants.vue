@@ -64,7 +64,29 @@
                 </div>
             </el-collapse-item>
             <el-collapse-item title="黑名单" name="blacklisting">
-
+                <div id="Blacklisting" v-loading="black.loadingQ">
+                    <div v-if="black.loadedQ">
+                        <el-table id="blacklisting-table"
+                                  :data="blacklisting_data"
+                                  :style="display_config"
+                                  highlight-current-row stripe>
+                            <el-table-column v-for="obj in black.heads"
+                                             :key="obj.idx"
+                                             :label="obj.title"
+                                             align="center"
+                                             :prop="obj.idx">
+                            </el-table-column>
+                            <el-table-column align="center" label="取消拉黑" v-if='course_status.role!==2'>
+                                <template slot-scope="scope">
+                                    <el-button type="warning"
+                                               icon="el-icon-remove-outline" circle
+                                               @click="handleCancelBlacklisting(scope.row.user_id)">
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                </div>
             </el-collapse-item>
         </el-collapse>
     </el-container>
@@ -100,7 +122,17 @@
                 },
                 ruleForm: {fileList: []},
                 fileList: [],
-                active_name: 'class-users'
+                active_name: 'class-users',
+                blacklisting_data: [],
+                black: {    // 黑名单表
+                    loadedQ: false,
+                    loadingQ: false,
+                    heads: [
+                        { idx: 'user_id', title: '用户id' },
+                        { idx: 'realname', title: '真实姓名' },
+                        { idx: 'date_time', title: '拉黑时间' }
+                    ]
+                }
             };
         },
         props: ['course_status', 'table_width'],
@@ -135,7 +167,7 @@
                  }).
                  catch((resp) => {
                      this.loadingQ = false;
-                     this.loadedQ = false;
+                     this.loadedQ = true;
                      if (resp.body.details === 'NOT_LOGIN.') {
                          this.$message("请登录...");
                      } else if (resp.body.details === "NOT_IN_CLASS.") {
@@ -143,6 +175,19 @@
                      } else {
                          this.$message("未知错误");
                      }
+                 });
+
+            this.black.loadingQ = true;
+            this.$http.post('/api/class/participants/show_blacklisting', { class_id: this.class_id }).
+                 then((res) => {
+                     this.black.loadingQ = false;
+                     this.black.loadedQ = true;
+                     this.blacklisting_data = res.body.results;
+                 }).
+                 catch((err) => {
+                     this.black.loadingQ = false;
+                     this.black.loadedQ = true;
+                     console.log('[Participants]', err);
                  });
         },
         methods: {
@@ -228,6 +273,17 @@
                              this.$message("您的身份没有导入学生的权限");
                          }
                          this.loadingQ = false;
+                     });
+            },
+            handleCancelBlacklisting(user_id) { // 取消拉黑 user_id
+                this.$http.post('/api/class/participants/white', { class_id: this.class_id, user_id: user_id }).
+                     then((res) => {
+                         // this.blacklisting_data.splice() todo
+                         this.$message('取消拉黑成功。');
+                     }).
+                     catch((res) => {
+                         this.$message('取消失败，见console');
+                         console.log(res);
                      });
             }
         },

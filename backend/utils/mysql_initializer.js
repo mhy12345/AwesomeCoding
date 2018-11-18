@@ -184,6 +184,7 @@ var sqls = {
 		"`date_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, " +	// 日期时间，由数据库自动填充
 		"`class_id` INT NOT NULL, " +			// 课程id
 		"`user_id` INT NOT NULL, " +			// 用户id
+		"`realname` VARCHAR(40), " +			// 用户姓名
 		"PRIMARY KEY (`id`) " +
 		") ENGINE = InnoDB DEFAULT CHARSET = utf8;",
 

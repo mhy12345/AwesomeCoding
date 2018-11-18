@@ -84,8 +84,9 @@ router.post('/status', function (req, res, next) {
 });
 
 router.post('/participants/delete', function (req, res, next) {	// 退出班级或踢人
-	let user_id = +req.session.user_id;
-	let target_id = undefined;
+	var user_id = +req.session.user_id;
+	var target_id = undefined;
+	var target_realname = undefined;
 	if (req.body.user_id === null)
 		target_id = user_id;//当req.body.user为null的话，表示删除自己
 	else
@@ -119,18 +120,27 @@ router.post('/participants/delete', function (req, res, next) {	// 退出班级�
 		then(function (packed) {
 			let { conn, sql_res } = packed;
 			res.send(JSON.stringify(sql_res));
-			if (target_id !== user_id) {
-				let sql = 'INSERT INTO blacklisting (user_id, class_id) VALUES' +
-					`(${mysql.escape(target_id)}, ${mysql.escape(class_id)});`;
+			if (target_id !== user_id) {	// 拉入黑名单
+				let sql = `SELECT realname FROM users WHERE id = ${mysql.escape(target_id)};`;
+				// logger.error('[kicked] sql=', sql);
 				return doSqlQuery(conn, sql);
 			}
 		}).
 		then(function (packed) {
 			let { conn, sql_res } = packed;
+			// logger.error('[kicked] results=', sql_res.results);
+			target_realname = sql_res.results[0].realname;
+			let sql = 'INSERT INTO blacklisting (user_id, realname, class_id) VALUES' +
+				`(${mysql.escape(target_id)}, ${mysql.escape(target_realname)}, ${mysql.escape(class_id)});`;
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let { conn, sql_res } = packed;
 			conn.end();
-			logger.error('[kicked]\n', sql_res.results);
+			logger.error('[kicked]');
 		}).
 		catch(function (sql_res) {
+			logger.fatal(sql_res);
 			res.send(JSON.stringify(sql_res));
 		});
 });
@@ -143,10 +153,6 @@ router.post('/participants/show', function (req, res, next) {
 	}
 	getConnection().
 		then(function (conn) {
-			return checkPermission(conn, req.body.class_id, req.session.user_id);
-		}).
-		then(function (packed) {
-			let { conn, role } = packed;
 			let sql = 'SELECT users.id, users.realname, users.nickname, users.email, classusers.role FROM users ' +
 				'LEFT JOIN classusers ON classusers.user_id = users.id WHERE classusers.class_id = ' +
 				mysql.escape(req.body.class_id) + ' ORDER BY classusers.role DESC';
@@ -161,6 +167,61 @@ router.post('/participants/show', function (req, res, next) {
 			res.status(403).
 				send(JSON.stringify(sql_res));
 		});
+});
+
+router.post('/participants/show_blacklisting', function (req, res) {	// 返回黑名单
+	if (typeof(req.session.user_id) === 'undefined') {
+		res.status(403).
+			send('NOT_LOGIN.');
+		return;
+	}
+	getConnection().
+		then(function (conn) {
+			let sql = 'SELECT user_id, realname, date_time FROM blacklisting ' +
+				`WHERE class_id = ${mysql.escape(req.body.class_id)} ;`;
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let { conn, sql_res } = packed;
+			conn.end();
+			res.send(sql_res);
+		}).
+		catch(function (sql_res) {
+			res.status(403).
+				send(sql_res);
+		});
+});
+
+router.post('/participants/white', function (req, res) {	// 取消拉黑
+	if (typeof(req.session.user_id) === 'undefined') {
+		res.status(403).
+			send('NOT_LOGIN.');
+		return;
+	}
+	getConnection().
+		then(function (conn) {
+			return checkPermission(conn, req.body.class_id, req.session.user_id);
+		}).
+		then(function (packed) {
+			let { conn, role } = packed;
+			if (role !== 0) {	// 权限不够 todo how about TA?
+				res.status(403).
+					send('PERMISSION_DENIED.');
+				return;
+			}
+			let sql = `DELETE FROM blacklisting WHERE user_id = ${mysql.escape(req.body.user_id)} ;`;
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let { conn, sql_res } = packed;
+			logger.error('[whited]', sql_res);
+			conn.end();
+			res.send('SUCCESS.');
+		}).
+		catch(function (err) {
+			res.status(403).
+				send(err);
+		})
 });
 
 router.post('/join', function (req, res, next) { //学生加入班级
