@@ -3,7 +3,7 @@
         <el-header>
             <h2>新建课程</h2>
         </el-header>
-        <el-main>
+        <el-main v-loading='loading'>
             <el-form ref="form" :model="CourseData" label-width="140px">
                 <el-form-item label="课程名称：">
                     <el-input v-model="CourseData.title" placeholder="请输入"></el-input>
@@ -38,6 +38,7 @@
     export default {
         data () {
             return {
+				loading: false,
                 CourseData: {
                     title: "",
                     type: "1",
@@ -50,8 +51,10 @@
         },
         methods: {
             onSubmit () {
+				this.loading = true;
                 this.$http.post('/api/class/create', this.CourseData).then(function (res) {
                     this.$message(res.bodyText);
+					window.location.href = '/course/enter';
                 });
 			},
 			onEdit (content_id) {
