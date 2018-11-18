@@ -468,7 +468,7 @@ router.post('/public/fetch', function (req, res, next) {//公开课程目录获�
 	}
 	let m = (+req.body.page_number - 1) * req.body.page_size;
 	let n = (+req.body.page_number) * req.body.page_size;
-	let sql = 'SELECT * FROM classes LIMIT ' + m + ',' + n;
+	let sql = 'SELECT * FROM classes WHERE type=1 LIMIT ' + m + ',' + n;
 	getConnection().
 		then(function (conn) {
 			return doSqlQuery(conn, sql);

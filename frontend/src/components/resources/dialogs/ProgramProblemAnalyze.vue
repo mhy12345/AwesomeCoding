@@ -10,6 +10,7 @@
 			<el-dropdown-menu slot="dropdown">
 				<el-dropdown-item 
 					v-for='item in data'
+					:key='item.code'
 					:command='item.code'
 					>{{item.realname}}</el-dropdown-item>
 			</el-dropdown-menu>

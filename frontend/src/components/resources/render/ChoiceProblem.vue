@@ -48,7 +48,10 @@ export default {
 					return this.$http.post('/api/problem/choice_problem/fetch',{code: this.code, ans: ans});
 				}).
 				then((res) => {
-					this.answer = res.body.results[0].answer;
+					if (ans && res.body.results.length === 0)
+						this.$message("还没有答案哦!");
+					else
+						this.answer = res.body.results[0].answer;
 				}).
 				catch((err) => {
 				});
