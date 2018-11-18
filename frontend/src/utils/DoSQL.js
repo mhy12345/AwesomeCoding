@@ -1,6 +1,6 @@
 /* eslint-disable camelcase,no-undef */
 
-function getSQL(parent, query) { // 使用ajax，向后端数据库发出 query 请求，然后回调 handleResponse 处理响应
+function getSQL (parent, query) { // 使用ajax，向后端数据库发出 query 请求，然后回调 handleResponse 处理响应
     var query_url = '/api' + query;
     return parent.$http.get(query_url).then((res) => {
         return new Promise((resolve, reject) => {
@@ -57,7 +57,7 @@ function updateSQL (parent, table_name, row) {
     return getSQL(parent, query);
 }
 
-function postSQL(parent, query, params) { // 向服务器发出post请求
+function postSQL (parent, query, params) { // 向服务器发出post请求
     var query_url = '/api' + query;
     return parent.$http.post(query_url, params).then((resp) => {
         return new Promise((resolve, reject) => {
@@ -86,19 +86,19 @@ function forgetPasswordSQL (parent, user) {
     return postSQL(parent, "/user/forgetPassword", user);
 }
 
-function queryPhoneSQL(parent, user) {
+function queryPhoneSQL (parent, user) {
     return postSQL(parent, "/user/queryPhone", user);
 }
 
-function queryPhoneExistSQL(parent, user) {
+function queryPhoneExistSQL (parent, user) {
     return postSQL(parent, "/user/queryPhoneExist", user);
 }
 
-function changePasswordSQL(parent, user) {
+function changePasswordSQL (parent, user) {
     return postSQL(parent, "/user/changePassword", user);
 }
 
-function changeSQL(parent, user) {
+function changeSQL (parent, user) {
     return postSQL(parent, "/user/change", user);
 }
 

@@ -47,7 +47,7 @@
                                       :placeholder="heads[index]">
                                 <div slot="prepend">{{ heads[index] }}</div>
                             </el-input>
-                            <el-input v-else-if="key !== 'password' && key !== 're_password'"
+                            <el-input v-else-if="key !== 'password' && key !== 're_password' && key !== 'phone'"
                                       :id="key"
                                       type="text"
                                       clearable
@@ -58,6 +58,14 @@
                             </el-input>
                         </el-col>
                     </el-row>
+                    <div style="text-align:center">
+                        <el-button type="primary"
+                                   style="text-align:center"
+                                   @click="handleVerification"
+                                   :disabled="verify.disableQ">
+                            {{ verify.prompt }}
+                        </el-button>
+                    </div>
                 </el-col>
             </el-row>
 
@@ -153,6 +161,7 @@
 
     import {changeSQL} from "../../../utils/DoSQL";
     import CourseList from '@/components/components/CourseList.vue';
+    import axios from 'axios';
 
     export default {
         name: "Profile",
@@ -165,7 +174,7 @@
                     text: '',
                     icon_url: '',
                 },
-                heads: ['真实姓名', '签名', '邮箱', '密码', '重复'], // 输入框提示词
+                heads: ['真实姓名', '签名', '邮箱', '密码', '重复', '验证码'], // 输入框提示词
                 editingQ: false, // if the use pushed the 'edit' button
                 inputs: {
                     realname: '',
@@ -173,11 +182,19 @@
                     email: '',
                     password: '',
                     re_password: '',
+                    verify_code: '',
+                    phone: '',
                 },
                 tableData: [],
                 chatrecords: [],
                 loadingQ: false,
                 password_inputQ: false, // if password input box was focused
+                verify: {
+                    code_generated: '',
+                    prompt: '发送验证码',
+                    countdown: 60,
+                    disableQ: false,
+                },
             };
         },
         beforeMount () {
@@ -222,8 +239,10 @@
                 this.inputs.motto = this.user.motto;
                 this.inputs.email = this.user.email;
                 this.inputs.password = '●●●●●●●●●●●●';
+                this.inputs.verify_code = '';
                 this.editingQ = true;
                 this.password_inputQ = false;
+                this.inputs.phone = this.user.phone;
             },
             handleSave () { // submit changes
                 if (this.inputs.realname === '') {
@@ -246,8 +265,8 @@
                 } else {
                     this.inputs.password = ''; // 空字符表示不修改某个键-值
                 }
-                delete this.inputs.re_password;
                 this.loadingQ = true;
+                console.log(this.inputs);
                 changeSQL(this, this.inputs).
                     then((res) => {
                         this.loadingQ = false;
@@ -259,7 +278,12 @@
                     }).
                     catch((err) => {
                         this.loadingQ = false;
-                        this.$message.error('修改失败。' + JSON.stringify(err.details, null, 3));
+                        if (err.details === 'WRONG_VERIFICATION_CODE.') {
+                            this.$message.error("修改密码失败，验证码不正确！");
+                            console.log(this.inputs);
+                        } else {
+                            this.$message.error('修改失败。' + JSON.stringify(err.details, null, 3));
+                        }
                         this.inputs.password = '●●●●●●●●●●●●';
                         this.password_inputQ = false;
                     });
@@ -297,7 +321,29 @@
                      then(function (res) {
                          this.loadTableData();
                      });
-            }
+            },
+            handleVerification: function () {
+                var clock;
+                clock = window.setInterval(() => {
+                    this.verify.disableQ = true;
+                    this.verify.countdown--;
+                    this.verify.prompt = this.verify.countdown + 's后重新发送';
+                    if (this.verify.countdown <= 0) {
+                        window.clearInterval(clock);
+                        this.verify.disableQ = false;
+                        this.verify.prompt = '重新发送验证码';
+                        this.verify.countdown = 60;
+                    }
+                }, 1000);
+
+                this.$message.warning("验证码已发送！请注意查收");
+
+                let nowpath = '/api/user/verification';
+                axios.post(nowpath, {number: this.user.phone})
+                      .then((resp) => {
+                    //this.verify.code_generated = parseInt(resp.data.code_generated);
+                });
+            },
         },
         components: {'myCourses': CourseList}
     };

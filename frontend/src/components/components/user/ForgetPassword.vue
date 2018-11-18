@@ -79,7 +79,7 @@
 
     export default {
         name: "ForgetPassword",
-        data() {
+        data () {
             return {
                 heads: { // 输入框提示词
                     phone: '手机号',
@@ -156,9 +156,7 @@
                         this.$refs.verify_input.focus();
 
                         let nowpath = '/api/user/verification';
-                        axios.post(nowpath, {
-                            number: this.inputs.phone
-                        })
+                        axios.post(nowpath, {number: this.inputs.phone})
                         .then((resp) => {
                             //this.verify.code_generated = parseInt(resp.data.code_generated);
                         });
@@ -173,7 +171,7 @@
                     });
                 
             },
-            handleFocusingOnVerify() {
+            handleFocusingOnVerify () {
                 this.inputs.verify_code = undefined;
             }
         }
