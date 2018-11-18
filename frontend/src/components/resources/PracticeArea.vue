@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<el-card v-for='info in problemData'>
-			<ChoiceProblem v-if='info && info.type === 0' :default_code='info.code'/>
-			<ProgramProblem v-if='info && info.type === 1' :default_code='info.code'/>
+		<el-card v-for='info in problemData' :key='info.code'>
+			<ChoiceProblem v-if='info && info.type === 0' :default_code='info.code' />
+			<ProgramProblem v-if='info && info.type === 1' :default_code='info.code' />
 		</el-card>
 	</div>
 </template>

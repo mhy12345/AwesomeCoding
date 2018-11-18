@@ -10,7 +10,7 @@
 			<el-form-item label="选项个数" label-width=120px>
 				<el-input-number v-model="info.choice_count" :min="2" :max="5"></el-input-number>
 			</el-form-item>
-			<el-form-item :label="'选项'+item" label-width=120px v-for='item of choice_range'>
+			<el-form-item :label="'选项'+item" label-width=120px v-for='item of choice_range' :key='item.index'>
 				<el-input v-model="info['choice_'+item]" autocomplete="off"></el-input>
 			</el-form-item>
 		</el-form>
