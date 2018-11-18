@@ -208,6 +208,51 @@ router.post('/login', function (req, res, next) {  // 响应登录，并进行�
 		});
 });
 
+router.post('/loginbyPhone', function (req, res, next) {  // 响应登录，并进行合法判断 返回 JSON
+	logger.debug("[post] login\n", req.body);
+	if (req.body.verify_code !== user_verification_codes[req.body.phone]) { // 验证码不正确
+		console.log(req.body.phone);
+		console.log(user_verification_codes[req.body.phone]);
+		res_body = {
+			status: 'FAILED.',
+			details: 'WRONG_VERIFICATION_CODE.'
+		};
+		logger.debug('[res]', res_body);
+		res.send(JSON.stringify(res_body));
+		return;
+	}
+	let phone = req.body.phone;
+	
+	getConnection().
+		then(function (conn) {
+			let sql = 'SELECT * FROM users WHERE phone = ' + mysql.escape(phone);
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let { conn, sql_res } = packed;
+			if (sql_res.results.length === 0) {
+				conn.end();
+				return Promise.reject({
+					status: 'FAILED.',
+					details: 'USER_NOT_FOUND.'
+				});
+			}
+			else {
+				let user = sql_res.results[0];
+				updateSession(req.session, user);	// 更新 session
+				conn.end();
+				res.send({
+					status: 'SUCCESS.',
+					details: 'SUCCESS.',
+					results: req.session
+				});
+			}
+		}).
+		catch(function (sql_res) {
+			res.send(JSON.stringify(sql_res));
+		});
+});
+
 router.get('/logout', function (req, res, next) {
 	logger.debug('[get] logout\n', req.body);
 	var res_body = {
@@ -282,7 +327,6 @@ router.post('/forgetPassword', function (req, res, next) {
 		status: '',
 		details: '',
 	};
-	//给邮箱发送新的密码
 	let nickname = req.body.nickname;
 	let newpassword = randomString(10);
 	console.log(newpassword);
@@ -383,9 +427,17 @@ router.post('/changePassword', function (req, res, next) {//修改密码
 	};
 	let userid = req.body.userid;
 	let newpassword = req.body.password;
-	console.log(">>>>>>changepassword");
-	console.log(userid);
-	console.log(newpassword);
+	if (req.body.verify_code !== user_verification_codes[req.body.phone]) { // 验证码不正确
+		console.log(req.body.phone);
+		console.log(user_verification_codes[req.body.phone]);
+		res_body = {
+			status: 'FAILED.',
+			details: 'WRONG_VERIFICATION_CODE.'
+		};
+		logger.debug('[res]', res_body);
+		res.send(JSON.stringify(res_body));
+		return;
+	}
 	getConnection().
 		then(function (conn) {
 			let sql = 'UPDATE users SET password = \'' + newpassword + '\' WHERE id = ' + userid;

@@ -83,7 +83,7 @@
             return {
                 heads: { // 输入框提示词
                     phone: '手机号',
-                    password: '密码',
+                    password: '新密码',
                     re_password: '重复密码',
                 },
                 title: '找回密码',
@@ -117,7 +117,7 @@
                     }).
                     catch((resp) => {
                         if (resp.details === 'WRONG_VERIFICATION_CODE.') {
-                            this.$message.error("注册失败，注册码不正确！");
+                            this.$message.error("修改密码失败，验证码不正确！");
                         }
                     });
             },
@@ -160,7 +160,7 @@
                             number: this.inputs.phone
                         })
                         .then((resp) => {
-                            this.verify.code_generated = parseInt(resp.data.code_generated);
+                            //this.verify.code_generated = parseInt(resp.data.code_generated);
                         });
 
                         }    

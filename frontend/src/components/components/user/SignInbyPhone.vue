@@ -76,7 +76,7 @@
 <script>
     /* eslint-disable camelcase */
 
-    import {forgetPasswordSQL, queryPhoneSQL, changePasswordSQL, loginSQL} from '../../../utils/DoSQL';
+    import {forgetPasswordSQL, queryPhoneSQL, changePasswordSQL, loginSQL, loginbyPhoneSQL} from '../../../utils/DoSQL';
     import axios from 'axios';
     var root_url = require('../../../../config/http_root_url');
 
@@ -109,7 +109,7 @@
         methods: {
             handleSignIn: function () {
                 this.loadingQ = true;
-                loginSQL(this, this.user).
+                loginbyPhoneSQL(this, this.inputs).
                     then((resp) => {
                         this.loadingQ = false;
                         this.$message.success("登录成功！" + resp.results.realname);
@@ -118,10 +118,10 @@
                     }).
                     catch((resp) => {
                         this.loadingQ = false;
-                        if (resp.details === 'WRONG_PASSWORD.') {
-                            this.$message.error("登录失败，密码错误！");
-                        } else if (resp.details === 'USER_NOT_FOUND.') {
-                            this.$message.error("登录失败，用户名不存在！");
+                        if (resp.details === 'USER_NOT_FOUND.') {
+                            this.$message.error("手机号未注册！");
+                        } else if (resp.details === 'WRONG_VERIFICATION_CODE.') {
+                            this.$message.error("登录失败，验证码错误！");
                         } else {
                             this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.details));
                         }
@@ -168,7 +168,7 @@
                             number: this.inputs.phone
                         })
                         .then((resp) => {
-                            this.verify.code_generated = parseInt(resp.data.code_generated);
+                            //this.verify.code_generated = parseInt(resp.data.code_generated);
                         });
 
                         }    
