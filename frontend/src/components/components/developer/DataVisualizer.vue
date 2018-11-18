@@ -117,7 +117,6 @@
         methods: {
             showUnknownError: function (err) {
                 var msg;
-                console.log("UNKNOWN ERROR!", err);
                 msg = "操作失败。" + JSON.stringify(err['details']);
                 this.$message.error(msg);
             },
@@ -131,7 +130,6 @@
                     // 异步执行请求，先获取表头
                     then((resp) => { // 成功，被 getSQLColumns 的 resolve 调用
                         var item;
-                        console.log(resp);
                         for (item of resp.results) {
                             this.heads.push(item['COLUMN_NAME']);
                             this.input.items[item['COLUMN_NAME']] = '';
@@ -139,7 +137,6 @@
                         return showSQL(this, this.table_name); // 然后获取表中数据
                     }).
                     then((resp) => { // 成功，被 showSQL 的 resolve 调用
-                        console.log(resp);
                         this.table_data = resp.results;
                         this.loadingQ = false;
                         this.loadedQ = true;
@@ -154,11 +151,9 @@
                 this.loadingQ = true;
                 insertSQL(this, this.table_name, this.input.items).
                     then((resp) => {
-                        console.log(resp);
                         return showSQL(this, this.table_name);
                     }).
                     then((resp) => {
-                        console.log(resp);
                         this.table_data = resp.results;
                         this.loadingQ = false;
                     }).
@@ -171,11 +166,9 @@
                 this.loadingQ = true;
                 deleteSQL(this, this.table_name, id).
                     then((resp) => {
-                        console.log(resp);
                         return showSQL(this, this.table_name);
                     }).
                     then((resp) => {
-                        console.log(resp);
                         this.table_data = resp.results;
                         this.loadingQ = false;
                     }).
@@ -193,11 +186,9 @@
                 this.edit_dialog.visual = false;
                 updateSQL(this, this.table_name, this.edit_dialog.row).
                     then((resp) => {
-                        console.log(resp);
                         return showSQL(this, this.table_name);
                     }).
                     then((resp) => {
-                        console.log(resp);
                         this.table_data = resp.results;
                         this.loadingQ = false;
                     }).

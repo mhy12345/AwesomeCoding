@@ -76,7 +76,7 @@
 <script>
     /* eslint-disable camelcase */
 
-    import {forgetPasswordSQL, queryPhoneSQL, changePasswordSQL, loginSQL} from '../../../utils/DoSQL';
+    import {forgetPasswordSQL, queryPhoneSQL, changePasswordSQL, loginSQL, loginbyPhoneSQL} from '../../../utils/DoSQL';
     import axios from 'axios';
     var root_url = require('../../../../config/http_root_url');
 
@@ -109,21 +109,19 @@
         methods: {
             handleSignIn: function () {
                 this.loadingQ = true;
-                loginSQL(this, this.user).
+                loginbyPhoneSQL(this, this.inputs).
                     then((resp) => {
-                        console.log(resp);
                         this.loadingQ = false;
                         this.$message.success("登录成功！" + resp.results.realname);
                         this.$emit('logined', resp.results); // 通知父级已登录
-                        this.$router.push('/user/profile');
+                        window.location.href = "/home";
                     }).
                     catch((resp) => {
-                        console.log(resp);
                         this.loadingQ = false;
-                        if (resp.details === 'WRONG_PASSWORD.') {
-                            this.$message.error("登录失败，密码错误！");
-                        } else if (resp.details === 'USER_NOT_FOUND.') {
-                            this.$message.error("登录失败，用户名不存在！");
+                        if (resp.details === 'USER_NOT_FOUND.') {
+                            this.$message.error("手机号未注册！");
+                        } else if (resp.details === 'WRONG_VERIFICATION_CODE.') {
+                            this.$message.error("登录失败，验证码错误！");
                         } else {
                             this.$message.error("登录失败，未知错误！" + JSON.stringify(resp.details));
                         }
@@ -166,14 +164,11 @@
                         this.$refs.verify_input.focus();
 
                         let nowpath = '/api/user/verification';
-                        console.log(nowpath);
                         axios.post(nowpath, {
                             number: this.inputs.phone
                         })
                         .then((resp) => {
-                            console.log(resp);
-                            this.verify.code_generated = parseInt(resp.data.code_generated);
-                            console.log(this.verify.code_generated);
+                            //this.verify.code_generated = parseInt(resp.data.code_generated);
                         });
 
                         }    

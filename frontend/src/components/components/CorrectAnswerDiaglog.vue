@@ -5,18 +5,18 @@
 			   >
 			   <el-form :model="form">
 				   <el-form-item label="题目编号" label-width=120px>
-					   <el-input v-model="problem_id" autocomplete="off" disabled></el-input>
+					    <el-input v-model="problem_id" autocomplete="off" disabled></el-input>
 				   </el-form-item>
 				   <el-form-item label="题目名称" label-width=120px>
-					   <el-input v-model="form.name" autocomplete="off"></el-input>
+                       <el-input v-model="form.name" autocomplete="off"></el-input>
 				   </el-form-item>
 				   <el-form-item label="答案" label-width=120px>
-					   <el-input v-model="form.answer" autocomplete="off"></el-input>
+                       <el-input v-model="form.answer" autocomplete="off"></el-input>
 				   </el-form-item>
 			   </el-form>
 			   <div slot="footer" class="dialog-footer">
-				   <el-button @click="handleCancel">取 消</el-button>
-				   <el-button type="primary" @click="handleChecked">保 存</el-button>
+                   <el-button @click="handleCancel">取 消</el-button>
+                   <el-button type="primary" @click="handleChecked">保 存</el-button>
 			   </div>
 	</el-dialog>
 </template>
@@ -24,7 +24,7 @@
 <script>
 
 export default {
-	data: function() {
+	data: function () {
 		return {
 			visible: false,
 			loading: false,
@@ -34,11 +34,10 @@ export default {
 				answer: '',
 				state: 0,
 			}
-		}
+		};
 	},
 	methods: {
-		handleOpen: function(problem_id) {
-			console.log("Open dialog with ",problem_id);
+		handleOpen: function (problem_id) {
 			this.problem_id = problem_id;
 			this.visible = true;
 			/*
@@ -55,10 +54,10 @@ export default {
 					this.$message("无法获取题目信息!");
 				});*/
 		},
-		handleCancel: function() {
+		handleCancel: function () {
 			this.visible = false;
 		},
-		handleChecked: function() {
+		handleChecked: function () {
 			this.loading = true;
 			this.$http.post('/api/problem/save',
 				{
@@ -67,20 +66,18 @@ export default {
 					alias: this.form.alias,
 					answer: this.form.answer,
 				}).
-				then(function(res) {
-					console.log('>>>',this);
+				then(function (res) {
 					this.$message('成功');
 					this.visible = false;
 				}).
-				catch(function(res) {
+				catch(function (res) {
 					this.$message('失败');
 					this.visible = false;
 				});
 		},
-		handleClose: function(done) {
+		handleClose: function (done) {
 			this.$confirm('确认关闭？')
 				.then(_ => {
-					console.log("CONFIRMED");
 					this.visible = false;
 					done();
 				})
@@ -89,5 +86,5 @@ export default {
 				});
 		}
 	}
-}
+};
 </script>

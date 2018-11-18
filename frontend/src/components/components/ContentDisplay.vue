@@ -31,7 +31,6 @@ this.content = this.content.substr(3,this.content.length-7);
 		}
 	},
 	mounted: function () {
-		// console.log("[display] content rendered : ",this.code);
 		if (this.default_code !== null) {
 this.handleUpdate(this.default_code);
 }

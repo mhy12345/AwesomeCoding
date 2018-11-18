@@ -1,6 +1,7 @@
 <template>
-	<div id='player_box' ref='player_box'>
-		<div id="player"></div>
+	<div id='player_box'>
+		<div id="player" ref='player'></div>
+		<!--<iframe :src='src' style='width:100%;height:400px'></iframe>-->
 	</div>
 </template>
 
@@ -23,15 +24,19 @@ export default {
 	methods: {
 		reload: function () {
 			let nowpath = '/api/class/liveid/query';
+			global.a = document.getElementById('player');
+			global.a.onresize = () => {
+                alert('haha');
+			};
 			axios.
 				post(nowpath, {class_id: this.class_id}).
 				then((res) => {
 					this.player_config.uid = res.data.liveplayer_uid;
 					this.player_config.vid = res.data.liveplayer_vid;
-					this.player_config.width = this.$refs.player_box.offsetWidth;
-					this.player_config.height = this.$refs.player_box.offsetWidth * 0.6;
+					this.player_config.width = this.$refs.player.offsetWidth;
+					this.player_config.height = this.$refs.player.offsetWidth * 0.75;
 					this.src = '/backend/render/live?uid='+this.player_config.uid+'&vid='+this.player_config.vid;
-					let player = polyvObject('#player').  livePlayer(this.player_config);
+					let player = polyvObject('#player').livePlayer(this.player_config);
 				});
 		}
 	},

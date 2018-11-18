@@ -3,7 +3,7 @@
         <el-header>
             <h2>新建课程</h2>
         </el-header>
-        <el-main>
+        <el-main v-loading='loading'>
             <el-form ref="form" :model="CourseData" label-width="140px">
                 <el-form-item label="课程名称：">
                     <el-input v-model="CourseData.title" placeholder="请输入"></el-input>
@@ -36,8 +36,9 @@
 	var randomString = require('../utils/funcs').randomString;
 
     export default {
-        data() {
+        data () {
             return {
+				loading: false,
                 CourseData: {
                     title: "",
                     type: "1",
@@ -49,21 +50,18 @@
             };
         },
         methods: {
-            onSubmit() {
-                console.log(this.CourseData);
+            onSubmit () {
+				this.loading = true;
                 this.$http.post('/api/class/create', this.CourseData).then(function (res) {
-                    console.log(res.bodyText);
                     this.$message(res.bodyText);
+					window.location.href = '/course/enter';
                 });
 			},
-			onEdit(content_id) {
-				console.log("ON EDIT CALL ",content_id);
+			onEdit (content_id) {
 				this.$refs.editor.handleOpen(content_id);
 			},
 		},
-		components: {
-			'ContentEditor': ContentEditor
-		}
+		components: {'ContentEditor': ContentEditor}
 	};
 </script>
 

@@ -1,15 +1,16 @@
 <template>
     <div ref="sidebar">
-        <el-tabs v-model="active_name" ref="tabs">
-            <el-tab-pane label="课程章节" name="chapters" class="sidebar-tab-pane">
+        <el-tabs v-model="active_name" ref="tabs" style='visibility:unset'>
+            <ElTabPane label="课程章节" name="chapters" class="sidebar-tab-pane">
                 ...章节列表...<br>
-            </el-tab-pane>
+            </ElTabPane>
 
-            <el-tab-pane label="班级成员" name="members">
+            <ElTabPane label="班级成员" name="members">
                 <members :course_status="course_status" :table_width="'400px'" class="sidebar-tab-pane"></members>
-            </el-tab-pane>
+            </ElTabPane>
 
-            <el-tab-pane label="聊天室" name="chatting-record">
+            <ElTabPane label="聊天室" name="chatting-room">
+                <!--教师的工具条-->
                 <el-row v-if="course_status === 0">
                     <el-col :span="8">
                         <el-button size="small" class="chatting-room-tool"
@@ -28,10 +29,14 @@
                     </el-col>
                 </el-row>
                 <!--聊天记录-->
-                <chat-records class="sidebar-tab-pane" ref="chat_records"
-                              :course_id="$route.params.class_id" :user="user">
+                <chat-records class="sidebar-tab-pane"
+                              ref="chat_records"
+                              :course_id="$route.params.class_id"
+                              :user="user">
                 </chat-records>
-            </el-tab-pane>
+                <!--聊天输入框-->
+                <chat-input></chat-input>
+            </ElTabPane>
 
         </el-tabs>
     </div>
@@ -40,14 +45,15 @@
 <script>
     import Members from '../Participants';
     import ChatRecords from './ChatRecords';
-    import ElTabPane from "../../../views/MyTabPane";
+    import ElTabPane from "./MyTabPane";
+    import ChatInput from './ChatInput';
 
     export default {
         name: "sidebar",
         props: ['course_status', 'user'],
         data() {
             return {
-                active_name: undefined,
+                active_name: 'chatting-room',
                 block_chattingQ: false, // 是否禁言
                 client_width: undefined,   // sidebar 的实际尺寸
             }
@@ -58,7 +64,6 @@
         },
         sockets: {
             pullFlow: function (msg) {       // 收到服务器发来的消息，更新聊天记录显示
-                console.log('[pull chat record flow]');
                 this.$refs.chat_records.pushRecord(msg);
             },
         },
@@ -67,7 +72,6 @@
                 this.$http.
                      get('/api/live/clear_chat_record', {params: {course_id: this.$route.params.class_id}}).
                      then((res) => {
-                         console.log('[res to clear]', res.body);
                          if (res.body.status === 'SUCCESS.') {
                              this.$message.success('清空成功');
                              this.$refs.chat_records.clear();
@@ -84,7 +88,6 @@
                     this.$http.
                          get('/api/live/block_chatting', {params: {course_id: this.$route.params.class_id}}).
                          then((res) => {
-                             console.log('[res to block]', res.body);
                              if (res.body.status === 'SUCCESS.') {
                                  this.$message.warning('已禁言');
                              } else {
@@ -98,7 +101,6 @@
                     this.$http.
                          get('/api/live/allow_chatting', {params: {course_id: this.$route.params.class_id}}).
                          then((res) => {
-                             console.log('[res to allow]', res.body);
                              if (res.body.status === 'SUCCESS.') {
                                  this.$message.success('已允许发言');
                              } else {
@@ -114,7 +116,8 @@
         components: {
             ElTabPane,
             Members,
-            ChatRecords
+            ChatRecords,
+            ChatInput
         }
     };
 </script>

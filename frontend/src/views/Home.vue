@@ -2,7 +2,7 @@
     <div>
         <div>
             <el-carousel class="carousel_css">
-                <el-carousel-item v-for="(currentitem, idx) in headlines" class = "carousel_item">
+                <el-carousel-item v-for="(currentitem, idx) in headlines" class = "carousel_item" :key='idx'>
                     <div v-if="currentitem.path" @click="jump(currentitem)" style="height: 100%; width: 100%" align="center">
                         <img v-bind:src="currentitem.path" style="height: 100%;"/>
                     </div>
@@ -38,7 +38,7 @@
     import root_url from '../../config/http_root_url.js';
 
     export default {
-        data: function () {
+        data () {
             return {
                 headlines: [],
                 tableData: [],
@@ -51,15 +51,13 @@
             this.title = supported_resources[this.idx].title;
             this.$http.post(supported_resources[this.idx].url + '/fetch', {page_number: 1, page_size: 20}).
                  then(function (res) {
-                     console.log('fucking');
                      this.tableData = res.body.results;
                      for(let i of this.tableData) {
-                         console.log(i);
                          if(i.imagepath)
                              i.imagepath = root_url + i.imagepath;
                      }
 
-                     for(let i = 0; i < 6; i ++) {
+                     for(let i = 0; i < (this.tableData.length < 6 ? this.tableData.length : 6); i ++) {
                          this.headlines.push(
                              {
                                  title: this.tableData[i].title,

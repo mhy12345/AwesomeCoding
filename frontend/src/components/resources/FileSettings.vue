@@ -1,11 +1,12 @@
 <template>
     <el-container>
         <el-main>
-            <el-row>
-            <el-button @click="handlePageAdd()"> 添加 </el-button>
-            <el-button @click="handlePageDelete()"> 删除 </el-button>
-            </el-row>
-            <el-table :data="tableData" style="width: 100%">
+            <el-menu :default-active="activeIndex" mode="horizontal">
+                <el-menu-item index="1" @click="handlePageAdd()">添加到课程</el-menu-item>
+                <el-menu-item index="2" @click="handlePageDelete()">从课程删除</el-menu-item>
+                <el-menu-item index="3" @click="handlePageUpload()">上传文件</el-menu-item>
+            </el-menu>
+            <el-table :data="tableData" style="width: 100%" v-if="upload===false">
             <el-table-column prop="showFilename" label="文件名" width="180"></el-table-column>
             <el-table-column align="center" label="操作">
                 <template slot-scope="scope">
@@ -14,7 +15,7 @@
                            @click="handleAdd(scope.row)">
                     </el-button>
                     <el-button icon="el-icon-delete" circle
-                               v-else="page=false"
+                               v-else="page===false"
                                @click="handleDelete(scope.row)">
                     </el-button>
                     <el-button icon="el-icon-view" circle
@@ -23,6 +24,16 @@
                 </template>
             </el-table-column>
             </el-table>
+            <el-upload
+                class="upload-demo"
+                drag
+                action="/api/file/upload"
+                v-if="upload===true"
+                multiple>
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                <div class="el-upload__tip" slot="tip">tip: 所有文件在个人页可管理</div>
+            </el-upload>
         </el-main>
     </el-container>
 </template>
@@ -38,7 +49,9 @@ export default {
                 userId: undefined,
                 classId: undefined,
             },
-            page: true
+            page: true,
+            activeIndex: "1",
+            upload: false
         };
     },
     mounted: function () {
@@ -70,7 +83,7 @@ export default {
                                   }
                               }
                               for (let i = 0; i < this.tableData.length; i++) {
-                                  this.tableData[i].showFilename = this.tableData[i].filename.split(" ")[2];
+                                  this.tableData[i].showFilename = this.tableData[i].filename.slice(32);
                               }
                           });
                  });
@@ -82,7 +95,6 @@ export default {
                 filename: row.filename,
             }).
                  then(function (res) {
-                     console.log(res);
                      this.loadTableData(true);
                  });
         },
@@ -92,32 +104,38 @@ export default {
                 fileid: row.id,
             }).
                  then(function (res) {
-                     console.log(res);
                      this.loadTableData(false);
                  });
         },
 
         handlePageAdd: function () {
+            this.upload = false;
             this.loadTableData(true);
         },
 
         handlePageDelete: function () {
+            this.upload = false;
             this.loadTableData(false);
+        },
+        handlePageUpload: function () {
+            this.upload = true;
         },
 
         handleView: function (row) {
             if (row.filename.indexOf("pdf") >= 0) {
-                this.$socket.emit('alert', {
-                    operation: 'CHANGE_PDF.',
-                    pdfSrc: "/uploads/" + row.filename,
-                    course_id: this.class_id,
-					echo: true,
-                });
-            } else {
-                alert("请选择pdf文件");
-            }
-        }
-    }
+				this.$http.post('/api/class/cache/set',{class_id: this.class_id, entry:'FILE_NAME', data:'/uploads/'+row.filename}).then((res) => {
+					this.$socket.emit('alert', {
+						operation: 'CHANGE_PDF.',
+						pdfSrc: "/uploads/" + row.filename,
+						course_id: this.class_id,
+						echo: true,
+					});
+				});
+			} else {
+				alert("请选择pdf文件");
+			}
+		}
+	}
 };
 </script>
 

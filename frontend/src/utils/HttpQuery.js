@@ -8,12 +8,10 @@ var root_url = '';
 
 function postQuery(parent, query) { // 使用ajax，向后端数据库发出 query 请求，然后回调 handleResponse 处理响应
     var query_url = '/api' + query;
-    //console.log('[get] request sent!', query_url);
     axios.post(query_url, {
 
     })
     return parent.$http.post(query_url).then((res) => {
-        console.log(res);
         return new Promise((resolve, reject) => {
             if (res.body.status === 'SUCCESS.') {
                 resolve(res.body);

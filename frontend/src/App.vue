@@ -44,7 +44,7 @@
 					</el-menu-item>
 
 					<!-- todo when release <el-submenu index="/developer" :disabled="user.role !== 0" >-->
-					<el-submenu index="/developer">
+					<el-submenu index="/developer" v-if="user.role === 0" >
 						<template slot="title">
 							<i class='el-icon-edit-outline'></i>
 							<span slot="title">开发者</span>
@@ -63,6 +63,7 @@
 						<el-menu-item index="/developer/file_viewer">文件查看</el-menu-item>
 						<el-menu-item index="1-4-1">选项1</el-menu-item>
 					</el-submenu>
+
 					<el-submenu index="/user">
 						<template slot="title">
 							<i class="el-icon-star-on"></i>
@@ -98,24 +99,6 @@
 							<span slot="title">进入课程</span>
 						</el-menu-item>
 					</el-submenu>
-
-					<el-submenu index="/files">
-						<template slot='title'>
-							<i class='el-icon-upload'></i>
-							<span>文件</span>
-						</template>
-						<el-menu-item index="/file/upload">
-							<span slot="title">上传文件</span>
-						</el-menu-item>
-						<el-menu-item index="/file/show">
-							<span slot="title">我的文件</span>
-						</el-menu-item>
-					</el-submenu>
-
-					<el-menu-item index="/class/123">
-						<i class='el-icon-service'></i>
-						<span slot='title'>房间</span>
-					</el-menu-item>
 					<el-menu-item index="/about">
 						<i class='el-icon-info'></i>
 						<span slot='title'>关于</span>
@@ -180,7 +163,6 @@ export default {
 	},
     sockets: {      // usages of socket.io
         connect: function () {
-            console.log('[socket] socket connected')
         },
         message: function (msg) {       // 收到服务器发来的消息, todo 后期可以考虑把消息缓存在用户个人页里，并以红圈在右上角头像上显示
             if (!this.loginQ) return;
@@ -192,17 +174,14 @@ export default {
             this.$socket.emit('received');
         },
         accepted: function () {         // 服务器接受客户发出的消息
-            console.log('[socket] accepted!');
             this.$message.success('发送成功');
         },
         rejected: function (msg) {       // 服务器拒绝客户发出的消息
-            console.log('[socket] rejected!', msg);
             this.$message.error('发送失败');
         }
     },
 	methods: {
 		showUnknownError(err) {
-			console.log('[error] ',err);
 			this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
 		},
 		checkLogin() { // 检验用户是否登录
@@ -247,7 +226,6 @@ export default {
 			}
 		},
 		handleLogined(user_info) { // logined event emitted by children router-view
-            console.log('[App] user logged in.', user_info);
             this.user = user_info;
             this.user.gravatar_url = getGravatarUrl(this.user.email);
             this.loginQ = true;

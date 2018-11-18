@@ -53,14 +53,13 @@
                 this.loadingQ = true;
                 loginSQL(this, this.inputs).
                     then((resp) => {
-                        console.log(resp);
                         this.loadingQ = false;
                         this.$message.success("登录成功！" + resp.results.realname);
                         this.$emit('logined', resp.results); // 通知父级已登录
-                        self.location = document.referrer;
+						//history.go(-1);
+                        self.location = '/';
                     }).
                     catch((resp) => {
-                        console.log(resp);
                         this.loadingQ = false;
                         if (resp.details === 'WRONG_PASSWORD.') {
                             this.$message.error("登录失败，密码错误！");

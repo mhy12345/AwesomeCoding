@@ -1,7 +1,7 @@
 <template>
 	<el-dialog title="预览" :visible.sync="visible">
-		<ChoiceProblem v-if='info.type == 0' :default_code='info.code'/>
-		<ProgramProblem v-if='info.type == 1' :default_code='info.code'/>
+		<ChoiceProblem v-if='info.type === 0' :default_code='info.code'/>
+		<ProgramProblem v-if='info.type === 1' :default_code='info.code'/>
 	</el-dialog>
 </template>
 

@@ -17,7 +17,7 @@
     import PDFJS from 'pdfjs-dist';
 
     export default {
-        data() {
+        data () {
             return {
                 pdfDoc: null,
                 pageNum: 1,
@@ -26,7 +26,7 @@
                 scale: 1
             };
         },
-        mounted() {
+        mounted () {
             let _this = this;
             var url = "/uploads/2018-lecture7-autoencoder_987906464.pdf";
             PDFJS.getDocument(url).then(function (pdf) {
@@ -35,21 +35,19 @@
             });
         },
         methods: {
-            showPDF(url) {
+            showPDF (url) {
                 let _this = this;
                 PDFJS.getDocument(url).then(function (pdf) {
                     _this.pdfDoc = pdf;
                     _this.renderPage(1);
                 });
             },
-            renderPage(num) {
+            renderPage (num) {
                 var viewport, renderContext, renderTask;
                 this.pageRendering = true;
                 let _this = this;
                 this.pdfDoc.getPage(num).then(function (page) {
-                    console.log(page);
                     viewport = page.getViewport(_this.scale);
-                    console.log(viewport);
                     let canvas = document.getElementById('the-canvas');
                     canvas.height = viewport.height;
                     canvas.width = viewport.width;
@@ -72,21 +70,21 @@
                     });
                 });
             },
-            queueRenderPage(num) {
+            queueRenderPage (num) {
                 if (this.pageRendering) {
                     this.pageNumPending = num;
                 } else {
                     this.renderPage(num);
                 }
             },
-            onPrevPage() {
+            onPrevPage () {
                 if (this.pageNum <= 1) {
                     return;
                 }
                 this.pageNum--;
                 this.queueRenderPage(this.pageNum);
             },
-            onNextPage() {
+            onNextPage () {
                 if (this.pageNum >= this.pdfDoc.numPages) {
                     return;
                 }

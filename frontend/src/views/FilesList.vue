@@ -14,7 +14,6 @@
         mounted: function () {
             this.$http.post('/api/file/fetch', {}).
                  then(function (res) {
-                     console.log(res.body.results);
                      this.tableData = res.body.results;
                      for (let i = 0; i < this.tableData.length; i++) {
                          this.tableData[i].showFilename = this.tableData[i].filename.split(" ")[2];

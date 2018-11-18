@@ -21,7 +21,7 @@
 <script>
 
 export default {
-	data: function() {
+	data: function () {
 		return {
 			visible: false,
 			loading: false,
@@ -35,27 +35,24 @@ export default {
 					D: null
 				}
 			}
-		}
+		};
 	},
 	methods: {
-		handleOpen: function(problem_id) {
-			console.log("INIT",this.info);
+		handleOpen: function (problem_id) {
 			this.info.problem_id = problem_id;
 			this.visible = true;
 			this.loading = false;
 		},
-		handleCancel: function() {
+		handleCancel: function () {
 			this.visible = false;
 		},
-		handleChecked: function() {
-			console.log("CHECKED>>>");
+		handleChecked: function () {
 			this.$emit('handle_complete',this.info);
 			this.visible = false;
 		},
-		handleClose: function(done) {
+		handleClose: function (done) {
 			this.$confirm('确认关闭？')
 				.then(_ => {
-					console.log("CONFIRMED");
 					this.visible = false;
 					done();
 				})
@@ -63,5 +60,5 @@ export default {
 				});
 		}
 	}
-}
+};
 </script>

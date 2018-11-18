@@ -161,5 +161,8 @@ describe('#database', function () {
 				});
 			});
 		});
+		after(function () {
+			mysql_config.database = 'ac_database';
+		});
 	});
 });

@@ -83,7 +83,7 @@
             return {
                 heads: { // 输入框提示词
                     phone: '手机号',
-                    password: '密码',
+                    password: '新密码',
                     re_password: '重复密码',
                 },
                 title: '找回密码',
@@ -111,16 +111,14 @@
                     this.$message.warning("密码不一致");
                     return;
                 }
-                if(this.verify.code_generated !== this.inputs.verify_code) {
-                    this.$message.warning("验证码错误");
-                    return;
-                }
                 changePasswordSQL(this, this.inputs).
                     then((resp) => {
                         window.location.href = "/user/sign_in";
                     }).
                     catch((resp) => {
-
+                        if (resp.details === 'WRONG_VERIFICATION_CODE.') {
+                            this.$message.error("修改密码失败，验证码不正确！");
+                        }
                     });
             },
             handleVerification: function () {
@@ -158,14 +156,11 @@
                         this.$refs.verify_input.focus();
 
                         let nowpath = '/api/user/verification';
-                        console.log(nowpath);
                         axios.post(nowpath, {
                             number: this.inputs.phone
                         })
                         .then((resp) => {
-                            console.log(resp);
-                            this.verify.code_generated = parseInt(resp.data.code_generated);
-                            console.log(this.verify.code_generated);
+                            //this.verify.code_generated = parseInt(resp.data.code_generated);
                         });
 
                         }    

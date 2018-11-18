@@ -19,18 +19,17 @@
 import {randomString} from '@/utils/funcs.js';
 
 export default {
-	data: function() {
+	data: function () {
 		return {
 			index: null,
 			visible: false,
 			loading: false,
 			title: null,
 			code: null,
-		}
+		};
 	},
 	methods: {
-		handleOpen: function(index,row) {
-			console.log("Dialog open with params ",row);
+		handleOpen: function (index,row) {
 			this.code = row.code;
 			this.title = row.title;
 			this.state = row.state;
@@ -38,10 +37,10 @@ export default {
 			this.visible = true;
 			this.loading = false;
 		},
-		handleCancel: function() {
+		handleCancel: function () {
 			this.visible = false;
 		},
-		handleChecked: function() {
+		handleChecked: function () {
 			this.$emit('completed',{
 				code: this.code,
 				index: this.index,
@@ -50,10 +49,9 @@ export default {
 			});
 			this.visible = false;
 		},
-		handleClose: function(done) {
+		handleClose: function (done) {
 			this.$confirm('确认关闭？')
 				.then(_ => {
-					console.log("CONFIRMED");
 					this.visible = false;
 					done();
 				})
@@ -61,7 +59,6 @@ export default {
 				});
 		}
 	},
-	components: {
-	}
-}
+	components: {}
+};
 </script>

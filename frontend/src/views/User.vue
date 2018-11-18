@@ -18,11 +18,9 @@
         props: ['user'],
         methods: {
             handleLogined (user_info) {
-                console.log('>>>in user logined!');
                 this.$emit('logined', user_info);
             },
             handleLogout () {
-                console.log('>>>in user logout!');
                 this.$emit('logout');
             },
         }

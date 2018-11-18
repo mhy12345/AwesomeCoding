@@ -8,7 +8,7 @@
                 <div>
                     <el-row>
                         <el-col :span='10'> <h1>发贴人</h1> </el-col>
-                        <el-col :span='14'> <h1>{{userid}}</h1> </el-col>
+                        <el-col :span='14'> <h1>{{nickname}}</h1> </el-col>
                     </el-row>
                     <el-row>
                         <el-col :span='10'> <h1>主题</h1> </el-col>
@@ -16,7 +16,7 @@
                     </el-row>
                 </div>
                 <el-table :data="chatrecords" stripe style="width: 100%">
-                    <el-table-column prop="userid" label="回复人" width="180"></el-table-column>
+                    <el-table-column prop="nickname" label="回复人" width="180"></el-table-column>
                     <el-table-column prop="message" label="回复内容" width="280"></el-table-column>
                     <el-table-column prop="registration_date" label="回复时间" width="180"></el-table-column>
                 </el-table>
@@ -42,11 +42,13 @@
                 classid: "undefined",
                 userid: "undefined",//发贴人
                 theme: "undefined",//发贴主题
+                nickname: "undefined",
                 inputData: {
                     userId: undefined,
                     forumId: undefined,
                     message: undefined,
                     classId: undefined,
+                    nickname: undefined,
                 }
             };
         },
@@ -56,6 +58,7 @@
             this.$http.get('/api/user/session', {}).
                 then((res) => {
                     this.inputData.userId = res.body.user_id;
+                    this.inputData.nickname = res.body.nickname;
                     this.$http.post('/api/chat/info/query/posts', {forumid: this.forumid}).
                         then(function (res) {
                             if (res.body.status === 'NOT FOUND.') {
@@ -64,7 +67,8 @@
                                 this.chatrecords = res.body.chatrecords;
                                 this.userid = res.body.userid;
                                 this.classid = res.body.classid;
-                                this.theme = res.body.theme;                  
+                                this.theme = res.body.theme;
+                                this.nickname = res.body.nickname;                  
                             }
                         });
                 });
@@ -76,11 +80,10 @@
                     forumid: this.forumid,
                     message: this.inputData.message,
                     classid: this.inputData.classId,
+                    nickname: this.inputData.nickname,
                 }).
                      then(function (res) {
-                         // console.log(res);
                          if (res.body.status === 'SUCCESS.') {
-                             // console.log(res.body.results);
                              this.chatrecords.push(res.body.results);
                          }
                      });
@@ -88,7 +91,6 @@
             onClear () {
                 this.$http.post('/api/chat/clear_comments', {classid: this.inputData.classId,}).
                      then(function (res) {
-                         // console.log(res);
                          if (res.body.status === 'SUCCESS.') {
                              this.chatrecords = [];
                          }

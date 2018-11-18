@@ -24,10 +24,25 @@
 					<ContentDisplay @click.native='onEdit(CourseData.notice)' :border='true' ref='notice_display'>
 					</ContentDisplay>
                 </el-form-item>
+
+                <el-form-item label="上传课程图片：">
+                    <el-upload
+                        action="/api/file/uploadcourseimg"
+                        list-type="picture-card"
+                        :data='{class:class_id}'
+                        :on-preview="handlePictureCardPreview"
+                        :on-remove="handleRemove">
+                        <i class="el-icon-plus"></i>
+                    </el-upload>
+                    <el-dialog :visible.sync="dialogVisible">
+                        <img width="100%" :src="dialogImageUrl" alt="">
+                    </el-dialog>
+                </el-form-item>
+
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">更新</el-button>
                 </el-form-item>
-				<ContentEditor ref=editor
+                <ContentEditor ref=editor
 					@updated='handleUpdate'
 				>
 				</ContentEditor>
@@ -45,7 +60,7 @@ import ContentDisplay from '../components/ContentDisplay.vue';
 var randomString = require('../../utils/funcs').randomString;
 
 export default {
-	data() {
+	data () {
 		return {
 			class_id: undefined,
 			CourseData: {
@@ -56,7 +71,8 @@ export default {
 			resources: undefined,
 			loading: true,
 			avaliable_resources: avaliable_resources,
-
+            dialogImageUrl: '',
+            dialogVisible: false
 		};
 	},
 	mounted: function () {
@@ -69,32 +85,33 @@ export default {
 					this.CourseData = res.body.info;
 					this.resources = res.body.resources;
 					this.loading = false;
-					// console.log(this.CourseData);
 					this.handleUpdate();
 				}
 			});
 	},
 	methods: {
-		handleUpdate: function() {
-			// console.log("Setting updated...");
+        handleRemove(file, fileList) {
+        },
+        handlePictureCardPreview(file) {
+            this.dialogImageUrl = file.url;
+            this.dialogVisible = true;
+        },
+		handleUpdate: function () {
 			this.$refs.description_display.handleUpdate(this.CourseData.description);
 			this.$refs.notice_display.handleUpdate(this.CourseData.notice);
 		},
-		onSubmit() {
-			// console.log(this.CourseData);
+		onSubmit () {
 			this.$http.post('/api/class/info/update', {
 				resources: this.resources,
 				info: this.CourseData,
 				class_id: this.class_id
 			}).
 				then(function (res) {
-					// console.log(res.bodyText);
 					this.$message("课程信息已更新");
 					location.reload();
 				});
 		},
-		onEdit(content_id) {
-			// console.log("ON EDIT CALL ",content_id);
+		onEdit (content_id) {
 			this.$refs.editor.handleOpen(content_id);
 		},
 	},

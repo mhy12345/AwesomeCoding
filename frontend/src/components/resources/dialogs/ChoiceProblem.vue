@@ -10,7 +10,7 @@
 			<el-form-item label="选项个数" label-width=120px>
 				<el-input-number v-model="info.choice_count" :min="2" :max="5"></el-input-number>
 			</el-form-item>
-			<el-form-item :label="'选项'+item" label-width=120px v-for='item of choice_range'>
+			<el-form-item :label="'选项'+item" label-width=120px v-for='item of choice_range' :key='item.index'>
 				<el-input v-model="info['choice_'+item]" autocomplete="off"></el-input>
 			</el-form-item>
 		</el-form>
@@ -27,7 +27,7 @@ import {randomString} from '@/utils/funcs.js';
 import ContentEditor from '@/components/components/ContentEditor.vue';
 
 export default {
-	data: function() {
+	data: function () {
 		return {
 			index: null,
 			visible: false,
@@ -44,11 +44,11 @@ export default {
 				choice_D: null,
 				choice_E: null,
 			}
-		}
+		};
 	},
 	computed: {
-		choice_range: function() {
-			let res = []
+		choice_range: function () {
+			let res = [];
 			for (let i=0;i<this.info.choice_count;i++) {
 				res.push(String.fromCharCode('A'.charCodeAt()+i));
 			}
@@ -56,8 +56,7 @@ export default {
 		}
 	},
 	methods: {
-		handleOpen: function(index,row) {
-			console.log("Dialog open with params ",row);
+		handleOpen: function (index,row) {
 			this.info.code = row.code;
 			this.title = row.title;
 			this.state = row.state;
@@ -74,10 +73,10 @@ export default {
 					this.$message("Cannot get the problem details...");
 				});
 		},
-		handleCancel: function() {
+		handleCancel: function () {
 			this.visible = false;
 		},
-		handleChecked: function() {
+		handleChecked: function () {
 			this.$http.post('/api/problem/table/choice_problems/save',{code: this.info.code, info: this.info}).
 				then((res) => {
 					this.$emit('completed',{
@@ -92,10 +91,9 @@ export default {
 					this.visible = false;
 				});
 		},
-		handleClose: function(done) {
+		handleClose: function (done) {
 			this.$confirm('确认关闭？')
 				.then(_ => {
-					console.log("CONFIRMED");
 					this.visible = false;
 					done();
 				})
@@ -103,7 +101,6 @@ export default {
 				});
 		}
 	},
-	components: {
-	}
-}
+	components: {}
+};
 </script>

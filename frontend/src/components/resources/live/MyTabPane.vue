@@ -1,13 +1,12 @@
 <template>
   <div
-    class="my-tab-pane"
+    class="el-tab-pane"
     v-if="(!lazy || loaded) || active"
-    v-show="active || fly"
-	v-visible="active || !fly"
+    v-show="active"
     role="tabpanel"
     :aria-hidden="!active"
     :id="`pane-${paneName}`"
-    :aria-labelledby="`tab-${paneName}`"
+    :aria-labelledby="`tab-s-${paneName}`"
   >
     <slot></slot>
   </div>
@@ -24,8 +23,7 @@
       name: String,
       closable: Boolean,
       disabled: Boolean,
-      lazy: Boolean,
-      fly: Boolean,
+      lazy: Boolean
     },
 
     data () {
