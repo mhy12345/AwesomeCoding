@@ -109,7 +109,8 @@ router.post('/uploadcourseimg', upload.any(), function (req, res, next) { //åŒºå
 		let registration_date = mysql.escape(new Date().getTime());
 		let filename = req.body.class.toString() + "_" + registration_date + "_" + req.files[0].originalname;
 
-		var des_file = path.join('./public/uploads/' + filename);
+		var des_file = path.join('./public/images/' + filename);
+		var savedfilepath = 'images/' + filename;
 		fs.readFile(req.files[0].path, function (err, data) {
 			fs.writeFile(des_file, data, function (err) {
 				if (err) {
@@ -118,7 +119,7 @@ router.post('/uploadcourseimg', upload.any(), function (req, res, next) { //åŒºå
 				else {
 					getConnection().
 						then(function (conn) {
-							let sql = 'update classes set imagepath = ' + mysql.escape(filename) +
+							let sql = 'update classes set imagepath = ' + mysql.escape(savedfilepath) +
 								' where id = ' + mysql.escape(+req.body.class);
 							return doSqlQuery(conn, sql);
 						}).

@@ -4,3 +4,4 @@ logs/
 code/*
 mochawesome-report/
 coverage/
+public/images/
