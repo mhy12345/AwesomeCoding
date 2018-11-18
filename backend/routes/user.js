@@ -286,6 +286,17 @@ router.post('/forgetPassword', function (req, res, next) {
 	let nickname = req.body.nickname;
 	let newpassword = randomString(10);
 	console.log(newpassword);
+	if (req.body.verify_code !== user_verification_codes[req.body.phone]) { // 验证码不正确
+		console.log(req.body.phone);
+		console.log(user_verification_codes[req.body.phone]);
+		res_body = {
+			status: 'FAILED.',
+			details: 'WRONG_VERIFICATION_CODE.'
+		};
+		logger.debug('[res]', res_body);
+		res.send(JSON.stringify(res_body));
+		return;
+	}
 	getConnection().
 		then(function (conn) {
 			let sql = 'UPDATE users SET password = \'' + newpassword + '\' WHERE nickname = \'' + nickname + '\'';

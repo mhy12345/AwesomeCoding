@@ -111,16 +111,14 @@
                     this.$message.warning("密码不一致");
                     return;
                 }
-                if(this.verify.code_generated !== this.inputs.verify_code) {
-                    this.$message.warning("验证码错误");
-                    return;
-                }
                 changePasswordSQL(this, this.inputs).
                     then((resp) => {
                         window.location.href = "/user/sign_in";
                     }).
                     catch((resp) => {
-
+                        if (resp.details === 'WRONG_VERIFICATION_CODE.') {
+                            this.$message.error("注册失败，注册码不正确！");
+                        }
                     });
             },
             handleVerification: function () {
