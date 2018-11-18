@@ -44,7 +44,7 @@
 					</el-menu-item>
 
 					<!-- todo when release <el-submenu index="/developer" :disabled="user.role !== 0" >-->
-					<el-submenu index="/developer">
+					<el-submenu index="/developer" v-if="user.role === 0">
 						<template slot="title">
 							<i class='el-icon-edit-outline'></i>
 							<span slot="title">开发者</span>
@@ -63,6 +63,7 @@
 						<el-menu-item index="/developer/file_viewer">文件查看</el-menu-item>
 						<el-menu-item index="1-4-1">选项1</el-menu-item>
 					</el-submenu>
+
 					<el-submenu index="/user">
 						<template slot="title">
 							<i class="el-icon-star-on"></i>
