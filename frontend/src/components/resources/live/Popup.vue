@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class='floating-panel' v-show='!visible'>
-			<div style='float:right'>
+			<div style='float:left'>
 				<div class='tt' @click='handleHidden(1)'>
 					<slot name='abbrev'>
 					??
@@ -41,19 +41,25 @@ export default {
 .floating-window {
 	width:350px;
 	min-height:250px;
-	float:right;
+	float:left;
 }
 .floating-panel {
 	width:350px;
 	height:60px;
-	float:right;
+	float:left;
 }
 .tt {
-	width:50px;height:50px;background-color:gray;border-radius:50%;-moz-border-radius: 50%;-webkit-border-radius: 50%; color:#c0c4cc;
-	padding: 0px;
-	text-align:center;
-	background-color:#F69;
-	display: table-cell;
-	vertical-align:middle
+    width: 50px;
+    height: 50px;
+    background-color: gray;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    color: #c0c4cc;
+    padding: 0px;
+    text-align: center;
+    background-color: #F69;
+    display: table-cell;
+    vertical-align: middle
 }
 </style>

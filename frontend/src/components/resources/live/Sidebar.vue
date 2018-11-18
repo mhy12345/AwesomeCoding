@@ -9,7 +9,8 @@
                 <members :course_status="course_status" :table_width="'400px'" class="sidebar-tab-pane"></members>
             </ElTabPane>
 
-            <ElTabPane label="聊天室" name="chatting-record">
+            <ElTabPane label="聊天室" name="chatting-room">
+                <!--教师的工具条-->
                 <el-row v-if="course_status === 0">
                     <el-col :span="8">
                         <el-button size="small" class="chatting-room-tool"
@@ -31,6 +32,8 @@
                 <chat-records class="sidebar-tab-pane" ref="chat_records"
                               :course_id="$route.params.class_id" :user="user">
                 </chat-records>
+                <!--聊天输入框-->
+                <chat-input></chat-input>
             </ElTabPane>
 
         </el-tabs>
@@ -41,13 +44,14 @@
     import Members from '../Participants';
     import ChatRecords from './ChatRecords';
     import ElTabPane from "./MyTabPane";
+    import ChatInput from './ChatInput';
 
     export default {
         name: "sidebar",
         props: ['course_status', 'user'],
         data() {
             return {
-                active_name: undefined,
+                active_name: 'chatting-room',
                 block_chattingQ: false, // 是否禁言
                 client_width: undefined,   // sidebar 的实际尺寸
             }
@@ -110,7 +114,8 @@
         components: {
             ElTabPane,
             Members,
-            ChatRecords
+            ChatRecords,
+            ChatInput
         }
     };
 </script>

@@ -9,8 +9,6 @@
 							<components ref='cp_main' :is='cp_main'></components>
 						</keep-alive>
 					</div>
-					<!--下方输入框-->
-					<chat-input></chat-input>
 				</el-col>
 				<!--右侧边栏-->
 				<el-col :span='9'>
@@ -32,8 +30,8 @@
 		</div>
 		<!--右下角ppt窗口-->
 		<div class='pop-up-container'>
-			<Popup name='live' 
-				   @display='handleDisplay("live")' 
+			<Popup name='live'
+				   @display='handleDisplay("live")'
 				   v-show='cp_live'
 				   ref='pu_live'
 				   >
@@ -42,8 +40,8 @@
 			</template>
 			<components ref='cp_live' :is='cp_live'></components>
 			</Popup>
-			<Popup name='pdf' 
-				   @display='handleDisplay("pdf")' 
+			<Popup name='pdf'
+				   @display='handleDisplay("pdf")'
 				   v-show='cp_pdf'
 				   ref='pu_pdf'
 				   >
@@ -52,8 +50,8 @@
 			</template>
 			<keep-alive><components ref='cp_pdf' :is='cp_pdf'></components></keep-alive>
 			</Popup>
-			<Popup name='practice' 
-				   @display='handleDisplay("prob")' 
+			<Popup name='practice'
+				   @display='handleDisplay("prob")'
 				   v-show='cp_prob'
 				   ref='pu_prob'
 				   >
@@ -71,7 +69,6 @@
 import Vue from 'vue';
 import Player from './Player';
 import Sidebar from './Sidebar';
-import ChatInput from './ChatInput';
 import ProbViewer from './ProbViewer';
 import Popup from './Popup';
 import FileViewer from '@/components/components/FileViewer.vue';
@@ -112,7 +109,6 @@ export default {
 	},
 	components: {
 		Sidebar,
-		ChatInput,
 		Popup
 	},
 	methods: {
@@ -139,16 +135,21 @@ export default {
 	/*position: relative;*/
 	/*left: 30px;*/
 	/*min-width: 5%;*/
+    border: 1px dashed black;  /* todo del */
 	width: 100%;
 	height: 100%;
-	/*overflow: auto;*/
+	overflow: auto;
 }
 .spanner {
 	min-height:600px;
 }
 
 .pop-up-container {
-	position:fixed;width:350px;bottom:50px;right:40px;
+	position: fixed;
+    width: 350px;
+    bottom: 50px;
+    left: 40px;
+    border: 1px dashed black; /* todo del */
 }
 
 </style>

@@ -123,10 +123,11 @@ export default {
 						this.$message("请登录");
 						window.location.href = '/user/sign_in';
 					} else if (res.body.details === 'NOT_IN_CLASS.') {
-						this.$message("用户没有加入班级");
-						window.location.href = '/user/sign_in';
+						this.$message.warning("用户没有加入班级");
+						// window.location.href = '/user/sign_in';
 					} else {
-						this.$message("错误，见console");
+						this.$message.error("错误，见console");
+						console.log('[error in dashboard]', res.body)
 					}
 					return;
 				}

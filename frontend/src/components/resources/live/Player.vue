@@ -34,7 +34,7 @@ export default {
 					this.player_config.uid = res.data.liveplayer_uid;
 					this.player_config.vid = res.data.liveplayer_vid;
 					this.player_config.width = this.$refs.player.offsetWidth;
-					this.player_config.height = this.$refs.player.offsetWidth * 0.6;
+					this.player_config.height = this.$refs.player.offsetWidth * 0.8;
 					this.src = '/backend/render/live?uid='+this.player_config.uid+'&vid='+this.player_config.vid;
 					let player = polyvObject('#player').livePlayer(this.player_config);
 				});
