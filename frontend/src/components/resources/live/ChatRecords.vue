@@ -1,6 +1,28 @@
 <template>
     <div>
         <el-card v-loading="loadingQ">
+            <!--顶栏-->
+            <div class="chat-header">
+                <el-row>
+                    <!--分页器-->
+                    <el-col :span="20">
+                        <el-pagination
+                            small
+                            @current-change="handleCurrentChange"
+                            :page-size="num_each"
+                            layout="prev, pager, next, jumper"
+                            :total="record_count">
+                        </el-pagination>
+                    </el-col>
+                    <!--刷新聊天记录按钮-->
+                    <el-col :span="4">
+                        <el-tooltip content="刷新">
+                            <el-button icon="el-icon-refresh" circle size="mini" @click="refresh"></el-button>
+                        </el-tooltip>
+                    </el-col>
+                </el-row>
+            </div>
+
             <!--聊天记录-->
             <div class="chat-record">
                 <div v-for="(record, index) in chat_records" :key="index">
@@ -51,29 +73,6 @@
                     </div>
                 </div>
             </div>
-
-            <!--底栏-->
-            <div class="chat-footer">
-                <el-row>
-                    <!--分页器-->
-                    <el-col :span="20">
-                        <el-pagination
-                            small
-                            @current-change="handleCurrentChange"
-                            :page-size="num_each"
-                            layout="prev, pager, next, jumper"
-                            :total="record_count">
-                        </el-pagination>
-                    </el-col>
-                    <!--刷新聊天记录按钮-->
-                    <el-col :span="4">
-                        <el-tooltip content="刷新">
-                            <el-button icon="el-icon-refresh" circle size="mini" @click="refresh"></el-button>
-                        </el-tooltip>
-                    </el-col>
-                </el-row>
-            </div>
-
         </el-card>
     </div>
 </template>
@@ -126,9 +125,9 @@
             },
             pushRecord (flow) { // 有拉流消息，需要动态添加聊天记录
                 if (this.chat_records.length >= this.num_each) // 超过 num_each 条就只显示最后的 num_each 条
-                    {
-this.chat_records.pop();
-}
+                {
+                    this.chat_records.pop();
+                }
                 time_marker = new Date();
                 let record = parseFlow(flow); // 将流转化为记录
                 this.chat_records = [record].concat(this.chat_records); // 新拉流的消息放在表首
@@ -158,8 +157,8 @@ this.chat_records.pop();
                      then((res) => {
                          this.loadingQ = false;
                          if (res.body.status === 'FAILED.') {
-this.pushRecord({message: res.body.details});
-} else { // 获取消息成功
+                             this.pushRecord({ message: res.body.details });
+                         } else { // 获取消息成功
                              time_marker = new Date();
                              this.chat_records = parseList(res.body.results); // 导入消息
                          }
@@ -174,7 +173,7 @@ this.pushRecord({message: res.body.details});
 
 <style scoped>
     .chat-record {
-        max-height: 400px;
+        height: 360px;
         font-size: 0.7em;
         overflow: auto;
     }
@@ -250,12 +249,12 @@ this.pushRecord({message: res.body.details});
         border-radius: 15px;
     }
 
-    .chat-footer {
+    .chat-header {
         position: relative;
         margin: auto;
         padding: 5px 12px 5px 12px;
-        border-top: #c6c6c6 1px dashed;
+        border-bottom: #c6c6c6 1px dashed;
         background-color: #ffffff;
-        bottom: 10px;
+        top: -20px;
     }
 </style>

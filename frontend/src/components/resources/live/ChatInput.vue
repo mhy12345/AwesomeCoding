@@ -1,10 +1,7 @@
 <template>
 	<div>
-		<div>
-			聊天输入
-		</div>
-		<el-row :gutter='20' type='flex'>
-			<el-col :span='19'>
+		<el-row :gutter='10' type='flex'>
+			<el-col :span='18'>
 				<el-input type="textarea"
 						  v-model="input_message"
 						  placeholder="输入文本..."
@@ -14,16 +11,18 @@
 			</el-col>
 			<el-col :span='5'>
 				<div>
-					<el-button 
-						  type="warning" 
-						  icon="el-icon-message"
-						  @click="handleSendMessage" :disabled="blockQ">
+					<el-button type="warning"
+                               icon="el-icon-message"
+                               @click="handleSendMessage"
+                               :disabled="blockQ">
 						发送
 					</el-button>
 				</div>
 				<div>
-					<el-button type="success" icon="el-icon-phone"
-											  @click="handleSendVoice" :disabled="blockQ">
+					<el-button type="success"
+                               icon="el-icon-phone"
+                               @click="handleSendVoice"
+                               :disabled="blockQ">
 						语音
 					</el-button>
 				</div>

@@ -29,8 +29,10 @@
                     </el-col>
                 </el-row>
                 <!--聊天记录-->
-                <chat-records class="sidebar-tab-pane" ref="chat_records"
-                              :course_id="$route.params.class_id" :user="user">
+                <chat-records class="sidebar-tab-pane"
+                              ref="chat_records"
+                              :course_id="$route.params.class_id"
+                              :user="user">
                 </chat-records>
                 <!--聊天输入框-->
                 <chat-input></chat-input>

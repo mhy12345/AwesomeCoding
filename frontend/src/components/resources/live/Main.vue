@@ -135,7 +135,6 @@ export default {
 	/*position: relative;*/
 	/*left: 30px;*/
 	/*min-width: 5%;*/
-    border: 1px dashed black;  /* todo del */
 	width: 100%;
 	height: 100%;
 	overflow: auto;
@@ -149,7 +148,6 @@ export default {
     width: 350px;
     bottom: 50px;
     left: 40px;
-    border: 1px dashed black; /* todo del */
 }
 
 </style>
