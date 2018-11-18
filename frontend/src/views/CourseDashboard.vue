@@ -124,7 +124,6 @@ export default {
 						window.location.href = '/user/sign_in';
 					} else if (res.body.details === 'NOT_IN_CLASS.') {
 						this.$message.warning("用户没有加入班级");
-						// window.location.href = '/user/sign_in';
 					} else {
 						this.$message.error("错误，见console");
 						console.log('[error in dashboard]', res.body)
