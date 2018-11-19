@@ -133,6 +133,11 @@ export default new Router({
 					name: 'ForgetPassword',
 					component: () => import('@/components/components/user/ForgetPassword.vue')
 				},
+                {
+                    path: 'change_phone',
+                    name: 'ChangePhone',
+                    component: () => import('@/components/components/user/ChangePhone.vue')
+                },
 				{
 					path: 'settings',
 					name: 'Settings',
