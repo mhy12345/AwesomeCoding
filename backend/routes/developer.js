@@ -5,29 +5,24 @@ var mysql = require('mysql');
 var getConnection = require('../utils/funcs').getConnection;
 var doSqlQuery = require('../utils/funcs').doSqlQuery;
 
-// var log4js = require("log4js");
-// var log4js_config = require("../configures/log.config.js").runtime_configure;
-// log4js.configure(log4js_config);
-// var logger = log4js.getLogger('log_file');
-
-// 开发期间，暂时关闭权限控制功能 todo 发布时启用权限管理功能
-// router.use(function (req, res, next) {  // 判断用户是否有管理员权限
-// 	if (typeof(req.session) === 'undefined') {
-//         res.status(403).send(JSON.stringify({
-//             status: 'FAILED.',
-//             details: 'NOT_LOGIN.',
-//         }));
-//     }
-//     else if (req.session.role !== 0) {  // 权限不够
-//         res.send(JSON.stringify({
-//             status: 'FAILED.',
-//             details: 'PERMISSION_DENIED.',
-//         }))
-//     }
-//     else {                              // 拥有管理员权限，接受请求
-//         next();
-//     }
-// });
+// 发布时启用权限管理功能
+router.use(function (req, res, next) {  // 判断用户是否有管理员权限
+	if (typeof(req.session) === 'undefined') {
+        res.status(403).send(JSON.stringify({
+            status: 'FAILED.',
+            details: 'NOT_LOGIN.',
+        }));
+    }
+    else if (req.session.role !== 0) {  // 权限不够
+        res.send(JSON.stringify({
+            status: 'FAILED.',
+            details: 'PERMISSION_DENIED.',
+        }))
+    }
+    else {                              // 拥有管理员权限，接受请求
+        next();
+    }
+});
 
 router.get('/show_table', function (req, res, next) { //在数据库中查找表格，并打印
 	getConnection().

@@ -6,6 +6,7 @@ var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('socket_log');
 var $user_sockets = require('../utils/global').$user_sockets;
+var mysql = require('mysql');
 // restore all user sockets, key: user_id, value: a socket object
 
 function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的用户广播聊天消息，并发送拉流的通知
@@ -14,16 +15,16 @@ function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的�
 			console.log('?>>',socket.request.session);
 			let sql = "INSERT INTO `ac_database`.`chat_record` " +
 				"(`course_id`, `user_id`, `course_status`, `realname`, `message`) VALUES ('" +
-				msg.course_id + "', '" +
-				socket.request.session.user_id + "', '" +
-				socket.request.session.course_status + "', '" +
-				socket.request.session.realname + "', '" +
-				msg.message + "');";
+				mysql.escape(msg.course_id) + "', '" +
+				mysql.escape(socket.request.session.user_id) + "', '" +
+				mysql.escape(socket.request.session.course_status) + "', '" +
+				mysql.escape(socket.request.session.realname) + "', '" +
+				mysql.escape(msg.message) + "');";
 			return doSqlQuery(conn, sql);
 		}).
 		then((packed) => {			// 成功添加到聊天记录
 			let { conn, sql_res } = packed;
-			let sql = "SELECT user_id FROM ac_database.classusers WHERE class_id = " + msg.course_id + ";";
+			let sql = "SELECT user_id FROM ac_database.classusers WHERE class_id = " +  mysql.escape(msg.course_id) + ";";
 			return doSqlQuery(conn, sql)
 		}).
 		then((packed) => { 		// 选中课程中的所有用户
@@ -58,7 +59,7 @@ function alertClassMembers(socket, msg) {	// 教师向本门课程的所有在�
 	logger.info('[teacher alert\n', msg);
 	getConnection().
 		then((conn) => {
-			let sql = "SELECT user_id FROM ac_database.classusers WHERE class_id = " + msg.course_id + ";";
+			let sql = "SELECT user_id FROM ac_database.classusers WHERE class_id = " +  mysql.escape(msg.course_id) + ";";
 			return doSqlQuery(conn, sql)
 		}).
 		then((packed) => {

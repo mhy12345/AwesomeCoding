@@ -80,11 +80,6 @@ router.post('/upload', upload.any(), function (req, res, next) { //区分文件�
 
 
 router.post('/uploadcourseimg', upload.any(), function (req, res, next) { //区分文件名(用空格)，禁止上传含有空格的文件
-	console.log('uploadingimg');
-	console.log(req.session);
-	console.log(req);
-	console.log(req.files[0]);
-	console.log('===========================');
 	var user_id = req.session.user_id;
 	var response, i;
 	for (i = 0; i < req.files[0].originalname.length; i = i + 1) {

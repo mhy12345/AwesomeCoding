@@ -117,7 +117,7 @@
                 }
                 changePasswordSQL(this, this.inputs).
                     then((resp) => {
-                        window.location.href = "/user/sign_in";
+                        this.$router.push("/user/sign_in");
                     }).
                     catch((resp) => {
                         if (resp.details === 'WRONG_VERIFICATION_CODE.') {
@@ -172,8 +172,8 @@
                     catch((resp) => {
                         if(resp.status === 'FAILED.') {
                             this.$message("该手机号还未被注册");
-                            return; 
-                        }   
+                            return;
+                        }
                     });
                 
             },

@@ -173,7 +173,7 @@
 
 <style scoped>
     .chat-record {
-        height: 360px;
+        height: 350px;
         font-size: 0.7em;
         overflow: auto;
     }

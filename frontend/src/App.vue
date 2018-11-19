@@ -193,7 +193,7 @@ export default {
 						this.loginQ = true;
                         this.user.gravatar_url = getGravatarUrl(this.user.email);
 					} else {
-						this.$message("请登录。");
+						this.$message("欢迎进入系统，请登录。");
 						this.loginQ = false;
 					}
 				}).

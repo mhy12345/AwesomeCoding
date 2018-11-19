@@ -5,6 +5,7 @@ const getConnection = require('../utils/funcs').getConnection;
 const doSqlQuery = require('../utils/funcs').doSqlQuery;
 const getPermission = require('../utils/funcs').getPermission;
 const $sockets = require('../utils/global').$user_sockets;
+var mysql = require('mysql');
 
 const log4js = require("log4js");
 const log4js_config = require("../configures/log.config.js").runtime_configure;
@@ -48,7 +49,7 @@ router.get('/get_chat_record_count', function (req, res) {
 	logger.info('[get] chat record count\n', req.query);
 	getConnection().
 		then((conn) => {
-			let sql = "SELECT COUNT(*) FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + ";";
+			let sql = "SELECT COUNT(*) FROM ac_database.chat_record WHERE course_id = " + mysql.escape(req.query.course_id) + ";";
 			return doSqlQuery(conn, sql);
 		}).
 		then((packed) => {
@@ -78,7 +79,7 @@ router.get('/get_chat_record', function (req, res) {
 	logger.info('[get] chat record\n', req.query);
 	getConnection().
 		then((conn) => {
-			let sql = "SELECT COUNT(*) FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + ";";
+			let sql = "SELECT COUNT(*) FROM ac_database.chat_record WHERE course_id = " +  mysql.escape(req.query.course_id) + ";";
 			return doSqlQuery(conn, sql);
 		}).
 		then((packed) => {
@@ -88,8 +89,8 @@ router.get('/get_chat_record', function (req, res) {
 			let last_id = count - Number(req.query.start);
 			if (first_id < 0) first_id = 0;
 			let sql = `SELECT * FROM ac_database.chat_record ` +
-				`WHERE course_id = ${req.query.course_id} ` +
-				`LIMIT ${first_id}, ${last_id - first_id};`;
+				`WHERE course_id = ${mysql.escape(req.query.course_id)} ` +
+				`LIMIT ${first_id}, ${mysql.escape(last_id - first_id)};`;
 			return doSqlQuery(conn, sql);
 		}).
 		then((packed) => {
@@ -122,7 +123,7 @@ router.get('/clear_chat_record', function (req, res) {		// 清空聊天记录
 			else {		// 是教师，可以清空聊天记录
 				getConnection().
 					then((conn) => {
-						let sql = "DELETE FROM ac_database.chat_record WHERE course_id = " + req.query.course_id + ";";
+						let sql = "DELETE FROM ac_database.chat_record WHERE course_id = " + mysql.escape(req.query.course_id) + ";";
 						logger.info('\nsql =', sql);
 						return doSqlQuery(conn, sql);
 					}).
@@ -163,7 +164,7 @@ router.get('/block_chatting', function (req, res) {		// 禁止所有课程中在
 				getConnection().
 					then((conn) => {
 						let sql = "SELECT user_id FROM ac_database.classusers " +
-							"WHERE class_id = " + req.query.course_id + " AND role > 0;";	// 可以改为 role > 1 这样可以允许助教发言
+							"WHERE class_id = " +  mysql.escape(req.query.course_id) + " AND role > 0;";	// 可以改为 role > 1 这样可以允许助教发言
 						logger.info('\nsql =', sql);
 						return doSqlQuery(conn, sql);
 					}).
@@ -207,7 +208,7 @@ router.get('/allow_chatting', function (req, res) {		// 允许所有课程中在
 				getConnection().
 					then((conn) => {
 						let sql = "SELECT user_id FROM ac_database.classusers " +
-							"WHERE class_id = " + req.query.course_id + " AND role > 0;";
+							"WHERE class_id = " +  mysql.escape(req.query.course_id) + " AND role > 0;";
 						logger.info('\nsql =', sql);
 						return doSqlQuery(conn, sql);
 					}).

@@ -120,8 +120,8 @@ export default {
 			then((res) => {
 				if (res.body.status !== 'SUCCESS.') {
 					if (res.body.details === 'NOT_LOGIN.') {
-						this.$message("请登录");
-						window.location.href = '/user/sign_in';
+						this.$message.warning("请先登录。");
+                        this.$router.push('/user/sign_in');
 					} else if (res.body.details === 'NOT_IN_CLASS.') {
 						this.$message.warning("用户没有加入班级");
 					} else {
