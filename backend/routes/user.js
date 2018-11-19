@@ -297,7 +297,12 @@ router.post('/change', function (req, res, next) {  // 响应设置个人信息�
 			then(function (conn) {
 				let sql = "UPDATE users SET ";
 				let arr = [];
-				for (let item in req.body) {
+				let query = { realname: req.body.realname,
+								motto: req.body.motto,
+								email: req.body.email,
+								password: req.body.password,
+				};
+				for (let item in query) {
 					if (fixed_items.indexOf(item) >= 0) {
 						res_body.status = 'FAILED.';
 						res_body.details = 'property ' + item + ' cannot be changed.';
