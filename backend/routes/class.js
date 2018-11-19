@@ -125,6 +125,9 @@ router.post('/participants/delete', function (req, res, next) {	// 退出班级�
 				// logger.error('[kicked] sql=', sql);
 				return doSqlQuery(conn, sql);
 			}
+			logger.fatal('[delete] im out');
+			conn.end();		// 自己退出，不会拉黑
+			return;
 		}).
 		then(function (packed) {
 			let { conn, sql_res } = packed;
@@ -137,10 +140,9 @@ router.post('/participants/delete', function (req, res, next) {	// 退出班级�
 		then(function (packed) {
 			let { conn, sql_res } = packed;
 			conn.end();
-			logger.error('[kicked]');
 		}).
 		catch(function (sql_res) {
-			logger.fatal(sql_res);
+			logger.error(sql_res);
 			res.send(JSON.stringify(sql_res));
 		});
 });
@@ -204,7 +206,7 @@ router.post('/participants/white', function (req, res) {	// 取消拉黑
 		}).
 		then(function (packed) {
 			let { conn, role } = packed;
-			if (role !== 0) {	// 权限不够 todo how about TA?
+			if (role > 1) {	// 权限不够
 				res.status(403).
 					send('PERMISSION_DENIED.');
 				return;
@@ -214,7 +216,6 @@ router.post('/participants/white', function (req, res) {	// 取消拉黑
 		}).
 		then(function (packed) {
 			let { conn, sql_res } = packed;
-			logger.error('[whited]', sql_res);
 			conn.end();
 			res.send('SUCCESS.');
 		}).

@@ -13,14 +13,16 @@
                                              :key="obj.idx"
                                              :label="obj.title"
                                              align="center"
+                                             sortable
                                              :prop="obj.idx">
                             </el-table-column>
+
                             <el-table-column align="center" label="移出教室" v-if='course_status.role!==2'>
                                 <template slot-scope="scope">
                                     <el-button type="danger"
                                                icon="el-icon-delete" circle
-                                               v-if='scope.row.role!==0'
-                                               @click="handleDelete(scope.row.id, scope.row.realname)">
+                                               v-if='scope.row.role > 0'
+                                               @click="handleDelete(scope.row.id, scope.row.realname, scope.$index)">
                                     </el-button>
                                 </template>
                             </el-table-column>
@@ -28,17 +30,17 @@
                                 <template slot-scope="scope">
                                     <el-button type="primary"
                                                icon="el-icon-edit" circle
-                                               v-if='scope.row.role===2'
-                                               @click="handleAssignTA(scope.row.id)">
+                                               v-if='scope.row.role === 2'
+                                               @click="handleAssignTA(scope.row.id, scope.$index)">
                                     </el-button>
                                 </template>
                             </el-table-column>
-                            <el-table-column align="center" label="取消助教身份" v-if='course_status.role===0'>
+                            <el-table-column align="center" label="取消助教" v-if='course_status.role===0'>
                                 <template slot-scope="scope">
                                     <el-button type="primary"
                                                icon="el-icon-edit" circle
-                                               v-if='scope.row.role===1'
-                                               @click="handleCancelTA(scope.row.id)">
+                                               v-if='scope.row.role === 1'
+                                               @click="handleCancelTA(scope.row.id, scope.$index)">
                                     </el-button>
                                 </template>
                             </el-table-column>
@@ -76,11 +78,11 @@
                                              align="center"
                                              :prop="obj.idx">
                             </el-table-column>
-                            <el-table-column align="center" label="取消拉黑" v-if='course_status.role!==2'>
+                            <el-table-column align="center" label="取消拉黑" v-if='course_status.role < 2'>
                                 <template slot-scope="scope">
                                     <el-button type="warning"
                                                icon="el-icon-remove-outline" circle
-                                               @click="handleCancelBlacklisting(scope.row.user_id)">
+                                               @click="handleCancelBlacklisting(scope.row.user_id, scope.$index)">
                                     </el-button>
                                 </template>
                             </el-table-column>
@@ -118,7 +120,8 @@
                 display_config: {
                     width: '1000px',
                     margin: 'auto',
-                    padding: '5px'
+                    padding: '5px',
+                    overflow: 'auto'
                 },
                 ruleForm: {fileList: []},
                 fileList: [],
@@ -157,45 +160,50 @@
                 this.display_config.width = this.table_width;
             }
             this.class_id = this.$route.params.class_id;
-            this.loadingQ = true;//...
 
-            this.$http.post('/api/class/participants/show', {class_id: this.class_id}, null).
-                 then((resp) => {										 // 成功，被 showSQL 的 resolve 调用
-                     this.table_data = resp.body.results;
-                     this.loadingQ = false;
-                     this.loadedQ = true;
-                 }).
-                 catch((resp) => {
-                     this.loadingQ = false;
-                     this.loadedQ = true;
-                     if (resp.body.details === 'NOT_LOGIN.') {
-                         this.$message("请登录...");
-                     } else if (resp.body.details === "NOT_IN_CLASS.") {
-                         this.$message("请先加入班级");
-                     } else {
-                         this.$message("未知错误");
-                     }
-                 });
-
-            this.black.loadingQ = true;
-            this.$http.post('/api/class/participants/show_blacklisting', { class_id: this.class_id }).
-                 then((res) => {
-                     this.black.loadingQ = false;
-                     this.black.loadedQ = true;
-                     this.blacklisting_data = res.body.results;
-                 }).
-                 catch((err) => {
-                     this.black.loadingQ = false;
-                     this.black.loadedQ = true;
-                     console.log('[Participants]', err);
-                 });
+            this.refreshParticipants();
+            this.refreshBlacklisting();
         },
         methods: {
+            refreshParticipants() {     // 刷新成员列表
+                this.loadingQ = true;
+                this.$http.post('/api/class/participants/show', {class_id: this.class_id}, null).
+                     then((resp) => {										 // 成功，被 showSQL 的 resolve 调用
+                         this.table_data = resp.body.results;
+                         this.loadingQ = false;
+                         this.loadedQ = true;
+                     }).
+                     catch((resp) => {
+                         this.loadingQ = false;
+                         this.loadedQ = true;
+                         if (resp.body.details === 'NOT_LOGIN.') {
+                             this.$message("请登录...");
+                         } else if (resp.body.details === "NOT_IN_CLASS.") {
+                             this.$message("请先加入班级");
+                         } else {
+                             this.$message("未知错误");
+                         }
+                     });
+            },
+            refreshBlacklisting() {     // 刷新黑名单
+                this.black.loadingQ = true;
+                this.$http.post('/api/class/participants/show_blacklisting', { class_id: this.class_id }).
+                     then((res) => {
+                         this.black.loadingQ = false;
+                         this.black.loadedQ = true;
+                         this.blacklisting_data = res.body.results;
+                     }).
+                     catch((err) => {
+                         this.black.loadingQ = false;
+                         this.black.loadedQ = true;
+                         console.log('[Participants]', err);
+                     });
+            },
             handleAdd: function () { // 向后端数据库发出添加数据的请求
                 this.loadingQ = true;
                 //TODO
             },
-            handleDelete: function (id, realname) { // 向后端数据库发出删除数据的请求
+            handleDelete: function (id, realname, index) { // 向后端数据库发出删除数据的请求
                 this.
                     $confirm(`真的要将${realname}移出教室吗？`, '提示', {
                         confirmButtonText: '确认',
@@ -212,31 +220,34 @@
                     then(() => {
                         this.$message.success("成功");
                         this.loadingQ = false;
-
+                        this.table_data.splice(index, 1);
+                        this.refreshBlacklisting();
                     }).
                     catch(() => {
-                        this.$message.info("失败");
+                        this.$message.error("失败");
                         this.loadingQ = false;
                     });
             },
-            handleAssignTA: function (id) { // 向后端数据库发出指定助教的请求
+            handleAssignTA: function (id, index) { // 向后端数据库发出指定助教的请求
                 this.loadingQ = true;
                 this.$http.post('/api/class/participants/assignTA', {class_id: this.class_id, user_id: id}, null).
                      then(() => {
-                         this.$message("成功");
+                         this.$message.success("成功");
                          this.loadingQ = false;
+                         this.table_data[index].role = 1;
                      }).
                      catch(() => {
-                         this.$message("失败");
+                         this.$message.error("失败");
                          this.loadingQ = false;
                      });
             },
-            handleCancelTA: function (id) { // 向后端数据库发出指定助教的请求
+            handleCancelTA: function (id, index) { // 向后端数据库发出指定助教的请求
                 this.loadingQ = true;
                 this.$http.post('/api/class/participants/cancelTA', {class_id: this.class_id, user_id: id}, null).
                      then(() => {
                          this.$message("成功");
                          this.loadingQ = false;
+                         this.table_data[index].role = 2;
                      }).
                      catch(() => {
                          this.$message("失败");
@@ -275,13 +286,16 @@
                          this.loadingQ = false;
                      });
             },
-            handleCancelBlacklisting(user_id) { // 取消拉黑 user_id
+            handleCancelBlacklisting(user_id, index) { // 取消拉黑 user_id
+                this.black.loadingQ = true;
                 this.$http.post('/api/class/participants/white', { class_id: this.class_id, user_id: user_id }).
                      then((res) => {
-                         // this.blacklisting_data.splice() todo
+                         this.black.loadingQ = false;
                          this.$message('取消拉黑成功。');
+                         this.blacklisting_data.splice(index, 1);
                      }).
                      catch((res) => {
+                         this.black.loadingQ = false;
                          this.$message('取消失败，见console');
                          console.log(res);
                      });

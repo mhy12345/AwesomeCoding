@@ -15,7 +15,6 @@
 						<img :src="user.gravatar_url" class="round-icon" alt="">
 						<el-dropdown-menu slot="dropdown">
 							<el-dropdown-item command="/user/profile">用户资料</el-dropdown-item>
-							<el-dropdown-item command="/user/settings">设置</el-dropdown-item>
 							<el-dropdown-item command="logout">退出登录</el-dropdown-item>
 						</el-dropdown-menu>
 					</el-dropdown>

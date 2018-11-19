@@ -10,7 +10,7 @@ const test_class = require('./session_test/class.test');
 const test_live = require('./session_test/live.test');
 
 describe('===All tests requiring `supertest-session`===', function () {
-	test_user(request);
+	// test_user(request);
 	test_class(request);
-	test_live(request);
+	// test_live(request);
 });
