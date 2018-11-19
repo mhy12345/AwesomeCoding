@@ -52,8 +52,8 @@
                 </el-col>
                 <el-col :span="7" class="verification-button">
                     <el-button
-                        type="primary"
                         :disabled="verify.disableQ"
+                        type="primary"
                         @click="handleVerification">
                         {{ verify.prompt }}
                     </el-button>
@@ -63,9 +63,13 @@
         </div>
         <div align="center">
             <el-row>
-                <el-button type="success" class="register-button" @click="handleChangePassword">修改密码</el-button>
+                <el-button type="warning" class="register-button" @click="handleChangePassword">修改密码</el-button>
+            </el-row>
+            <el-row>
+                <el-button type="text" @click="handleBackward">返回登录</el-button>
             </el-row>
         </div>
+
     </el-card>
 </template>
 
@@ -175,6 +179,9 @@
             },
             handleFocusingOnVerify() {
                 this.inputs.verify_code = undefined;
+            },
+            handleBackward() {
+                this.$router.push('/user/sign_in');
             }
         }
     };
@@ -232,5 +239,8 @@
     .option-icon {
         float: right;
         height: 80%;
+    }
+    .text {
+        font-size: 14px;
     }
 </style>

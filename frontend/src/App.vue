@@ -189,7 +189,7 @@ export default {
 					var hash;
 					if (typeof(resp.nickname) !== 'undefined') {
 						this.user = resp;
-						this.$message.success("欢迎回来！" + this.user.realname);
+						// this.$message.success("欢迎回来！" + this.user.realname);
 						this.loginQ = true;
                         this.user.gravatar_url = getGravatarUrl(this.user.email);
 					} else {
