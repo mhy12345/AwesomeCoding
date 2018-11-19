@@ -11,15 +11,14 @@
                         新手机号:
                     </label>
                 </el-col>
-                <el-col :span="14">
+                <el-col :span="13">
                     <el-input-number
                         id="verify_code"
                         ref="verify_input"
                         :min="100000" :max="999999"
                         :controls="false"
                         class="input-box"
-                        v-model="inputs.verify_code"
-                        @focus="handleFocusingOnVerify">
+                        v-model="inputs.newPhoneNumber">
                     </el-input-number>
                 </el-col>
             </el-row>
@@ -37,16 +36,15 @@
                         :min="100000" :max="999999"
                         :controls="false"
                         class="input-box"
-                        v-model="inputs.priVerifyCode"
-                        @focus="handleFocusingOnVerify">
+                        v-model="inputs.priVerifyCode">
                     </el-input-number>
                 </el-col>
                 <el-col :span="7" class="verification-button">
                     <el-button
                         type="primary"
-                        :disabled="oldverify.disableQ"
-                        @click="handleVerification">
-                        {{ oldverify.prompt }}
+                        :disabled="oldVerify.disableQ"
+                        @click="handleOldVerification">
+                        {{ oldVerify.prompt }}
                     </el-button>
                 </el-col>
             </el-row>
@@ -64,16 +62,15 @@
                         :min="100000" :max="999999"
                         :controls="false"
                         class="input-box"
-                        v-model="inputs.newVerifyCode"
-                        @focus="handleFocusingOnVerify">
+                        v-model="inputs.newVerifyCode">
                     </el-input-number>
                 </el-col>
                 <el-col :span="7" class="verification-button">
                     <el-button
                         type="primary"
-                        :disabled="newverify.disableQ"
-                        @click="handleVerification">
-                        {{ newverify.prompt }}
+                        :disabled="newVerify.disableQ"
+                        @click="handleNewVerification">
+                        {{ newVerify.prompt }}
                     </el-button>
                 </el-col>
             </el-row>
@@ -81,7 +78,7 @@
         </div>
         <div align="center">
             <el-row>
-                <el-button type="success" class="register-button" @click="handleChangePassword">修改手机号</el-button>
+                <el-button type="success" class="register-button" @click="handleChangePhone">修改手机号</el-button>
             </el-row>
         </div>
     </el-card>
@@ -101,31 +98,30 @@
             return {
                 title: '修改手机号',
                 inputs: {
-                    newPhoneNumber: '',
+                    oldPhoneNumber: undefined,
+                    newPhoneNumber: undefined,
                     priVerifyCode: undefined,
                     newVerifyCode: undefined,
-                    password: undefined,
-                    re_password: undefined,
                     userid: undefined,
                 },
-                oldverify: {
+                oldVerify: {
                     code_generated: '',
                     prompt: '发送验证',
                     countdown: 60,
                     disableQ: false,
                 },
-                newverify: {
+                newVerify: {
                     code_generated: '',
                     prompt: '发送验证',
                     countdown: 60,
                     disableQ: false,
                 },
                 loadingQ: false,
-                expire_secs: 360, // cookie 的有效期
+                expire_secs: 720, // cookie 的有效期
             };
         },
         methods: {
-            handleChangePassword: function () {
+            handleChangePhone: function () {
                 // 修改密码
                 if(this.inputs.password !== this.inputs.re_password) {
                     this.$message.warning("密码不一致");
@@ -141,38 +137,58 @@
                         }
                     });
             },
-            handleVerification: function () {
-                var clock;
+            handleOldVerification: function () {
+                this.inputs.oldPhoneNumber = this.user.phone;
+                let clock;
+                this.inputs.userid = resp.user.id;
+                clock = window.setInterval(() => {
+                    this.oldVerify.disableQ = true;
+                    this.oldVerify.countdown--;
+                    this.oldVerify.prompt = this.oldVerify.countdown + 's后重新发送';
+                    if (this.oldVerify.countdown <= 0) {
+                        window.clearInterval(clock);
+                        this.oldVerify.disableQ = false;
+                        this.oldVerify.prompt = '重新发送验证码';
+                        this.oldVerify.countdown = 60;
+                    }
+                }, 1000);
+
+                this.$message.warning("原手机验证码已发送！请注意查收");
+                this.$refs.verify_input.focus();
+
+                let nowpath = '/api/user/verification';
+                axios.post(nowpath, {number: this.inputs.oldPhoneNumber})
+                      .then((resp) => {});
+            },
+
+            handleNewVerification: function () {
+                let clock;
                 if (this.inputs.phone <= 10000000000 || this.inputs.phone >= 19999999999) {
                     this.$message("请输入中国大陆11位手机号");
                     return;
                 }
+                //需要重写该查询函数
                 queryPhoneSQL(this, this.inputs).
                     then((resp) => {
                         if(resp.status === 'FAILED.') {
                             this.$message("该手机号还未被注册");
                             return;
                         }
-                        //若已注册，则发送验证码
                         else {
                             this.inputs.userid = resp.user.id;
                             clock = window.setInterval(() => {
-                                this.verify.disableQ = true;
-                                this.verify.countdown--;
-                                this.verify.prompt = this.verify.countdown + 's后重新发送';
-                                if (this.verify.countdown <= 0) {
+                                this.newVerify.disableQ = true;
+                                this.newVerify.countdown--;
+                                this.newVerify.prompt = this.newVerify.countdown + 's后重新发送';
+                                if (this.newVerify.countdown <= 0) {
                                     window.clearInterval(clock);
-                                    this.verify.disableQ = false;
-                                    this.verify.prompt = '重新发送验证码';
-                                    this.verify.countdown = 60;
+                                    this.newVerify.disableQ = false;
+                                    this.newVerify.prompt = '重新发送验证码';
+                                    this.newVerify.countdown = 60;
                                 }
                             }, 1000);
 
                             this.$message.warning("验证码已发送！请注意查收");
-                            /*
-							下一语句将自动获取验证码输入框的焦点，这种$ref的用法在Vue里面很常用
-							建议参考：https://github.com/ElemeFE/element/issues/3871
-							*/
                             this.$refs.verify_input.focus();
 
                             let nowpath = '/api/user/verification';
@@ -191,9 +207,6 @@
                     });
 
             },
-            handleFocusingOnVerify () {
-                this.inputs.verify_code = undefined;
-            }
         }
     };
 </script>
