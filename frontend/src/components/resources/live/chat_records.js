@@ -3,13 +3,13 @@ import {copy} from '../../../utils/Copy'
 function parseFlow(flow) {  // 从流中获取到消息
     let record = copy(flow);
     record.date_time = new Date(flow.date_time);    // 以 Date 的形式储存时间
-    record.type = 'text';
     return record;
 }
 
 function parseList(list) {  // 从数据库列表获取到消息列表
     let records = [];
     for (let flow of list) {
+        flow.type = 'text';
         records.push(parseFlow(flow))
     }
     return records;

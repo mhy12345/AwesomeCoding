@@ -23,7 +23,7 @@
                         {{ currentitem.title }}
                     </h3>
                     <div style="padding: 14px;">
-                        <span> {{currentitem.title}} </span>
+                        <span> {{ currentitem.title }} </span>
                     </div>
                 </el-card>
             </div>
@@ -56,7 +56,6 @@
                          if(i.imagepath)
                              i.imagepath = root_url + i.imagepath;
                      }
-
                      for(let i = 0; i < (this.tableData.length < 6 ? this.tableData.length : 6); i ++) {
                          this.headlines.push(
                              {

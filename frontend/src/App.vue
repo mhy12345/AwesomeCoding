@@ -167,7 +167,7 @@ export default {
             if (!this.loginQ) return;
             this.$notify({
                 title: '收到消息',
-                message: msg.realname + ' says: ' + msg.message,
+                message: msg.realname + ' : ' + msg.message,
                 // duration: 0
             });
             this.$socket.emit('received');
@@ -177,6 +177,7 @@ export default {
         },
         rejected: function (msg) {       // 服务器拒绝客户发出的消息
             this.$message.error('发送失败');
+            console.log('[socket rejected]', msg);
         }
     },
 	methods: {

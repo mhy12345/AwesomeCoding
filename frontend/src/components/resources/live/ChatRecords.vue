@@ -130,11 +130,13 @@
                 }
                 time_marker = new Date();
                 let record = parseFlow(flow); // 将流转化为记录
+                console.log('[new flow]', flow);
                 this.chat_records = [record].concat(this.chat_records); // 新拉流的消息放在表首
                 this.record_count++;
             },
             clear () { // 清空记录
                 this.chat_records = [];
+                this.refresh();
             },
             displayTimeQ (date_time) {
                 if ((time_marker.getTime() - date_time.getTime()) / 60000 > MINUTES_SEPARATE) {

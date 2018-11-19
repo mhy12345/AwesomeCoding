@@ -6,25 +6,24 @@ var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('socket_log');
 var $user_sockets = require('../utils/global').$user_sockets;
-var mysql = require('mysql');
 // restore all user sockets, key: user_id, value: a socket object
 
-function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的用户广播聊天消息，并发送拉流的通知
+function notifyClassMembers(socket, msg, msg_type) {	// 向本门课程的所有在线的用户广播聊天消息，并发送拉流的通知
 	getConnection().
 		then((conn) => {
 			console.log('?>>',socket.request.session);
 			let sql = "INSERT INTO `ac_database`.`chat_record` " +
 				"(`course_id`, `user_id`, `course_status`, `realname`, `message`) VALUES ('" +
-				mysql.escape(msg.course_id) + "', '" +
-				mysql.escape(socket.request.session.user_id) + "', '" +
-				mysql.escape(socket.request.session.course_status) + "', '" +
-				mysql.escape(socket.request.session.realname) + "', '" +
-				mysql.escape(msg.message) + "');";
+				msg.course_id + "', '" +
+				socket.request.session.user_id + "', '" +
+				socket.request.session.course_status + "', '" +
+				socket.request.session.realname + "', '" +
+				msg.message + "');";
 			return doSqlQuery(conn, sql);
 		}).
 		then((packed) => {			// 成功添加到聊天记录
 			let { conn, sql_res } = packed;
-			let sql = "SELECT user_id FROM ac_database.classusers WHERE class_id = " +  mysql.escape(msg.course_id) + ";";
+			let sql = "SELECT user_id FROM ac_database.classusers WHERE class_id = " + msg.course_id + ";";
 			return doSqlQuery(conn, sql)
 		}).
 		then((packed) => { 		// 选中课程中的所有用户
@@ -33,7 +32,7 @@ function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的�
 			let flow = {
 				realname: socket.request.session.realname,
 				user_id: socket.request.session.user_id,
-				message: msg.message,
+				message: msg.message,	// message 是共有属性
 				course_status: socket.request.session.course_status,
 				date_time: new Date()
 			};
@@ -41,8 +40,17 @@ function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的�
 				let id = result.user_id;
 				id = String(id);
 				if ($user_sockets.hasOwnProperty(id)) {
-					$user_sockets[id].emit('message', flow);
-					$user_sockets[id].emit('pullFlow', flow);
+					if (msg_type === 'text') {
+						flow.type = 'text';
+						$user_sockets[id].emit('message', flow);
+						$user_sockets[id].emit('pullFlow', flow);
+					}
+					else if (msg_type === 'picture') {
+						flow.type = 'picture';
+						flow.picture = msg.picture;	// 把图片内容也发给用户
+						$user_sockets[id].emit('picture', flow);
+						$user_sockets[id].emit('pullFlow', flow);
+					}
 				}
 			}
 		}).
@@ -59,7 +67,7 @@ function alertClassMembers(socket, msg) {	// 教师向本门课程的所有在�
 	logger.info('[teacher alert\n', msg);
 	getConnection().
 		then((conn) => {
-			let sql = "SELECT user_id FROM ac_database.classusers WHERE class_id = " +  mysql.escape(msg.course_id) + ";";
+			let sql = "SELECT user_id FROM ac_database.classusers WHERE class_id = " + msg.course_id + ";";
 			return doSqlQuery(conn, sql)
 		}).
 		then((packed) => {
@@ -100,10 +108,8 @@ function initSocketIO(sio) {
 			}
 		});
 
-		socket.on('message', function (msg) {		// 客户发来消息
+		socket.on('message', function (msg) {		// 客户发来文字消息
 			logger.info('>>message: \n', msg);
-
-			console.log(socket.request.session);
 			if (socket.request.session.user_id === undefined) {	// offline, reject
 				socket.emit('rejected', {
 					details: '您尚未登录，不能发送消息。'
@@ -111,7 +117,20 @@ function initSocketIO(sio) {
 				return;
 			}
 			// store the message and push flow to other clients
-			notifyClassMembers(socket, msg);
+			notifyClassMembers(socket, msg, 'text');
+		});
+
+		socket.on('picture', function (msg) {		// 客户发来图片消息
+			logger.info('>>picture: \n', msg);
+			if (socket.request.session.user_id === undefined) {	// offline, reject
+				socket.emit('rejected', {
+					details: '您尚未登录，不能发送消息。'
+				});
+				return;
+			}
+			// store the message and push flow to other clients
+			msg.message = '[图片消息]';
+			notifyClassMembers(socket, msg, 'picture');
 		});
 
 		if (socket.request.session.role === 1) {	// 教师权限——通知班级学生进行操作
