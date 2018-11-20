@@ -18,7 +18,7 @@ function parseList(list) {  // 从数据库列表获取到消息列表
 
 function formatDateTime(date_time) {    // 以合适的形式显示日期时间
     let now = new Date();
-    if (now.toLocaleDateString() === date_time.toLocaleDateString) {
+    if (now.toLocaleDateString() === date_time.toLocaleDateString()) {
         return date_time.toLocaleTimeString();
     }
     else {

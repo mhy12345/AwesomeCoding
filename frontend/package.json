@@ -28,6 +28,7 @@
         "vue-codemirror-lite": "^1.0.4",
         "vue-monaco-editor": "0.0.19",
         "vue-pdf": "^3.3.1",
+        "vue-photo-preview": "^1.1.1",
         "vue-resource": "^1.5.1",
         "vue-router": "^3.0.1",
         "vue-socket.io": "^2.1.1-b",

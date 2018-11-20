@@ -65,10 +65,27 @@
                     </div>
                     <!--todo 图片消息-->
                     <div v-else-if="record.type === 'picture'">
-                        {{ record.realname }} :
-                        <el-row>
-                            <img :src="record.path" :alt="record.message" class="chat-picture">
-                        </el-row>
+                        <!--本人图片-->
+                        <div v-if="record.user_id === user.user_id">
+                            <div style="text-align: right">
+                                我 : &nbsp; &nbsp;
+                                <chat-picture :record="record"></chat-picture>
+                            </div>
+                        </div>
+                        <!--教师图片-->
+                        <div v-else-if="record.course_status === 0">
+                            <div style="text-align: left">
+                                {{ record.realname }}（老师） :
+                                <chat-picture :record="record"></chat-picture>
+                            </div>
+                        </div>
+                        <!--他人图片-->
+                        <div v-else>
+                            <div style="text-align: left">
+                                {{ record.realname }} :
+                                <chat-picture :record="record"></chat-picture>
+                            </div>
+                        </div>
                     </div>
                     <!--默认消息-->
                     <div v-else>
@@ -82,7 +99,7 @@
 
 <script>
     import {parseFlow, parseList, formatDateTime} from './chat_records';
-    import {deepCopy} from "../../../utils/Copy";
+    import ChatPicture from "./ChatPicture"
 
     const MINUTES_SEPARATE = 5; // 每隔多少分钟显示一次时间
     var time_marker = undefined;
@@ -173,6 +190,9 @@
                      });
             },
             formatDateTime: formatDateTime
+        },
+        components: {
+            ChatPicture
         }
     };
 </script>
@@ -264,7 +284,4 @@
         top: -20px;
     }
 
-    .chat-picture{
-        width: 150px;
-    }
 </style>
