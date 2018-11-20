@@ -42,7 +42,7 @@
                         </div>
                         <!--教师消息-->
                         <div v-else-if="record.course_status === 0">
-                            {{ record.realname }} :
+                            {{ record.realname }}（老师） :
                             <el-row>
                                 <div class="bubble-teacher">
                                     {{ record.message }}
@@ -59,13 +59,58 @@
                             </el-row>
                         </div>
                     </div>
-                    <!--todo 语音消息-->
+                    <!--语音消息-->
                     <div v-else-if="record.type === 'voice'">
-
+                        <!--本人语音-->
+                        <div v-if="record.user_id === user.user_id">
+                            <el-row>
+                                <div class="bubble-me">
+                                    <audio :src="record.path" controls></audio>
+                                </div>
+                            </el-row>
+                        </div>
+                        <!--教师语音-->
+                        <div v-else-if="record.course_status === 0">
+                            {{ record.realname }}（老师） :
+                            <el-row>
+                                <div class="bubble-teacher">
+                                    <audio :src="record.path" controls></audio>
+                                </div>
+                            </el-row>
+                        </div>
+                        <!--他人语音-->
+                        <div v-else>
+                            {{ record.realname }} :
+                            <el-row>
+                                <div class="bubble-teacher">
+                                    <audio :src="record.path" controls></audio>
+                                </div>
+                            </el-row>
+                        </div>
                     </div>
-                    <!--todo 图片消息-->
+                    <!--图片消息-->
                     <div v-else-if="record.type === 'picture'">
-
+                        <!--本人图片-->
+                        <div v-if="record.user_id === user.user_id">
+                            <div style="text-align: right">
+                                我 : &nbsp; &nbsp;
+                                <chat-picture :record="record"></chat-picture>
+                            </div>
+                        </div>
+                        <!--教师图片-->
+                        <div v-else-if="record.course_status === 0">
+                            <div style="text-align: left">
+                                {{ record.realname }}（老师） :
+                                <chat-picture :record="record"></chat-picture>
+                            </div>
+                        </div>
+                        <!--他人图片-->
+                        <div v-else>
+                            <div style="text-align: left">
+                                {{ record.realname }} :
+                                <chat-picture :record="record"></chat-picture>
+                            </div>
+                        </div>
                     </div>
                     <!--默认消息-->
                     <div v-else>
@@ -79,7 +124,7 @@
 
 <script>
     import {parseFlow, parseList, formatDateTime} from './chat_records';
-    import {deepCopy} from "../../../utils/Copy";
+    import ChatPicture from "./ChatPicture"
 
     const MINUTES_SEPARATE = 5; // 每隔多少分钟显示一次时间
     var time_marker = undefined;
@@ -130,11 +175,13 @@
                 }
                 time_marker = new Date();
                 let record = parseFlow(flow); // 将流转化为记录
+                console.log('[new flow]', flow);
                 this.chat_records = [record].concat(this.chat_records); // 新拉流的消息放在表首
                 this.record_count++;
             },
             clear () { // 清空记录
                 this.chat_records = [];
+                this.refresh();
             },
             displayTimeQ (date_time) {
                 if ((time_marker.getTime() - date_time.getTime()) / 60000 > MINUTES_SEPARATE) {
@@ -161,19 +208,23 @@
                          } else { // 获取消息成功
                              time_marker = new Date();
                              this.chat_records = parseList(res.body.results); // 导入消息
+                             console.log('[record list]', res.body.results);
                          }
                      }).
                      catch((err) => {
                      });
             },
             formatDateTime: formatDateTime
+        },
+        components: {
+            ChatPicture
         }
     };
 </script>
 
 <style scoped>
     .chat-record {
-        height: 360px;
+        height: 380px;
         font-size: 0.7em;
         overflow: auto;
     }
@@ -257,4 +308,5 @@
         background-color: #ffffff;
         top: -20px;
     }
+
 </style>

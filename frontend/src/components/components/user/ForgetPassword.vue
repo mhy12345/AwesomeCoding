@@ -52,8 +52,8 @@
                 </el-col>
                 <el-col :span="7" class="verification-button">
                     <el-button
-                        type="primary"
                         :disabled="verify.disableQ"
+                        type="primary"
                         @click="handleVerification">
                         {{ verify.prompt }}
                     </el-button>
@@ -63,9 +63,13 @@
         </div>
         <div align="center">
             <el-row>
-                <el-button type="success" class="register-button" @click="handleChangePassword">修改密码</el-button>
+                <el-button type="warning" class="register-button" @click="handleChangePassword">修改密码</el-button>
+            </el-row>
+            <el-row>
+                <el-button type="text" @click="handleBackward">返回登录</el-button>
             </el-row>
         </div>
+
     </el-card>
 </template>
 
@@ -79,7 +83,7 @@
 
     export default {
         name: "ForgetPassword",
-        data() {
+        data () {
             return {
                 heads: { // 输入框提示词
                     phone: '手机号',
@@ -113,7 +117,7 @@
                 }
                 changePasswordSQL(this, this.inputs).
                     then((resp) => {
-                        window.location.href = "/user/sign_in";
+                        this.$router.push("/user/sign_in");
                     }).
                     catch((resp) => {
                         if (resp.details === 'WRONG_VERIFICATION_CODE.') {
@@ -156,9 +160,7 @@
                         this.$refs.verify_input.focus();
 
                         let nowpath = '/api/user/verification';
-                        axios.post(nowpath, {
-                            number: this.inputs.phone
-                        })
+                        axios.post(nowpath, {number: this.inputs.phone})
                         .then((resp) => {
                             //this.verify.code_generated = parseInt(resp.data.code_generated);
                         });
@@ -168,13 +170,16 @@
                     catch((resp) => {
                         if(resp.status === 'FAILED.') {
                             this.$message("该手机号还未被注册");
-                            return; 
-                        }   
+                            return;
+                        }
                     });
                 
             },
-            handleFocusingOnVerify() {
+            handleFocusingOnVerify () {
                 this.inputs.verify_code = undefined;
+            },
+            handleBackward() {
+                this.$router.push('/user/sign_in');
             }
         }
     };
@@ -232,5 +237,8 @@
     .option-icon {
         float: right;
         height: 80%;
+    }
+    .text {
+        font-size: 14px;
     }
 </style>

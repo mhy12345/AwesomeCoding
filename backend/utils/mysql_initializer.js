@@ -175,7 +175,9 @@ var sqls = {
 		"`user_id` INT NOT NULL, " +			// 用户id
 		"`course_status` INT NOT NULL, " +		// 用户在课程中的角色
 		"`realname` VARCHAR(40), " +			// 用户姓名
+		"`type` VARCHAR(40) NOT NULL, " + 		// 消息类型 ['text', 'picture', 'voice']
 		"`message` VARCHAR(200) NOT NULL, " +	// 所发的消息，要求不能为空消息
+		"`path` VARCHAR(100), " +				// 'picture' 和 'voice' 消息特有的属性，表示文件在云端的路径
 		"PRIMARY KEY (`id`) " +
 		") ENGINE = InnoDB DEFAULT CHARSET = utf8;",
 

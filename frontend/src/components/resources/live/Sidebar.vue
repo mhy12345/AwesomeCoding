@@ -20,10 +20,10 @@
                         </el-button>
                     </el-col>
                     <el-col :span="8" class="chatting-room-tool">
-                        禁言模式
                         <el-switch v-model="block_chattingQ"
-                                   active-color="#ff4949"
-                                   inactive-color="#13ce66"
+                                   active-color="#13ce66"
+                                   active-text="禁言模式"
+                                   inactive-color="lightgray"
                                    @change="handleBlockChatting">
                         </el-switch>
                     </el-col>
@@ -34,11 +34,10 @@
                               :course_id="$route.params.class_id"
                               :user="user">
                 </chat-records>
-                <!--聊天输入框-->
-                <chat-input></chat-input>
             </ElTabPane>
-
         </el-tabs>
+        <!--聊天输入框-->
+        <chat-input class="chat-input"></chat-input>
     </div>
 </template>
 
@@ -102,7 +101,7 @@
                          get('/api/live/allow_chatting', {params: {course_id: this.$route.params.class_id}}).
                          then((res) => {
                              if (res.body.status === 'SUCCESS.') {
-                                 this.$message.success('已允许发言');
+                                 this.$message('已允许发言');
                              } else {
                                  throw res.body.details;
                              }
@@ -128,8 +127,14 @@
         margin-bottom: 10px;
     }
     .sidebar-tab-pane {
-        height: 450px;
+        height: 500px;
         width: 100%;
-        /*overflow: auto;*/
+        overflow: auto;
+    }
+    .chat-input {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 450px;
     }
 </style>

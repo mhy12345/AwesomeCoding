@@ -24,7 +24,7 @@ var unittest_configure = {
 		info: {type: 'file', filename: './logs/info.log'},
 	},
 	categories: {
-		default: {appenders: ['info'], level: 'info'},
+		default: {appenders: ['out', 'info'], level: 'info'},
 	}
 };
 

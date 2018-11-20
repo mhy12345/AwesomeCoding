@@ -76,9 +76,6 @@ app.use(history({
 	htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
 }));
 
-// session for app
-//app.use(session);
-
 //app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

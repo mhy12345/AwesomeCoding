@@ -5,3 +5,4 @@ code/*
 mochawesome-report/
 coverage/
 public/images/
+public/chat

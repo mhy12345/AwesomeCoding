@@ -2,7 +2,7 @@
 	<div style='width:100%'>
 		<div v-bind:class="{ fly: fly }">
 			<el-row :gutter="40">
-				<el-col :span='15'>
+				<el-col :xs="24" :sm="15" :md="15" :lg="15" :xl="15">
 					<!--正中直播窗口-->
 					<div style='min-height:500px'>
 						<keep-alive>
@@ -11,22 +11,10 @@
 					</div>
 				</el-col>
 				<!--右侧边栏-->
-				<el-col :span='9'>
+				<el-col :xs="0" :sm="9" :md="9" :lg="9" :xl="9">
 					<sidebar class="right-sidebar" :course_status="course_status.role" :user="user"></sidebar>
 				</el-col>
 			</el-row>
-			<!--
-	   <el-row type='flex' justify='center' :gutter='20'>
-	   <el-col :span='2'>
-	   <el-button type='mini' @click='handleSwap("live")'>直播 </el-button>
-	   </el-col>
-	   <el-col :span='2'>
-	   <el-button type='mini' @click='handleSwap("pdf")'>课件 </el-button>
-	   </el-col>
-	   <el-col :span='2'>
-	   <el-button type='mini' @click='handleSwap("problem")'>练习 </el-button>
-	   </el-col>
-	   </el-row>-->
 		</div>
 		<!--右下角ppt窗口-->
 		<div class='pop-up-container'>
@@ -66,12 +54,14 @@
 
 
 <script>
+import 'element-ui/lib/theme-chalk/display.css';
 import Vue from 'vue';
 import Player from './Player';
 import Sidebar from './Sidebar';
 import ProbViewer from './ProbViewer';
 import Popup from './Popup';
 import FileViewer from '@/components/components/FileViewer.vue';
+
 
 Vue.component('sub_pdf', FileViewer);
 Vue.component('sub_live', Player);

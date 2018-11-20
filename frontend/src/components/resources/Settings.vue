@@ -9,8 +9,8 @@
                     <el-input v-model="CourseData.title" placeholder="请输入"></el-input>
                 </el-form-item>
                 <el-form-item label="课程权限：">
-                    <el-radio v-model="CourseData.type" label=1>公开</el-radio>
-                    <el-radio v-model="CourseData.type" label=2>私密</el-radio>
+                    <el-radio v-model="CourseData.type" :label='1'>公开</el-radio>
+                    <el-radio v-model="CourseData.type" :label='2'>私密</el-radio>
                 </el-form-item>
                 <el-form-item label="课程资源：">
                     <el-transfer v-model="resources" :data="avaliable_resources"
@@ -62,13 +62,13 @@ var randomString = require('../../utils/funcs').randomString;
 export default {
 	data () {
 		return {
-			class_id: undefined,
+			class_id: null,
 			CourseData: {
-				title: undefined,
-				name: undefined,
-				type: undefined,
+				title: null,
+				name: null,
+				type: null,
 			},
-			resources: undefined,
+			resources: [],
 			loading: true,
 			avaliable_resources: avaliable_resources,
             dialogImageUrl: '',
@@ -78,7 +78,7 @@ export default {
 	mounted: function () {
 		this.class_id = this.$route.params.class_id;
 		this.$http.post('/api/class/info/query', {class_id: this.class_id}).
-			then(function (res) {
+			then((res) => {
 				if (res.body.status === 'NOT FOUND.') {
 					this.$message("Room " + this.class_id + " not found!");
 				} else {

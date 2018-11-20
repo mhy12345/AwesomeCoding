@@ -4,7 +4,7 @@
 
 const path = require('path');
 // const host_port = require('../../backend/configures/server.config').port;
-const host_port = 80; // todo use 80
+const host_port = 80;
 
 module.exports = {
     dev: {
