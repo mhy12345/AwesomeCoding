@@ -80,6 +80,16 @@ export default {
 	},
     props: ['user'],
 	sockets: {
+        message: function (msg) {       // 收到聊天消息
+            if (msg.course_id !== this.$route.params.class_id) return;  // 不在同一课程就不显示
+            console.log('[new message]', msg);
+            this.$notify({
+                title: msg.realname + (msg.course_status === 0 ? '（老师）' : '') + ':',
+                message: msg.message,
+                // duration: 0
+            });
+            this.$socket.emit('received');
+        },
 		alert: function (msg) {
 			if (msg.operation === 'PROBLEM_PUBLISH.') {
 				this.$message("你有新的习题，快去看看吧!");
@@ -147,15 +157,14 @@ export default {
 				this.loading = false;
 			});
 	},
-
 	methods: {
 		whereIs (name) {
 			var current_options = this.class_resources ? this.class_resources : default_options;
 			let idx = 0;
 			for (let k of current_options) {
 				if (k === name) {
-return ''+idx;
-}
+                    return '' + idx;
+                }
 				idx += 1;
 			}
 			return '0';

@@ -199,7 +199,7 @@
 
 <style scoped>
     .chat-record {
-        height: 350px;
+        height: 380px;
         font-size: 0.7em;
         overflow: auto;
     }

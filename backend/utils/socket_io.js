@@ -32,6 +32,7 @@ function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的�
 			let { conn, sql_res } = packed;
 			conn.end();
 			let flow = {
+				course_id: msg.course_id,
 				realname: socket.request.session.realname,
 				user_id: socket.request.session.user_id,
 				type: msg.type,
@@ -44,7 +45,7 @@ function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的�
 				let id = result.user_id;
 				id = String(id);
 				if ($user_sockets.hasOwnProperty(id)) {	// 这些用户在线
-					$user_sockets[id].emit('picture', flow);
+					if (id != socket.request.session.user_id) $user_sockets[id].emit('message', flow);// 不通知自己
 					$user_sockets[id].emit('pullFlow', flow);
 				}
 			}

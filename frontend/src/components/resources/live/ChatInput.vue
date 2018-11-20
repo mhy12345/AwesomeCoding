@@ -5,7 +5,7 @@
                 <div @keydown.ctrl.enter="handleSendMessage" @keydown.meta.enter="handleSendMessage">
                     <el-input type="textarea"
                               v-model="input_message"
-                              placeholder="输入文本（按ctrl/meta + enter发送）..."
+                              placeholder="输入文本（按ctrl/meta + enter发送）"
                               :autosize="{minRows: 3.2}"
                               resize="none">
                     </el-input>
@@ -32,7 +32,6 @@
 		</el-row>
 
         <!--the real file uploader-->
-        <!--<input style="display: none" type="file" ref="uploader" accept="image/*" @change="handleSendImage"/>-->
         <el-upload
             style="display: none"
             ref="upload"
@@ -67,6 +66,7 @@
         },
         methods: {
             handleSendMessage() { // 发送消息
+                if (this.blockQ) return;
                 if (this.input_message.length <= 0) {
                     this.$message.warning('输入不能为空。');
                     return;
@@ -81,10 +81,11 @@
                 this.input_message = '';
             },
             handleSendImage() { // 发送图片
+                if (this.blockQ) return;
                 this.$refs.uploader.click();
             },
             handleSendVoice() { // todo 发送语音
-
+                if (this.blockQ) return;
             },
             onUploadSuccess(res) {
                 this.$message.success('上传成功');

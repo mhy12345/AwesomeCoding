@@ -162,15 +162,7 @@ export default {
 	},
     sockets: {      // usages of socket.io
         connect: function () {
-        },
-        message: function (msg) {       // 收到服务器发来的消息, todo 后期可以考虑把消息缓存在用户个人页里，并以红圈在右上角头像上显示
-            if (!this.loginQ) return;
-            this.$notify({
-                title: '收到消息',
-                message: msg.realname + ' : ' + msg.message,
-                // duration: 0
-            });
-            this.$socket.emit('received');
+            console.log('[socket connected]');
         },
         accepted: function () {         // 服务器接受客户发出的消息
             this.$message.success('发送成功');
