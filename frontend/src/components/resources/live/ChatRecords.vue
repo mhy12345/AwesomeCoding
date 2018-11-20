@@ -309,11 +309,4 @@
         top: -20px;
     }
 
-    .voice-bubble {
-        padding: 0 10px 0 10px;
-        max-width: 100%;
-        height: 45px;
-        /*overflow: hidden;*/
-    }
-
 </style>

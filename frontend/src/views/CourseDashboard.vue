@@ -4,7 +4,7 @@
 				 @tab-click="onTabClick"
 				 v-loading='loading'
 				 v-model='activeIndex'
-				 style='min-height:600px'
+				 style='min-height:750px'
 				 :lazy='false'
 				 >
 				 <TabPane v-for="option in options"

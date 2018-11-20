@@ -34,11 +34,10 @@
                               :course_id="$route.params.class_id"
                               :user="user">
                 </chat-records>
-                <!--聊天输入框-->
-                <chat-input></chat-input>
             </ElTabPane>
-
         </el-tabs>
+        <!--聊天输入框-->
+        <chat-input class="chat-input"></chat-input>
     </div>
 </template>
 
@@ -128,8 +127,14 @@
         margin-bottom: 10px;
     }
     .sidebar-tab-pane {
-        height: 480px;
+        height: 500px;
         width: 100%;
         overflow: auto;
+    }
+    .chat-input {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 450px;
     }
 </style>
