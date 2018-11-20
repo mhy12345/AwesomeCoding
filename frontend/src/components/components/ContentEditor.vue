@@ -77,6 +77,7 @@ export default {
 						this.quill.setContents(quill_deltas);
 						this.loading = false;
 					} else {
+						this.quill.setContents({"ops":[{"insert":"\n"}]});
 						this.loading = false;
 					}
 				}).

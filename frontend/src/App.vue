@@ -63,6 +63,7 @@
 						<el-menu-item index="1-4-1">选项1</el-menu-item>
 					</el-submenu>
 
+					<!--
 					<el-submenu index="/user">
 						<template slot="title">
 							<i class="el-icon-star-on"></i>
@@ -85,19 +86,16 @@
 							</el-menu-item>
 						</div>
 					</el-submenu>
+					-->
+					<el-menu-item index='/course/add' v-if='user.user_id !== ""'>
+						<i class="el-icon-star-on"></i>
+						<span slot="title">新建课程</span>
+					</el-menu-item>
 
-					<el-submenu index="/course">
-						<template slot='title'>
-							<i class='el-icon-news'></i>
-							<span>课程</span>
-						</template>
-						<el-menu-item index="/course/add">
-							<span slot="title">新建课程</span>
-						</el-menu-item>
-						<el-menu-item index="/course/enter">
-							<span slot="title">进入课程</span>
-						</el-menu-item>
-					</el-submenu>
+					<el-menu-item index="/course/enter">
+						<i class='el-icon-news'></i>
+						<span slot="title">进入课程</span>
+					</el-menu-item>
 					<el-menu-item index="/about">
 						<i class='el-icon-info'></i>
 						<span slot='title'>关于</span>
@@ -109,7 +107,7 @@
 				<!--<div style='min-height:800px'>-->
 				<div>
 					<router-view @logined="handleLogined" @logout="handleLogout"
-								 :user="user">
+						 :user="user">
 					</router-view>
 				</div>
 			</el-main>
@@ -133,52 +131,52 @@ export default {
 			active_index : '/',
 			loginQ: undefined,		 // 是否登录，初始为 undefined 这样右上角既不显示'登录'也不显示头像
 			default_user: {
-                user_id: '',
-                nickname: 'UnknownUser',
-                realname: 'UnknownUser',
-                role: 3,
-                email: 'x@mail.com',
-                phone: '12344445555',
-                motto: 'UnknownMotto',
-                gravatar_url: '',
-                cookie: null
+				user_id: '',
+				nickname: 'UnknownUser',
+				realname: 'UnknownUser',
+				role: 3,
+				email: 'x@mail.com',
+				phone: '12344445555',
+				motto: 'UnknownMotto',
+				gravatar_url: '',
+				cookie: null
 			},
-            user: {
-                user_id: '',
-                nickname: '',
-                realname: '',
-                role: '',
-                email: '',
-                phone: '',
-                motto: '',
-                gravatar_url: '',
-                cookie: null
-            },
+			user: {
+				user_id: '',
+				nickname: '',
+				realname: '',
+				role: '',
+				email: '',
+				phone: '',
+				motto: '',
+				gravatar_url: '',
+				cookie: null
+			},
 		}
 	},
 	beforeMount() {
 		this.user = copy(this.default_user);
 		this.checkLogin();
 	},
-    sockets: {      // usages of socket.io
-        connect: function () {
-        },
-        message: function (msg) {       // 收到服务器发来的消息, todo 后期可以考虑把消息缓存在用户个人页里，并以红圈在右上角头像上显示
-            if (!this.loginQ) return;
-            this.$notify({
-                title: '收到消息',
-                message: msg.realname + ' says: ' + msg.message,
-                // duration: 0
-            });
-            this.$socket.emit('received');
-        },
-        accepted: function () {         // 服务器接受客户发出的消息
-            this.$message.success('发送成功');
-        },
-        rejected: function (msg) {       // 服务器拒绝客户发出的消息
-            this.$message.error('发送失败');
-        }
-    },
+	sockets: {      // usages of socket.io
+		connect: function () {
+		},
+		message: function (msg) {       // 收到服务器发来的消息, todo 后期可以考虑把消息缓存在用户个人页里，并以红圈在右上角头像上显示
+			if (!this.loginQ) return;
+			this.$notify({
+				title: '收到消息',
+				message: msg.realname + ' says: ' + msg.message,
+				// duration: 0
+			});
+			this.$socket.emit('received');
+		},
+		accepted: function () {         // 服务器接受客户发出的消息
+			this.$message.success('发送成功');
+		},
+		rejected: function (msg) {       // 服务器拒绝客户发出的消息
+			this.$message.error('发送失败');
+		}
+	},
 	methods: {
 		showUnknownError(err) {
 			this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
@@ -191,7 +189,7 @@ export default {
 						this.user = resp;
 						this.$message.success("欢迎回来！" + this.user.realname);
 						this.loginQ = true;
-                        this.user.gravatar_url = getGravatarUrl(this.user.email);
+						this.user.gravatar_url = getGravatarUrl(this.user.email);
 					} else {
 						this.$message("请登录。");
 						this.loginQ = false;
@@ -225,9 +223,9 @@ export default {
 			}
 		},
 		handleLogined(user_info) { // logined event emitted by children router-view
-            this.user = user_info;
-            this.user.gravatar_url = getGravatarUrl(this.user.email);
-            this.loginQ = true;
+			this.user = user_info;
+			this.user.gravatar_url = getGravatarUrl(this.user.email);
+			this.loginQ = true;
 		},
 		handleLogout() { // logout event emitted by children router-view
 			this.logout();
