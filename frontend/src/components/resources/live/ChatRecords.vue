@@ -59,7 +59,7 @@
                             </el-row>
                         </div>
                     </div>
-                    <!--todo 语音消息-->
+                    <!--语音消息-->
                     <div v-else-if="record.type === 'voice'">
                         <!--本人语音-->
                         <div v-if="record.user_id === user.user_id">
