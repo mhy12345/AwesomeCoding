@@ -15,7 +15,6 @@
                     <el-input-number
                         id="verify_code"
                         ref="verify_input"
-                        :min="100000" :max="999999"
                         :controls="false"
                         class="input-box"
                         v-model="inputs.newPhoneNumber">
@@ -94,6 +93,7 @@
 
     export default {
         name: "ChangePhone",
+        props: ['user'],
         data () {
             return {
                 title: '修改手机号',
@@ -122,6 +122,8 @@
         },
         methods: {
             handleChangePhone: function () {
+
+                
                 // 修改密码
                 if(this.inputs.password !== this.inputs.re_password) {
                     this.$message.warning("密码不一致");
@@ -155,7 +157,6 @@
 
                 this.$message.warning("原手机验证码已发送！请注意查收");
                 this.$refs.verify_input.focus();
-
                 let nowpath = '/api/user/verification';
                 axios.post(nowpath, {number: this.inputs.oldPhoneNumber})
                       .then((resp) => {});
@@ -163,18 +164,17 @@
 
             handleNewVerification: function () {
                 let clock;
-                if (this.inputs.phone <= 10000000000 || this.inputs.phone >= 19999999999) {
+                if (this.inputs.newPhoneNumber <= 10000000000 || this.inputs.newPhoneNumber >= 19999999999) {
                     this.$message("请输入中国大陆11位手机号");
                     return;
                 }
-                //需要重写该查询函数
-                queryPhoneSQL(this, this.inputs).
+
+                queryPhoneSQL(this, {phone: this.inputs.newPhoneNumber}).
                     then((resp) => {
-                        if(resp.status === 'FAILED.') {
-                            this.$message("该手机号还未被注册");
-                            return;
-                        }
-                        else {
+                        if(resp.status === 'SUCCESS.') {
+                            this.$message("该手机号已经被注册");
+                            return ;
+                        } else if (resp.status === 'FAILED.') {
                             this.inputs.userid = resp.user.id;
                             clock = window.setInterval(() => {
                                 this.newVerify.disableQ = true;
@@ -196,12 +196,11 @@
                                   .then((resp) => {
                                 //this.verify.code_generated = parseInt(resp.data.code_generated);
                             });
-
                         }
                     }).
                     catch((resp) => {
                         if(resp.status === 'FAILED.') {
-                            this.$message("该手机号还未被注册");
+                            this.$message("未知错误");
                             return;
                         }
                     });

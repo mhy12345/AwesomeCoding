@@ -211,8 +211,6 @@ router.post('/login', function (req, res, next) {  // 响应登录，并进行�
 router.post('/loginbyPhone', function (req, res, next) {  // 响应登录，并进行合法判断 返回 JSON
 	logger.debug("[post] login\n", req.body);
 	if (req.body.verify_code !== user_verification_codes[req.body.phone]) { // 验证码不正确
-		console.log(req.body.phone);
-		console.log(user_verification_codes[req.body.phone]);
 		res_body = {
 			status: 'FAILED.',
 			details: 'WRONG_VERIFICATION_CODE.'
@@ -282,8 +280,6 @@ router.post('/change', function (req, res, next) {  // 响应设置个人信息�
 		details: '',
 	};
 	if ((req.body.verify_code).toString() !== (user_verification_codes[req.body.phone]).toString()) { // 验证码不正确
-		console.log(req.body.verify_code);
-		console.log(req.body.phone);
 		console.log(user_verification_codes[req.body.phone]);
 		res_body = {
 			status: 'FAILED.',

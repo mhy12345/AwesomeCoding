@@ -156,9 +156,14 @@
                 </el-tab-pane>
             </el-tabs>
 
-
+        </div>
+        <div>
+            <router-view @logined="handleLogined" @logout="handleLogout"
+                         :user="user">
+            </router-view>
         </div>
     </el-card>
+
 </template>
 
 <script>
@@ -352,7 +357,11 @@
             handlePhoneEdit: function () {
                 window.location.href = "/user/change_phone";
                 this.loadingQ = true;
-            }
+            },
+            handleLogined (user_info) { // logined event emitted by children router-view
+                this.user = user_info;
+                this.loginQ = true;
+            },
         },
         components: {'myCourses': CourseList}
     };

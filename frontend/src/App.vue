@@ -119,13 +119,13 @@
 </template>
 
 <script>
-import {getGravatarUrl} from './utils/funcs'
+import {getGravatarUrl} from './utils/funcs';
 import {copy} from "./utils/Copy";
 import {sessionSQL, logoutSQL} from "./utils/DoSQL";
 
 export default {
 	name: 'App',
-	data: function() {
+	data: function () {
 		return {
 			title: "AwesomeCoding",
 			logo_url: require('./assets/images/icons/logo.png'),
@@ -155,17 +155,19 @@ export default {
                 gravatar_url: '',
                 cookie: null
             },
-		}
+		};
 	},
-	beforeMount() {
+	beforeMount () {
 		this.user = copy(this.default_user);
 		this.checkLogin();
 	},
-    sockets: {      // usages of socket.io
+    sockets: { // usages of socket.io
         connect: function () {
         },
-        message: function (msg) {       // 收到服务器发来的消息, todo 后期可以考虑把消息缓存在用户个人页里，并以红圈在右上角头像上显示
-            if (!this.loginQ) return;
+        message: function (msg) { // 收到服务器发来的消息, todo 后期可以考虑把消息缓存在用户个人页里，并以红圈在右上角头像上显示
+            if (!this.loginQ) {
+return;
+}
             this.$notify({
                 title: '收到消息',
                 message: msg.realname + ' says: ' + msg.message,
@@ -173,18 +175,18 @@ export default {
             });
             this.$socket.emit('received');
         },
-        accepted: function () {         // 服务器接受客户发出的消息
+        accepted: function () { // 服务器接受客户发出的消息
             this.$message.success('发送成功');
         },
-        rejected: function (msg) {       // 服务器拒绝客户发出的消息
+        rejected: function (msg) { // 服务器拒绝客户发出的消息
             this.$message.error('发送失败');
         }
     },
 	methods: {
-		showUnknownError(err) {
+		showUnknownError (err) {
 			this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
 		},
-		checkLogin() { // 检验用户是否登录
+		checkLogin () { // 检验用户是否登录
 			sessionSQL(this).
 				then((resp) => {
 					var hash;
@@ -200,7 +202,7 @@ export default {
 				}).
 				catch(this.showUnknownError);
 		},
-		logout() { // 退出登录
+		logout () { // 退出登录
 			logoutSQL(this).
 				then((resp) => {
 					this.loginQ = false;
@@ -215,7 +217,7 @@ export default {
 					this.showUnknownError(err);
 				});
 		},
-		handleSelectItem(key) {
+		handleSelectItem (key) {
 			if (key === "collapse") {
 				this.collapseQ = !this.collapseQ;
 			} else if (key === "logout") {
@@ -225,12 +227,12 @@ export default {
 				this.$router.push(key);
 			}
 		},
-		handleLogined(user_info) { // logined event emitted by children router-view
+		handleLogined (user_info) { // logined event emitted by children router-view
             this.user = user_info;
             this.user.gravatar_url = getGravatarUrl(this.user.email);
             this.loginQ = true;
 		},
-		handleLogout() { // logout event emitted by children router-view
+		handleLogout () { // logout event emitted by children router-view
 			this.logout();
 		},
 	}
