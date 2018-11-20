@@ -1,7 +1,7 @@
 <template>
     <el-card class="box-card" v-loading="loadingQ">
         <div slot="header" class="clear-fix">
-            <span>{{title}}</span>
+            <h1>{{title}}</h1>
         </div>
         <el-input placeholder="用户名..."
                   v-model="inputs.nickname"
@@ -22,8 +22,7 @@
             </el-row>
             <el-row>
                 <el-button type="text" @click="handleSignInbyPhone">手机号登录</el-button>
-            </el-row>
-            <el-row>
+                <div style="margin: 10px; display: inline;"></div>
                 <el-button type="text" @click="handleForgetPassword">忘记密码</el-button>
             </el-row>
         </div>
@@ -71,11 +70,11 @@
                     });
             },
             handleForgetPassword: function () {
-                window.location.href = "/user/forgetpassword";
+                this.$router.push("/user/forgetpassword");
                 this.loadingQ = true;
             },
             handleSignInbyPhone: function () {
-                window.location.href = "/user/sign_inbyphone";
+                this.$router.push("/user/sign_inbyphone");
                 this.loadingQ = true;
             },
         }

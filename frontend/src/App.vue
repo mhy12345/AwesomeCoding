@@ -158,25 +158,18 @@ export default {
 		this.user = copy(this.default_user);
 		this.checkLogin();
 	},
-	sockets: {      // usages of socket.io
-		connect: function () {
-		},
-		message: function (msg) {       // 收到服务器发来的消息, todo 后期可以考虑把消息缓存在用户个人页里，并以红圈在右上角头像上显示
-			if (!this.loginQ) return;
-			this.$notify({
-				title: '收到消息',
-				message: msg.realname + ' says: ' + msg.message,
-				// duration: 0
-			});
-			this.$socket.emit('received');
-		},
-		accepted: function () {         // 服务器接受客户发出的消息
-			this.$message.success('发送成功');
-		},
-		rejected: function (msg) {       // 服务器拒绝客户发出的消息
-			this.$message.error('发送失败');
-		}
-	},
+    sockets: {      // usages of socket.io
+        connect: function () {
+            console.log('[socket connected]');
+        },
+        accepted: function () {         // 服务器接受客户发出的消息
+            this.$message.success('发送成功');
+        },
+        rejected: function (msg) {       // 服务器拒绝客户发出的消息
+            this.$message.error('发送失败');
+            console.log('[socket rejected]', msg);
+        }
+    },
 	methods: {
 		showUnknownError(err) {
 			this.$message.error("未知错误。" + JSON.stringify(err, null, 3));
@@ -187,11 +180,11 @@ export default {
 					var hash;
 					if (typeof(resp.nickname) !== 'undefined') {
 						this.user = resp;
-						this.$message.success("欢迎回来！" + this.user.realname);
+						// this.$message.success("欢迎回来！" + this.user.realname);
 						this.loginQ = true;
 						this.user.gravatar_url = getGravatarUrl(this.user.email);
 					} else {
-						this.$message("请登录。");
+						this.$message("欢迎进入系统，请登录。");
 						this.loginQ = false;
 					}
 				}).

@@ -134,11 +134,6 @@ export default new Router({
 					component: () => import('@/components/components/user/ForgetPassword.vue')
 				},
 				{
-					path: 'settings',
-					name: 'Settings',
-					component: () => import('@/components/components/user/Settings.vue')
-				},
-				{
 					path: '*',
 					component: PageNotFound,
 				}

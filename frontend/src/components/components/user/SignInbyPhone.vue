@@ -52,7 +52,6 @@
                 </el-col>
                 <el-col :span="7" class="verification-button">
                     <el-button
-                        type="primary"
                         :disabled="verify.disableQ"
                         @click="handleVerification">
                         {{ verify.prompt }}
@@ -63,7 +62,7 @@
         </div>
         <div align="center">
             <el-row>
-                <el-button type="success" class="register-button" @click="handleSignIn">登录</el-button>
+                <el-button type="primary" class="register-button" @click="handleSignIn">登录</el-button>
             </el-row>
             <el-row>
                 <el-button type="text" @click="handleSignInbyNickname">用户名密码登录</el-button>
@@ -145,16 +144,16 @@
                             this.user.nickname = resp.user.nickname;
                             this.user.password = resp.user.password;
                             clock = window.setInterval(() => {
-                            this.verify.disableQ = true;
-                            this.verify.countdown--;
-                            this.verify.prompt = this.verify.countdown + 's后重新发送';
-                            if (this.verify.countdown <= 0) {
-                                window.clearInterval(clock);
-                                this.verify.disableQ = false;
-                                this.verify.prompt = '重新发送验证码';
-                                this.verify.countdown = 60;
-                            }
-                        }, 1000);
+                                this.verify.disableQ = true;
+                                this.verify.countdown--;
+                                this.verify.prompt = this.verify.countdown + 's后重新发送';
+                                if (this.verify.countdown <= 0) {
+                                    window.clearInterval(clock);
+                                    this.verify.disableQ = false;
+                                    this.verify.prompt = '重新发送验证码';
+                                    this.verify.countdown = 60;
+                                }
+                            }, 1000);
 
                         this.$message.warning("验证码已发送！请注意查收");
                         /*
@@ -176,8 +175,7 @@
                     catch((resp) => {
                         if(resp.status === 'FAILED.') {
                             this.$message("该手机号还未被注册");
-                            return; 
-                        }   
+                        }
                     });
                 
             },
@@ -185,7 +183,7 @@
                 this.inputs.verify_code = undefined;
             },
             handleSignInbyNickname: function () {
-                window.location.href = "/user/sign_in";
+                this.$router.push("/user/sign_in");
                 this.loadingQ = true;
             },
         }
