@@ -61,9 +61,34 @@
                     </div>
                     <!--todo 语音消息-->
                     <div v-else-if="record.type === 'voice'">
-
+                        <!--本人语音-->
+                        <div v-if="record.user_id === user.user_id">
+                            <el-row>
+                                <div class="bubble-me">
+                                    <audio :src="record.path" controls></audio>
+                                </div>
+                            </el-row>
+                        </div>
+                        <!--教师语音-->
+                        <div v-else-if="record.course_status === 0">
+                            {{ record.realname }}（老师） :
+                            <el-row>
+                                <div class="bubble-teacher">
+                                    <audio :src="record.path" controls></audio>
+                                </div>
+                            </el-row>
+                        </div>
+                        <!--他人语音-->
+                        <div v-else>
+                            {{ record.realname }} :
+                            <el-row>
+                                <div class="bubble-teacher">
+                                    <audio :src="record.path" controls></audio>
+                                </div>
+                            </el-row>
+                        </div>
                     </div>
-                    <!--todo 图片消息-->
+                    <!--图片消息-->
                     <div v-else-if="record.type === 'picture'">
                         <!--本人图片-->
                         <div v-if="record.user_id === user.user_id">
@@ -282,6 +307,13 @@
         border-bottom: #c6c6c6 1px dashed;
         background-color: #ffffff;
         top: -20px;
+    }
+
+    .voice-bubble {
+        padding: 0 10px 0 10px;
+        max-width: 100%;
+        height: 45px;
+        /*overflow: hidden;*/
     }
 
 </style>
