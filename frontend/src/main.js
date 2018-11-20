@@ -4,16 +4,17 @@ import App from './App.vue';
 import './plugins/element.js';
 import router from './router/index.js';
 import VueSocketio from 'vue-socket.io';
+import VueVisible from 'vue-visible';
+import preview from 'vue-photo-preview' // 图片预览插件
+import 'vue-photo-preview/dist/skin.css'
 
 const server_url = window.location.protocol + '//' + window.location.hostname;
 
 Vue.config.productionTip = false;
-
-import VueVisible from 'vue-visible';
 Vue.use(VueVisible);
-
 Vue.use(VueResource);
 Vue.use(VueSocketio, server_url);
+Vue.use(preview);
 
 new Vue({
     router,

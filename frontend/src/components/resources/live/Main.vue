@@ -15,18 +15,6 @@
 					<sidebar class="right-sidebar" :course_status="course_status.role" :user="user"></sidebar>
 				</el-col>
 			</el-row>
-			<!--
-	   <el-row type='flex' justify='center' :gutter='20'>
-	   <el-col :span='2'>
-	   <el-button type='mini' @click='handleSwap("live")'>直播 </el-button>
-	   </el-col>
-	   <el-col :span='2'>
-	   <el-button type='mini' @click='handleSwap("pdf")'>课件 </el-button>
-	   </el-col>
-	   <el-col :span='2'>
-	   <el-button type='mini' @click='handleSwap("problem")'>练习 </el-button>
-	   </el-col>
-	   </el-row>-->
 		</div>
 		<!--右下角ppt窗口-->
 		<div class='pop-up-container'>

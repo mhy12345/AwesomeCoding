@@ -15,7 +15,7 @@
 								</el-col>
 							</el-row>
 							<el-row>
-								<el-col :span='8'>用户角色</el-col>
+								<el-col :span='8'>我的角色</el-col>
 								<el-col :span='16'>{{
 									roleTitle
 									}}</el-col>
@@ -116,7 +116,7 @@ export default {
 			this.$refs.display_notice.handleUpdate(this.info.notice);
 		},
 		handleJoin: function () {
-			window.location.href = '/course/invite/' + this.info.invitation_code;
+            this.$router.push(`/course/invite/${this.info.invitation_code}`);
 		},
 		handleQuit: function () {
 			this.$http.post('/api/class/participants/delete', {class_id: this.class_id, user_id:null}).

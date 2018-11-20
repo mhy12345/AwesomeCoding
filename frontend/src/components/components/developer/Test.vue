@@ -1,131 +1,13 @@
 <!--统一在这个页面里进行vue的测试-->
 <template>
     <div id="test-view">
-        <el-button type="danger" @click="handleAlert">学生看过来！</el-button>
-        <el-row class="tac">
-            <el-col :span="5">
-                <h5>默认颜色</h5>
-                <el-menu
-                    default-active="2"
-                    class="el-menu-vertical-demo"
-                    @open="handleOpen"
-                    @close="handleClose" style="min-height: 400px">
-                    <el-submenu index="1">
-                        <template slot="title">
-                            <i class="el-icon-location"></i>
-                            <span>导航一</span>
-                        </template>
-                        <el-menu-item-group>
-                            <template slot="title">分组一</template>
-                            <el-menu-item index="1-1">选项1</el-menu-item>
-                            <el-menu-item index="1-2">选项2</el-menu-item>
-                        </el-menu-item-group>
-                        <el-menu-item-group title="分组2">
-                            <el-menu-item index="1-3">选项3</el-menu-item>
-                        </el-menu-item-group>
-                        <el-submenu index="1-4">
-                            <template slot="title">选项4</template>
-                            <el-menu-item index="1-4-1">选项1</el-menu-item>
-                        </el-submenu>
-                    </el-submenu>
-                    <el-menu-item index="2">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title">导航二</span>
-                    </el-menu-item>
-                    <el-menu-item index="3" disabled>
-                        <i class="el-icon-document"></i>
-                        <span slot="title">导航三</span>
-                    </el-menu-item>
-                    <el-menu-item index="4">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">导航四</span>
-                    </el-menu-item>
-                </el-menu>
-            </el-col>
-            <el-col :span="12">
-                <h5>自定义颜色</h5>
-                <el-menu
-                    default-active="2"
-                    class="el-menu-vertical-demo"
-                    @open="handleOpen"
-                    @close="handleClose"
-                    background-color="#545c64"
-                    text-color="#fff"
-                    active-text-color="#ffd04b">
-                    <el-submenu index="1">
-                        <template slot="title">
-                            <i class="el-icon-location"></i>
-                            <span>导航一</span>
-                        </template>
-                        <el-menu-item-group>
-                            <template slot="title">分组一</template>
-                            <el-menu-item index="1-1">选项1</el-menu-item>
-                            <el-menu-item index="1-2">选项2</el-menu-item>
-                        </el-menu-item-group>
-                        <el-menu-item-group title="分组2">
-                            <el-menu-item index="1-3">选项3</el-menu-item>
-                        </el-menu-item-group>
-                        <el-submenu index="1-4">
-                            <template slot="title">选项4</template>
-                            <el-menu-item index="1-4-1">选项1</el-menu-item>
-                        </el-submenu>
-                    </el-submenu>
-                    <el-menu-item index="2">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title">导航二</span>
-                    </el-menu-item>
-                    <el-menu-item index="3" disabled>
-                        <i class="el-icon-document"></i>
-                        <span slot="title">导航三</span>
-                    </el-menu-item>
-                    <el-menu-item index="4">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">导航四</span>
-                    </el-menu-item>
-                </el-menu>
-            </el-col>
-        </el-row>
-        <el-menu mode="horizontal">
-            <el-menu-item index="1">1</el-menu-item>
-            <el-menu-item index="2">2</el-menu-item>
-        </el-menu>
-        <h1>Test of cookie</h1>
-        <h2>Date = {{ cur_date }}</h2>
-        <h2>Date2 = {{ cur_date2 }}</h2>
-        <el-button type="primary" @click="getCookies">获取cookies</el-button>
-        <ul v-for="cookie in cookies">{{ cookie }}</ul>
-        <br> <br>
+        <el-button @click="handleCreate">创建录音器</el-button>
+        <el-button type="primary" @click="handleStartRecording">开始录音</el-button>
+        <el-button type="error" @click="handleStopRecording">结束录音</el-button>
+        <el-button type="success" @click="handleDownload">下载录音</el-button>
+        <el-button @click="handleDestroy">删除录音器</el-button>
 
-        <el-input placeholder="input cookie name..." v-model="new_cookie.name"></el-input>
-        <el-input placeholder="input cookie value..." v-model="new_cookie.value"></el-input>
-        <el-button type="success" @click="createCookie">创建cookie</el-button>
-
-        <h1>Test of hosts</h1>
-        <h2>host1: {{host.host1}} host2: {{host.host2}}</h2>
-        <h3>current url: {{ my_url }}</h3>
-        <h3>current protocol: {{ my_protocol }}</h3>
-        <h3>current pathname: {{ my_path }}</h3>
-        <!--以下为对话框数据传输测试-->
-        <el-button @click="createDialog" type="success">打开对话框</el-button>
-        <EditDialog :config="dialog" @dialogClose="handleClose">
-            <div slot="h1">这是标题的插槽</div>
-            这是段落的插槽
-        </EditDialog>
-        <el-input style="width: 50%;" placeholder="输入的内容" v-model="input"></el-input>
-        <hr>
-        <el-button @click="showColumn = !showColumn">展开动画</el-button>
-        <transition name="el-fade-in-linear">
-            <div align="center" v-show="showColumn">
-                <div class="transition-box">el-collapse-transition</div>
-                <div class="transition-box">el-collapse-transition</div>
-            </div>
-        </transition>
-        <div align="center" style="margin-top: 20px; height: 200px;">
-            <el-collapse-transition>
-                <div v-show="showColumn" class="transition-box">el-collapse-transition</div>
-            </el-collapse-transition>
-        </div>
-
+        <el-button @click="handleAlert">学生看过来！</el-button>
     </div>
 </template>
 
@@ -133,6 +15,7 @@
     /* eslint-disable camelcase */
 
     import EditDialog from './EditDialog';
+    import Recorder from 'recorder-js'; // 录音插件
     // import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
     // import Vue from 'vue'
     //
@@ -168,7 +51,9 @@
                     value: '',
                 },
                 cur_date: date.toUTCString(),
-                cur_date2: date2.toUTCString()
+                cur_date2: date2.toUTCString(),
+                recorder: undefined,
+                blob: undefined
             };
         },
         sockets: {  // todo 学生端处理通知
@@ -185,6 +70,42 @@
             }
         },
         methods: {
+            handleCreate() {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                this.recorder = new Recorder(audioContext, {
+                    // An array of 255 Numbers
+                    // You can use this to visualize the audio stream
+                    // If you use react, check out react-wave-stream
+                    // onAnalysed: data => console.log('[data]', data),
+                });
+                navigator.mediaDevices.getUserMedia({ audio: true }).
+                          then(stream => this.recorder.init(stream)).
+                          catch(err => console.log('Uh oh... unable to get stream...', err));
+                console.log('[new recorder]', this.recorder);
+                this.$message.success('录制器已创建');
+            },
+            handleStartRecording() {
+                this.recorder.start().
+                     then(() => {
+                         this.$message('开始录制');
+                     });
+            },
+            handleStopRecording() {
+                this.recorder.stop().
+                     then(({ blob, buffer }) => {
+                         this.$message('结束录制');
+                         console.log('[stop recording]', blob, buffer);
+                         // buffer is an AudioBuffer
+                         this.blob = blob;
+                     });
+            },
+            handleDownload() {
+                Recorder.download(this.blob, 'my-audio-file');
+            },
+            handleDestroy() {
+                delete this.recorder;
+                this.$message.success('录制器已删除');
+            },
             createDialog: function () {
                 this.dialog.visible = true;
                 this.dialog.input = this.input;

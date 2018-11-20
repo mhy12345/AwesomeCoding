@@ -95,13 +95,13 @@
     /* eslint-disable camelcase,no-undef,no-unused-vars */
 
     import {registerSQL, queryPhoneExistSQL} from "../../../utils/DoSQL";
-    import axios from 'axios'
+    import axios from 'axios';
     //var root_url = require('../../../../config/http_root_url');
 	var root_url = '';
 
     export default {
         name: "SignUp",
-        data() {
+        data () {
             return {
                 title: '欢迎注册',
                 heads: { // 输入框提示词
@@ -174,9 +174,7 @@
                             this.$refs.verify_input.focus();
 
                             let nowpath = '/api/user/verification';
-                            axios.post(nowpath, {
-                                number: this.inputs.phone
-                            }).then((resp) => {
+                            axios.post(nowpath, {number: this.inputs.phone}).then((resp) => {
                                 //this.verify.code_generated = parseInt(resp.data.code_generated);
                             });
 
@@ -215,12 +213,6 @@
                     this.$message("两次输入的密码不同。");
                     return;
                 }
-                /* （已移到后端）
-                if (this.inputs.verify_code !== this.verify.code_generated) { // todo 移到后端
-                    this.$message("验证码不正确，请重试。");
-                    return;
-                }
-                */
                 this.loadingQ = true; // 加载等待圈
                 registerSQL(this, this.inputs).
                     then((resp) => {
@@ -242,7 +234,7 @@
                         }
                     });
             },
-            handleFocusingOnVerify() {
+            handleFocusingOnVerify () {
                 this.inputs.verify_code = undefined;
             }
         }
