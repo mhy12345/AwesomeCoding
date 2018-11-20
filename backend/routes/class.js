@@ -363,6 +363,8 @@ router.post('/info/query', function (req, res, next) {
 			}
 			result.status = "SUCCESS.";
 			conn.end();
+			if (result.info.type === 2)
+				delete result.info.invitation_code;
 			res.send(JSON.stringify(result, null, 3));
 		}).
 		catch(function (result) {
@@ -376,7 +378,8 @@ router.post('/info/update', function (req, res, next) {
 	let info = {
 		description: req.body.info.description,
 		notice: req.body.info.notice,
-		title: req.body.info.title
+		title: req.body.info.title,
+		type: req.body.info.type
 	};
 	let resources = req.body.resources;
 	let sqls = [];
@@ -547,12 +550,12 @@ router.post('/create', function (req, res, next) { //创建新班级
 router.post('/public/fetch', function (req, res, next) {//公开课程目录获取
 	if (typeof(req.body.page_number) === 'undefined') {
 		res.status(403).
-			send('Pagenum not defined.');
+			send('PAGE_NUM_NOT_DEFINED.');
 		return;
 	}
 	if (typeof(req.body.page_size) === 'undefined') {
 		req.body.page_size = 20;
-		logger.warn('Page size not defined...');
+		logger.warn('PAGE_SIZE_NOT_DEFINED.');
 	}
 	let m = (+req.body.page_number - 1) * req.body.page_size;
 	let n = (+req.body.page_number) * req.body.page_size;
@@ -575,12 +578,12 @@ router.post('/public/fetch', function (req, res, next) {//公开课程目录获�
 router.post('/my_course/fetch', function (req, res, next) {
 	if (typeof(req.body.page_number) === 'undefined') {
 		res.status(403).
-			send('PAGENUM_NOT_DEFINED.');
+			send('PAGE_NUM_NOT_DEFINED.');
 		return;
 	}
 	if (typeof(req.body.page_size) === 'undefined') {
 		req.body.page_size = 20;
-		logger.warn('Page size not defined...');
+		logger.warn('PAGE_SIZE_NOT_DEFINED.');
 		return;
 	}
 	if (typeof(req.session.user_id) === 'undefined') {

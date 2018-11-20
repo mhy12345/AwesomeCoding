@@ -23,7 +23,12 @@
 							<el-row>
 								<el-col :span='8'>邀请链接</el-col>
 								<el-col :span='16'>
-									<a :href='invitation_url'>{{info.invitation_code}}</a>
+									<div v-if='invitation_url!==""'>
+										<a :href='invitation_url'>{{info.invitation_code}}</a>
+									</div>
+									<div v-else>
+										私有课程，请向老师索要邀请码
+									</div>
 								</el-col>
 							</el-row>
 						</div>
@@ -96,7 +101,10 @@ export default {
 					this.$message("Room " + this.title + " not found!");
 				} else {
 					this.info = res.body.info;
-					this.invitation_url = '/course/invite/' + this.info.invitation_code;
+					if (this.info.invitation_code && this.info.invitation_code !== '')
+						this.invitation_url = '/course/invite/' + this.info.invitation_code;
+					else
+						this.invitation_url = '';
 					this.handleUpdate();
 				}
 				this.loading = false;
