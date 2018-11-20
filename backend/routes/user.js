@@ -211,8 +211,6 @@ router.post('/login', function (req, res, next) {  // 响应登录，并进行�
 router.post('/loginbyPhone', function (req, res, next) {  // 响应登录，并进行合法判断 返回 JSON
 	logger.debug("[post] login\n", req.body);
 	if (req.body.verify_code !== user_verification_codes[req.body.phone]) { // 验证码不正确
-		console.log(req.body.phone);
-		console.log(user_verification_codes[req.body.phone]);
 		res_body = {
 			status: 'FAILED.',
 			details: 'WRONG_VERIFICATION_CODE.'
@@ -281,45 +279,61 @@ router.post('/change', function (req, res, next) {  // 响应设置个人信息�
 		status: '',
 		details: '',
 	};
-	getConnection().
-		then(function (conn) {
-			let sql = "UPDATE users SET ";
-			let arr = [];
-			for (let item in req.body) {
-				if (fixed_items.indexOf(item) >= 0) {
-					res_body.status = 'FAILED.';
-					res_body.details = 'property ' + item + ' cannot be changed.';
-					res.send(JSON.stringify(res_body));
-					conn.end();
-					return Promise.reject({ status: 'SKIPPED.' });
+	if ((req.body.verify_code).toString() !== (user_verification_codes[req.body.phone]).toString()) { // 验证码不正确
+		console.log(user_verification_codes[req.body.phone]);
+		res_body = {
+			status: 'FAILED.',
+			details: 'WRONG_VERIFICATION_CODE.'
+		};
+		logger.debug('[res]', res_body);
+		res.send(JSON.stringify(res_body));
+		return;
+	} else {
+		getConnection().
+			then(function (conn) {
+				let sql = "UPDATE users SET ";
+				let arr = [];
+				let query = { realname: req.body.realname,
+								motto: req.body.motto,
+								email: req.body.email,
+								password: req.body.password,
+				};
+				for (let item in query) {
+					if (fixed_items.indexOf(item) >= 0) {
+						res_body.status = 'FAILED.';
+						res_body.details = 'property ' + item + ' cannot be changed.';
+						res.send(JSON.stringify(res_body));
+						conn.end();
+						return Promise.reject({ status: 'SKIPPED.' });
+					}
+					if (req.body[item])
+						arr.push(item + ' = \'' + req.body[item] + '\'');
 				}
-				if (req.body[item])
-					arr.push(item + ' = \'' + req.body[item] + '\'');
-			}
-			sql += arr.join(',');
-			sql += " WHERE id = " + req.session.user_id;
-			return doSqlQuery(conn, sql);
-		}).
-		then(function (packed) {
-			let { conn, sql_res } = packed;
-			let sql = 'SELECT * FROM users WHERE id = ' + req.session.user_id;
-			return doSqlQuery(conn, sql);
-		}).
-		then(function (packed) {		// 成功修改用户字段
-			let { conn, sql_res } = packed;
-			res_body.results = sql_res.results[0];
-			delete res_body.results.password;
-			updateSession(req.session, res_body.results);
-			res_body.status = 'SUCCESS.';
-			logger.debug(res_body);
-			res.send(JSON.stringify(res_body));
-			conn.end();
-			logger.debug('[res]', res_body);
-		}).
-		catch(function (sql_res) {
-			if (sql_res.status !== 'SKIPPED.')
-				res.send(JSON.stringify(sql_res, null, 3));
-		});
+				sql += arr.join(',');
+				sql += " WHERE id = " + req.session.user_id;
+				return doSqlQuery(conn, sql);
+			}).
+			then(function (packed) {
+				let { conn, sql_res } = packed;
+				let sql = 'SELECT * FROM users WHERE id = ' + req.session.user_id;
+				return doSqlQuery(conn, sql);
+			}).
+			then(function (packed) {		// 成功修改用户字段
+				let { conn, sql_res } = packed;
+				res_body.results = sql_res.results[0];
+				delete res_body.results.password;
+				updateSession(req.session, res_body.results);
+				res_body.status = 'SUCCESS.';
+				logger.debug(res_body);
+				res.send(JSON.stringify(res_body));
+				conn.end();
+				logger.debug('[res]', res_body);
+			}).
+			catch(function (sql_res) {
+				if (sql_res.status !== 'SKIPPED.')
+					res.send(JSON.stringify(sql_res, null, 3));
+			});
+	}
 });
 
 router.post('/forgetPassword', function (req, res, next) {
@@ -441,6 +455,52 @@ router.post('/changePassword', function (req, res, next) {//修改密码
 	getConnection().
 		then(function (conn) {
 			let sql = 'UPDATE users SET password = \'' + newpassword + '\' WHERE id = ' + userid;
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let { conn, sql_res } = packed;
+			res_body.status = 'SUCCESS.';
+			res.send(JSON.stringify(res_body));
+		}).
+		catch(function (sql_res) {
+			res.send(JSON.stringify(sql_res, null, 3));
+		});
+});
+
+
+router.post('/changePhone', function (req, res, next) {//修改密码
+	var res_body = {
+		status: '',
+		details: '',
+	};
+	let userid = req.body.userid;
+	let oldPhoneNumber = req.body.oldPhoneNumber;
+	let newPhoneNumber = req.body.newPhoneNumber;
+	let priVerifyCode = req.body.priVerifyCode;
+	let newVerifyCode = req.body.newVerifyCode;
+
+	if (priVerifyCode !== user_verification_codes[oldPhoneNumber]) { // 验证码不正确
+		console.log(user_verification_codes[oldPhoneNumber]);
+		res_body = {
+			status: 'FAILED.',
+			details: 'WRONG_OLD_VERIFICATION_CODE.'
+		};
+		logger.debug('[res]', res_body);
+		res.send(JSON.stringify(res_body));
+		return;
+	} else if (newVerifyCode !== user_verification_codes[newPhoneNumber]) {
+		console.log(user_verification_codes[newPhoneNumber]);
+		res_body = {
+			status: 'FAILED.',
+			details: 'WRONG_NEW_VERIFICATION_CODE.'
+		};
+		logger.debug('[res]', res_body);
+		res.send(JSON.stringify(res_body));
+		return;
+	}
+	getConnection().
+		then(function (conn) {
+			let sql = 'UPDATE users SET phone = \'' + newPhoneNumber + '\' WHERE id = ' + userid;
 			return doSqlQuery(conn, sql);
 		}).
 		then(function (packed) {
