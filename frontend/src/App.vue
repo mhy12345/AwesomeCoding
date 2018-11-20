@@ -42,17 +42,16 @@
                         <span slot="title">主页</span>
                     </el-menu-item>
 
-                    <!-- todo when release <el-submenu index="/developer" :disabled="user.role !== 0" >-->
-                    <el-submenu index="/developer" v-if="user.role === 0" >
-                        <template slot="title">
-                            <i class='el-icon-edit-outline'></i>
-                            <span slot="title">开发者</span>
-                        </template>
-                        <el-menu-item-group>
-                            <span slot="title">数据库操作</span>
-                            <el-menu-item index="/developer/data_visualizer">数据表修改</el-menu-item>
-                            <el-menu-item index="/developer/file_uploader">文件上传</el-menu-item>
-                        </el-menu-item-group>
+					<el-submenu index="/developer" v-if="user.role === 0" >
+						<template slot="title">
+							<i class='el-icon-edit-outline'></i>
+							<span slot="title">开发者</span>
+						</template>
+						<el-menu-item-group>
+							<span slot="title">数据库操作</span>
+							<el-menu-item index="/developer/data_visualizer">数据表修改</el-menu-item>
+							<el-menu-item index="/developer/file_uploader">文件上传</el-menu-item>
+						</el-menu-item-group>
 
                         <el-menu-item-group title="测试页面">
                             <el-menu-item index="/developer/test_player">直播测试</el-menu-item>
@@ -63,34 +62,10 @@
                         <el-menu-item index="1-4-1">选项1</el-menu-item>
                     </el-submenu>
 
-                    <!--
-					<el-submenu index="/user">
-						<template slot="title">
-							<i class="el-icon-star-on"></i>
-							<span slot="title">用户</span>
-						</template>
-						<div v-if="!loginQ">
-							<el-menu-item index="/user/sign_in">
-								<span slot="title">登录</span>
-							</el-menu-item>
-							<el-menu-item index="/user/sign_up">
-								<span slot="title">注册</span>
-							</el-menu-item>
-						</div>
-						<div v-else>
-							<el-menu-item index="logout">
-								<span slot="title">退出登录</span>
-							</el-menu-item>
-							<el-menu-item index="/user/profile">
-								<span slot="title">个人页</span>
-							</el-menu-item>
-						</div>
-					</el-submenu>
-					-->
-                    <el-menu-item index='/course/add' v-if='user.user_id !== ""'>
-                        <i class="el-icon-star-on"></i>
-                        <span slot="title">新建课程</span>
-                    </el-menu-item>
+					<el-menu-item index='/course/add' v-if='user.user_id !== ""'>
+						<i class="el-icon-star-on"></i>
+						<span slot="title">新建课程</span>
+					</el-menu-item>
 
                     <el-menu-item index="/course/enter">
                         <i class='el-icon-news'></i>

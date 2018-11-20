@@ -45,7 +45,8 @@ function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的�
 				let id = result.user_id;
 				id = String(id);
 				if ($user_sockets.hasOwnProperty(id)) {	// 这些用户在线
-					if (id != socket.request.session.user_id) $user_sockets[id].emit('message', flow);// 不通知自己
+					if (id != socket.request.session.user_id) $user_sockets[id].emit('message', flow);
+					// 不通知自己，注意 这里故意要用双等号的
 					$user_sockets[id].emit('pullFlow', flow);
 				}
 			}
