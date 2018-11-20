@@ -42,7 +42,7 @@
                         </div>
                         <!--教师消息-->
                         <div v-else-if="record.course_status === 0">
-                            {{ record.realname }} :
+                            {{ record.realname }}（老师） :
                             <el-row>
                                 <div class="bubble-teacher">
                                     {{ record.message }}
@@ -65,7 +65,10 @@
                     </div>
                     <!--todo 图片消息-->
                     <div v-else-if="record.type === 'picture'">
-
+                        {{ record.realname }} :
+                        <el-row>
+                            <img :src="record.path" :alt="record.message" class="chat-picture">
+                        </el-row>
                     </div>
                     <!--默认消息-->
                     <div v-else>
@@ -163,6 +166,7 @@
                          } else { // 获取消息成功
                              time_marker = new Date();
                              this.chat_records = parseList(res.body.results); // 导入消息
+                             console.log('[record list]', res.body.results);
                          }
                      }).
                      catch((err) => {
@@ -258,5 +262,9 @@
         border-bottom: #c6c6c6 1px dashed;
         background-color: #ffffff;
         top: -20px;
+    }
+
+    .chat-picture{
+        width: 150px;
     }
 </style>

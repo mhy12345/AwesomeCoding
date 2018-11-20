@@ -11,25 +11,21 @@ var mysql = require('mysql');
 
 function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的用户广播聊天消息，并发送拉流的通知
 	getConnection().
-		then((conn) => {
-
+		then((conn) => {	// 添加消息到数据库
 			let sql = "INSERT INTO `ac_database`.`chat_record` " +
-				"(`course_id`, `user_id`, `course_status`, `realname`, `type`, `message`) VALUES ('" +
-				mysql.escape(msg.course_id) + "', '" +
+				"(`course_id`, `user_id`, `course_status`, `realname`, `type`, `message`, `path`) VALUES (" +
+				mysql.escape(msg.course_id) + ", '" +
 				socket.request.session.user_id + "', '" +
 				socket.request.session.course_status + "', '" +
-				socket.request.session.realname + "', '";
-			if (msg.type === 'text') {
-				sql += "text" + "', '" + mysql.escape(msg.message) + "');";
-			}
-			else if (msg.type === 'picture') {
-				sql += "text" + "', '" + mysql.escape(msg.message) + "');";
-			}
+				socket.request.session.realname + "', " +
+				mysql.escape(msg.type) + ", " +
+				mysql.escape(msg.message) + ", " +
+				mysql.escape(msg.path) + ");";
 			return doSqlQuery(conn, sql);
 		}).
 		then((packed) => {			// 成功添加到聊天记录
 			let { conn, sql_res } = packed;
-			let sql = "SELECT user_id FROM ac_database.classusers WHERE class_id = " + mysql.escape(msg.course_id) + ";";
+			let sql = "SELECT user_id FROM classusers WHERE class_id = " + mysql.escape(msg.course_id) + ";";
 			return doSqlQuery(conn, sql)
 		}).
 		then((packed) => { 		// 选中课程中的所有用户
@@ -38,25 +34,18 @@ function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的�
 			let flow = {
 				realname: socket.request.session.realname,
 				user_id: socket.request.session.user_id,
+				type: msg.type,
 				message: msg.message,	// message 是共有属性
+				path: msg.path,
 				course_status: socket.request.session.course_status,
 				date_time: new Date()
 			};
 			for (let result of sql_res.results) {	// 用 socket 通知课程中的这些用户消息
 				let id = result.user_id;
 				id = String(id);
-				if ($user_sockets.hasOwnProperty(id)) {
-					if (msg_type === 'text') {
-						flow.type = 'text';
-						$user_sockets[id].emit('message', flow);
-						$user_sockets[id].emit('pullFlow', flow);
-					}
-					else if (msg_type === 'picture') {
-						flow.type = 'picture';
-						flow.picture = msg.picture;	// 把图片内容也发给用户
-						$user_sockets[id].emit('picture', flow);
-						$user_sockets[id].emit('pullFlow', flow);
-					}
+				if ($user_sockets.hasOwnProperty(id)) {	// 这些用户在线
+					$user_sockets[id].emit('picture', flow);
+					$user_sockets[id].emit('pullFlow', flow);
 				}
 			}
 		}).
@@ -114,7 +103,7 @@ function initSocketIO(sio) {
 			}
 		});
 
-		socket.on('message', function (msg) {		// 客户发来文字消息
+		socket.on('message', function (msg) {		// 客户发来消息
 			logger.info('>>message: \n', msg);
 			if (socket.request.session.user_id === undefined) {	// offline, reject
 				socket.emit('rejected', {

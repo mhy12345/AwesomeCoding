@@ -1,7 +1,9 @@
 import {copy} from '../../../utils/Copy'
+import root_url from '../../../../config/http_root_url'
 
 function parseFlow(flow) {  // 从流中获取到消息
     let record = copy(flow);
+    record.path = root_url + record.path;
     record.date_time = new Date(flow.date_time);    // 以 Date 的形式储存时间
     return record;
 }
@@ -9,7 +11,6 @@ function parseFlow(flow) {  // 从流中获取到消息
 function parseList(list) {  // 从数据库列表获取到消息列表
     let records = [];
     for (let flow of list) {
-        flow.type = 'text';
         records.push(parseFlow(flow))
     }
     return records;

@@ -117,7 +117,6 @@ router.get('/get_chat_record', function (req, res) {
  * req.file[0]
  */
 router.post('/picture', upload.any(), function (req, res) {
-	logger.fatal('[picture]\n', req.files[0], req.body);
 	let now = new Date();
 	let suffix = mysql.escape(now.getTime());
 	let filename = '' + req.session.user_id + '_' + req.body.course_id + '_' + suffix;	// 生成文件名
@@ -132,32 +131,32 @@ router.post('/picture', upload.any(), function (req, res) {
 					send(err);
 			}
 			else {
-				getConnection().
-					then(function (conn) {
-						let sql = 'INSERT INTO chat_record (course_id, user_id, course_status, realname, ' +
-							`type, message, path) VALUES (` +
-							`${mysql.escape(req.body.course_id)}, ` +
-							`${mysql.escape(req.session.user_id)}, ` +
-							`${mysql.escape(req.session.course_status)}, ` +
-							`${mysql.escape(req.session.realname)}, ` +
-							`'picture', ` + `'[图片消息]', ${mysql.escape(saved_path)});`;
-						return doSqlQuery(conn, sql);
-					}).
-					then(function (packed) {
-						let { conn, sql_res } = packed;
-						conn.end();
-						logger.info('[saved]', JSON.stringify(sql_res, null, 3));
-						res.send({
-							status: 'SUCCESS.',
-							type: 'picture',
-							path: saved_path
-						});
-					}).
-					catch(function (sql_res) {
-						logger.error('[fail to save into db]\n', JSON.stringify(sql_res, null, 3));
-						res.status(403).
-							send(sql_res);
-					});
+				// getConnection().
+				// 	then(function (conn) {
+				// 		let sql = 'INSERT INTO chat_record (course_id, user_id, course_status, realname, ' +
+				// 			`type, message, path) VALUES (` +
+				// 			`${mysql.escape(req.body.course_id)}, ` +
+				// 			`${mysql.escape(req.session.user_id)}, ` +
+				// 			`${mysql.escape(req.session.course_status)}, ` +
+				// 			`${mysql.escape(req.session.realname)}, ` +
+				// 			`'picture', ` + `'[图片消息]', ${mysql.escape(saved_path)});`;
+				// 		return doSqlQuery(conn, sql);
+				// 	}).
+				// 	then(function (packed) {
+				// 		let { conn, sql_res } = packed;
+				// 		conn.end();
+				// 		logger.info('[saved]', JSON.stringify(sql_res, null, 3));
+				logger.info('[saved]', saved_path);
+				res.send({
+					status: 'SUCCESS.',
+					type: 'picture',
+					path: saved_path
+				});
+				// catch(function (sql_res) {
+				// 	logger.error('[fail to save into db]\n', JSON.stringify(sql_res, null, 3));
+				// 	res.status(403).
+				// 		send(sql_res);
+				// });
 			}
 		});
 	});
