@@ -6,24 +6,30 @@ var log4js_config = require("../configures/log.config.js").runtime_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('socket_log');
 var $user_sockets = require('../utils/global').$user_sockets;
+var mysql = require('mysql');
 // restore all user sockets, key: user_id, value: a socket object
 
-function notifyClassMembers(socket, msg, msg_type) {	// 向本门课程的所有在线的用户广播聊天消息，并发送拉流的通知
+function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的用户广播聊天消息，并发送拉流的通知
 	getConnection().
 		then((conn) => {
-			console.log('?>>',socket.request.session);
+
 			let sql = "INSERT INTO `ac_database`.`chat_record` " +
-				"(`course_id`, `user_id`, `course_status`, `realname`, `message`) VALUES ('" +
-				msg.course_id + "', '" +
+				"(`course_id`, `user_id`, `course_status`, `realname`, `type`, `message`) VALUES ('" +
+				mysql.escape(msg.course_id) + "', '" +
 				socket.request.session.user_id + "', '" +
 				socket.request.session.course_status + "', '" +
-				socket.request.session.realname + "', '" +
-				msg.message + "');";
+				socket.request.session.realname + "', '";
+			if (msg.type === 'text') {
+				sql += "text" + "', '" + mysql.escape(msg.message) + "');";
+			}
+			else if (msg.type === 'picture') {
+				sql += "text" + "', '" + mysql.escape(msg.message) + "');";
+			}
 			return doSqlQuery(conn, sql);
 		}).
 		then((packed) => {			// 成功添加到聊天记录
 			let { conn, sql_res } = packed;
-			let sql = "SELECT user_id FROM ac_database.classusers WHERE class_id = " + msg.course_id + ";";
+			let sql = "SELECT user_id FROM ac_database.classusers WHERE class_id = " + mysql.escape(msg.course_id) + ";";
 			return doSqlQuery(conn, sql)
 		}).
 		then((packed) => { 		// 选中课程中的所有用户
@@ -117,20 +123,7 @@ function initSocketIO(sio) {
 				return;
 			}
 			// store the message and push flow to other clients
-			notifyClassMembers(socket, msg, 'text');
-		});
-
-		socket.on('picture', function (msg) {		// 客户发来图片消息
-			logger.info('>>picture: \n', msg);
-			if (socket.request.session.user_id === undefined) {	// offline, reject
-				socket.emit('rejected', {
-					details: '您尚未登录，不能发送消息。'
-				});
-				return;
-			}
-			// store the message and push flow to other clients
-			msg.message = '[图片消息]';
-			notifyClassMembers(socket, msg, 'picture');
+			notifyClassMembers(socket, msg);
 		});
 
 		if (socket.request.session.role === 1) {	// 教师权限——通知班级学生进行操作

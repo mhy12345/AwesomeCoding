@@ -6,6 +6,10 @@ const doSqlQuery = require('../utils/funcs').doSqlQuery;
 const getPermission = require('../utils/funcs').getPermission;
 const $sockets = require('../utils/global').$user_sockets;
 var mysql = require('mysql');
+var multer = require('multer');
+var upload = multer({dest: 'public/uploads/'});
+var fs = require('fs');
+var path = require('path');
 
 const log4js = require("log4js");
 const log4js_config = require("../configures/log.config.js").runtime_configure;
@@ -29,7 +33,6 @@ router.use(function (req, res, next) {		// 检查登录状态
  * 该字段在 /api/class/status 被调用时就自动添加到 session 字段里了
  */
 router.use(function (req, res, next) {
-	logger.error(`[/live]\n`, req.session);
 	if (req.session.course_status === undefined) {
 		res.send({
 			status: 'FAILED.',
@@ -108,6 +111,57 @@ router.get('/get_chat_record', function (req, res) {
 		});
 });
 
+/* 用户发来图片消息
+ * req.query:
+ * 		course_id,
+ * req.file[0]
+ */
+router.post('/picture', upload.any(), function (req, res) {
+	logger.fatal('[picture]\n', req.files[0], req.body);
+	let now = new Date();
+	let suffix = mysql.escape(now.getTime());
+	let filename = '' + req.session.user_id + '_' + req.body.course_id + '_' + suffix;	// 生成文件名
+	let des_file = path.join('./public/chat/pictures/' + filename);				// 储存路径
+	var saved_path = 'chat/pictures/' + filename;
+
+	fs.readFile(req.files[0].path, function (err, data) {
+		fs.writeFile(des_file, data, function (err) {
+			if (err) {
+				logger.info(err);
+				res.status(403).
+					send(err);
+			}
+			else {
+				getConnection().
+					then(function (conn) {
+						let sql = 'INSERT INTO chat_record (course_id, user_id, course_status, realname, ' +
+							`type, message, path) VALUES (` +
+							`${mysql.escape(req.body.course_id)}, ` +
+							`${mysql.escape(req.session.user_id)}, ` +
+							`${mysql.escape(req.session.course_status)}, ` +
+							`${mysql.escape(req.session.realname)}, ` +
+							`'picture', ` + `'[图片消息]', ${mysql.escape(saved_path)});`;
+						return doSqlQuery(conn, sql);
+					}).
+					then(function (packed) {
+						let { conn, sql_res } = packed;
+						conn.end();
+						logger.info('[saved]', JSON.stringify(sql_res, null, 3));
+						res.send({
+							status: 'SUCCESS.',
+							type: 'picture',
+							path: saved_path
+						});
+					}).
+					catch(function (sql_res) {
+						logger.error('[fail to save into db]\n', JSON.stringify(sql_res, null, 3));
+						res.status(403).
+							send(sql_res);
+					});
+			}
+		});
+	});
+});
 
 router.get('/clear_chat_record', function (req, res) {		// 清空聊天记录
 	logger.info('[clear_chat_record]\n', req.query);

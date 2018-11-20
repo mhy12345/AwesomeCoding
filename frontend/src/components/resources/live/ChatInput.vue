@@ -32,7 +32,17 @@
 		</el-row>
 
         <!--the real file uploader-->
-        <input style="display: none" type="file" ref="uploader" accept="image/*" @change="handleSendImage"/>
+        <!--<input style="display: none" type="file" ref="uploader" accept="image/*" @change="handleSendImage"/>-->
+        <el-upload
+            style="display: none"
+            ref="upload"
+            :show-file-list="false"
+            :data='{ course_id: $route.params.class_id }'
+            :on-success="onUploadSuccess"
+            :on-error="onUploadError"
+            action="/api/live/picture">
+            <button ref="uploader">上传</button>
+        </el-upload>
 	</div>
 </template>
 
@@ -63,25 +73,56 @@
                 }
                 let msg = {
                     course_id: this.$route.params.class_id,
-                    message: this.input_message
+                    message: this.input_message,
+                    type: 'text'
                 };
                 // 以后聊天统一通过socket来完成
                 this.$socket.emit('message', msg);
                 this.input_message = '';
             },
-            handleSendImage() { // 发送图片
-                let img = this.$refs.uploader.files[0];
-                console.log('[picture]', img);
-                let form_data = new FormData();
-                form_data.append('file', img);
-                let msg = {
-                    course_id: this.$route.params.class_id,
-                    picture: form_data
-                };
-                this.$socket.emit('picture', msg);  // 通过 socket 发送图片消息
-            },
+            // handleSendImage() { // 发送图片
+            //     let img = this.$refs.uploader.files[0];
+            //     console.log('[picture]', img);
+            //     // let form_data = new FormData();
+            //     // form_data.append('file', img, img.name);
+            //     // console.log('[form data]', form_data);
+            //     let msg = {
+            //         course_id: this.$route.params.class_id,
+            //
+            //         picture: img
+            //     };
+            //     this.$http.
+            //          post('/api/live/picture', {
+            //              course_id: msg.course_id,
+            //              file: img,
+            //          }).
+            //          then((res) => {
+            //              this.$message.success('上传成功');
+            //              console.log(res);
+            //          }).
+            //          catch((err) => {
+            //              console.log('[send img]', err);
+            //          });
+            //     this.$socket.emit('picture', msg);  // 通过 socket 发送图片消息
+            // },
             handleSendVoice() { // todo 发送语音
 
+            },
+            onUploadSuccess(res) {
+                this.$message.success('上传成功');
+                // console.log('[upload success]', res);
+                if (res.type === 'picture') {
+                    this.$socket.emit('picture', {
+
+                    })
+                }
+                else if (res.type === 'voice') {
+                    //todo
+                }
+            },
+            onUploadError(res) {
+                this.$message.error('上传失败');
+                console.log('[upload error]', res);
             }
         }
     };
