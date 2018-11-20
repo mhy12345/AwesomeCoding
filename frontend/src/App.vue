@@ -63,30 +63,6 @@
 						<el-menu-item index="1-4-1">选项1</el-menu-item>
 					</el-submenu>
 
-					<!--
-					<el-submenu index="/user">
-						<template slot="title">
-							<i class="el-icon-star-on"></i>
-							<span slot="title">用户</span>
-						</template>
-						<div v-if="!loginQ">
-							<el-menu-item index="/user/sign_in">
-								<span slot="title">登录</span>
-							</el-menu-item>
-							<el-menu-item index="/user/sign_up">
-								<span slot="title">注册</span>
-							</el-menu-item>
-						</div>
-						<div v-else>
-							<el-menu-item index="logout">
-								<span slot="title">退出登录</span>
-							</el-menu-item>
-							<el-menu-item index="/user/profile">
-								<span slot="title">个人页</span>
-							</el-menu-item>
-						</div>
-					</el-submenu>
-					-->
 					<el-menu-item index='/course/add' v-if='user.user_id !== ""'>
 						<i class="el-icon-star-on"></i>
 						<span slot="title">新建课程</span>

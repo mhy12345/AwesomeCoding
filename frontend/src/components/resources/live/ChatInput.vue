@@ -12,22 +12,13 @@
                 </div>
 			</el-col>
 			<el-col :span='5'>
-				<div>
-                    <el-button type="primary" plain
-                               icon="el-icon-picture-outline"
-                               @click="handleSendImage"
-                               :disabled="blockQ">
-                        图片
-                    </el-button>
-				</div>
-				<div>
-					<el-button type="success" plain
-                               icon="el-icon-phone"
-                               @click="handleSendVoice"
-                               :disabled="blockQ">
-						语音
-					</el-button>
-				</div>
+                <el-button type="primary" plain
+                           icon="el-icon-picture-outline"
+                           @click="handleSendImage"
+                           :disabled="blockQ">
+                    图片
+                </el-button>
+                <chat-voice-recorder @voice="handleSendVoice"></chat-voice-recorder>
 			</el-col>
 		</el-row>
 
@@ -40,18 +31,34 @@
             :on-success="onUploadSuccess"
             :on-error="onUploadError"
             action="/api/live/picture">
-            <button ref="uploader">上传</button>
+            <button ref="uploader">上传图片</button>
+        </el-upload>
+        <el-upload
+            ref="voice_upload"
+            :show-file-list="true"
+            :data='{ course_id: $route.params.class_id }'
+            :on-change="handleUploadChange"
+            :on-success="onUploadSuccess"
+            :on-error="onUploadError"
+            :auto-upload="false"
+            :file-list="[{name: '123', url:''}]"
+            action="/api/live/voice">
+            上传语音
         </el-upload>
 	</div>
 </template>
 
 <script>
+    import ChatPictureUploader from './ChatPictureUploader';
+    import ChatVoiceRecorder from './ChatVoiceRecorder';
+
     export default {
         name: "Chat",
         data() {
             return {
                 input_message: '',
                 blockQ: false, // 是否被禁言
+                voice_blob: undefined,  // 录到的语音
             };
         },
         sockets: {
@@ -65,6 +72,9 @@
             }
         },
         methods: {
+            handleUploadChange() {
+                console.log('[selected]', this.$refs.voice_upload);
+            },
             handleSendMessage() { // 发送消息
                 if (this.blockQ) return;
                 if (this.input_message.length <= 0) {
@@ -84,12 +94,15 @@
                 if (this.blockQ) return;
                 this.$refs.uploader.click();
             },
-            handleSendVoice() { // todo 发送语音
+            handleSendVoice(blob) { // todo 发送语音
                 if (this.blockQ) return;
+                this.$message.success('成功录制');
+                this.voice_blob = blob;
             },
             onUploadSuccess(res) {
                 this.$message.success('上传成功');
-                // console.log('[upload success]', res);
+                this.$refs.uploader.clearFiles();
+                console.log('[upload success]', res);
                 let msg;
                 if (res.type === 'picture') {
                     msg = {
@@ -114,6 +127,10 @@
                 this.$message.error('上传失败');
                 console.log('[upload error]', res);
             }
+        },
+        components: {
+            ChatPictureUploader,
+            ChatVoiceRecorder
         }
     };
 </script>

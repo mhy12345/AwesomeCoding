@@ -15,6 +15,7 @@ Vue.use(VueVisible);
 Vue.use(VueResource);
 Vue.use(VueSocketio, server_url);
 Vue.use(preview);
+// Vue.use(Recorder);
 
 new Vue({
     router,
