@@ -3,6 +3,9 @@
         <div slot="header" class="clear-fix">
             <h1>{{ title }}</h1>
         </div>
+        <div>
+            notice:  修改成功后将会重新登录
+        </div>
         <div @keydown.enter="handleChangePassword">
             <el-row>
                 <el-col :span="8" class="register-prompt">
@@ -12,13 +15,11 @@
                     </label>
                 </el-col>
                 <el-col :span="13">
-                    <el-input-number
-                        id="verify_code"
-                        ref="verify_input"
-                        :controls="false"
-                        class="input-box"
-                        v-model="inputs.newPhoneNumber">
-                    </el-input-number>
+                    <el-input type="text"
+                              clearable
+                              class="input-box"
+                              v-model="inputs.newPhoneNumber">
+                    </el-input>
                 </el-col>
             </el-row>
 
@@ -87,7 +88,7 @@
 <script>
     /* eslint-disable camelcase */
 
-    import {forgetPasswordSQL, queryPhoneSQL, changePasswordSQL} from '../../../utils/DoSQL';
+    import {queryPhoneSQL, changePhoneSQL} from '../../../utils/DoSQL';
     import axios from 'axios';
     var root_url = require('../../../../config/http_root_url');
 
@@ -122,27 +123,24 @@
         },
         methods: {
             handleChangePhone: function () {
-
-                
-                // 修改密码
-                if(this.inputs.password !== this.inputs.re_password) {
-                    this.$message.warning("密码不一致");
-                    return;
-                }
-                changePasswordSQL(this, this.inputs).
+                this.inputs.oldPhoneNumber = this.user.phone;
+                this.inputs.userid = this.user.user_id;
+                changePhoneSQL(this, this.inputs).
                     then((resp) => {
-                        window.location.href = "/user/sign_in";
+                        this.$emit('logout');
+                        this.$router.push('/home');
                     }).
                     catch((resp) => {
-                        if (resp.details === 'WRONG_VERIFICATION_CODE.') {
-                            this.$message.error("修改密码失败，验证码不正确！");
+                        if (resp.details === 'WRONG_OLD_VERIFICATION_CODE.') {
+                            this.$message.error("修改密码失败，原手机验证码不正确！");
+                        } else if (resp.details === 'WRONG_NEW_VERIFICATION_CODE.') {
+                            this.$message.error("修改密码失败，新手机验证码不正确");
                         }
                     });
             },
             handleOldVerification: function () {
                 this.inputs.oldPhoneNumber = this.user.phone;
                 let clock;
-                this.inputs.userid = resp.user.id;
                 clock = window.setInterval(() => {
                     this.oldVerify.disableQ = true;
                     this.oldVerify.countdown--;
@@ -164,46 +162,42 @@
 
             handleNewVerification: function () {
                 let clock;
-                if (this.inputs.newPhoneNumber <= 10000000000 || this.inputs.newPhoneNumber >= 19999999999) {
+                if (this.inputs.newPhoneNumber <= 10000000000 || this.inputs.newPhoneNumber >= 19999999999 || this.inputs.newPhoneNumber === undefined) {
                     this.$message("请输入中国大陆11位手机号");
                     return;
+                } else {
+                    queryPhoneSQL(this, {phone: this.inputs.newPhoneNumber}).
+                        then((resp) => {
+                            if(resp.status === 'SUCCESS.') {
+                                this.$message("该手机号已经被注册");
+                                return ;
+                            }
+                        }).
+                        catch((resp) => {
+                            if(resp.status === 'FAILED.') {
+                                clock = window.setInterval(() => {
+                                    this.newVerify.disableQ = true;
+                                    this.newVerify.countdown--;
+                                    this.newVerify.prompt = this.newVerify.countdown + 's后重新发送';
+                                    if (this.newVerify.countdown <= 0) {
+                                        window.clearInterval(clock);
+                                        this.newVerify.disableQ = false;
+                                        this.newVerify.prompt = '重新发送验证码';
+                                        this.newVerify.countdown = 60;
+                                    }
+                                }, 1000);
+
+                                this.$message.warning("验证码已发送！请注意查收");
+                                this.$refs.verify_input.focus();
+
+                                let nowpath = '/api/user/verification';
+                                axios.post(nowpath, {number: this.inputs.newPhoneNumber})
+                                      .then((resp) => {
+                                    //this.verify.code_generated = parseInt(resp.data.code_generated);
+                                });
+                            }
+                        });
                 }
-
-                queryPhoneSQL(this, {phone: this.inputs.newPhoneNumber}).
-                    then((resp) => {
-                        if(resp.status === 'SUCCESS.') {
-                            this.$message("该手机号已经被注册");
-                            return ;
-                        } else if (resp.status === 'FAILED.') {
-                            this.inputs.userid = resp.user.id;
-                            clock = window.setInterval(() => {
-                                this.newVerify.disableQ = true;
-                                this.newVerify.countdown--;
-                                this.newVerify.prompt = this.newVerify.countdown + 's后重新发送';
-                                if (this.newVerify.countdown <= 0) {
-                                    window.clearInterval(clock);
-                                    this.newVerify.disableQ = false;
-                                    this.newVerify.prompt = '重新发送验证码';
-                                    this.newVerify.countdown = 60;
-                                }
-                            }, 1000);
-
-                            this.$message.warning("验证码已发送！请注意查收");
-                            this.$refs.verify_input.focus();
-
-                            let nowpath = '/api/user/verification';
-                            axios.post(nowpath, {number: this.inputs.phone})
-                                  .then((resp) => {
-                                //this.verify.code_generated = parseInt(resp.data.code_generated);
-                            });
-                        }
-                    }).
-                    catch((resp) => {
-                        if(resp.status === 'FAILED.') {
-                            this.$message("未知错误");
-                            return;
-                        }
-                    });
 
             },
         }

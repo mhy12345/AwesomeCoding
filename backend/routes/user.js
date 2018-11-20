@@ -467,6 +467,52 @@ router.post('/changePassword', function (req, res, next) {//修改密码
 		});
 });
 
+
+router.post('/changePhone', function (req, res, next) {//修改密码
+	var res_body = {
+		status: '',
+		details: '',
+	};
+	let userid = req.body.userid;
+	let oldPhoneNumber = req.body.oldPhoneNumber;
+	let newPhoneNumber = req.body.newPhoneNumber;
+	let priVerifyCode = req.body.priVerifyCode;
+	let newVerifyCode = req.body.newVerifyCode;
+
+	if (priVerifyCode !== user_verification_codes[oldPhoneNumber]) { // 验证码不正确
+		console.log(user_verification_codes[oldPhoneNumber]);
+		res_body = {
+			status: 'FAILED.',
+			details: 'WRONG_OLD_VERIFICATION_CODE.'
+		};
+		logger.debug('[res]', res_body);
+		res.send(JSON.stringify(res_body));
+		return;
+	} else if (newVerifyCode !== user_verification_codes[newPhoneNumber]) {
+		console.log(user_verification_codes[newPhoneNumber]);
+		res_body = {
+			status: 'FAILED.',
+			details: 'WRONG_NEW_VERIFICATION_CODE.'
+		};
+		logger.debug('[res]', res_body);
+		res.send(JSON.stringify(res_body));
+		return;
+	}
+	getConnection().
+		then(function (conn) {
+			let sql = 'UPDATE users SET phone = \'' + newPhoneNumber + '\' WHERE id = ' + userid;
+			return doSqlQuery(conn, sql);
+		}).
+		then(function (packed) {
+			let { conn, sql_res } = packed;
+			res_body.status = 'SUCCESS.';
+			res.send(JSON.stringify(res_body));
+		}).
+		catch(function (sql_res) {
+			res.send(JSON.stringify(sql_res, null, 3));
+		});
+});
+
 function randomString(len) {//随机生成字符串
 	var $chars = 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890';
 	var maxPos = $chars.length;
