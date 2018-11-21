@@ -18,7 +18,7 @@
                     </el-col>
                     <!--图片和语音按钮-->
                     <el-col :span='5'>
-                        <chat-picture-uploader :block="blockQ" :course_id="$route.params.class_id"></chat-picture-uploader>
+                        <chat-picture-uploader :blockQ="blockQ" :course_id="$route.params.class_id"></chat-picture-uploader>
                         <chat-voice-recorder :blockQ="blockQ" :course_id="$route.params.class_id"></chat-voice-recorder>
                     </el-col>
                 </el-row>

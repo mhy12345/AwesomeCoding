@@ -54,7 +54,7 @@
                      this.tableData = res.body.results;
                      for(let i of this.tableData) {
                          if(i.imagepath)
-                             i.imagepath = root_url + i.imagepath;
+                             i.imagepath = i.imagepath;
                      }
                      for(let i = 0; i < (this.tableData.length < 6 ? this.tableData.length : 6); i ++) {
                          this.headlines.push(
