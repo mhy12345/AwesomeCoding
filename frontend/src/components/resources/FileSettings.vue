@@ -1,6 +1,11 @@
 <template>
     <el-container>
         <el-main>
+            <h5>
+                操作说明: <br/>
+                所有文件可在个人页进行管理（鼠标移至右上角用户头像->用户资料->我的资源） <br/>
+                上传完文件后，需要在"添加到课程"标签栏中将文件添加到课程之中
+            </h5>
             <el-menu :default-active="activeIndex" mode="horizontal">
                 <el-menu-item index="1" @click="handlePageAdd()">添加到课程</el-menu-item>
                 <el-menu-item index="2" @click="handlePageDelete()">从课程删除</el-menu-item>
@@ -27,6 +32,7 @@
                         </el-tooltip>
                     </template>
                 </el-table-column>
+
             </el-table>
             <el-upload
                 class="upload-demo"
@@ -36,8 +42,6 @@
                 multiple>
                 <i class="el-icon-upload"></i>
                 <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em>  </div>
-                <div class="el-upload__tip" slot="tip">tip1: 所有文件在个人页可管理</div>
-                <div class="el-upload__tip" slot="tip"> tip2: 上传完文件后，需要在左侧"添加到课程"标签栏中将文件添加到课程之中</div>
             </el-upload>
         </el-main>
     </el-container>
