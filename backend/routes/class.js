@@ -291,7 +291,7 @@ router.post('/invite/check', function (req, res, next) { //学生通过邀请码
 			let { conn, sql_res } = packed;
 			conn.end();
 			if (sql_res.results.length === 0) {
-				return Promise.reject('The code is not found in the class list.');
+				return Promise.reject('NO_SUCH_CODE.');
 			}
 			res.send({
 				status: 'SUCCESS.',
