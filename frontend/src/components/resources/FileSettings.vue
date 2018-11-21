@@ -20,7 +20,7 @@
                                        @click="handleDelete(scope.row)">
                             </el-button>
                         </el-tooltip>
-                        <el-tooltip effect="dark" content="将幻灯片显示到在线授课页面（仅支持pdf格式）" placement="top-start">
+                        <el-tooltip effect="dark" content="将幻灯片作为课件显示在在线授课页面（仅支持pdf格式）" placement="top-start">
                             <el-button icon="el-icon-view" circle
                                        @click="handleView(scope.row)">
                             </el-button>
@@ -35,8 +35,9 @@
                 v-if="upload===true"
                 multiple>
                 <i class="el-icon-upload"></i>
-                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                <div class="el-upload__tip" slot="tip">tip: 所有文件在个人页可管理</div>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em>  </div>
+                <div class="el-upload__tip" slot="tip">tip1: 所有文件在个人页可管理</div>
+                <div class="el-upload__tip" slot="tip"> tip2: 上传完文件后，需要在左侧"添加到课程"标签栏中将文件添加到课程之中</div>
             </el-upload>
         </el-main>
     </el-container>
