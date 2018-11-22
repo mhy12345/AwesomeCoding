@@ -14,7 +14,19 @@
 						</pdf>
 					</div>
 					<div v-else>
-						当前没有可放映课件
+                        <div v-if="course_role === 0">
+                            当前没有可放映课件 <br>
+                            可以前往
+                            <el-button type="text"
+                                       style="display: inline; font-size: 1.0em"
+                                       @click="handleJump">
+                                资料设置
+                            </el-button>
+                            页面进行设置
+                        </div>
+                        <div v-else>
+                            当前没有可放映课件
+                        </div>
 					</div>
 				</div>
 			</el-col>
@@ -43,6 +55,7 @@ export default {
 			class_id: this.$route.params.class_id
 		};
 	},
+    props: { course_role: Number },
 	components: {pdf: pdf},
 	updated: function () {
 		this.pdfSrc = this.pdfSrc;
@@ -110,7 +123,11 @@ export default {
 					});
 				});
 			}
-		}
+		},
+        handleJump() {      // 跳到资料设置界面
+            this.$router.push(`/class/${this.class_id}/file_settings`);
+            this.$emit('jump', 'file_settings');    // 通知父级跳页面
+        }
 	}
 };
 </script>
