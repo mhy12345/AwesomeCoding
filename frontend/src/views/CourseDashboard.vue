@@ -22,6 +22,7 @@
                     class='lecture-panel'
                     :index='activeTitle'
                     :ref='option.index'
+                    :user="user"
                 >
                 </components>
                 <components
