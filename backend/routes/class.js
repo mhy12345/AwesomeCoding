@@ -364,7 +364,7 @@ router.post('/info/query', function (req, res, next) {
 			}
 			result.status = "SUCCESS.";
 			conn.end();
-			if (result.info.type === 2)
+			if (result.info.type === 2 && req.session.role !== 1)
 				delete result.info.invitation_code;
 			res.send(JSON.stringify(result, null, 3));
 		}).
