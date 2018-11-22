@@ -1,8 +1,5 @@
 <template>
     <el-card class="box-card">
-        <div slot="header" class="clear-fix">
-            <span>{{ title }}</span>
-        </div>
         <div v-loading="loadingQ">
             <el-row>
                 <el-col :span="24">
