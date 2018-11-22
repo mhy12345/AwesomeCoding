@@ -611,7 +611,7 @@ router.post('/my_course/fetch', function (req, res, next) {
 			'and cu.role = ' + mysql.escape(0) + ' ' +
 			'and l.class = cu.class_id and cl.id = cu.class_id';
 			*/
-			'select cl.id, cl.title, liveplayer_vid as lvid ' +
+			'select cl.id, cl.title, liveplayer_vid as lvid, password as pw' +
 			'from classusers cu left join lives l on l.class = cu.class_id, classes cl ' +
 			'where cu.user_id = ' + mysql.escape(+req.session.user_id) + ' ' +
 			'and cu.role = ' + mysql.escape(0) + ' ' +
