@@ -99,7 +99,7 @@
         name: 'App',
         data: function() {
             return {
-                title: "AwesomeCoding",
+                title: "AwesomeCoding 计蒜客直播平台",
                 logo_url: require('./assets/images/icons/logo.png'),
 
                 collapseQ: true,
