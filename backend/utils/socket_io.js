@@ -82,7 +82,7 @@ function alertClassMembers(socket, msg) {	// 教师向本门课程的所有在�
 			}
 		}).
 		catch((sql_res) => {
-			console.log(sql_res);
+			console.log('[alert error]', sql_res);
 		});
 }
 

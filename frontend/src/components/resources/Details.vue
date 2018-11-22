@@ -60,7 +60,7 @@
 							课程操作
 						</div>
 						<el-button v-if='course_status.role_title === null' @click='handleJoin'>进入课程</el-button>
-						<el-button v-if='course_status.role_title != null' @click='handleQuit'>退出课程</el-button>
+						<el-button v-if='user.role != 1 && course_status.role_title != null' @click='handleQuit'>退出课程</el-button>
 					</el-card>
 				</el-col>
 			</el-row>
@@ -92,7 +92,7 @@ export default {
 			return this.course_status.role_title !== null ? this.course_status.role_title : '--';
 		}
 	},
-	props: ['course_status'],
+	props: ['course_status', 'user'],
 	mounted: function () {
 		this.class_id = this.$route.params.class_id;
 		this.$http.post('/api/class/info/query', {class_id: this.class_id}).

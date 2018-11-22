@@ -1,11 +1,8 @@
 <template>
     <el-container>
-        <el-header style="margin-bottom: 0px;">
-        </el-header>
-        <el-main style="margin: auto">
-            <router-view @logined="handleLogined" @logout="handleLogout"
-                         :user="user"></router-view>
-        </el-main>
+        <router-view style="margin: auto"
+                     @logined="handleLogined" @logout="handleLogout"
+                     :user="user"></router-view>
     </el-container>
 </template>
 

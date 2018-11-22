@@ -6,6 +6,7 @@ var history = require('connect-history-api-fallback');
 var session_config = require('./configures/session.config');
 var session = require("express-session");
 var http = require('http');
+var favicon = require('serve-favicon');
 
 
 var api = require('./routes/api');
@@ -85,6 +86,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './uploads')));
 app.use(express.static(path.join(__dirname, './public')));
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
+app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 
 app.use('/api/developer', api_developer);
 app.use('/api/user', api_user);

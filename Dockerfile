@@ -3,6 +3,7 @@ FROM node:9.9.0
 RUN npm config set registry https://registry.npm.taobao.org
 
 #创建前端目录，并安装依赖项
+ENV SASS_BINARY_SITE https://npm.taobao.org/mirrors/node-sass/
 COPY frontend /frontend
 WORKDIR /frontend
 RUN npm install

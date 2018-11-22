@@ -3,13 +3,13 @@
         <h3> {{title}} </h3>
         <el-table v-if = "isTeacher" :data="tableData" stripe style="width: 100%" @current-change="handleCurrentChange">
             <el-table-column prop="id" label="#" sortable></el-table-column>
-            <el-table-column prop="title" label="名称"></el-table-column>
+            <el-table-column prop="title" label="名称" sortable></el-table-column>
             <el-table-column prop="lvid" label="直播号"></el-table-column>
             <el-table-column prop="pw" label="直播密码"></el-table-column>
         </el-table>
         <el-table v-else :data="tableData" stripe style="width: 100%" @current-change="handleCurrentChange">
             <el-table-column prop="id" label="#" sortable></el-table-column>
-            <el-table-column prop="title" label="名称"></el-table-column>
+            <el-table-column prop="title" label="名称" sortable></el-table-column>
         </el-table>
     </div>
 </template>
