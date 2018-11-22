@@ -23,30 +23,38 @@
 				   v-show='cp_live'
 				   ref='pu_live'
 				   >
-			<template slot='abbrev'>
-				直播
-			</template>
-			<components ref='cp_live' :is='cp_live'></components>
+                <template slot='abbrev'>
+                    直播
+                </template>
+			    <components ref='cp_live' :is='cp_live'></components>
 			</Popup>
 			<Popup name='pdf'
 				   @display='handleDisplay("pdf")'
 				   v-show='cp_pdf'
 				   ref='pu_pdf'
 				   >
-			<template slot='abbrev'>
-				课件
-			</template>
-			<keep-alive><components ref='cp_pdf' :is='cp_pdf'></components></keep-alive>
+                <template slot='abbrev'>
+                    课件
+                </template>
+			    <keep-alive>
+                    <components ref='cp_pdf' :is='cp_pdf'
+                                :course_role="course_status.role"
+                                @jump="handleJump">
+                    </components>
+                </keep-alive>
 			</Popup>
 			<Popup name='practice'
 				   @display='handleDisplay("prob")'
 				   v-show='cp_prob'
 				   ref='pu_prob'
 				   >
-			<template slot='abbrev'>
-				习题
-			</template>
-			<components ref='cp_prob' :is='cp_prob'></components>
+                <template slot='abbrev'>
+                    习题
+                </template>
+                <components ref='cp_prob' :is='cp_prob'
+                            :course_role="course_status.role"
+                            @jump="handleJump">
+                </components>
 			</Popup>
 		</div>
 	</div>
@@ -61,6 +69,7 @@ import Sidebar from './Sidebar';
 import ProbViewer from './ProbViewer';
 import Popup from './Popup';
 import FileViewer from '@/components/components/FileViewer.vue';
+import {createCookie, getCookie} from "../../../utils/Cookie";
 
 
 Vue.component('sub_pdf', FileViewer);
@@ -97,6 +106,16 @@ export default {
 			}
 		}
 	},
+    mounted() {
+        if (getCookie()['flag'] === undefined) {    // 第一次进入显示提示
+            this.$notify({
+                title: '⤴这里可以查看课件和习题',
+                position: 'bottom-left',
+                duration: 0
+            });
+            createCookie({ 'flag': 1 });
+        }
+    },
 	components: {
 		Sidebar,
 		Popup
@@ -108,9 +127,10 @@ export default {
 			this.cp_main = this['cp_'+name];
 			this['cp_'+name] = null;
 		},
+        handleJump(where) {
+            this.$emit('jump', where);
+        }
 	},
-	mounted: function() {
-	}
 };
 </script>
 

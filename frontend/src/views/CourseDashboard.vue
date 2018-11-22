@@ -33,6 +33,7 @@
                     :fly='fly'
                     :ref='option.index'
                     :user="user"
+                    @jump="handleJump"
                 >
                 </components>
             </TabPane>
@@ -197,6 +198,9 @@
                     idx += 1;
                 }
                 return '0';
+            },
+            handleJump(where) {
+                this.activeIndex = this.whereIs(where);
             }
         },
         components: {TabPane: TabPane}

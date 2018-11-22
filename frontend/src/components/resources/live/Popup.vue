@@ -1,14 +1,16 @@
 <template>
 	<div>
 		<div class='floating-panel' v-show='!visible'>
-			<div style='float:left'>
-				<div class="balloon" @click='handleHidden(1)'>
-					<slot name='abbrev'>
-					content in the bubble view
-					</slot>
-				</div>
-			</div>
-		</div>
+            <!--气泡-->
+            <div style='float:left'>
+                <div class="balloon" @click='handleHidden(1)'>
+                    <slot name='abbrev'>
+                        content in the bubble view
+                    </slot>
+                </div>
+            </div>
+        </div>
+        <!--浮窗-->
 		<div class='floating-window' v-show='visible'>
 			<el-card style='min-height:250px'>
                 <el-tooltip content="最小化" placement="top">
