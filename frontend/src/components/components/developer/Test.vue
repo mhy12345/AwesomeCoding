@@ -72,16 +72,10 @@
         methods: {
             handleCreate() {
                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                this.recorder = new Recorder(audioContext, {
-                    // An array of 255 Numbers
-                    // You can use this to visualize the audio stream
-                    // If you use react, check out react-wave-stream
-                    // onAnalysed: data => console.log('[data]', data),
-                });
+                this.recorder = new Recorder(audioContext);
                 navigator.mediaDevices.getUserMedia({ audio: true }).
                           then(stream => this.recorder.init(stream)).
                           catch(err => console.log('Uh oh... unable to get stream...', err));
-                console.log('[new recorder]', this.recorder);
                 this.$message.success('录制器已创建');
             },
             handleStartRecording() {
@@ -94,8 +88,6 @@
                 this.recorder.stop().
                      then(({ blob, buffer }) => {
                          this.$message('结束录制');
-                         console.log('[stop recording]', blob, buffer);
-                         // buffer is an AudioBuffer
                          this.blob = blob;
                      });
             },

@@ -1,7 +1,6 @@
 <template>
     <el-container>
-        <el-header style="margin-bottom: 50px;">
-            <h1>这里是用户页面</h1>
+        <el-header style="margin-bottom: 0px;">
         </el-header>
         <el-main style="margin: auto">
             <router-view @logined="handleLogined" @logout="handleLogout"

@@ -42,7 +42,10 @@
                      self.location = document.referrer;
                  }).
                  catch((res) => {
-                     this.$message.error('加入班级失败。' + translate[res.body]);
+					 if (res.body.details == 'NO_SUCH_CODE.')
+						 this.$message.error("邀请码不存在，请重新向老师确认!");
+					 else
+						 this.$message.error('加入班级失败。' + translate[res.body]);
                  });
         }
     };

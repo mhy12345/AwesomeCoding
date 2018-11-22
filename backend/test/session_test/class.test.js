@@ -125,7 +125,6 @@ module.exports = function (request) {
 						if (err) done(err);
 						else {
 							res.body = JSON.parse(res.text);
-							console.log(res.body);
 							assert(res.body.results.length !== 0);
 							done();
 						}
@@ -160,7 +159,6 @@ module.exports = function (request) {
 					expect(200).
 					end(function (err, res) {
 						res.body = JSON.parse(res.text);
-						console.log(res.body);
 						assert(res.body.results.length === 0);
 						done();
 					});

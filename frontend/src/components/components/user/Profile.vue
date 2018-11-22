@@ -1,8 +1,5 @@
 <template>
     <el-card class="box-card">
-        <div slot="header" class="clear-fix">
-            <span>{{ title }}</span>
-        </div>
         <div v-loading="loadingQ">
             <el-row>
                 <el-col :span="24">
@@ -276,7 +273,6 @@
                     this.inputs.password = ''; // 空字符表示不修改某个键-值
                 }
                 this.loadingQ = true;
-                console.log(this.inputs);
                 changeSQL(this, this.inputs).
                     then((res) => {
                         this.loadingQ = false;
@@ -290,7 +286,6 @@
                         this.loadingQ = false;
                         if (err.details === 'WRONG_VERIFICATION_CODE.') {
                             this.$message.error("修改密码失败，验证码不正确！");
-                            console.log(this.inputs);
                         } else {
                             this.$message.error('修改失败。' + JSON.stringify(err.details, null, 3));
                         }

@@ -175,7 +175,6 @@
                 }
                 time_marker = new Date();
                 let record = parseFlow(flow); // 将流转化为记录
-                console.log('[new flow]', flow);
                 this.chat_records = [record].concat(this.chat_records); // 新拉流的消息放在表首
                 this.record_count++;
             },
@@ -208,7 +207,6 @@
                          } else { // 获取消息成功
                              time_marker = new Date();
                              this.chat_records = parseList(res.body.results); // 导入消息
-                             console.log('[record list]', res.body.results);
                          }
                      }).
                      catch((err) => {

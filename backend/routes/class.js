@@ -291,7 +291,7 @@ router.post('/invite/check', function (req, res, next) { //学生通过邀请码
 			let { conn, sql_res } = packed;
 			conn.end();
 			if (sql_res.results.length === 0) {
-				return Promise.reject('The code is not found in the class list.');
+				return Promise.reject('NO_SUCH_CODE.');
 			}
 			res.send({
 				status: 'SUCCESS.',
@@ -470,6 +470,12 @@ router.post('/create', function (req, res, next) { //创建新班级
 						NewChannelJSON[i] = NewChannelTemplate[i];
 					}
 
+					var code_generated = '';
+					for (let i = 0; i < 6; i++) {
+						code_generated += Math.ceil(Math.random() * 9);
+					}
+					NewChannelJSON.channelPasswd = code_generated;
+
 					let timeStamp = Date.now().toString();
 					NewChannelJSON.name = timeStamp;
 					NewChannelJSON.timestamp = timeStamp;
@@ -508,8 +514,8 @@ router.post('/create', function (req, res, next) { //创建新班级
 							catch(function (sql_res) {
 							});
 						let {conn, sql_res} = packed;
-						let sql = 'INSERT INTO `lives` (`class`,`liveplayer_uid`,`liveplayer_vid`) VALUES (' +
-							mysql.escape(+result.id) + ',' + mysql.escape(uid) + ',' + mysql.escape(vid) + ')';
+						let sql = 'INSERT INTO `lives` (`class`,`liveplayer_uid`,`liveplayer_vid`,`password`) VALUES (' +
+							mysql.escape(+result.id) + ',' + mysql.escape(uid) + ',' + mysql.escape(vid) + ',' + mysql.escape(+code_generated) + ')';
 
 
 						return doSqlQuery(conn, sql)
@@ -611,7 +617,7 @@ router.post('/my_course/fetch', function (req, res, next) {
 			'and cu.role = ' + mysql.escape(0) + ' ' +
 			'and l.class = cu.class_id and cl.id = cu.class_id';
 			*/
-			'select cl.id, cl.title, liveplayer_vid as lvid ' +
+			'select cl.id, cl.title, liveplayer_vid as lvid, l.password as pw ' +
 			'from classusers cu left join lives l on l.class = cu.class_id, classes cl ' +
 			'where cu.user_id = ' + mysql.escape(+req.session.user_id) + ' ' +
 			'and cu.role = ' + mysql.escape(0) + ' ' +
