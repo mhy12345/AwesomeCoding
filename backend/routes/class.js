@@ -470,6 +470,12 @@ router.post('/create', function (req, res, next) { //创建新班级
 						NewChannelJSON[i] = NewChannelTemplate[i];
 					}
 
+					var code_generated = '';
+					for (let i = 0; i < 6; i++) {
+						code_generated += Math.ceil(Math.random() * 9);
+					}
+					NewChannelJSON.channelPasswd = code_generated;
+
 					let timeStamp = Date.now().toString();
 					NewChannelJSON.name = timeStamp;
 					NewChannelJSON.timestamp = timeStamp;
@@ -508,8 +514,8 @@ router.post('/create', function (req, res, next) { //创建新班级
 							catch(function (sql_res) {
 							});
 						let {conn, sql_res} = packed;
-						let sql = 'INSERT INTO `lives` (`class`,`liveplayer_uid`,`liveplayer_vid`) VALUES (' +
-							mysql.escape(+result.id) + ',' + mysql.escape(uid) + ',' + mysql.escape(vid) + ')';
+						let sql = 'INSERT INTO `lives` (`class`,`liveplayer_uid`,`liveplayer_vid`,`password`) VALUES (' +
+							mysql.escape(+result.id) + ',' + mysql.escape(uid) + ',' + mysql.escape(vid) + ',' + mysql.escape(+code_generated) + ')';
 
 
 						return doSqlQuery(conn, sql)
