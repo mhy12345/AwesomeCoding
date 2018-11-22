@@ -75,7 +75,6 @@ export default {
 				catch((err) => {
 					this.$message("错误"+err);
 				});
-
 		},
 		handleUpdate: function (code, tag) {
 			this.code = code;
