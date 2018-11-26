@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 // 断言测测试库
 const should = require('should');
 const randomString = require('../../utils/funcs').randomString;
@@ -76,14 +77,14 @@ module.exports = function (request) {
 								let body = eval('(' + res.text + ')');
 								// logger.info(body.details);
 								body.should.have.key('status').
-									 which.
-									 is.
-									 exactly('FAILED.');
+									which.
+									is.
+									exactly('FAILED.');
 								body.should.have.key('details').
-									 which.
-									 have.
-									 key('sqlMessage').
-									 containEql('cannot be null');
+									which.
+									have.
+									key('sqlMessage').
+									containEql('cannot be null');
 								done();
 							});
 					});
@@ -99,11 +100,11 @@ module.exports = function (request) {
 						let body = eval('(' + res.text + ')');
 						logger.info('registration succeed\n', body);
 						body.should.have.key('status').
-							 which.
-							 is.
-							 exactly('SUCCESS.');
+							which.
+							is.
+							exactly('SUCCESS.');
 						body.should.have.key('results').
-							 which.
+							which.
 							 have.
 							 key('nickname').
 							 which.

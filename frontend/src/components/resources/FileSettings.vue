@@ -105,6 +105,11 @@
                 }).
                      then(function (res) {
                          this.loadTableData(true);
+                         this.$http.post('/api/class/cache/set',
+                             {class_id: this.class_id,
+                                 entry:'UPDATE_FILE',
+                                 data:true}).
+                              then((res) => {});
                      });
             },
             handleDelete: function (row) {
@@ -114,6 +119,11 @@
                 }).
                      then(function (res) {
                          this.loadTableData(false);
+                         this.$http.post('/api/class/cache/set',
+                             {class_id: this.class_id,
+                                 entry:'UPDATE_FILE',
+                                 data:true}).
+                              then((res) => {});
                      });
             },
 
