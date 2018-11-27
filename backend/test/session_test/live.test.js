@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 // 测试初始化
 const should = require('should');
 const { parseText, addStudent, addTeacher, clearStudent, clearTeacher, loginStudent, loginTeacher, logout } = require('../public/test_utils');
