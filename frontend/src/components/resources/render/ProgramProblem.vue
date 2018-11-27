@@ -11,7 +11,7 @@
 				[标准答案]
 			</div>
 		</div>
-		<codemirror v-model="text"></codemirror>
+		<codemirror v-model="text" :options="cmOptions"></codemirror>
 		<el-button @click='handleSave' >保存</el-button>
 	</div>
 </template>
@@ -21,8 +21,16 @@ import ContentDisplay from '@/components/components/ContentDisplay.vue';
 var VueCodeMirror = require('vue-codemirror-lite');
 import {codemirror} from 'vue-codemirror-lite';
 
-import 'codemirror/mode/clike/clike.js';
-import 'codemirror/theme/base16-dark.css';
+require('codemirror/mode/clike/clike.js')
+require('codemirror/mode/javascript/javascript')
+require('codemirror/mode/python/python')
+import 'codemirror/theme/3024-day.css';
+
+require('codemirror/mode/vue/vue')
+
+//require('codemirror/addon/hint/show-hint.js')
+//require('codemirror/addon/hint/show-hint.css')
+//require('codemirror/addon/hint/javascript-hint.js')
 
 
 export default {
@@ -33,18 +41,20 @@ export default {
 			text: "",
 			info: {
 				description: null,
+				language: 'default',
 				choice_count: 0,
 			},
-			cmOptions: {
-				// codemirror options
-				tabSize: 4,
-				mode: 'text/javascript',
-				theme: 'base16-dark',
-				lineNumbers: true,
-				line: true,
-				// more codemirror options, 更多 codemirror 的高级配置...
-			}
 		};
+	},
+	computed: {
+		cmOptions: function() {
+			return {
+				mode: this.info.language,
+				theme: "3024-day",
+				lineNumbers: true,
+				lineWrapping: true
+			}
+		}
 	},
 	methods: {
 		handleShowAnswer: function(tag) {

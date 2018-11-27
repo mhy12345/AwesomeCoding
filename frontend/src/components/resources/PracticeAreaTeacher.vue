@@ -114,7 +114,8 @@
             reload: function() {
                 this.$http.post('/api/problem/list',{class_id: this.class_id, type:'teacher'}).
                      then(function (res) {
-                         this.problemData = res.body.results;
+						 console.log(res.body.results);
+						 this.problemData = res.body.results.sort((a,b)=>{return a.time<b.time?-1:a.time>b.time?1:0});
                          this.problemData.forEach(function (item, index) {
                              item.index = index+1;
                              if (item.type == 0) {
@@ -209,12 +210,14 @@
                     ptype = 'program_problems';
                 } else {
                 }
+				console.log(info);
                 this.$http.post('/api/problem/table/'+ptype+'/get',{code: info.code}).
                      then((res) => {
                          let content_id = res.body.results[0][field];
                          this.$refs.content_editor.handleOpen(content_id);
                      }).
                      catch((err) => {
+						 console.log(err);
                          this.$message("未知错误");
                      });
             },

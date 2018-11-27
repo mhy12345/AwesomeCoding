@@ -8,7 +8,7 @@
 
             <ElTabPane label="聊天室" name="chatting-room">
                 <!--教师的工具条-->
-                <el-row v-if="course_status === 0">
+                <el-row v-if="course_status.role === 0">
                     <el-col :span="8">
                         <el-button size="small" class="chatting-room-tool"
                                    @click="handleClearRecord">
