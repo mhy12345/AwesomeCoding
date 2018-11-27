@@ -54,7 +54,7 @@
 			</span>
         </el-dialog>
         <!--私聊面板-->
-        <chat-window :config="chat_dialog" :user="user"></chat-window>
+        <chat-window :config="chat_dialog" :user="user" ref="privateChat"></chat-window>
     </div>
 </template>
 
@@ -105,13 +105,7 @@
                 if (msg.operation === 'PROBLEM_PUBLISH.') {
                     this.$message("你有新的习题，快去看看吧!");
                 }
-            },
-            // pullFlow: function (flow) {       // 收到服务器发来的消息，通知子级更新聊天记录显示
-            //     console.log('[course_dashboard pullFlow]', flow);
-            //     if (flow.course_id == this.$route.params.class_id) {
-            //         this.$refs.live.pullFlow(flow);
-            //     }
-            // },
+            }
         },
         computed: {
             fly: function () {
@@ -227,11 +221,11 @@
                          }
                      }).
                      then(res => {
-                         this.chat_dialog.visibleQ = true;   // open chat dialog
                          this.chat_dialog.course_id = res.body.course_id;   // a hex string
+                         this.chat_dialog.visibleQ = true;   // open chat dialog
+                         this.$refs.privateChat.refresh();
                      }).
                      catch(err => {
-                         this.$message.error('私聊失败。');
                          console.log('[error in get_private_course_id]', err);
                      });
             }

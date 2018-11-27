@@ -12,7 +12,7 @@
                 :user="user">
             </chat-records>
             <chat-input :course_id="this.config.course_id"
-                        hide_button="none"
+                        hide_button="none" block_function="none"
                         style="width: 100%"></chat-input>
         </el-card>
     </div>
@@ -38,6 +38,9 @@
         methods: {
             handleClose() {
                 this.config.visibleQ = false;
+            },
+            refresh() {
+                this.$refs.chat_window_records.refresh();
             }
         },
         components: {

@@ -31,10 +31,10 @@
                               :course_id="$route.params.class_id"
                               :user="user">
                 </chat-records>
+                <!--聊天输入框-->
+                <chat-input class="chat-input" :course_id="$route.params.class_id"></chat-input>
             </ElTabPane>
         </el-tabs>
-        <!--聊天输入框-->
-        <chat-input class="chat-input" :course_id="$route.params.class_id"></chat-input>
     </div>
 </template>
 

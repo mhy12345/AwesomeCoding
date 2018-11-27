@@ -47,13 +47,15 @@
                 blockQ: false, // 是否被禁言
             };
         },
-        props: { course_id: String, hide_button: String },
+        props: { course_id: String, hide_button: String, block_function: String },
         sockets: {
             block() { // 服务端发来禁言的消息
+                if (this.block_function === 'none') return;
                 this.blockQ = true;
                 this.$message.warning('老师已开启禁言。');
             },
             allow() {
+                if (this.block_function === 'none') return;
                 this.blockQ = false;
                 this.$message.success('老师已允许发言。');
             }

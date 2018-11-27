@@ -133,9 +133,6 @@ export default {
         },
         handlePrivateChat(o) {
             this.$emit('privateChat', o);
-        },
-        pullFlow(flow) {
-		    this.$refs.sidebar.pullFlow(flow);
         }
 	},
 };
