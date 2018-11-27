@@ -60,6 +60,7 @@
         },
         sockets: {
             pullFlow: function (msg) {       // 收到服务器发来的消息，更新聊天记录显示
+                if (msg.course_id != this.$route.params.class_id) return;
                 console.log('[sidebar pullFlow]', msg);
                 this.$refs.chat_records.pushRecord(msg);
             },

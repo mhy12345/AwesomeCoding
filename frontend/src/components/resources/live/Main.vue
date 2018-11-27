@@ -12,7 +12,7 @@
 				</el-col>
 				<!--右侧边栏-->
 				<el-col :xs="0" :sm="9" :md="9" :lg="9" :xl="9">
-					<sidebar class="right-sidebar" :course_status="course_status.role"
+					<sidebar class="right-sidebar" :course_status="course_status.role" ref="sidebar"
                              @privateChat="handlePrivateChat" :user="user"></sidebar>
 				</el-col>
 			</el-row>
@@ -133,6 +133,9 @@ export default {
         },
         handlePrivateChat(o) {
             this.$emit('privateChat', o);
+        },
+        pullFlow(flow) {
+		    this.$refs.sidebar.pullFlow(flow);
         }
 	},
 };

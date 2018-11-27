@@ -1,7 +1,9 @@
 <template>
 	<div>
         <!--最小化/最大化按钮-->
-        <el-button circle :class="toggle_style" size="mini" @click="handleToggle"></el-button>
+        <el-button v-if="hide_button !== 'none'"
+                   circle :class="toggle_style" size="mini"
+                   @click="handleToggle"></el-button>
         <transition name="el-fade-in">
             <div v-if="visibleQ">
                 <el-row :gutter='10' type='flex'>
@@ -45,7 +47,7 @@
                 blockQ: false, // 是否被禁言
             };
         },
-        props: { course_id: String },
+        props: { course_id: String, hide_button: String },
         sockets: {
             block() { // 服务端发来禁言的消息
                 this.blockQ = true;

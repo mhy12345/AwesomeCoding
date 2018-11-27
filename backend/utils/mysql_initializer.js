@@ -113,7 +113,7 @@ var sqls = {
 
 	'create_class_user_table': "CREATE TABLE IF NOT EXISTS `classusers`(" +
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
-		"`class_id` INT UNSIGNED NOT NULL, " + //班级id
+		"`class_id` VARCHAR(40) NOT NULL, " + //班级id
 		"`role` INT UNSIGNED NOT NULL, " + //2表示学生，1表示助教，0表示老师
 		"`user_id` INT UNSIGNED NOT NULL," + //教室id
 		"`registration_date` TIMESTAMP, " +

@@ -14,7 +14,6 @@
                      :key='option.index'
                      :fly='option.index === "live"'
             >
-                <!-- 对于live模块，额外加一个fly的props，用于表示是否通过修改visible隐藏-->
                 <components
                     v-if='option.index !== "live" && !option.disabled'
                     v-bind:is="option.component"
@@ -26,6 +25,7 @@
                     @privateChat="handlePrivateChat"
                 >
                 </components>
+                <!-- 对于live模块，额外加一个fly的props，用于表示是否通过修改visible隐藏-->
                 <components
                     v-if='option.index === "live" && !option.disabled'
                     v-bind:is="option.component"
@@ -105,7 +105,13 @@
                 if (msg.operation === 'PROBLEM_PUBLISH.') {
                     this.$message("你有新的习题，快去看看吧!");
                 }
-            }
+            },
+            // pullFlow: function (flow) {       // 收到服务器发来的消息，通知子级更新聊天记录显示
+            //     console.log('[course_dashboard pullFlow]', flow);
+            //     if (flow.course_id == this.$route.params.class_id) {
+            //         this.$refs.live.pullFlow(flow);
+            //     }
+            // },
         },
         computed: {
             fly: function () {

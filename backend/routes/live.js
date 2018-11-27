@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const getConnection = require('../utils/funcs').getConnection;
 const doSqlQuery = require('../utils/funcs').doSqlQuery;
+const doSqlQuerySequential = require('../utils/funcs').doSqlQuerySequential;
 const getPermission = require('../utils/funcs').getPermission;
 const $sockets = require('../utils/global').$user_sockets;
 const mysql = require('mysql');
@@ -52,19 +53,51 @@ router.use(function (req, res, next) {
  * 		user_id1, user_id2 : 私聊双方用户的 id
  */
 router.get('/get_private_course_id', function (req, res) {
-	if (req.query.user_id1 > req.query.user_id2) {	// swap to ensure id1 < id2
-		let temp = req.query.user_id1;
-		req.query.user_id1 = req.query.user_id2;
-		req.query.user_id2 = temp;
+	let id1 = req.query.user_id1, id2 = req.query.user_id2;
+	if (id1 > id2) {	// swap to ensure id1 < id2
+		let temp = id1;
+		id1 = id2;
+		id2 = temp;
 	}
-	let str = req.query.user_id1 + '_' + req.query.user_id2 + '_' + salt;
+	let str = id1 + '_' + id2 + '_' + salt;
 	md5(str);
 	let hash = md5.create();
 	hash.update(str);
-	course_id = hash.hex();
+	course_id = hash.hex();	// 获得`课程id`
 	logger.info('[private_course_id] str:', str);
 	logger.info('[private_course_id] hex:', course_id);
-	res.send({ course_id: course_id })
+	res.send({ course_id: course_id });
+	// 将私聊双方加入'班级'
+	getConnection().
+		then(function (conn) {
+			let sql = 'SELECT user_id FROM classusers WHERE class_id = ' + mysql.escape(course_id);
+			return doSqlQuery(conn, sql);	// 检查是否重复加入
+		}).
+		then(function (packed) {
+			let { conn, sql_res } = packed;
+			let sqls = [];
+			[id1, id2].forEach(function (user_id) {
+				let not_in = true;
+				sql_res.results.forEach(function (o) {
+					logger.error(o.user_id);
+					if (o.user_id == user_id) not_in = false;
+				});
+				if (not_in) {
+					let sql = 'INSERT INTO classusers (`class_id`,`user_id`,`role`) VALUES (' +
+						mysql.escape(course_id) + ',' + mysql.escape(user_id) + ',' +
+						mysql.escape(2) + ')';
+					sqls.push(sql);
+				}
+			});
+			return doSqlQuerySequential(conn, sqls);	// 加入班级
+		}).
+		then(function (packed) {
+			let { conn, sql_res } = packed;
+			conn.end();
+		}).
+		catch(function (sql_res) {
+			logger.error('[private_course_id]', sql_res);
+		});
 });
 
 /* 获取聊天记录条数
