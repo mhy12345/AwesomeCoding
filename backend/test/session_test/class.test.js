@@ -60,7 +60,7 @@ module.exports = function (request) {
 						res.body = JSON.parse(res.text);
 						if (err)
 							done(err);
-						else if (res.body.status != 'SUCCESS.')
+						else if (res.body.status !== 'SUCCESS.')
 							done('STATUS FAILED.' + JSON.stringify(res, null, 3));
 						else
 							done();
@@ -68,7 +68,7 @@ module.exports = function (request) {
 					});
 			});
 			it("Make sure that the id is returned.", function () {
-				assert(class_id != undefined);
+				assert(class_id !== undefined);
 			});
 			it("Check if the `status` works.", function (done) {
 				request.
