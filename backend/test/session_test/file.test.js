@@ -14,5 +14,86 @@ var logger = log4js.getLogger('default');
 
 
 module.exports = function (request) {
-
+	describe('# Testing /api/file', function () {
+		this.timeout(8000);
+		let test_user = {
+			nickname: 'i_am_a_teacher',
+			realname: 'TESTER',
+			email: '123456@mail.com',
+			role: 1,
+			motto: 'just for test',
+			password: '111111',
+			phone: '13688880000'
+		};
+		before(function () {
+			mysql_config.database = 'ac_test';
+		});
+		describe('#Teacher`s action.', function () {
+			before(function (done) {
+				request.
+					post('/api/user/register').
+					send(test_user).
+					expect(200).
+					end(function (err, res) {
+						if (err)
+							done(err);
+						else
+							done();
+					});
+			});
+			it("Fetch user's file list.", function (done) {
+				request.
+					post('/api/file/fetch').
+					send(test_user).
+					expect(200).
+					end(function (err, res) {
+						res.body = JSON.parse(res.text);
+						if (err)
+							done(err);
+						else if (res.body.status !== 'SUCCESS.')
+							done('STATUS FAILED.' + JSON.stringify(res, null, 3));
+						else
+							done();
+					});
+			});
+			after(function (done) {
+				request.
+					get('/api/user/logout').
+					expect(200).
+					end(function (err, res) {
+						if (err) done(err);
+						else done();
+					});
+			});
+		});
+		after(function (done) {
+			getConnection().
+				then(function (conn) {
+					let sql = 'DELETE FROM classes';
+					return doSqlQuery(conn, sql);
+				}).
+				then(function (packed) {
+					let { conn, sql_res } = packed;
+					let sql = 'DELETE FROM problems';
+					return doSqlQuery(conn, sql);
+				}).
+				then(function (packed) {
+					let { conn, sql_res } = packed;
+					let sql = 'DELETE FROM classusers';
+					return doSqlQuery(conn, sql);
+				}).
+				then(function (packed) {
+					let { conn, sql_res } = packed;
+					let sql = 'DELETE FROM users';
+					return doSqlQuery(conn, sql);
+				}).
+				then(function (packed) {
+					let { conn, sql_res } = packed;
+					done();
+				}).
+				catch(function (sql_res) {
+					done(JSON.stringify(sql_res, null, 3));
+				});
+		});
+	});
 };

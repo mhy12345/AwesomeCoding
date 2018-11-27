@@ -13,5 +13,6 @@ const test_file = require('./session_test/file.test');
 describe('===All tests requiring `supertest-session`===', function () {
 	// test_user(request);
 	test_class(request);
+	test_file(request);
 	// test_live(request);
 });

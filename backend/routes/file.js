@@ -27,7 +27,7 @@ router.use(function (req, res, next) {		// 检查登录状态
 	}
 });
 
-router.post('/upload', upload.any(), function (req, res, next) { //区分文件名(用空格)，禁止上传含有空格的文件
+router.post('/upload', upload.any(), function (req, res, next) { //禁止上传含有空格的文件
 	var user_id = req.session.user_id;
 	var response, i;
 	var hash = crypto.createHash('md5');
@@ -80,7 +80,7 @@ router.post('/upload', upload.any(), function (req, res, next) { //区分文件�
 	});
 });
 
-router.post('/uploadcourseimg', upload.any(), function (req, res, next) { //区分文件名(用空格)，禁止上传含有空格的文件
+router.post('/uploadcourseimg', upload.any(), function (req, res, next) { //禁止上传含有空格的文件
 	var response, i;
 	for (i = 0; i < req.files[0].originalname.length; i = i + 1) {
 		if (req.files[0].originalname[i] === ' ') {
@@ -125,7 +125,7 @@ router.post('/uploadcourseimg', upload.any(), function (req, res, next) { //区�
 });
 
 
-router.post('/import', upload.any(), function (req, res, next) { //区分文件名(用空格)，禁止上传含有空格的文件
+router.post('/import', upload.any(), function (req, res, next) { //禁止上传含有空格的文件
 	var response, i;
 	var hash = crypto.createHash('md5');
 	for (i = 0; i < req.files[0].originalname.length; i = i + 1) {
