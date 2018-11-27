@@ -251,15 +251,18 @@
                 this.password_inputQ = false;
                 this.inputs.phone = this.user.phone;
             },
+
             handleSave () { // submit changes
                 if (this.inputs.realname === '') {
                     this.$message("真实姓名不能为空。");
                     return;
                 }
-                if (this.inputs.email === '') { // todo 用正则表达式校验邮箱的合法性
+                let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
+                if(!reg.test(this.input.email)){
                     this.$message("邮箱不合法。");
                     return;
                 }
+
                 if (this.password_inputQ) {
                     if (this.inputs.password.length < 6) {
                         this.$message("密码不能少于6位。");
