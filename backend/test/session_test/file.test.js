@@ -23,7 +23,11 @@ module.exports = function (request) {
 			role: 1,
 			motto: 'just for test',
 			password: '111111',
-			phone: '13688880000'
+			phone: '13688880000',
+			classid: 1
+		};
+		let test_file = {
+			files : [{originalname : 'test_name'},],
 		};
 		before(function () {
 			mysql_config.database = 'ac_test';
@@ -56,6 +60,71 @@ module.exports = function (request) {
 							done();
 					});
 			});
+			it("Fetch classfile list.", function (done) {
+				request.
+					post('/api/file/fetch_coursefiles').
+					send(test_user).
+					expect(200).
+					end(function (err, res) {
+						res.body = JSON.parse(res.text);
+						if (err)
+							done(err);
+						else if (res.body.status !== 'SUCCESS.')
+							done('STATUS FAILED.' + JSON.stringify(res, null, 3));
+						else
+							done();
+					});
+			});
+			it("Add files to course.", function (done) {
+				request.
+					post('/api/file/add_to_course').
+					send({
+						classid: 1,
+						fileid: 2,
+						filename: "fake_file"
+					}).
+					expect(200).
+					end(function (err, res) {
+						res.body = JSON.parse(res.text);
+						if (err)
+							done(err);
+						else if (res.body.status !== 'SUCCESS.')
+							done('STATUS FAILED.' + JSON.stringify(res, null, 3));
+						else
+							done();
+					});
+			});
+			it("Delete files to course.", function (done) {
+				request.
+					post('/api/file/delete_from_course').
+					send({
+						classid: 1,
+						fileid: 2,
+					}).
+					expect(200).
+					end(function (err, res) {
+						res.body = JSON.parse(res.text);
+						if (err)
+							done(err);
+						else if (res.body.status !== 'SUCCESS.')
+							done('STATUS FAILED.' + JSON.stringify(res, null, 3));
+						else
+							done();
+					});
+			});
+			it("Delete files from list.", function (done) {
+				request.
+					post('/api/file/delete').
+					send({
+						fileId: 1,
+						filename: "fake_file",
+					}).
+					expect(200).
+					end(function (err, res) {
+						done();
+					});
+			});
+
 			after(function (done) {
 				request.
 					get('/api/user/logout').
@@ -72,11 +141,11 @@ module.exports = function (request) {
 					let sql = 'DELETE FROM classes';
 					return doSqlQuery(conn, sql);
 				}).
-				then(function (packed) {
-					let { conn, sql_res } = packed;
-					let sql = 'DELETE FROM problems';
-					return doSqlQuery(conn, sql);
-				}).
+				// then(function (packed) {
+				// 	let { conn, sql_res } = packed;
+				// 	let sql = 'DELETE FROM coursefiles';
+				// 	return doSqlQuery(conn, sql);
+				// }).
 				then(function (packed) {
 					let { conn, sql_res } = packed;
 					let sql = 'DELETE FROM classusers';

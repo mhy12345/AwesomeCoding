@@ -274,8 +274,8 @@ router.post('/delete', function(req, res, next) {
 			let {conn, sql_res} = packed;
 			conn.end();
 			logger.info(sql_res);
-			var desFile= "./public/uploads/" + filename;
-			fs.unlinkSync(desFile);
+			// var desFile= "./public/uploads/" + filename;
+			// fs.unlinkSync(desFile);
 			res.send(JSON.stringify(sql_res, null, 3));
 		}).
 		catch(function(sql_res) {
