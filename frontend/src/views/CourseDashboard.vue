@@ -23,6 +23,7 @@
                     :index='activeTitle'
                     :ref='option.index'
                     :user="user"
+                    @privateChat="handlePrivateChat"
                 >
                 </components>
                 <components
@@ -35,6 +36,7 @@
                     :ref='option.index'
                     :user="user"
                     @jump="handleJump"
+                    @privateChat="handlePrivateChat"
                 >
                 </components>
             </TabPane>
@@ -51,6 +53,8 @@
 				<el-button type="primary" @click="handleNewProblemConfirm">去看看</el-button>
 			</span>
         </el-dialog>
+
+        <chat-window :config="chat_dialog"></chat-window>
     </div>
 </template>
 
@@ -59,6 +63,8 @@
     var default_options = ['details'];
     import {supported_resources} from '../utils/Resources';
     import TabPane from './MyTabPane.vue';
+    import ChatWindow from '../components/components/ChatWindow';
+    import Chat from "../components/resources/live/ChatInput";
 
     for (let item in supported_resources) {
         Vue.component('sub-'+supported_resources[item].name, supported_resources[item].component);
@@ -78,6 +84,10 @@
                 },
                 loading: true,
                 new_problem_dialog_visible: false,
+                chat_dialog: {
+                    her: {},        // chat opposition
+                    visibleQ: false
+                }
             };
         },
         props: ['user'],
@@ -168,11 +178,12 @@
                 return '0';
             },
             handleNewProblemClose (done) {
-                this.$confirm('确认关闭？')
-                     .then(_ => {
-                    done();
-                })
-                     .catch(_ => {});
+                this.$confirm('确认关闭？').
+                     then(_ => {
+                         done();
+                     }).
+                     catch(_ => {
+                     });
             },
             handleNewProblemConfirm () {
                 this.activeIndex = this.whereIs('train_area');
@@ -198,9 +209,13 @@
             },
             handleJump(where) {
                 this.activeIndex = this.whereIs(where);
+            },
+            handlePrivateChat(her) {
+                this.chat_dialog.her = her;
+                this.chat_dialog.visibleQ = true;   // open chat dialog
             }
         },
-        components: {TabPane: TabPane}
+        components: { Chat, TabPane, ChatWindow }
     };
 </script>
 
