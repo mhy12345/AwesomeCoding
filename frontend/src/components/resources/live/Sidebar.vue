@@ -34,7 +34,7 @@
             </ElTabPane>
         </el-tabs>
         <!--聊天输入框-->
-        <chat-input class="chat-input"></chat-input>
+        <chat-input class="chat-input" :course_id="$route.params.class_id"></chat-input>
     </div>
 </template>
 
@@ -60,6 +60,7 @@
         },
         sockets: {
             pullFlow: function (msg) {       // 收到服务器发来的消息，更新聊天记录显示
+                console.log('[sidebar pullFlow]', msg);
                 this.$refs.chat_records.pushRecord(msg);
             },
         },

@@ -18,8 +18,8 @@
                     </el-col>
                     <!--图片和语音按钮-->
                     <el-col :span='5'>
-                        <chat-picture-uploader :blockQ="blockQ" :course_id="$route.params.class_id"></chat-picture-uploader>
-                        <chat-voice-recorder :blockQ="blockQ" :course_id="$route.params.class_id"></chat-voice-recorder>
+                        <chat-picture-uploader :blockQ="blockQ" :course_id="course_id"></chat-picture-uploader>
+                        <chat-voice-recorder :blockQ="blockQ" :course_id="course_id"></chat-voice-recorder>
                     </el-col>
                 </el-row>
                 <!--发送按钮-->
@@ -45,6 +45,7 @@
                 blockQ: false, // 是否被禁言
             };
         },
+        props: { course_id: String },
         sockets: {
             block() { // 服务端发来禁言的消息
                 this.blockQ = true;
@@ -73,7 +74,7 @@
                     return;
                 }
                 let msg = {
-                    course_id: this.$route.params.class_id,
+                    course_id: this.course_id,
                     type: 'text',
                     message: this.input_message
                 };

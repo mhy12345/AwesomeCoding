@@ -53,8 +53,8 @@
 				<el-button type="primary" @click="handleNewProblemConfirm">去看看</el-button>
 			</span>
         </el-dialog>
-
-        <chat-window :config="chat_dialog"></chat-window>
+        <!--私聊面板-->
+        <chat-window :config="chat_dialog" :user="user"></chat-window>
     </div>
 </template>
 
@@ -85,8 +85,9 @@
                 loading: true,
                 new_problem_dialog_visible: false,
                 chat_dialog: {
-                    her: {},        // chat opposition
-                    visibleQ: false
+                    her: {},        // chat object
+                    visibleQ: false,
+                    course_id: undefined,
                 }
             };
         },
@@ -212,7 +213,21 @@
             },
             handlePrivateChat(her) {
                 this.chat_dialog.her = her;
-                this.chat_dialog.visibleQ = true;   // open chat dialog
+                this.$http.
+                     get('/api/live/get_private_course_id', {
+                         params: {
+                             user_id1: this.user.user_id,
+                             user_id2: her.user_id
+                         }
+                     }).
+                     then(res => {
+                         this.chat_dialog.visibleQ = true;   // open chat dialog
+                         this.chat_dialog.course_id = res.body.course_id;   // a hex string
+                     }).
+                     catch(err => {
+                         this.$message.error('私聊失败。');
+                         console.log('[error in get_private_course_id]', err);
+                     });
             }
         },
         components: { Chat, TabPane, ChatWindow }

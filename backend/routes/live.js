@@ -10,6 +10,8 @@ const multer = require('multer');
 const upload = multer({ dest: 'public/uploads/' });	// 暂存目录
 const fs = require('fs');
 const path = require('path');
+const md5 = require('js-md5');
+const salt = 'AwwwwwwsomeCodig!!!';
 
 const log4js = require("log4js");
 const log4js_config = require("../configures/log.config.js").runtime_configure;
@@ -42,6 +44,27 @@ router.use(function (req, res, next) {
 	else {
 		next();	// user in the class, can apply subsequent router
 	}
+});
+
+/* 私聊功能，我们还是用 chat_record 表来实现，但是这里的 course_id 需要根据私聊双方的 id 来生成（哈希算法），
+ * 并且设定为负数，用以和公聊区分。
+ * req.query 字段：
+ * 		user_id1, user_id2 : 私聊双方用户的 id
+ */
+router.get('/get_private_course_id', function (req, res) {
+	if (req.query.user_id1 > req.query.user_id2) {	// swap to ensure id1 < id2
+		let temp = req.query.user_id1;
+		req.query.user_id1 = req.query.user_id2;
+		req.query.user_id2 = temp;
+	}
+	let str = req.query.user_id1 + '_' + req.query.user_id2 + '_' + salt;
+	md5(str);
+	let hash = md5.create();
+	hash.update(str);
+	course_id = hash.hex();
+	logger.info('[private_course_id] str:', str);
+	logger.info('[private_course_id] hex:', course_id);
+	res.send({ course_id: course_id })
 });
 
 /* 获取聊天记录条数

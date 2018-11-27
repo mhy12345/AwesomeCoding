@@ -125,6 +125,7 @@
                 }
                 changePasswordSQL(this, this.inputs).
                     then((resp) => {
+                        this.$message.success('修改成功。');
                         this.$router.push("/user/sign_in");
                     }).
                     catch((resp) => {

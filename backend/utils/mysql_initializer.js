@@ -171,7 +171,7 @@ var sqls = {
 	'create_chat_record': "CREATE TABLE IF NOT EXISTS `chat_record` (" +	// 聊天记录表
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +	// 聊天记录id
 		"`date_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, " +	// 发消息的日期时间，由数据库自动填充
-		"`course_id` INT NOT NULL, " +			// 课程id
+		"`course_id` VARCHAR(40) NOT NULL, " +			// 课程id
 		"`user_id` INT NOT NULL, " +			// 用户id
 		"`course_status` INT NOT NULL, " +		// 用户在课程中的角色
 		"`realname` VARCHAR(40), " +			// 用户姓名
@@ -233,7 +233,7 @@ function mysql_initializer(db_cfg) { //倘若数据库不存在，则重新新�
 				'create_lives',
 				'create_chat_record',
 				'create_class_cache_table',
-				'create_blacklisting'
+				'create_blacklisting',
 			];
 			if (db_cfg.no_create !== true) {
 				tasks = ['create_database'].concat(tasks);
