@@ -146,6 +146,20 @@ describe('# Testing /api/class', function () {
 					}
 				});
 		});
+		it("Can show participants.", function (done) {
+			request.
+				post('/api/class/participants/show').
+				send({ class_id: class_id }).
+				expect(200).
+				end(function (err, res) {
+					if (err) done(err);
+					else {
+						res.body = JSON.parse(res.text);
+						assert(res.body.results.length !== 0);
+						done();
+					}
+				});
+		});
 		it("Can add a selection problem into my course.", function (done) {
 			request.
 				post('/api/problem/create').
@@ -268,6 +282,18 @@ describe('# Testing /api/class', function () {
 					else done();
 				});
 		});
+		/*
+		it("Can edit class info.", function(done) {
+			request.  
+				post('/api/class/info/update').
+				send({}).
+				expect(200).
+				end(function (err, res) {
+					if (err) done(err);
+					else done();
+				});
+		});
+		*/
 		after(function (done) {
 			request.
 				get('/api/user/logout').
@@ -467,6 +493,14 @@ describe('# Testing /api/class', function () {
 			{
 				url: '/api/problem/program_problem/submit',
 				params: { problem_code: null, code: null},
+			},
+			{
+				url: '/api/class/participants/assignTA',
+				params: { class_id:class_id, user_id:1},
+			},
+			{
+				url: '/api/class/participants/cancelTA',
+				params: { class_id:class_id, user_id:1},
 			},
 		];
 		for (let idx in apis) {
