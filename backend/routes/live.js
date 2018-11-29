@@ -66,7 +66,6 @@ router.get('/get_private_course_id', function (req, res) {
 	course_id = hash.hex();	// 获得`课程id`
 	logger.info('[private_course_id] str:', str);
 	logger.info('[private_course_id] hex:', course_id);
-	res.send({ course_id: course_id });
 	// 将私聊双方加入'班级'
 	getConnection().
 		then(function (conn) {
@@ -79,7 +78,6 @@ router.get('/get_private_course_id', function (req, res) {
 			[id1, id2].forEach(function (user_id) {
 				let not_in = true;
 				sql_res.results.forEach(function (o) {
-					logger.error(o.user_id);
 					if (o.user_id == user_id) not_in = false;
 				});
 				if (not_in) {
@@ -93,6 +91,7 @@ router.get('/get_private_course_id', function (req, res) {
 		}).
 		then(function (packed) {
 			let { conn, sql_res } = packed;
+			res.send({ course_id: course_id });
 			conn.end();
 		}).
 		catch(function (sql_res) {
@@ -176,7 +175,12 @@ router.get('/get_chat_record', function (req, res) {
 router.post('/picture', upload.any(), function (req, res) {
 	let now = new Date();
 	let suffix = mysql.escape(now.getTime());
-	let filename = '' + req.session.user_id + '_' + req.body.course_id + '_' + suffix;	// 生成文件名
+	// if (req.query.course_id === undefined) {
+	// 	res.status(200).
+	// 		send('fuck');
+	// 	return;
+	// }
+	let filename = '' + req.session.user_id + '_' + req.query.course_id + '_' + suffix;	// 生成文件名
 	let des_path = path.join('./public/chat/pictures/' + filename);				// 储存路径
 	let save_path = 'chat/pictures/' + filename;
 	fs.readFile(req.files[0].path, function (err, data) {
@@ -191,7 +195,7 @@ router.post('/picture', upload.any(), function (req, res) {
 				logger.error(err);
 				res.status(403).
 					send(err);
-				return
+				return;
 			}
 			logger.info('[saved]', save_path);
 			res.send({

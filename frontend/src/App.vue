@@ -161,11 +161,11 @@
             checkLogin() { // 检验用户是否登录
                 sessionSQL(this).
                     then((resp) => {
-                        var hash;
                         if (typeof(resp.nickname) !== 'undefined') {
                             this.user = resp;
                             // this.$message.success("欢迎回来！" + this.user.realname);
                             this.loginQ = true;
+                            if (this.user.email === undefined) this.user.email = '';
                             this.user.gravatar_url = getGravatarUrl(this.user.email);
                         } else {
                             this.$message("欢迎进入系统，请登录。");
