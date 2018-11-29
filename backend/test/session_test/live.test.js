@@ -1,13 +1,16 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 // 测试初始化
 const should = require('should');
-const { parseText, addStudent, addTeacher, clearStudent, clearTeacher, loginStudent, loginTeacher, logout } = require('../public/test_utils');
+const {
+	parseText, addStudent, addTeacher, clearStudent,
+	clearTeacher, loginStudent, loginTeacher, logout, admin
+} = require('../public/test_utils');
 const teacher_operations = ['clear_chat_record', 'block_chatting', 'allow_chatting'];	// 教师权限的操作
 
-var log4js = require("log4js");
-var log4js_config = require("../../configures/log.config.js").unittest_configure;
+const log4js = require("log4js");
+const log4js_config = require("../../configures/log.config.js").unittest_configure;
 log4js.configure(log4js_config);
-var logger = log4js.getLogger('test_live');
+const logger = log4js.getLogger('test_live');
 const mysql_config = require('../../configures/database.config.js');
 
 module.exports = function (request) {	// main_session.test.js 传入 request 实例
@@ -15,13 +18,24 @@ module.exports = function (request) {	// main_session.test.js 传入 request 实
 		this.timeout(2000);
 		before(function (done) {		// 事先注册用户
 			mysql_config.database = 'ac_database';		// 切换回数据库
-			addStudent(request).
-				then((res) => {
-					done();
-				}).
-				catch((err) => {
-					done(`Initializing Error ${err}`);
-				});
+			logger.info('[ before admin login ]\n');
+			// 以管理员账号登入
+			admin.login(request).
+				  then(() => {
+					  logger.info('[ after admin login ]\n');
+					  addStudent(request).
+						  then((res) => {
+							  logger.info('[ after addstudent ]\n', res);
+							  return admin.logout();
+						  }).
+						  then(() => done()).
+						  catch((err) => {
+							  done(`Initializing Error ${err}`);
+						  });
+				  }).
+				  catch((err) => {
+					  done(`Admin Error ${err}`);
+				  });
 		});
 
 		describe('## test loginStudent judgement', function () {		// 是否登录的判断

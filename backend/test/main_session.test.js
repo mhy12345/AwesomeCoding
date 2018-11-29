@@ -5,14 +5,16 @@
  */
 
 const request = require('./public/session_instance');
+const test_developer = require('./session_test/developer.test');
 const test_user = require('./session_test/user.test');
 const test_class = require('./session_test/class.test');
 const test_live = require('./session_test/live.test');
 const test_file = require('./session_test/file.test');
 
 describe('===All tests requiring `supertest-session`===', function () {
+	// test_developer(request);
 	// test_user(request);
-	test_class(request);
-	test_file(request);
-	// test_live(request);
+	// test_class(request);
+	// test_file(request);
+	test_live(request);
 });
