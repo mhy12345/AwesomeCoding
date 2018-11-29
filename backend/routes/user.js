@@ -81,7 +81,9 @@ router.post('/register', function (req, res, next) {	// 响应注册，并进行
 		return;
 	}
 
-	if (req.body.verify_code !== user_verification_codes[req.body.phone]) { // 验证码不正确
+	if (req.body.phone === undefined ||
+		!user_verification_codes.hasOwnProperty(req.body.phone) ||
+		req.body.verify_code !== user_verification_codes[req.body.phone]) { // 验证码不正确，或没按发送验证码
 		console.log(req.body.phone);
 		console.log(user_verification_codes[req.body.phone]);
 		res_body = {
@@ -396,6 +398,7 @@ router.post('/queryPhone', function (req, res, next) {//判断手机号是否注
 			}
 			console.log(res_body);
 			res.send(JSON.stringify(res_body));
+			conn.end();
 		}).
 		catch(function (sql_res) {
 			res.send(JSON.stringify(sql_res, null, 3));
@@ -428,6 +431,7 @@ router.post('/queryPhoneExist', function (req, res, next) {//判断手机号是�
 			}
 			console.log(res_body);
 			res.send(JSON.stringify(res_body));
+			conn.end();
 		}).
 		catch(function (sql_res) {
 			res.send(JSON.stringify(sql_res, null, 3));
@@ -461,6 +465,7 @@ router.post('/changePassword', function (req, res, next) {//修改密码
 			let { conn, sql_res } = packed;
 			res_body.status = 'SUCCESS.';
 			res.send(JSON.stringify(res_body));
+			conn.end();
 		}).
 		catch(function (sql_res) {
 			res.send(JSON.stringify(sql_res, null, 3));
@@ -507,6 +512,7 @@ router.post('/changePhone', function (req, res, next) {//修改密码
 			let { conn, sql_res } = packed;
 			res_body.status = 'SUCCESS.';
 			res.send(JSON.stringify(res_body));
+			conn.end();
 		}).
 		catch(function (sql_res) {
 			res.send(JSON.stringify(sql_res, null, 3));

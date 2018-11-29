@@ -1,12 +1,12 @@
 const should = require('should');
-const randomString = require('../../utils/funcs').randomString;
+const randomString = require('../utils/funcs').randomString;
 
 const log4js = require("log4js");
-const log4js_config = require("../../configures/log.config.js").unittest_configure;
+const log4js_config = require("../configures/log.config.js").unittest_configure;
 log4js.configure(log4js_config);
 const logger = log4js.getLogger('test_info');
-const admin = require('../public/test_utils').admin;
-const mysql_config = require('../../configures/database.config.js');
+const admin = require('./public/test_utils').admin;
+const mysql_config = require('../configures/database.config.js');
 
 module.exports = function (request) {
 	describe('# Testing Developer Tool', function () {

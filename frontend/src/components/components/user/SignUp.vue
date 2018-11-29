@@ -189,6 +189,10 @@
 
             },
             handleSignUp: function () {
+                if (!this.verify.disableQ) {
+                    this.$message("请发送验证码");
+                    return;
+                }
                 if (this.inputs.nickname === '') {
                     this.$message("用户名不能为空。");
                     return;
