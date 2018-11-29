@@ -127,7 +127,7 @@ router.post('/participants/delete', function (req, res, next) {	// 退出班级�
 			}
 			logger.fatal('[delete] im out');
 			conn.end();		// 自己退出，不会拉黑
-			return;
+			return Promise.reject({status:'SKIPPED.'});
 		}).
 		then(function (packed) {
 			let { conn, sql_res } = packed;
@@ -142,8 +142,8 @@ router.post('/participants/delete', function (req, res, next) {	// 退出班级�
 			conn.end();
 		}).
 		catch(function (sql_res) {
-			logger.error(sql_res);
-			res.send(JSON.stringify(sql_res));
+			if (sql_res.status === 'SKIPPED.')
+				res.send(JSON.stringify(sql_res));
 		});
 });
 
