@@ -5,6 +5,7 @@ const {
 	parseText, addStudent, addTeacher, clearStudent,
 	clearTeacher, loginStudent, loginTeacher, logout, admin
 } = require('../public/test_utils');
+
 const teacher_operations = ['clear_chat_record', 'block_chatting', 'allow_chatting'];	// 教师权限的操作
 
 const log4js = require("log4js");
@@ -20,22 +21,9 @@ module.exports = function (request) {	// main_session.test.js 传入 request 实
 			mysql_config.database = 'ac_database';		// 切换回数据库
 			logger.info('[ before admin login ]\n');
 			// 以管理员账号登入
-			admin.login(request).
-				  then(() => {
-					  logger.info('[ after admin login ]\n');
-					  addStudent(request).
-						  then((res) => {
-							  logger.info('[ after addstudent ]\n', res);
-							  return admin.logout();
-						  }).
-						  then(() => done()).
-						  catch((err) => {
-							  done(`Initializing Error ${err}`);
-						  });
-				  }).
-				  catch((err) => {
-					  done(`Admin Error ${err}`);
-				  });
+			addStudent(request).
+				then(() => done()).
+				catch(done);
 		});
 
 		describe('## test loginStudent judgement', function () {		// 是否登录的判断
