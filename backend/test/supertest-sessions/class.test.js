@@ -1,18 +1,18 @@
 // 一个没有监听端口的 Express 实例
-require('./test-debug.js');
+require('../test-debug.js');
 
-const {app, server} = require('../app');
+const {app, server} = require('../../app');
 // Express 实例传入 supertest，使其运行实例
 const request = require('supertest-session')(app);
 const should = require('should');
 const assert = require('assert');
-const randomString = require('../utils/funcs').randomString;
-const getConnection = require('../utils/funcs.js').getConnection;
-const doSqlQuery = require('../utils/funcs.js').doSqlQuery;
-let mysql_config = require('../configures/database.config.js');
+const randomString = require('../../utils/funcs').randomString;
+const getConnection = require('../../utils/funcs.js').getConnection;
+const doSqlQuery = require('../../utils/funcs.js').doSqlQuery;
+let mysql_config = require('../../configures/database.config.js');
 
 var log4js = require("log4js");
-var log4js_config = require("../configures/log.config.js").unittest_configure;
+var log4js_config = require("../../configures/log.config.js").unittest_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('default');
 

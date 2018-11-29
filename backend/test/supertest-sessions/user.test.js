@@ -1,15 +1,15 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 // 断言测测试库
-require('./test-debug.js');
+require('../test-debug.js');
 
-const {app, server} = require('../app');
+const {app, server} = require('../../app');
 const request = require('supertest-session')(app);
 const should = require('should');
-const randomString = require('../utils/funcs').randomString;
+const randomString = require('../../utils/funcs').randomString;
 
 // 输出日志
 var log4js = require("log4js");
-var log4js_config = require("../configures/log.config.js").unittest_configure;
+var log4js_config = require("../../configures/log.config.js").unittest_configure;
 log4js.configure(log4js_config);
 var logger = log4js.getLogger('unit-test');
 
@@ -45,15 +45,7 @@ describe('# Testing /api/user', function () {
 				password: '111111',
 				phone: '12344445555'
 			};
-			users[1] = {	// without email
-				nickname: 'test_name2' + randomString(8),
-				realname: 'TESTER',
-				role: 0,
-				motto: 'just for test',
-				password: '111111',
-				phone: '12344445555'
-			};
-			users[2] = {	// without password
+			users[1] = {	// without password
 				nickname: 'test_name' + randomString(8),
 				realname: 'TESTER',
 				email: '123456@mail.com',
@@ -61,7 +53,7 @@ describe('# Testing /api/user', function () {
 				motto: 'just for test',
 				phone: '12344445555'
 			};
-			users[3] = {	// without phone
+			users[2] = {	// without phone
 				nickname: 'test_name' + randomString(8),
 				realname: 'TESTER',
 				email: '123456@mail.com',
@@ -101,7 +93,6 @@ describe('# Testing /api/user', function () {
 				end(function (err, res) {
 					if (err) return done(err);
 					let body = eval('(' + res.text + ')');
-					logger.error('registration succeed\n', body);
 					body.should.have.key('status').
 						which.
 						is.
