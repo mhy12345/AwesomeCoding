@@ -206,7 +206,7 @@
                     return;
                 }
                 let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
-                if(!reg.test(this.input.email)){
+                if(this.inputs.email !== '' && !reg.test(this.input.email)){
                     this.$message("邮箱不合法。");
                     return;
                 }

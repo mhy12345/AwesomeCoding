@@ -124,7 +124,7 @@ var sqls = {
 
 	'create_user_table': "CREATE TABLE IF NOT EXISTS `users`(" + //用户表
 		"`id` INT UNSIGNED NOT NULL AUTO_INCREMENT, " +
-		"`email` CHAR(30) NOT NULL," +
+		"`email` CHAR(30)," +
 		"`nickname` VARCHAR(40), " +
 		"`realname` VARCHAR(40), " +
 		"`role` INT UNSIGNED NOT NULL, " +//0管理员,1教师，2学生
