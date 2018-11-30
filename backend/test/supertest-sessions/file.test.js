@@ -162,9 +162,10 @@ describe('# Testing /api/file', function () {
 					expect(200).
 					end(done);
 		});
-		it('should support download.', function (done) {
+		it('should not support download.', function (done) {
 			request.get('/api/file/download').
-					expect(404).
+					query({ filename: 'Notfound' }).
+					expect(500).
 					end(done);
 		});
 		after(function (done) {
@@ -183,11 +184,11 @@ describe('# Testing /api/file', function () {
 				let sql = 'DELETE FROM classes';
 				return doSqlQuery(conn, sql);
 			}).
-			// then(function (packed) {
-			// 	let { conn, sql_res } = packed;
-			// 	let sql = 'DELETE FROM coursefiles';
-			// 	return doSqlQuery(conn, sql);
-			// }).
+			then(function (packed) {
+				let { conn, sql_res } = packed;
+				let sql = 'DELETE FROM coursefiles';
+				return doSqlQuery(conn, sql);
+			}).
 			then(function (packed) {
 				let { conn, sql_res } = packed;
 				let sql = 'DELETE FROM classusers';
