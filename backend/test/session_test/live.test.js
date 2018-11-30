@@ -11,7 +11,7 @@ const mysql_config = require('../../configures/database.config.js');
 
 module.exports = function (request) {	// main_session.test.js 传入 request 实例
 	describe('# Test `live.js` as a student', function () {
-		this.timeout(2000);
+		this.timeout(8000);
 		before(function (done) {		// 事先注册用户
 			mysql_config.database = 'ac_database';		// 切换回数据库
 			addStudent(request).
