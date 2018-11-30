@@ -27,9 +27,6 @@ describe('# Testing /api/file', function () {
 		phone: '13688880000',
 		classid: 1
 	};
-	let test_file = {
-		files : [{originalname : 'test_name'},],
-	};
 	before(function () {
 		mysql_config.database = 'ac_test';
 	});
