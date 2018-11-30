@@ -118,6 +118,7 @@ var supported_resources = {
 			3: false,
 		}
 	},
+	/*
 	posts : {
 		name:'posts',
 		title:'主题贴',
@@ -130,7 +131,7 @@ var supported_resources = {
 			2: true,
 			3: false,
 		}
-	},
+	},*/
 };
 var router_childs = [{path: '', redirect: 'details'}];
 for (var key in supported_resources) {
