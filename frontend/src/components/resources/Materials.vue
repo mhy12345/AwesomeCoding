@@ -25,16 +25,10 @@
             };
         },
         updated: function () {
-            this.$http.post('/api/class/cache/get', {class_id: this.class_id, entry: 'UPDATE_FILE'}).
-                 then((res) => {
-                     this.handleUpdate();
-                     return this.$http.post('/api/class/cache/get', {class_id: this.class_id, entry: 'UPDATE_FILE'});
-                 }).
-                 catch((err) => {
-                 });
         },
         mounted: function () {
-            this.handleUpdate();
+			this.handleUpdate();
+			setInterval(this.handleUpdate,10000);
         },
         methods:
             {
@@ -44,20 +38,25 @@
                     a.href = '/api/file/download?filename=' + row.filename;
                     a.click();
                 },
-                handleUpdate: function () {
-                    this.class_id = this.$route.params.class_id;
-                    this.inputData.classId = this.class_id;
+				handleUpdate: function () {
+					this.$http.post('/api/class/cache/get', {class_id: this.class_id, entry: 'UPDATE_FILE'}).
+						then((res) => {
+							this.class_id = this.$route.params.class_id;
+							this.inputData.classId = this.class_id;
 
-                    this.$http.post('/api/file/fetch_coursefiles', {classid: this.inputData.classId,}).
-                         then(function (res) {
-                             this.tableData = res.body.results;
-                             for (let i = 0; i < this.tableData.length; i++) {
-                                 this.tableData[i].showFilename = this.tableData[i].filename.slice(32);
-                             }
-                         });
-                }
-            }
-    };
+							return this.$http.post('/api/file/fetch_coursefiles', {classid: this.inputData.classId,}).
+								then(function (res) {
+									this.tableData = res.body.results;
+									for (let i = 0; i < this.tableData.length; i++) {
+										this.tableData[i].showFilename = this.tableData[i].filename.slice(32);
+									}
+								});
+						}).
+						catch((err) => {
+						});
+				}
+			}
+	};
 </script>
 
 

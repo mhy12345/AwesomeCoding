@@ -33,9 +33,7 @@
             this.$http.post(supported_resources[this.idx].url + '/fetch', {page_number: 1, page_size: 20}).
                  then(function (res) {
                      this.tableData = res.body.results;
-                     console.log(this.tableData);
                      for(let i = 0; i < this.tableData.length; i ++) {
-                         console.log(this.tableData[i]);
                          if(this.tableData[i].lvid) {
                              this.isTeacher = true;
                          }

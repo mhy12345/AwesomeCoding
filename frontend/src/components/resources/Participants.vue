@@ -180,7 +180,6 @@
                 this.$http.post('/api/class/participants/show', {class_id: this.class_id}, null).
                      then((resp) => {										 // 成功，被 showSQL 的 resolve 调用
                          this.table_data = resp.body.results;
-			console.log(this.table_data, this.course_status);
                          this.loadingQ = false;
                          this.loadedQ = true;
                      }).
@@ -207,7 +206,6 @@
                      catch((err) => {
                          this.black.loadingQ = false;
                          this.black.loadedQ = true;
-                         console.log('[Participants]', err);
                      });
             },
             handleMessage(id, realname) {   // 私聊
