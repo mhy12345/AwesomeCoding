@@ -12,51 +12,51 @@ log4js.configure(log4js_config);
 var logger = log4js.getLogger('log_file');
 var checkPermission = require('../utils/funcs').checkPermission;
 
-router.post('/ban', function (req, res, next) { //添加禁言名单 @调整部分逻辑 TODO 确认正确性
-	let userid = req.body.userid;
-	let classid = req.body.classid;
-	let status = req.body.status;
-
-	let tag = 0;
-	let resp = {
-		status: '',
-		results: {},
-	};
-	getConnection().
-		then(function (conn) {
-			let sql = 'select * from bannedlist where userid = ' + userid + ' and classid = ' + classid;
-			return doSqlQuery(conn, sql);
-		}).
-		then(function (packed) {
-			let {conn, sql_res} = packed;
-			let sql = "";
-			if (sql_res.results.length > 0) tag = 1;
-			if (tag === 1) {
-				var id = sql_res.results[0].id;
-				sql = 'update bannedlist set status = ' + status + ' where id = ' + id;
-			} else {
-				sql = 'insert into bannedlist (`userid`, `classid`, `status`) VALUES ("' +
-					userid + '","' + classid + '","' + status + '")';
-			}
-			return doSqlQuery(conn, sql);
-		}).
-		then(function (packed) {
-			let {conn, sql_res} = packed;
-			if (sql_res.status === 'SUCCESS.') {
-				resp.status = "SUCCESS.";              // 成功注册
-				resp.results = req.query;
-			} else {
-				resp.status = 'FAILED.';
-				resp.details = result.details;
-			}
-			res.send(JSON.stringify(resp));
-			conn.end();
-			logger.info("[res] ", resp);
-		}).
-		catch(function (sql_res) {
-			res.send(JSON.stringify(sql_res));
-		})
-});
+// router.post('/ban', function (req, res, next) { //添加禁言名单
+// 	let userid = req.body.userid;
+// 	let classid = req.body.classid;
+// 	let status = req.body.status;
+//
+// 	let tag = 0;
+// 	let resp = {
+// 		status: '',
+// 		results: {},
+// 	};
+// 	getConnection().
+// 		then(function (conn) {
+// 			let sql = 'select * from bannedlist where userid = ' + userid + ' and classid = ' + classid;
+// 			return doSqlQuery(conn, sql);
+// 		}).
+// 		then(function (packed) {
+// 			let {conn, sql_res} = packed;
+// 			let sql = "";
+// 			if (sql_res.results.length > 0) tag = 1;
+// 			if (tag === 1) {
+// 				var id = sql_res.results[0].id;
+// 				sql = 'update bannedlist set status = ' + status + ' where id = ' + id;
+// 			} else {
+// 				sql = 'insert into bannedlist (`userid`, `classid`, `status`) VALUES ("' +
+// 					userid + '","' + classid + '","' + status + '")';
+// 			}
+// 			return doSqlQuery(conn, sql);
+// 		}).
+// 		then(function (packed) {
+// 			let {conn, sql_res} = packed;
+// 			if (sql_res.status === 'SUCCESS.') {
+// 				resp.status = "SUCCESS.";              // 成功注册
+// 				resp.results = req.query;
+// 			} else {
+// 				resp.status = 'FAILED.';
+// 				resp.details = result.details;
+// 			}
+// 			res.send(JSON.stringify(resp));
+// 			conn.end();
+// 			logger.info("[res] ", resp);
+// 		}).
+// 		catch(function (sql_res) {
+// 			res.send(JSON.stringify(sql_res));
+// 		})
+// });
 
 
 router.post('/add_comments', function (req, res, next) {
