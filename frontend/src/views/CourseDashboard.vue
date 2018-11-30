@@ -14,7 +14,6 @@
                      :key='option.index'
                      :fly='option.index === "live"'
             >
-                <!-- 对于live模块，额外加一个fly的props，用于表示是否通过修改visible隐藏-->
                 <components
                     v-if='option.index !== "live" && !option.disabled'
                     v-bind:is="option.component"
@@ -23,8 +22,10 @@
                     :index='activeTitle'
                     :ref='option.index'
                     :user="user"
+                    @privateChat="handlePrivateChat"
                 >
                 </components>
+                <!-- 对于live模块，额外加一个fly的props，用于表示是否通过修改visible隐藏-->
                 <components
                     v-if='option.index === "live" && !option.disabled'
                     v-bind:is="option.component"
@@ -35,6 +36,7 @@
                     :ref='option.index'
                     :user="user"
                     @jump="handleJump"
+                    @privateChat="handlePrivateChat"
                 >
                 </components>
             </TabPane>
@@ -51,6 +53,8 @@
 				<el-button type="primary" @click="handleNewProblemConfirm">去看看</el-button>
 			</span>
         </el-dialog>
+        <!--私聊面板-->
+        <chat-window :config="chat_dialog" :user="user" ref="privateChat"></chat-window>
     </div>
 </template>
 
@@ -59,6 +63,8 @@
     var default_options = ['details'];
     import {supported_resources} from '../utils/Resources';
     import TabPane from './MyTabPane.vue';
+    import ChatWindow from '../components/components/ChatWindow';
+    import Chat from "../components/resources/live/ChatInput";
 
     for (let item in supported_resources) {
         Vue.component('sub-'+supported_resources[item].name, supported_resources[item].component);
@@ -78,6 +84,11 @@
                 },
                 loading: true,
                 new_problem_dialog_visible: false,
+                chat_dialog: {
+                    her: {},        // chat object
+                    visibleQ: false,
+                    course_id: undefined,
+                }
             };
         },
         props: ['user'],
@@ -168,11 +179,12 @@
                 return '0';
             },
             handleNewProblemClose (done) {
-                this.$confirm('确认关闭？')
-                     .then(_ => {
-                    done();
-                })
-                     .catch(_ => {});
+                this.$confirm('确认关闭？').
+                     then(_ => {
+                         done();
+                     }).
+                     catch(_ => {
+                     });
             },
             handleNewProblemConfirm () {
                 this.activeIndex = this.whereIs('train_area');
@@ -198,9 +210,27 @@
             },
             handleJump(where) {
                 this.activeIndex = this.whereIs(where);
+            },
+            handlePrivateChat(her) {
+                this.chat_dialog.her = her;
+                this.$http.
+                     get('/api/live/get_private_course_id', {
+                         params: {
+                             user_id1: this.user.user_id,
+                             user_id2: her.user_id
+                         }
+                     }).
+                     then(res => {
+                         this.chat_dialog.course_id = res.body.course_id;   // a hex string
+                         this.chat_dialog.visibleQ = true;   // open chat dialog
+                         this.$refs.privateChat.refresh();
+                     }).
+                     catch(err => {
+                         console.log('[error in get_private_course_id]', err);
+                     });
             }
         },
-        components: {TabPane: TabPane}
+        components: { Chat, TabPane, ChatWindow }
     };
 </script>
 

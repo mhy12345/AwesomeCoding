@@ -29,9 +29,9 @@ function _addUser(request, user) {	// 注册用户
 		request.
 			get("/api/developer/do_query?sql=INSERT INTO ac_database.users " +
 				"(" + Object.keys(user).
-							join(',') + ") VALUES " +
+							 join(',') + ") VALUES " +
 				"('" + Object.values(user).
-							join("','") + "');").
+							  join("','") + "');").
 			end(function (err, res) {
 				if (err) reject(err);
 				body = eval('(' + res.text + ')');
@@ -108,4 +108,20 @@ function logout(request) {				// 登出当前用户
 	});
 }
 
-module.exports = { parseText, addStudent, addTeacher, clearStudent, clearTeacher, loginStudent, loginTeacher, logout };
+admin = {	// 测试专用账户
+	user_info: {
+		nickname: 'TEST_ADMIN',
+		password: '000000'
+	},
+	login(request) {
+		return _login(request, this.user_info);
+	},
+	logout(request) {
+		return logout(request);
+	}
+};
+
+module.exports = {
+	parseText, addStudent, addTeacher, clearStudent,
+	clearTeacher, loginStudent, loginTeacher, logout, admin
+};

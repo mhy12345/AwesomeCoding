@@ -1,7 +1,9 @@
 <template>
 	<div>
         <!--最小化/最大化按钮-->
-        <el-button circle :class="toggle_style" size="mini" @click="handleToggle"></el-button>
+        <el-button v-if="hide_button !== 'none'"
+                   circle :class="toggle_style" size="mini"
+                   @click="handleToggle"></el-button>
         <transition name="el-fade-in">
             <div v-if="visibleQ">
                 <el-row :gutter='10' type='flex'>
@@ -18,8 +20,8 @@
                     </el-col>
                     <!--图片和语音按钮-->
                     <el-col :span='5'>
-                        <chat-picture-uploader :blockQ="blockQ" :course_id="$route.params.class_id"></chat-picture-uploader>
-                        <chat-voice-recorder :blockQ="blockQ" :course_id="$route.params.class_id"></chat-voice-recorder>
+                        <chat-picture-uploader :blockQ="blockQ" :course_id="course_id"></chat-picture-uploader>
+                        <chat-voice-recorder :blockQ="blockQ" :course_id="course_id"></chat-voice-recorder>
                     </el-col>
                 </el-row>
                 <!--发送按钮-->
@@ -45,12 +47,15 @@
                 blockQ: false, // 是否被禁言
             };
         },
+        props: { course_id: String, hide_button: String, block_function: String },
         sockets: {
             block() { // 服务端发来禁言的消息
+                if (this.block_function === 'none') return;
                 this.blockQ = true;
                 this.$message.warning('老师已开启禁言。');
             },
             allow() {
+                if (this.block_function === 'none') return;
                 this.blockQ = false;
                 this.$message.success('老师已允许发言。');
             }
@@ -73,7 +78,7 @@
                     return;
                 }
                 let msg = {
-                    course_id: this.$route.params.class_id,
+                    course_id: this.course_id,
                     type: 'text',
                     message: this.input_message
                 };

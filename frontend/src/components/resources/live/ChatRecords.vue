@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-card v-loading="loadingQ">
+        <el-card v-loading="loadingQ" shadow="never">
             <!--顶栏-->
             <div class="chat-header">
                 <el-row>
@@ -64,7 +64,7 @@
                         <!--本人语音-->
                         <div v-if="record.user_id === user.user_id">
                             <el-row>
-                                <div class="bubble-me">
+                                <div style="float: right;">
                                     <audio :src="record.path" controls></audio>
                                 </div>
                             </el-row>
@@ -73,7 +73,7 @@
                         <div v-else-if="record.course_status === 0">
                             {{ record.realname }}（老师） :
                             <el-row>
-                                <div class="bubble-teacher">
+                                <div style="float: left;">
                                     <audio :src="record.path" controls></audio>
                                 </div>
                             </el-row>
@@ -82,7 +82,7 @@
                         <div v-else>
                             {{ record.realname }} :
                             <el-row>
-                                <div class="bubble-teacher">
+                                <div style="float: left;">
                                     <audio :src="record.path" controls></audio>
                                 </div>
                             </el-row>

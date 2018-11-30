@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
-		"test": "nyc --reporter=lcov --reporter=text mocha --exit",
+		"test": "nyc --reporter=lcov --reporter=text mocha --exit --recursive",
 		"mocha": "mocha --reporter mochawesome",
 		"coverage": "istanbul cover _mocha -- -R spec --timeout 5000 --recursive",
 		"coverage:check": "istanbul check-coverage",
@@ -24,6 +24,7 @@
 		"http-errors": "~1.6.2",
 		"istanbul": "^0.4.5",
 		"jade": "~1.11.0",
+		"js-md5": "^0.7.3",
 		"log4js": "^3.0.6",
 		"md5-node": "^1.0.1",
 		"moment": "^2.22.2",

@@ -1,17 +1,14 @@
 <template>
     <div ref="sidebar">
         <el-tabs v-model="active_name" ref="tabs" style='visibility:unset'>
-            <ElTabPane label="课程章节" name="chapters" class="sidebar-tab-pane">
-                ...章节列表...<br>
-            </ElTabPane>
-
             <ElTabPane label="班级成员" name="members">
-                <members :course_status="course_status" :table_width="'400px'" class="sidebar-tab-pane"></members>
+                <members :course_status="course_status" :table_width="'400px'"
+                         :user="user" class="sidebar-tab-pane" @privateChat="handlePrivateChat"></members>
             </ElTabPane>
 
             <ElTabPane label="聊天室" name="chatting-room">
                 <!--教师的工具条-->
-                <el-row v-if="course_status === 0">
+                <el-row v-if="course_status.role === 0">
                     <el-col :span="8">
                         <el-button size="small" class="chatting-room-tool"
                                    @click="handleClearRecord">
@@ -34,10 +31,10 @@
                               :course_id="$route.params.class_id"
                               :user="user">
                 </chat-records>
+                <!--聊天输入框-->
+                <chat-input class="chat-input" :course_id="$route.params.class_id"></chat-input>
             </ElTabPane>
         </el-tabs>
-        <!--聊天输入框-->
-        <chat-input class="chat-input"></chat-input>
     </div>
 </template>
 
@@ -63,29 +60,40 @@
         },
         sockets: {
             pullFlow: function (msg) {       // 收到服务器发来的消息，更新聊天记录显示
+                if (msg.course_id != this.$route.params.class_id) return;
+                console.log('[sidebar pullFlow]', msg);
                 this.$refs.chat_records.pushRecord(msg);
             },
         },
         methods: {
             handleClearRecord () { // 清空记录
-                this.$http.
-                     get('/api/live/clear_chat_record', {params: {course_id: this.$route.params.class_id}}).
-                     then((res) => {
-                         if (res.body.status === 'SUCCESS.') {
-                             this.$message.success('清空成功');
-                             this.$refs.chat_records.clear();
-                         } else {
-                             throw res.body;
-                         }
-                     }).
-                     catch((err) => {
-                         this.$message.error('清空失败', err);
-                     });
+                this.
+                    $confirm(`真的要清空记录吗？`, '提示', {
+                        confirmButtonText: '确认',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).
+                    then(() => {
+                        this.$http.
+                             get('/api/live/clear_chat_record', { params: { course_id: this.$route.params.class_id } }).
+                             then((res) => {
+                                 if (res.body.status === 'SUCCESS.') {
+                                     this.$message.success('清空成功');
+                                     this.$refs.chat_records.clear();
+                                 } else {
+                                     throw res.body;
+                                 }
+                             }).
+                             catch((err) => {
+                                 this.$message.error('清空失败', err);
+                             });
+                    }).
+                    catch(() => {});
             },
             handleBlockChatting () { // 禁言/允许发言
                 if (this.block_chattingQ === true) { // 禁言
                     this.$http.
-                         get('/api/live/block_chatting', {params: {course_id: this.$route.params.class_id}}).
+                         get('/api/live/block_chatting', { params: { course_id: this.$route.params.class_id } }).
                          then((res) => {
                              if (res.body.status === 'SUCCESS.') {
                                  this.$message.warning('已禁言');
@@ -98,7 +106,7 @@
                          });
                 } else { // 允许发言
                     this.$http.
-                         get('/api/live/allow_chatting', {params: {course_id: this.$route.params.class_id}}).
+                         get('/api/live/allow_chatting', { params: { course_id: this.$route.params.class_id } }).
                          then((res) => {
                              if (res.body.status === 'SUCCESS.') {
                                  this.$message('已允许发言');
@@ -110,6 +118,9 @@
                              this.$message.error('允许失败', err);
                          });
                 }
+            },
+            handlePrivateChat(o) {
+                this.$emit('privateChat', o);
             }
         },
         components: {

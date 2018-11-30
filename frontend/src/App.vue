@@ -143,6 +143,15 @@
             rejected: function (msg) {       // 服务器拒绝客户发出的消息
                 this.$message.error('发送失败');
                 console.log('[socket rejected]', msg);
+            },
+            message: function (msg) {       // 收到聊天消息，这里只处理私密消息
+                if (isNaN(Number(msg.course_id))) { // 私密消息的特征是，course_id 是字符串
+                    this.$notify({
+                        title: '【私聊】' + msg.realname + (msg.course_status === 0 ? '（老师）' : '') + ':',
+                        message: msg.message,
+                    });
+                    this.$socket.emit('received');
+                }
             }
         },
         methods: {
@@ -152,11 +161,11 @@
             checkLogin() { // 检验用户是否登录
                 sessionSQL(this).
                     then((resp) => {
-                        var hash;
                         if (typeof(resp.nickname) !== 'undefined') {
                             this.user = resp;
                             // this.$message.success("欢迎回来！" + this.user.realname);
                             this.loginQ = true;
+                            if (this.user.email === undefined) this.user.email = '';
                             this.user.gravatar_url = getGravatarUrl(this.user.email);
                         } else {
                             this.$message("欢迎进入系统，请登录。");

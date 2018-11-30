@@ -10,7 +10,7 @@ var mysql = require('mysql');
 // restore all user sockets, key: user_id, value: a socket object
 
 function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的用户广播聊天消息，并发送拉流的通知
-	getConnection().
+	return getConnection().
 		then((conn) => {	// 添加消息到数据库
 			let sql = "INSERT INTO `ac_database`.`chat_record` " +
 				"(`course_id`, `user_id`, `course_status`, `realname`, `type`, `message`, `path`) VALUES (" +
@@ -62,7 +62,7 @@ function notifyClassMembers(socket, msg) {	// 向本门课程的所有在线的�
 
 function alertClassMembers(socket, msg) {	// 教师向本门课程的所有在线学生广播通知，比如打开ppt、弹出对话框等
 	logger.info('[teacher alert\n', msg);
-	getConnection().
+	return getConnection().
 		then((conn) => {
 			let sql = "SELECT user_id FROM ac_database.classusers WHERE class_id = " + msg.course_id + ";";
 			return doSqlQuery(conn, sql)
@@ -132,4 +132,4 @@ function initSocketIO(sio) {
 	return sio;
 }
 
-module.exports = initSocketIO;
+module.exports = {initSocketIO, notifyClassMembers, alertClassMembers};

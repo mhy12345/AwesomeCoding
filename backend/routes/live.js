@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const getConnection = require('../utils/funcs').getConnection;
 const doSqlQuery = require('../utils/funcs').doSqlQuery;
+const doSqlQuerySequential = require('../utils/funcs').doSqlQuerySequential;
 const getPermission = require('../utils/funcs').getPermission;
 const $sockets = require('../utils/global').$user_sockets;
 const mysql = require('mysql');
@@ -10,6 +11,8 @@ const multer = require('multer');
 const upload = multer({ dest: 'public/uploads/' });	// 暂存目录
 const fs = require('fs');
 const path = require('path');
+const md5 = require('js-md5');
+const salt = 'AwwwwwwsomeCodig!!!';
 
 const log4js = require("log4js");
 const log4js_config = require("../configures/log.config.js").runtime_configure;
@@ -42,6 +45,58 @@ router.use(function (req, res, next) {
 	else {
 		next();	// user in the class, can apply subsequent router
 	}
+});
+
+/* 私聊功能，我们还是用 chat_record 表来实现，但是这里的 course_id 需要根据私聊双方的 id 来生成（哈希算法），
+ * 并且设定为负数，用以和公聊区分。
+ * req.query 字段：
+ * 		user_id1, user_id2 : 私聊双方用户的 id
+ */
+router.get('/get_private_course_id', function (req, res) {
+	let id1 = req.query.user_id1, id2 = req.query.user_id2;
+	if (id1 > id2) {	// swap to ensure id1 < id2
+		let temp = id1;
+		id1 = id2;
+		id2 = temp;
+	}
+	let str = id1 + '_' + id2 + '_' + salt;
+	md5(str);
+	let hash = md5.create();
+	hash.update(str);
+	course_id = hash.hex();	// 获得`课程id`
+	logger.info('[private_course_id] str:', str);
+	logger.info('[private_course_id] hex:', course_id);
+	// 将私聊双方加入'班级'
+	getConnection().
+		then(function (conn) {
+			let sql = 'SELECT user_id FROM classusers WHERE class_id = ' + mysql.escape(course_id);
+			return doSqlQuery(conn, sql);	// 检查是否重复加入
+		}).
+		then(function (packed) {
+			let { conn, sql_res } = packed;
+			let sqls = [];
+			[id1, id2].forEach(function (user_id) {
+				let not_in = true;
+				sql_res.results.forEach(function (o) {
+					if (o.user_id == user_id) not_in = false;
+				});
+				if (not_in) {
+					let sql = 'INSERT INTO classusers (`class_id`,`user_id`,`role`) VALUES (' +
+						mysql.escape(course_id) + ',' + mysql.escape(user_id) + ',' +
+						mysql.escape(2) + ')';
+					sqls.push(sql);
+				}
+			});
+			return doSqlQuerySequential(conn, sqls);	// 加入班级
+		}).
+		then(function (packed) {
+			let { conn, sql_res } = packed;
+			res.send({ course_id: course_id });
+			conn.end();
+		}).
+		catch(function (sql_res) {
+			logger.error('[private_course_id]', sql_res);
+		});
 });
 
 /* 获取聊天记录条数
@@ -120,7 +175,12 @@ router.get('/get_chat_record', function (req, res) {
 router.post('/picture', upload.any(), function (req, res) {
 	let now = new Date();
 	let suffix = mysql.escape(now.getTime());
-	let filename = '' + req.session.user_id + '_' + req.body.course_id + '_' + suffix;	// 生成文件名
+	// if (req.query.course_id === undefined) {
+	// 	res.status(200).
+	// 		send('fuck');
+	// 	return;
+	// }
+	let filename = '' + req.session.user_id + '_' + req.query.course_id + '_' + suffix;	// 生成文件名
 	let des_path = path.join('./public/chat/pictures/' + filename);				// 储存路径
 	let save_path = 'chat/pictures/' + filename;
 	fs.readFile(req.files[0].path, function (err, data) {
@@ -135,7 +195,7 @@ router.post('/picture', upload.any(), function (req, res) {
 				logger.error(err);
 				res.status(403).
 					send(err);
-				return
+				return;
 			}
 			logger.info('[saved]', save_path);
 			res.send({

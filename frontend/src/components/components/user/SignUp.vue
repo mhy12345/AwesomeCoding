@@ -189,6 +189,10 @@
 
             },
             handleSignUp: function () {
+                if (!this.verify.disableQ) {
+                    this.$message("请发送验证码");
+                    return;
+                }
                 if (this.inputs.nickname === '') {
                     this.$message("用户名不能为空。");
                     return;
@@ -201,7 +205,8 @@
                     this.$message("角色不能为空。");
                     return;
                 }
-                if (this.inputs.email === '' || this.inputs.email.search('@') === -1) { // todo 用正则表达式校验邮箱的合法性
+                let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
+                if(this.inputs.email !== '' && !reg.test(this.input.email)){
                     this.$message("邮箱不合法。");
                     return;
                 }

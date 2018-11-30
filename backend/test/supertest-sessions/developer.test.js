@@ -1,19 +1,43 @@
 const should = require('should');
-// 一个没有监听端口的 Express 实例
-const app = require('../app');
-// Express 实例传入 supertest，使其运行实例
-const request = require('supertest')(app);
-const randomString = require('../utils/funcs').randomString;
+const randomString = require('../../utils/funcs').randomString;
+const request = require('../public/session_instance');
 
-var log4js = require("log4js");
-var log4js_config = require("../configures/log.config.js").unittest_configure;
+const log4js = require("log4js");
+const log4js_config = require("../../configures/log.config.js").unittest_configure;
 log4js.configure(log4js_config);
-var logger = log4js.getLogger('test_info');
+const logger = log4js.getLogger('test_info');
+const admin = require('../public/test_utils').admin;
+const mysql_config = require('../../configures/database.config.js');
 
 describe('# Testing Developer Tool', function () {
 
 	let test_tables = ['users', 'classes', 'files'];
 
+	before(function (done) {	// 先登录一个管理员账号
+		mysql_config.database = 'ac_database';		// 切换回数据库
+		admin.login(request).
+			  then(() => done()).
+			  catch(done);
+	});
+
+	it('/api/info resolve success', function (done) {
+		request.
+			get('/api/info').
+			expect(200).
+			end(function (err, res) {
+				if (err) done(err);
+				done();
+			});
+	});
+	it('/api/asdasd trigger 404 not found.', function (done) {
+		request.
+			get('/api/asdasd').
+			expect(404).
+			end(function (err, res) {
+				if (err) done(err);
+				else done();
+			});
+	});
 	describe('## Testing `/show_table`', function () {
 		test_tables.forEach(function (table) {
 			it('should respond to showing table ' + table, function (done) {				// 表格的显示测试
@@ -115,10 +139,22 @@ describe('# Testing Developer Tool', function () {
 					body.results.length.should.be.exactly(1);
 
 					user = body.results[0];
-					user.should.have.key('realname').which.is.exactly('TESTER');
-					user.should.have.key('email').which.is.exactly('1@mail.com');
-					user.should.have.key('motto').which.is.exactly('test for updating');
-					user.should.have.key('password').which.is.exactly('123123');
+					user.should.have.key('realname').
+						 which.
+						 is.
+						 exactly('TESTER');
+					user.should.have.key('email').
+						 which.
+						 is.
+						 exactly('1@mail.com');
+					user.should.have.key('motto').
+						 which.
+						 is.
+						 exactly('test for updating');
+					user.should.have.key('password').
+						 which.
+						 is.
+						 exactly('123123');
 					done();
 				});
 		});
@@ -158,5 +194,11 @@ describe('# Testing Developer Tool', function () {
 					done();
 				});
 		});
+	});
+
+	after(function (done) {
+		admin.logout(request).
+			  then(() => done()).
+			  catch(done);
 	});
 });

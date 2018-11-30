@@ -17,6 +17,16 @@
                                              :prop="obj.idx">
                             </el-table-column>
 
+                            <el-table-column align="center" label="私聊">
+                                <template slot-scope="scope">
+                                    <el-button type="success"
+                                               icon="el-icon-message" circle
+                                               v-if="scope.row.id !== user.user_id"
+                                               @click="handleMessage(scope.row.id, scope.row.realname)">
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+
                             <el-table-column align="center" label="移出教室" v-if='course_status.role!==2'>
                                 <template slot-scope="scope">
                                     <el-button type="danger"
@@ -138,7 +148,7 @@
                 }
             };
         },
-        props: ['course_status', 'table_width'],
+        props: ['course_status', 'table_width', 'user'],
         computed: {
             fancy_data: function () {
                 let data = [];
@@ -196,8 +206,10 @@
                      catch((err) => {
                          this.black.loadingQ = false;
                          this.black.loadedQ = true;
-                         console.log('[Participants]', err);
                      });
+            },
+            handleMessage(id, realname) {   // 私聊
+                this.$emit('privateChat', {user_id : id, realname: realname}); // to be handled by parent view
             },
             handleAdd: function () { // 向后端数据库发出添加数据的请求
                 this.loadingQ = true;

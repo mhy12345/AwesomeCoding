@@ -27,20 +27,9 @@ router.use(function (req, res, next) {		// 检查登录状态
 	}
 });
 
-router.post('/upload', upload.any(), function (req, res, next) { //区分文件名(用空格)，禁止上传含有空格的文件
+router.post('/upload', upload.any(), function (req, res, next) {
 	var user_id = req.session.user_id;
-	var response, i;
 	var hash = crypto.createHash('md5');
-	for (i = 0; i < req.files[0].originalname.length; i = i + 1) {	// 命名合法性判断
-		if (req.files[0].originalname[i] === ' ') {
-			response = {
-				message: 'Spaces do not allowed.',
-				filename: ''
-			};
-			res.end(JSON.stringify(response));
-			return;
-		}
-	}
 	let registration_date = mysql.escape(new Date());
 	hash.update(registration_date);
 	let filename = hash.digest("hex") + req.files[0].originalname;
@@ -80,18 +69,7 @@ router.post('/upload', upload.any(), function (req, res, next) { //区分文件�
 	});
 });
 
-router.post('/uploadcourseimg', upload.any(), function (req, res, next) { //区分文件名(用空格)，禁止上传含有空格的文件
-	var response, i;
-	for (i = 0; i < req.files[0].originalname.length; i = i + 1) {
-		if (req.files[0].originalname[i] === ' ') {
-			response = {
-				message: 'Spaces do not allowed.',
-				filename: ''
-			};
-			res.end(JSON.stringify(response));
-			return;
-		}
-	}
+router.post('/uploadcourseimg', upload.any(), function (req, res, next) {
 
 	let registration_date = mysql.escape(new Date().getTime());
 	let filename = req.body.class.toString() + "_" + registration_date + "_" + req.files[0].originalname;
@@ -125,19 +103,9 @@ router.post('/uploadcourseimg', upload.any(), function (req, res, next) { //区�
 });
 
 
-router.post('/import', upload.any(), function (req, res, next) { //区分文件名(用空格)，禁止上传含有空格的文件
-	var response, i;
+router.post('/import', upload.any(), function (req, res, next) { //禁止上传含有空格的文件
+	var response;
 	var hash = crypto.createHash('md5');
-	for (i = 0; i < req.files[0].originalname.length; i = i + 1) {
-		if (req.files[0].originalname[i] === ' ') {
-			response = {
-				message: 'Spaces do not allowed.',
-				filename: ''
-			};
-			res.end(JSON.stringify(response));
-			return;
-		}
-	}
 	let registration_date = mysql.escape(new Date());
 	hash.update(registration_date);
 	let filename = hash.digest("hex") + req.files[0].originalname;

@@ -94,8 +94,8 @@
                 inputs: {
                     phone: '',
                     verify_code: undefined,
-                    password: undefined,
-                    re_password: undefined,
+                    password: '',
+                    re_password: '',
                     userid: undefined,
                 },
                 verify: {
@@ -111,12 +111,21 @@
         methods: {
             handleChangePassword: function () {
                 // 修改密码
+                if (this.inputs.password.length < 6) {
+                    this.$message.warning("密码不能少于6位。");
+                    return;
+                }
                 if(this.inputs.password !== this.inputs.re_password) {
-                    this.$message.warning("密码不一致");
+                    this.$message.warning("两次输入的密码不同。");
+                    return;
+                }
+                if (this.inputs.verify_code === undefined) {
+                    this.$message.warning("请输入验证码。");
                     return;
                 }
                 changePasswordSQL(this, this.inputs).
                     then((resp) => {
+                        this.$message.success('修改成功。');
                         this.$router.push("/user/sign_in");
                     }).
                     catch((resp) => {
@@ -126,6 +135,14 @@
                     });
             },
             handleVerification: function () {
+                if (this.inputs.password.length < 6) {
+                    this.$message.warning("密码不能少于6位。");
+                    return;
+                }
+                if(this.inputs.password !== this.inputs.re_password) {
+                    this.$message.warning("两次输入的密码不同。");
+                    return;
+                }
                 var clock;
                 if (this.inputs.phone <= 10000000000 || this.inputs.phone >= 19999999999) {
                     this.$message("请输入中国大陆11位手机号");

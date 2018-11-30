@@ -259,8 +259,9 @@ router.post('/choice_problem/submit', function(req, res, next) {
 		}).
 		then(function(packed) {
 			let {conn, sql_res} = packed;
-			if (sql_res.results[0].state != 1 && req.session.user_id != info.creater) {
+			if (sql_res.results[0].state != 1 && req.session.user_id != sql_res.results[0].creater) {
 				conn.end();
+				console.log("PROBLEM_LOCKED.");
 				res.status(403).send('PROBLEM_LOCKED.');
 				return Promise.reject({
 					status: 'SKIPPED.'
@@ -286,8 +287,7 @@ router.post('/choice_problem/submit', function(req, res, next) {
 			res.send(JSON.stringify(sql_res));
 		}).
 		catch(function(sql_res) {
-			if (sql_res.status != 'SKIPPED.')
-				res.send(JSON.stringify(sql_res));
+			res.send(JSON.stringify(sql_res));
 		});
 });
 router.post('/program_problem/gather', function(req, res, next) {
@@ -321,7 +321,7 @@ router.post('/program_problem/submit', function(req, res, next) {
 		}).
 		then(function(packed) {
 			let {conn, sql_res} = packed;
-			if (sql_res.results[0].state != 1 && req.session.user_id != info.creater) {
+			if (sql_res.results[0].state != 1 && req.session.user_id != sql_res.results[0].creater) {
 				conn.end();
 				res.status(403).send('PROBLEM_LOCKED.');
 				return Promise.reject({

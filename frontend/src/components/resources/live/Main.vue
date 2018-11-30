@@ -12,7 +12,8 @@
 				</el-col>
 				<!--右侧边栏-->
 				<el-col :xs="0" :sm="9" :md="9" :lg="9" :xl="9">
-					<sidebar class="right-sidebar" :course_status="course_status.role" :user="user"></sidebar>
+					<sidebar class="right-sidebar" :course_status="course_status" ref="sidebar"
+                             @privateChat="handlePrivateChat" :user="user"></sidebar>
 				</el-col>
 			</el-row>
 		</div>
@@ -129,6 +130,9 @@ export default {
 		},
         handleJump(where) {
             this.$emit('jump', where);
+        },
+        handlePrivateChat(o) {
+            this.$emit('privateChat', o);
         }
 	},
 };
