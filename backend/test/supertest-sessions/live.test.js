@@ -17,7 +17,7 @@ var user_id1, user_id2;
 
 describe('===Test Live===', function () {
 
-	this.timeout(2000);
+	this.timeout(8000);
 
 	before(function (done) {		// 事先注册用户
 		mysql_config.database = 'ac_database';		// 切换回数据库
