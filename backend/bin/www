@@ -6,7 +6,7 @@
 
 var {app, server} = require('../app');
 var debug = require('debug')('myapp:server');
-var host_config = require('../configures/server.config');
+var host_config = {port:80,ip:'localhost'};
 var session_cfg = require('../configures/session.config');
 var session = require("express-session");
 
