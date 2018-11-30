@@ -17,7 +17,6 @@ var api_file = require('./routes/file');
 var api_developer = require('./routes/developer');
 var api_problem = require('./routes/problem');
 var api_content = require('./routes/content');
-var api_backend = require('./routes/backend');
 var api_live = require('./routes/live');
 
 var log4js = require("log4js");
@@ -66,12 +65,6 @@ app.use(history({
 			to: function (context) {
 				return context.parsedUrl.path
 			}
-		},
-		{
-			from: /^\/backend\/.*$/,
-			to: function (context) {
-				return context.parsedUrl.path
-			}
 		}
 	],
 	htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
@@ -97,7 +90,6 @@ app.use('/api/file', api_file);
 app.use('/api/content', api_content);
 app.use('/api/problem', api_problem);
 app.use('/api', api);
-app.use('/backend', api_backend);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
