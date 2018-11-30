@@ -81,6 +81,30 @@ describe('# Testing /api/discussion_board', function () {
 						done();
 				});
 		});
+		it("Info query user.", function (done) {
+			request.
+				post('/api/chat/info/query/user').
+				send(test_user).
+				expect(200).
+				end(function (err, res) {
+					if (err)
+						done(err);
+					else
+						done();
+				});
+		});
+		it("Clear comments.", function (done) {
+			request.
+				post('/api/chat/clear_comments').
+				send(test_user).
+				expect(200).
+				end(function (err, res) {
+					if (err)
+						done(err);
+					else
+						done();
+				});
+		});
 		after(function (done) {
 			request.
 				get('/api/user/logout').
@@ -100,6 +124,16 @@ describe('# Testing /api/discussion_board', function () {
 			then(function (packed) {
 				let { conn, sql_res } = packed;
 				let sql = 'DELETE FROM classusers';
+				return doSqlQuery(conn, sql);
+			}).
+			then(function (packed) {
+				let { conn, sql_res } = packed;
+				let sql = 'DELETE FROM forums';
+				return doSqlQuery(conn, sql);
+			}).
+			then(function (packed) {
+				let { conn, sql_res } = packed;
+				let sql = 'DELETE FROM posts';
 				return doSqlQuery(conn, sql);
 			}).
 			then(function (packed) {
