@@ -52,7 +52,7 @@ sio.use(function(socket, next) {
 app.use(sessionMiddleware);
 app.use(log4js.connectLogger(logger, { level: 'info' }));
 
-require('./utils/socket_io')(sio);
+require('./utils/socket_io').initSocketIO(sio);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

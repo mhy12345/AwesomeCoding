@@ -164,7 +164,7 @@ describe('# Testing /api/file', function () {
 		});
 		it('should support download.', function (done) {
 			request.get('/api/file/download').
-					expect(404).
+					expect(500).
 					end(done);
 		});
 		after(function (done) {

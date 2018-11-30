@@ -20,6 +20,24 @@ describe('# Testing Developer Tool', function () {
 			  catch(done);
 	});
 
+	it('/api/info resolve success', function (done) {
+		request.
+			get('/api/info').
+			expect(200).
+			end(function (err, res) {
+				if (err) done(err);
+				done();
+			});
+	});
+	it('/api/asdasd trigger 404 not found.', function (done) {
+		request.
+			get('/api/asdasd').
+			expect(404).
+			end(function (err, res) {
+				if (err) done(err);
+				else done();
+			});
+	});
 	describe('## Testing `/show_table`', function () {
 		test_tables.forEach(function (table) {
 			it('should respond to showing table ' + table, function (done) {				// 表格的显示测试
